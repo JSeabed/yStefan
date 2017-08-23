@@ -169,10 +169,10 @@ def tryIns(data):
 		print('gefaald')
 
 
-#def findWord(phrase, word):
-#	if(phrase.find(word) > 0):
-#		return True
-#	return False
+def findWord(phrase, word):
+	if(phrase.find(word) > 0):
+		return True
+	return False
 
 
 def exact_Match(phrase, word):
