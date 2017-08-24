@@ -34,6 +34,7 @@ import usb.util
 import re
 import sys
 import commands
+import RPi.GPIO as GPIO
 
 #port = serial.Serial('/dev/ttyUSB1', 9600)
 #port = serial.Serial("/dev/ttyUSB1", baudrate=9600, timeout=3.0, rtscts=1, dsrdtr=1, xonxoff=1)     #serial port settings
@@ -221,10 +222,14 @@ def requestData():
 #gets the data from the Novatel receiver by forwarding four commands over USB
 	pass
 
-
+time.sleep(20)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(0, GPIO.OUT)
+GPIO.output(0, GPIO.HIGH)
 portTry()
 scanPorts()
 #port.open()
 while True:
 	portDefine()
 	#time.sleep(10)
+
