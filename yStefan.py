@@ -178,32 +178,31 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 
 
 def statusGPGGA(data):							#used to determine the status for GPGGA
-	try:								#try
-		if (data['gpgga'][6]) is '1':
-			print "non"
-		elif (data['gpgga'][6]) is '2':
-			print "non2"
-		elif (data['gpgga'][6]) is '3':
-			print "non3"
-		elif (data['gpgga'][6]) is '4':
-			print "fixxed"
-		elif (data['gpgga'][6]) is '5':
-			print "float"
-		elif (data['gpgga'][6]) is '6':
-			print "waas"
-		elif (data['gpgga'][6]) is '7':
-			print "non7"
-		elif (data['gpgga'][6]) is '8':
-			print "non8"
-		elif (data['gpgga'][6]) is '9':
-			print "basestation"
-		elif (data['gpgga'][6]) is '10':
-			print "non10"
-		else:
-			print "niets"
-	except Exception, e:
-		print (str(e))
-		print('gefaald')
+	try:								#determine the gpgga status
+		if (data['gpgga'][6]) is '1':				#mode 1
+			print "non"					#
+		elif (data['gpgga'][6]) is '2':				#mode 2
+			print "non2"					#
+		elif (data['gpgga'][6]) is '3':				#mode 3
+			print "non3"					#
+		elif (data['gpgga'][6]) is '4':				#mode 4
+			print "fixxed"					#fixxed position
+		elif (data['gpgga'][6]) is '5':				#mode 5
+			print "float"					#float mode
+		elif (data['gpgga'][6]) is '6':				#mode 6
+			print "waas"					#waas mode
+		elif (data['gpgga'][6]) is '7':				#mode 7
+			print "non7"					#
+		elif (data['gpgga'][6]) is '8':				#mode 8
+			print "non8"					#
+		elif (data['gpgga'][6]) is '9':				#mode 9
+			print "basestation"				#serving as basestation
+		elif (data['gpgga'][6]) is '10':			#mode 10
+			print "non10"					#
+		else:							#when no mode is noticed dont write out anything
+			print "niets"					#
+	except Exception, e:						#error message handling when above try fails
+		print (str(e))						#write out error message to terminal
 	return
 
 
