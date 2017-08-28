@@ -12,13 +12,9 @@
 #  log gpgga
 #  log inspvaa
 
-COMMAND1 = 		'log version ontime 1'.encode('utf-8')
-COMMAND2 = 		"log ipconfig ontime 1"
-COMMAND3 = 		"log gpgga ontime 1"
-COMMAND4 = 		"log inspvaa ontime 1"
 
 #mattie regex
-regexIP = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
+regexIP = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"			#this is used to filter out the IP adress
 
 
 #Misschien andere naam
@@ -52,16 +48,16 @@ def portTry():
 		print("Device found")
 		return	
 
-def portDefine():
-	try:
-		PORT = 		"/dev/ttyUSB1"
-		port = serial.Serial('/dev/ttyUSB1', 9600)
-	except Exception, e:
+def portDefine():						#function to define the port the OEM7 is connected to
+	try:							#testing for OEM7
+		PORT = 		"/dev/ttyUSB1"			
+		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
+	except Exception, e:					#used to write out error
 		#print error
-		filewrite(str(e)+"\n")
+		filewrite(str(e)+"\n")				#write out error to textdocument
 		port = 0
-		#print (str(e))
-		print('\nUSB niet aangesloten\n')
+		commands.wrt_str("Trying to connect",5)		#send an error message to the display
+		print('\nUSB niet aangesloten\n')		#send an error message to the terminal
 
 
 	readSerial(port)
@@ -73,117 +69,116 @@ def scanPorts():
     		print p
 
 
-def filewrite(rcv):                             #Function to write data to a .txt file
-	logfile = open("templog.txt", "a")      #open file
-	logfile.write(str(datetime.datetime.now()) + "\n")
-	logfile.write(rcv)                      #write line in file
-	logfile.close                           #close file
+def filewrite(rcv):                             		#Function to write data to a .txt file
+	logfile = open("templog.txt", "a")      		#open file
+	logfile.write(str(datetime.datetime.now()) + "\n")	#adding time of error
+	logfile.write(rcv)                      		#write line in file
+	logfile.close                           		#close file
 
 
-def readSerial(port):
+def readSerial(port):						#reading al the data that is send by the OEM7
 #Read serial
-	try:	
-		data = {'ip': None, 'gpgga': None, 'finesteering': None, 'coursesteering': None, 'gpgga': None, 'ins': None}
+	try:							#testing if data is transmitted
+		data = {'ip': None, 'gpgga': None, 'finesteering': None, 'coursesteering': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
 		j = 0
 		rcv = [None]*10
 		for x in range (0, 10):
-			rcv[j] = port.readline()                  #rvc is the 	serial data received
+			rcv[j] = port.readline()                 #rvc is the serial data received
 			j = j + 1
-		print("----------------------------------------\n")
-		print("----------------------------------------\n")
+		print("----------------------------------------\n")					#adding a line in the terminal for transparity 
+		print("----------------------------------------\n")					#adding a line in the terminal for transparity 
 
 		str1 = ''.join(rcv)
 		for word in str1.split():
-			m = re.search(regexIP, str1)
+			m = re.search(regexIP, str1)		#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
-				data['ip'] = m.group()
-			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):
-				data['finesteering'] = True
-				data['coursesteering'] = None
+				data['ip'] = m.group()		#adding IP to the dictionary
+			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):		#
+				data['finesteering'] = True						#adding finesteering to the dictionary
+				data['coursesteering'] = None						#removing coursesteering from dictionary
 			if(exact_Match(word,"COURSESTEERING") and data['COURSESTEERING'] is None):
-				data['coursesteering'] = True
-				data['finesteering'] = None
-			if(findWord(word,"GPGGA") and data['gpgga'] is None):
-				string = word
-				mylist = string.split(',')
-				data['gpgga'] = mylist
-			if(findWord(word,"INS_") and data['ins'] is None):
-				string2 = word
-				mylist2 = string2.split(',')
-				data['ins'] = mylist2	
-		exportData(data)
-		displayData(data)
-		statusGPGGA(data)
+				data['coursesteering'] = True						#adding coursesteering to the dictonary
+				data['finesteering'] = None						#removing finesteering from the dictionary
+			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
+				mylist = word.split(',')						#split up the line in which GPGGA was found
+				data['gpgga'] = mylist							#add GPGGA to the dictionary
+			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
+				mylist2 = word.split(',')						#split up the line in which INS was found
+				data['ins'] = mylist2							#add INs to the dictionary
+		exportData(data)									#call exportData def
+		displayData(data)									#call displayData def
+		statusGPGGA(data)									#call statusGPGGA def
+		port.close()										#close port to OEM7
+		time.sleep(2)										#add a delay of 2 seconds
 
 
-	except Exception, e:
+	except Exception, e:					#not receiving data from OEM7
 		#print error
-		filewrite(str(e)+"\n")
-		port = 0
-		#print (str(e))
-		print('\nUSB kan niet uitgelezen worden\n')
-		time.sleep(10)
+		filewrite(str(e)+"\n")				#write out error to text file
+		port = 0					#define port as 0
+		commands.wrt_str("Connection Error",2)		#write an error message to display
+		print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
+		time.sleep(10)					#put 10 second delay in before repeating try functions
 	
 
 
-def exportData(data):
-	print(data['gpgga'][6])
-	print(data['gpgga'][7])
-	print(data['ip'])
-	print(data['finesteering'])
-	tryIns(data)
+def exportData(data):						#def that prints data to the terminal, used to check for problems
+	print(data['gpgga'][6])					#print dictionary adress 6 in gpgga subclass
+	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
+	print(data['ip'])					#print dictionary ip 
+	print(data['finesteering'])				#print dictionary finesteering
+	tryIns(data)						#call on tryIns function
 	return
 
-def displayData(data):
+def displayData(data):						#main write out to the display 
 
 	#Sattalites
-	commands.wrt_str(data['gpgga'][7],7)
-	IP_String = bytearray()
-	IP_String.extend(" ")
+	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7 
+	IP_String = bytearray()					
+	#IP_String.extend(" ")
 	IP_String.extend(data['ip'])
-	commands.wrt_str(IP_String,1)
+	commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
+	#commands.wrt_str(data['ip'])			
 
-	if (data['finesteering'] == True):
-		commands.wrt_str("OK",5)
-	elif (data['coursesteering'] == True):
-		commands.wrt_str("OK",5)
+	if (data['finesteering'] == True):			#testing for finesteering
+		commands.wrt_str("Fine",5)			#write out 'Fine' to the 5th string adress on the display
+	elif (data['coursesteering'] == True):			#testing for coursesteering
+		commands.wrt_str("Course",5)			#write out 'Course' to the 5th string adress on the display
 	#tryIns(data)
 	return
 
 
-def tryIns(data):
-	try:
-		partup = (data['ins'][20])
-		clean_Ins = partup.split('*')
-		data['insclean'] = clean_Ins
-		print(data['insclean'][0])
-		if (data['insclean'][0] == "INS_ACTIVE"):
-			commands.wrt_str("Ins active",2)
-		else:
-			commands.wrt_str("Ins inactive",2)
-			#commands.wrt_str("N.A.",4)
+def tryIns(data):							#def to determine INS
+	try:								#try to define, if failed goes to except
+		partup = (data['ins'][20])				#define dictionary entry 20 from ins as partup for further filtering
+		clean_Ins = partup.split('*')				#split up partup
+		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
+		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
+		if (data['insclean'][0] == "INS_ACTIVE"):		#check INS if it is active
+			commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
+		else:							#when INS is inactive
+			commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
 			return
-	except Exception, e:
+	except Exception, e:						#error handling INS testing
 		#print error
-		filewrite(str(e)+"\n")
-		print (str(e))
-		print('gefaald')
+		filewrite(str(e)+"\n")					#write error to text file
+		print (str(e))						#write error to the terminal					
 
 
-def findWord(phrase, word):
-	if(phrase.find(word) > 0):
-		return True
+def findWord(phrase, word):						#word seacher that is used by readSerial
+	if(phrase.find(word) > 0):					#testing for an exact match
+		return True						#return true to confirm the word
 	return False
 
 
-def exact_Match(phrase, word):
+def exact_Match(phrase, word):						#exact match def for filtering words
     b = r'(\s|^|$)' 
     res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
     return bool(res)
 
 
-def statusGPGGA(data):
-	try:
+def statusGPGGA(data):							#used to determine the status for GPGGA
+	try:								#try
 		if (data['gpgga'][6]) is '1':
 			print "non"
 		elif (data['gpgga'][6]) is '2':
@@ -212,24 +207,12 @@ def statusGPGGA(data):
 	return
 
 
-def getGPGAPP():
-#Get GPGAPP from data
-	pass
-	return GPGAPP
-
-
-def requestData():
-#gets the data from the Novatel receiver by forwarding four commands over USB
-	pass
-
-time.sleep(20)
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(0, GPIO.OUT)
-GPIO.output(0, GPIO.HIGH)
-portTry()
-scanPorts()
-#port.open()
-while True:
-	portDefine()
-	#time.sleep(10)
-
+time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
+GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
+GPIO.setup(0, GPIO.OUT)			#set pin 0 to output
+GPIO.output(0, GPIO.HIGH)		#make pin 0 high
+portTry()				#call on function portTry
+scanPorts()				#call on function scanPorts
+#port.close()
+while True:				#while loop to make the program run indefinitally
+	portDefine()			#call on function portDefine
