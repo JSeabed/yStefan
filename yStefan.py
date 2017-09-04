@@ -1,24 +1,12 @@
 #Written by Stefan van Delft 26/07/2017
 #Display is added by Martijn Rombouts
 #
-#Quick Data logger. 
 #
-#This program looks for a serial line on ttyUSB4
-#When it receives serial data it opens a txt file, writes the line in it
-#then closes the file again. 
 #
-#  log version
-#  log ipconfig
-#  log gpgga
-#  log inspvaa
 
 
 #mattie regex
 regexIP = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"			#this is used to filter out the IP adress
-
-
-#Misschien andere naam
-#PORT = 		"/dev/ttyUSB1"
 		
 
 import serial                   #import the serial communication functions
@@ -31,10 +19,6 @@ import re
 import sys
 import commands
 import RPi.GPIO as GPIO
-
-#port = serial.Serial('/dev/ttyUSB1', 9600)
-#port = serial.Serial("/dev/ttyUSB1", baudrate=9600, timeout=3.0, rtscts=1, dsrdtr=1, xonxoff=1)     #serial port settings
-#port.close()
 
 
 def portTry():
@@ -76,10 +60,10 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           		#close file
 
 
-def readSerial(port):						#reading al the data that is send by the OEM7
+def readSerial(port):						#reading all the data that is send by the OEM7
 #Read serial
 	try:							#testing if data is transmitted
-		data = {'ip': None, 'gpgga': None, 'finesteering': None, 'coursesteering': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
+		data = {'ip': None, 'gpgga': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
 		j = 0
 		rcv = [None]*10
 		for x in range (0, 10):
@@ -95,10 +79,26 @@ def readSerial(port):						#reading al the data that is send by the OEM7
 				data['ip'] = m.group()		#adding IP to the dictionary
 			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):		#
 				data['finesteering'] = True						#adding finesteering to the dictionary
-				data['coursesteering'] = None						#removing coursesteering from dictionary
-			if(exact_Match(word,"COURSESTEERING") and data['COURSESTEERING'] is None):
+			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
 				data['coursesteering'] = True						#adding coursesteering to the dictonary
-				data['finesteering'] = None						#removing finesteering from the dictionary
+			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):		#
+				data['unknown'] = True				
+			if(exact_Match(word,"APROXIMATE") and data['aproximate'] is None):		#
+				data['aproximate'] = True				
+			if(exact_Match(word,"COARSEADJUSTING") and data['coarseadjusting'] is None):		#
+				data['coarseadjusting'] = True				
+			if(exact_Match(word,"COARSE") and data['coarse'] is None):		#
+				data['coarse'] = True				
+			if(exact_Match(word,"FREEWHEELING") and data['freewheeling'] is None):		#
+				data['freewheeling'] = True			
+			if(exact_Match(word,"FINEADJUSTING") and data['fineadjusting'] is None):		#
+				data['fineadjusting'] = True					
+			if(exact_Match(word,"FINE") and data['fine'] is None):		#
+				data['fine'] = True				
+			if(exact_Match(word,"FINEBACKUPSTEERING") and data['finebackupsteering'] is None):		#
+				data['finebackupsteering'] = True				
+			if(exact_Match(word,"SATTIME") and data['sattime'] is None):		#
+				data['sattime'] = True				
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
@@ -141,9 +141,11 @@ def displayData(data):						#main write out to the display
 	#commands.wrt_str(data['ip'])			
 
 	if (data['finesteering'] == True):			#testing for finesteering
-		commands.wrt_str("Fine",5)			#write out 'Fine' to the 5th string adress on the display
+		commands.wrt_str("Finsteering",5)		#write out 'Fine' to the 5th string adress on the display
 	elif (data['coursesteering'] == True):			#testing for coursesteering
 		commands.wrt_str("Course",5)			#write out 'Course' to the 5th string adress on the display
+	elif (data['coursesteering'] == True):			
+		commands.wrt_str("Course",5)
 	#tryIns(data)
 	return
 
@@ -156,6 +158,26 @@ def tryIns(data):							#def to determine INS
 		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
 		if (data['insclean'][0] == "INS_ACTIVE"):		#check INS if it is active
 			commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
+		elif (data['insclean'][0] == "INS_ALIGNING"):
+			commands.wrt_str("Ins aligning",2)
+		elif (data['insclean'][0] == "INS_HIGH_VARIANCE"):
+			commands.wrt_str("Ins high variance",2)
+		elif (data['insclean'][0] == "INS_SOLUTION_GOOD"):
+			commands.wrt_str("Ins solution good",2)
+		elif (data['insclean'][0] == "INS_SOLUTION_FREE"):
+			commands.wrt_str("Ins solution free",2)
+		elif (data['insclean'][0] == "INS_ALIGNMENT_COMPLETE"):
+			commands.wrt_str("Ins alignment complete",2)
+		elif (data['insclean'][0] == "DETERMINING_ORIENTATION"):
+			commands.wrt_str("Determining orientation",2)
+		elif (data['insclean'][0] == "WAITING_INITIALPOS"):
+			commands.wrt_str("Waiting initialpos",2)
+		elif (data['insclean'][0] == "WAITING_AZIMUTH"):
+			commands.wrt_str("Waiting azimuth",2)
+		elif (data['insclean'][0] == "INITIALIZING_BIASES"):
+			commands.wrt_str("Initializing biases",2)
+		elif (data['insclean'][0] == "MOTION_DETECT"):
+			commands.wrt_str("Motion detect",2)
 		else:							#when INS is inactive
 			commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
 			return
