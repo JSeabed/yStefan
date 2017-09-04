@@ -99,30 +99,30 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 				data['finebackupsteering'] = True
 			if(exact_Match(word,"SATTIME") and data['sattime'] is None):		#
 				data['sattime'] = True
-            if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
-                data['ins_active'] = True
-            if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
-                data['ins_inactive'] = True
-            if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
-                data['ins_aligning'] = True
-            if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
-                data['ins_high_variance'] = True
-            if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
-                data['ins_solution_good'] = True
-            if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
-                data['ins_solution_free'] = True
-            if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
-                data['ins_alignment_complete'] = True
-            if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
-                data['determining_orientation'] = True
-            if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
-                data['waiting_initialpos'] = True
-            if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
-                data['waiting_azimuth'] = True
-            if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
-                data['initializing_biases'] = True
-            if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
-                data['motion_detect'] = True
+            		if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
+                		data['ins_active'] = True
+            		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
+                		data['ins_inactive'] = True
+            		if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
+                		data['ins_aligning'] = True
+            		if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
+                		data['ins_high_variance'] = True
+            		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
+                		data['ins_solution_good'] = True
+            		if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
+                		data['ins_solution_free'] = True
+            		if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
+                		data['ins_alignment_complete'] = True
+            		if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
+                		data['determining_orientation'] = True
+            		if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
+                		data['waiting_initialpos'] = True
+            		if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
+                		data['waiting_azimuth'] = True
+            		if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
+                		data['initializing_biases'] = True
+            		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
+                		data['motion_detect'] = True
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
@@ -168,23 +168,23 @@ def displayData(data):						#main write out to the display
 		commands.wrt_str("Fine steering",5)		#write out 'Fine' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coursesteering
 		commands.wrt_str("Coarse steering",5)			#write out 'Course' to the 5th string adress on the display
-    elif (data['unknown'] == True):
+    	elif (data['unknown'] == True):
 		commands.wrt_str("Unknown",5)
-    elif (data['aprocimate'] == True):
+    	elif (data['aprocimate'] == True):
 		commands.wrt_str("Aproximate",5)
-    elif (data['coarseadjusting'] == True):
+    	elif (data['coarseadjusting'] == True):
 		commands.wrt_str("Coarse adjusting",5)
-    elif (data['coarse'] == True):
+    	elif (data['coarse'] == True):
 		commands.wrt_str("Coarse",5)
-    elif (data['freewheeling'] == True):
+    	elif (data['freewheeling'] == True):
 		commands.wrt_str("Freewheeling",5)
-    elif (data['fineadjusting'] == True):
+    	elif (data['fineadjusting'] == True):
 		commands.wrt_str("Fineadjusting",5)
-    elif (data['Fine'] == True):
+    	elif (data['Fine'] == True):
 		commands.wrt_str("Fine",5)
-    elif (data['finebackupsteering'] == True):
+    	elif (data['finebackupsteering'] == True):
 		commands.wrt_str("Fine backupsteering",5)
-    elif (data['sattime'] == True):
+    	elif (data['sattime'] == True):
 		commands.wrt_str("sattime",5)
 
 	#tryIns(data)
