@@ -74,40 +74,40 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 
 		str1 = ''.join(rcv)
 		for word in str1.split():
-			m = re.search(regexIP, str1)		#let the regex filter out the ip of the text that was send
+			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
-				data['ip'] = m.group()		#adding IP to the dictionary
-			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):		#
-				data['finesteering'] = True						#adding finesteering to the dictionary
+				data['ip'] = m.group()								#adding IP to the dictionary
+			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):			#
+				data['finesteering'] = True							#adding finesteering to the dictionary
 			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
-				data['coursesteering'] = True						#adding coursesteering to the dictonary
-			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):		#
+				data['coursesteering'] = True							#adding coursesteering to the dictonary
+			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
 				data['unknown'] = True
-			if(exact_Match(word,"APROXIMATE") and data['aproximate'] is None):		#
+			if(exact_Match(word,"APROXIMATE") and data['aproximate'] is None):			#
 				data['aproximate'] = True
 			if(exact_Match(word,"COARSEADJUSTING") and data['coarseadjusting'] is None):		#
 				data['coarseadjusting'] = True
-			if(exact_Match(word,"COARSE") and data['coarse'] is None):		#
+			if(exact_Match(word,"COARSE") and data['coarse'] is None):				#
 				data['coarse'] = True
-			if(exact_Match(word,"FREEWHEELING") and data['freewheeling'] is None):		#
+			if(exact_Match(word,"FREEWHEELING") and data['freewheeling'] is None):			#
 				data['freewheeling'] = True
 			if(exact_Match(word,"FINEADJUSTING") and data['fineadjusting'] is None):		#
 				data['fineadjusting'] = True
-			if(exact_Match(word,"FINE") and data['fine'] is None):		#
+			if(exact_Match(word,"FINE") and data['fine'] is None):					#
 				data['fine'] = True
-			if(exact_Match(word,"FINEBACKUPSTEERING") and data['finebackupsteering'] is None):		#
+			if(exact_Match(word,"FINEBACKUPSTEERING") and data['finebackupsteering'] is None):	#
 				data['finebackupsteering'] = True
-			if(exact_Match(word,"SATTIME") and data['sattime'] is None):		#
+			if(exact_Match(word,"SATTIME") and data['sattime'] is None):				#
 				data['sattime'] = True
-            		if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
-                		data['ins_active'] = True
-            		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
+           		if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
+           			data['ins_active'] = True
+           		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
                 		data['ins_inactive'] = True
             		if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
                 		data['ins_aligning'] = True
             		if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
                 		data['ins_high_variance'] = True
-            		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
+           		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
                 		data['ins_solution_good'] = True
             		if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
                 		data['ins_solution_free'] = True
@@ -122,13 +122,22 @@ def readSerial(port):						#reading all the data that is send by the OEM7
             		if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
                 		data['initializing_biases'] = True
             		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
-                		data['motion_detect'] = True
+            			data['motion_detect'] = True
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
 			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
+			if("$GPHDT" in rcv):
+				split_GPHDT = rcv.split(',') 
+				print(split_GPHDT)
+				if (split_GPHDT[1] >= '0'):
+					print("No heading")
+					commands.wrt_str("Ok",4)
+				else:
+					commands.wrt_str("Non",4)
+
 		exportData(data)									#call exportData def
 		displayData(data)									#call displayData def
 		statusGPGGA(data)									#call statusGPGGA def
@@ -165,12 +174,12 @@ def displayData(data):						#main write out to the display
 	#commands.wrt_str(data['ip'])
 
 	if (data['finesteering'] == True):			#testing for finesteering
-		commands.wrt_str("Fine steering",5)		#write out 'Fine' to the 5th string adress on the display
-	elif (data['coarsesteering'] == True):			#testing for coursesteering
-		commands.wrt_str("Coarse steering",5)			#write out 'Course' to the 5th string adress on the display
+		commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
+	elif (data['coarsesteering'] == True):			#testing for coarsesteering
+		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
     	elif (data['unknown'] == True):
 		commands.wrt_str("Unknown",5)
-    	elif (data['aprocimate'] == True):
+	elif (data['aprocimate'] == True):
 		commands.wrt_str("Aproximate",5)
     	elif (data['coarseadjusting'] == True):
 		commands.wrt_str("Coarse adjusting",5)
@@ -197,28 +206,28 @@ def tryIns(data):							#def to determine INS
 		clean_Ins = partup.split('*')				#split up partup
 		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
-		if (data['ins_active'] == True):		#check INS if it is active
+		if (data['ins_active'] == True):			#check library if ins active is true
 			commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
-		elif (data['ins_aligning'] == True):
-			commands.wrt_str("Ins aligning",2)
-		elif (data['ins_high_variance'] == True):
-			commands.wrt_str("Ins high variance",2)
-		elif (data['ins_solution_good'] == True):
-			commands.wrt_str("Ins solution good",2)
-		elif (data['ins_solution_free'] == True):
-			commands.wrt_str("Ins solution free",2)
-		elif (data['ins_alignment_complete'] == True):
-			commands.wrt_str("Ins alignment complete",2)
-		elif (data['determining_orientation'] == True):
-			commands.wrt_str("Determining orientation",2)
-		elif (data['waiting_initialpos'] == True):
-			commands.wrt_str("Waiting initialpos",2)
-		elif (data['waiting_azimuth'] == True):
-			commands.wrt_str("Waiting azimuth",2)
-		elif (data['initializing_biases'] == True):
-			commands.wrt_str("Initializing biases",2)
-		elif (data['motion_detect'] == True):
-			commands.wrt_str("Motion detect",2)
+		elif (data['ins_aligning'] == True):			#check library if aligning is true
+			commands.wrt_str("Ins aligning",2)		#write out only if aligning is true
+		elif (data['ins_high_variance'] == True):		#check library if high variance is true
+			commands.wrt_str("Ins high variance",2)		#write out only if above check passes
+		elif (data['ins_solution_good'] == True):		#check if solution good is true
+			commands.wrt_str("Ins solution good",2)		#write out only if above check passes
+		elif (data['ins_solution_free'] == True):		#check if solution free is true
+			commands.wrt_str("Ins solution free",2)		#write out only if above check passes
+		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete 
+			commands.wrt_str("Ins alignment complete",2)	#
+		elif (data['determining_orientation'] == True):		#
+			commands.wrt_str("Determining orientation",2)	#
+		elif (data['waiting_initialpos'] == True):		#
+			commands.wrt_str("Waiting initialpos",2)	#
+		elif (data['waiting_azimuth'] == True):			#
+			commands.wrt_str("Waiting azimuth",2)		#
+		elif (data['initializing_biases'] == True):		#
+			commands.wrt_str("Initializing biases",2)	#
+		elif (data['motion_detect'] == True):			#
+			commands.wrt_str("Motion detect",2)		#
 		else:							#when INS is inactive
 			commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
 			return
@@ -242,28 +251,28 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 
 def statusGPGGA(data):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
-		if (data['gpgga'][6]) is '1':				#mode 1
-			print "non"					#
-		elif (data['gpgga'][6]) is '2':				#mode 2
-			print "non2"					#
-		elif (data['gpgga'][6]) is '3':				#mode 3
-			print "non3"					#
-		elif (data['gpgga'][6]) is '4':				#mode 4
-			print "fixxed"					#fixxed position
-		elif (data['gpgga'][6]) is '5':				#mode 5
-			print "float"					#float mode
-		elif (data['gpgga'][6]) is '6':				#mode 6
-			print "waas"					#waas mode
-		elif (data['gpgga'][6]) is '7':				#mode 7
-			print "non7"					#
-		elif (data['gpgga'][6]) is '8':				#mode 8
-			print "non8"					#
-		elif (data['gpgga'][6]) is '9':				#mode 9
-			print "basestation"				#serving as basestation
-		elif (data['gpgga'][6]) is '10':			#mode 10
-			print "non10"					#
+		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
+			commands.wrt_str("No fix",6)			#
+		elif (data['gpgga'][6]) is '1':				#mode 2
+			commands.wrt_str("Single point",6)		#
+		elif (data['gpgga'][6]) is '2':				#mode 3
+			commands.wrt_str("Pseudorange",6)		#
+		elif (data['gpgga'][6]) is '3':				#mode 4
+			commands.wrt_str("   ",6)			#
+		elif (data['gpgga'][6]) is '4':				#mode 5
+			commands.wrt_str("Fixed",6)			#
+		elif (data['gpgga'][6]) is '5':				#mode 6
+			commands.wrt_str("Floating",6)			#
+		elif (data['gpgga'][6]) is '6':				#mode 7
+			commands.wrt_str("Dead reckoning",6)		#
+		elif (data['gpgga'][6]) is '7':				#mode 8
+			commands.wrt_str("Manual input",6)		#
+		elif (data['gpgga'][6]) is '8':				#mode 9
+			commands.wrt_str("Simulator",6)			#
+		elif (data['gpgga'][6]) is '9':				#mode 10
+			commands.wrt_str("WAAS",6)			#
 		else:							#when no mode is noticed dont write out anything
-			print "niets"					#
+			commands.wrt_str("    ",6)			#
 	except Exception, e:						#error message handling when above try fails
 		print (str(e))						#write out error message to terminal
 	return
