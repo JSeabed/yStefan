@@ -133,7 +133,7 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 				split_GPHDT = rcv.split(',') 
 				print(split_GPHDT)
 				if (split_GPHDT[1] >= '0'):
-					print("No heading")
+					print("heading")
 					commands.wrt_str("Ok",4)
 				else:
 					commands.wrt_str("Non",4)
@@ -253,23 +253,23 @@ def statusGPGGA(data):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
 			commands.wrt_str("No fix",6)			#
-		elif (data['gpgga'][6]) is '1':				#mode 2
+		elif (data['gpgga'][6]) is '1':				#mode 
 			commands.wrt_str("Single point",6)		#
-		elif (data['gpgga'][6]) is '2':				#mode 3
+		elif (data['gpgga'][6]) is '2':				#mode 
 			commands.wrt_str("Pseudorange",6)		#
-		elif (data['gpgga'][6]) is '3':				#mode 4
+		elif (data['gpgga'][6]) is '3':				#mode 
 			commands.wrt_str("   ",6)			#
-		elif (data['gpgga'][6]) is '4':				#mode 5
+		elif (data['gpgga'][6]) is '4':				#mode 
 			commands.wrt_str("Fixed",6)			#
-		elif (data['gpgga'][6]) is '5':				#mode 6
+		elif (data['gpgga'][6]) is '5':				#mode 
 			commands.wrt_str("Floating",6)			#
-		elif (data['gpgga'][6]) is '6':				#mode 7
+		elif (data['gpgga'][6]) is '6':				#mode 
 			commands.wrt_str("Dead reckoning",6)		#
-		elif (data['gpgga'][6]) is '7':				#mode 8
+		elif (data['gpgga'][6]) is '7':				#mode 
 			commands.wrt_str("Manual input",6)		#
-		elif (data['gpgga'][6]) is '8':				#mode 9
+		elif (data['gpgga'][6]) is '8':				#mode 
 			commands.wrt_str("Simulator",6)			#
-		elif (data['gpgga'][6]) is '9':				#mode 10
+		elif (data['gpgga'][6]) is '9':				#mode 
 			commands.wrt_str("WAAS",6)			#
 		else:							#when no mode is noticed dont write out anything
 			commands.wrt_str("    ",6)			#
