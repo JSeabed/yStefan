@@ -34,8 +34,8 @@ def portTry():
 
 def portDefine():						#function to define the port the OEM7 is connected to
 	try:							#testing for OEM7
-		PORT = 		"/dev/ttyUSB1"
-		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
+		PORT = 		"/dev/ttyUSB0"
+		port = serial.Serial('/dev/ttyUSB0', 9600)	#defining the serial port as a contant value
 	except Exception, e:					#used to write out error
 		#print error
 		filewrite(str(e)+"\n")				#write out error to textdocument
@@ -63,15 +63,15 @@ def filewrite(rcv):                             		#Function to write data to a .
 def readSerial(port):						#reading all the data that is send by the OEM7
 #Read serial
 	try:							#testing if data is transmitted
-		data = {'ip': None, 'gpgga': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
+		data = {'ip': None, 'gpgga': None, 'gphdt': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
 		j = 0
-		rcv = [None]*10
-		for x in range (0, 10):
+		rcv = [None]*100
+		for x in range (0, 100):
 			rcv[j] = port.readline()                 #rvc is the serial data received
 			j = j + 1
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
-
+		print rcv
 		str1 = ''.join(rcv)
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
@@ -123,24 +123,22 @@ def readSerial(port):						#reading all the data that is send by the OEM7
                 		data['initializing_biases'] = True
             		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
             			data['motion_detect'] = True
+			if(findWord(word,"GPHDT") and data['gphdt'] is None):
+				print("test123546")
+				data['gphdt'] = True
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
 			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
-			if("$GPHDT" in rcv):
-				split_GPHDT = rcv.split(',') 
-				print(split_GPHDT)
-				if (split_GPHDT[1] >= '0'):
-					print("heading")
-					commands.wrt_str("Ok",4)
-				else:
-					commands.wrt_str("Non",4)
+
+				
 
 		exportData(data)									#call exportData def
 		displayData(data)									#call displayData def
 		statusGPGGA(data)									#call statusGPGGA def
+		gphdt(data)
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
 
@@ -189,16 +187,28 @@ def displayData(data):						#main write out to the display
 		commands.wrt_str("Freewheeling",5)
     	elif (data['fineadjusting'] == True):
 		commands.wrt_str("Fineadjusting",5)
-    	elif (data['Fine'] == True):
+    	elif (data['fine'] == True):
 		commands.wrt_str("Fine",5)
     	elif (data['finebackupsteering'] == True):
 		commands.wrt_str("Fine backupsteering",5)
     	elif (data['sattime'] == True):
 		commands.wrt_str("sattime",5)
-
+	else:
+		return
 	#tryIns(data)
 	return
 
+
+def gphdt(data):
+	try:
+		if (data['gphdt'] == True):
+			commands.wrt_str("Ok",4)
+		else:
+			commands.wrt_str("Non 2",4)
+	
+	except Exception, e:
+		filewrite(str(e)+"\n")
+		print (str(e))
 
 def tryIns(data):							#def to determine INS
 	try:								#try to define, if failed goes to except
@@ -279,9 +289,12 @@ def statusGPGGA(data):							#used to determine the status for GPGGA
 
 
 time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
+commands.wrt_str("...",4)
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
 GPIO.setup(0, GPIO.OUT)			#set pin 0 to output
+GPIO.setup(6, GPIO.OUT)
 GPIO.output(0, GPIO.HIGH)		#make pin 0 high
+GPIO.output(6, GPIO.HIGH)		#make pin 0 high
 portTry()				#call on function portTry
 scanPorts()				#call on function scanPorts
 #port.close()
