@@ -34,8 +34,8 @@ def portTry():
 
 def portDefine():						#function to define the port the OEM7 is connected to
 	try:							#testing for OEM7
-		PORT = 		"/dev/ttyUSB0"
-		port = serial.Serial('/dev/ttyUSB0', 9600)	#defining the serial port as a contant value
+		PORT = 		"/dev/ttyUSB1"
+		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
 	except Exception, e:					#used to write out error
 		#print error
 		filewrite(str(e)+"\n")				#write out error to textdocument
@@ -65,8 +65,8 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 	try:							#testing if data is transmitted
 		data = {'ip': None, 'gpgga': None, 'gphdt': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
 		j = 0
-		rcv = [None]*100
-		for x in range (0, 100):
+		rcv = [None]*25
+		for x in range (0, 25):
 			rcv[j] = port.readline()                 #rvc is the serial data received
 			j = j + 1
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
@@ -140,7 +140,7 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 		statusGPGGA(data)									#call statusGPGGA def
 		gphdt(data)
 		port.close()										#close port to OEM7
-		time.sleep(2)										#add a delay of 2 seconds
+		#time.sleep(2)										#add a delay of 2 seconds
 
 
 	except Exception, e:					#not receiving data from OEM7
@@ -149,7 +149,7 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 		port = 0					#define port as 0
 		commands.wrt_str("Connection Error",2)		#write an error message to display
 		print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
-		time.sleep(10)					#put 10 second delay in before repeating try functions
+		time.sleep(1)					#put 10 second delay in before repeating try functions
 
 
 
@@ -204,7 +204,7 @@ def gphdt(data):
 		if (data['gphdt'] == True):
 			commands.wrt_str("Ok",4)
 		else:
-			commands.wrt_str("Non 2",4)
+			commands.wrt_str("Non",4)
 	
 	except Exception, e:
 		filewrite(str(e)+"\n")
@@ -217,19 +217,29 @@ def tryIns(data):							#def to determine INS
 		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):			#check library if ins active is true
-			commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
+			if (Counter1 == 0):
+				return
+			else:
+				commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
+				Counter1 = 0
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
 			commands.wrt_str("Ins aligning",2)		#write out only if aligning is true
+			Counter1 = 1
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
 			commands.wrt_str("Ins high variance",2)		#write out only if above check passes
+			Counter1 = 2
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
 			commands.wrt_str("Ins solution good",2)		#write out only if above check passes
+			Counter1 = 3
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
 			commands.wrt_str("Ins solution free",2)		#write out only if above check passes
+			Counter1 = 4
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete 
 			commands.wrt_str("Ins alignment complete",2)	#
+			Counter1 = 5
 		elif (data['determining_orientation'] == True):		#
 			commands.wrt_str("Determining orientation",2)	#
+			Counter1 = 6
 		elif (data['waiting_initialpos'] == True):		#
 			commands.wrt_str("Waiting initialpos",2)	#
 		elif (data['waiting_azimuth'] == True):			#
