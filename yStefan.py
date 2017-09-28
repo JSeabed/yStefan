@@ -24,6 +24,8 @@ import RPi.GPIO as GPIO
 Counter1 = " "
 Counter2 = " "
 Counter3 = " "
+Counter4 = " "
+Counter5 = " "
 
 
 def portTry():
@@ -171,10 +173,11 @@ def displayData(data):						#main write out to the display
 	#Sattalites
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
 	IP_String = bytearray()
-	#IP_String.extend(" ")
-	print("lmao")
-	IP_String.extend(data['ip'])
-	commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
+	if (IP_String == data[ip]):
+		pass
+	else:
+		IP_String.extend(data['ip'])
+		commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
 	#commands.wrt_str(data['ip'])
 	global Counter3
 	if (data['finesteering'] == True):			#testing for finesteering
