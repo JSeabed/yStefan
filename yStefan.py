@@ -185,27 +185,67 @@ def displayData(data):						#main write out to the display
 			commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
 			Counter3 = 0
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
-		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
+		if (Counter3 == 1):
+			pass
+		else:
+			commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
+			Counter3 = 1		
     	elif (data['unknown'] == True):
-		commands.wrt_str("Unknown",5)
+		if (Counter3 == 2):
+			pass
+		else:
+			commands.wrt_str("Unknown",5)
+			Counter3 = 2		
 	elif (data['aprocimate'] == True):
-		commands.wrt_str("Aproximate",5)
+		if (Counter3 == 3):
+			pass
+		else:
+			commands.wrt_str("Aproximate",5)
+			Counter3 = 3		
     	elif (data['coarseadjusting'] == True):
-		commands.wrt_str("Coarse adjusting",5)
+		if (Counter3 == 4):
+			pass
+		else:
+			commands.wrt_str("Coarse adjusting",5)
+			Counter3 = 4		
     	elif (data['coarse'] == True):
-		commands.wrt_str("Coarse",5)
+		if (Counter3 == 4):
+			pass
+		else:
+			commands.wrt_str("Coarse",5)
+			Counter3 = 4		
     	elif (data['freewheeling'] == True):
-		commands.wrt_str("Freewheeling",5)
+		if (Counter3 == 5):
+			pass
+		else:
+			commands.wrt_str("Freewheeling",5)
+			Counter3 = 5		
     	elif (data['fineadjusting'] == True):
-		commands.wrt_str("Fineadjusting",5)
+		if (Counter3 == 6):
+			pass
+		else:
+			commands.wrt_str("Fineadjusting",5)
+			Counter3 = 6		
     	elif (data['fine'] == True):
-		commands.wrt_str("Fine",5)
+		if (Counter3 == 7):
+			pass
+		else:
+			commands.wrt_str("Fine",5)
+			Counter3 = 7		
     	elif (data['finebackupsteering'] == True):
-		commands.wrt_str("Fine backupsteering",5)
+		if (Counter3 == 8):
+			pass
+		else:
+			commands.wrt_str("Fine backupsteering",5)
+			Counter3 = 8		
     	elif (data['sattime'] == True):
-		commands.wrt_str("sattime",5)
+		if (Counter3 == 9):
+			pass
+		else:
+			commands.wrt_str("sattime",5)
+			Counter3 = 9		
 	else:
-		return
+		return	
 	#tryIns(data)
 	return
 
@@ -221,131 +261,172 @@ def gphdt(data):
 		filewrite(str(e)+"\n")
 		print (str(e))
 
-def tryIns(data):							#def to determine INS
-	try:								#try to define, if failed goes to except
-		partup = (data['ins'][20])				#define dictionary entry 20 from ins as partup for further filtering
-		clean_Ins = partup.split('*')				#split up partup
-		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
+def tryIns(data):								#def to determine INS
+	try:									#try to define, if failed goes to except
+		partup = (data['ins'][20])					#define dictionary entry 20 from ins as partup for further filtering
+		clean_Ins = partup.split('*')					#split up partup
+		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
 		global Counter1
-		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
-		if (data['ins_active'] == True):			#check library if ins active is true
+		print(data['insclean'][0])					#print the wanted dictionary adress to the terminal for control
+		if (data['ins_active'] == True):				#check library if ins active is true
 			if (Counter1 == 0):
 				return
 			else:
 				commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
 				Counter1 = 0
-		elif (data['ins_aligning'] == True):			#check library if aligning is true
+		elif (data['ins_aligning'] == True):				#check library if aligning is true
 			if (Counter1 == 1):
 				return
 			else:
 				commands.wrt_str("Ins aligning",2)		#write to display on adress 2 of the string list
 				Counter1 = 1
-		elif (data['ins_high_variance'] == True):		#check library if high variance is true
+		elif (data['ins_high_variance'] == True):			#check library if high variance is true
 			if (Counter1 == 2):
 				return
 			else:
 				commands.wrt_str("Ins high variance",2)		#write to display on adress 2 of the string list
 				Counter1 = 2
-		elif (data['ins_solution_good'] == True):		#check if solution good is true
+		elif (data['ins_solution_good'] == True):			#check if solution good is true
 			if (Counter1 == 3):
 				return
 			else:
 				commands.wrt_str("Ins solution good",2)		#write to display on adress 2 of the string list
 				Counter1 = 3
-		elif (data['ins_solution_free'] == True):		#check if solution free is true
+		elif (data['ins_solution_free'] == True):			#check if solution free is true
 			if (Counter1 == 4):
 				return
 			else:
 				commands.wrt_str("Ins solution free",2)		#write to display on adress 2 of the string list
 				Counter1 = 4
-		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete 
+		elif (data['ins_alignment_complete'] == True):			#check if alignment is complete 
 			if (Counter1 == 5):
 				return
 			else:
 				commands.wrt_str("Ins alignment complete",2)		#write to display on adress 2 of the string list
 				Counter1 = 5
-		elif (data['determining_orientation'] == True):		#
+		elif (data['determining_orientation'] == True):			#
 			if (Counter1 == 6):
 				return
 			else:
 				commands.wrt_str("Determining orientation",2)		#write to display on adress 2 of the string list
 				Counter1 = 6
-		elif (data['waiting_initialpos'] == True):		#
+		elif (data['waiting_initialpos'] == True):			#
 			if (Counter1 == 7):
 				return
 			else:
 				commands.wrt_str("Waiting initialpos",2)		#write to display on adress 2 of the string list
 				Counter1 = 7
-		elif (data['waiting_azimuth'] == True):			#
+		elif (data['waiting_azimuth'] == True):				#
 			if (Counter1 == 8):
 				return
 			else:
 				commands.wrt_str("Waiting azimuth",2)		#write to display on adress 2 of the string list
-				Counter1 = 8				#
-		elif (data['initializing_biases'] == True):		#
+				Counter1 = 8					#
+		elif (data['initializing_biases'] == True):			#
 			if (Counter1 == 9):
 				return
 			else:
 				commands.wrt_str("Initializing biases",2)		#write to display on adress 2 of the string list
 				Counter1 = 9
-		elif (data['motion_detect'] == True):			#
+		elif (data['motion_detect'] == True):				#
 			if (Counter1 == 10):
 				return
 			else:
 				commands.wrt_str("Motion detect",2)		#write to display on adress 2 of the string list
 				Counter1 = 10
-		else:							#when INS is inactive
+		else:								#when INS is inactive
 			if (Counter1 == 11):
 				return
 			else:
 				commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
 				Counter1 = 11			
-	except Exception, e:						#error handling INS testing
+	except Exception, e:							#error handling INS testing
 		#print error
-		filewrite(str(e)+"\n")					#write error to text file
-		print (str(e))						#write error to the terminal
+		filewrite(str(e)+"\n")						#write error to text file
+		print (str(e))							#write error to the terminal
 
  
-def findWord(phrase, word):						#word seacher that is used by readSerial
-	if(phrase.find(word) > 0):					#testing for an exact match
-		return True						#return true to confirm the word
+def findWord(phrase, word):							#word seacher that is used by readSerial
+	if(phrase.find(word) > 0):						#testing for an exact match
+		return True							#return true to confirm the word
 	return False
 
 
-def exact_Match(phrase, word):						#exact match def for filtering words
+def exact_Match(phrase, word):							#exact match def for filtering words
     b = r'(\s|^|$)'
     res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
     return bool(res)
 
 
-def statusGPGGA(data):							#used to determine the status for GPGGA
-	try:								#determine the gpgga status
-		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
+def statusGPGGA(data):								#used to determine the status for GPGGA
+	global Counter2
+	try:									#determine the gpgga status
+		if (data['gpgga'][6]) is '0':					#mode 0 of gpgga
 			if (Counter2 == 0):
 				return
 			else:
-				commands.wrt_str("No fix",6)		#
+				commands.wrt_str("No fix",6)			#
 				Counter2 = 0
-		elif (data['gpgga'][6]) is '1':				#mode 
-			commands.wrt_str("Single point",6)		#
-		elif (data['gpgga'][6]) is '2':				#mode 
-			commands.wrt_str("Pseudorange",6)		#
-		elif (data['gpgga'][6]) is '3':				#mode 
-			commands.wrt_str("   ",6)			#
-		elif (data['gpgga'][6]) is '4':				#mode 
-			commands.wrt_str("Fixed",6)			#
-		elif (data['gpgga'][6]) is '5':				#mode 
-			commands.wrt_str("Floating",6)			#
-		elif (data['gpgga'][6]) is '6':				#mode 
-			commands.wrt_str("Dead reckoning",6)		#
-		elif (data['gpgga'][6]) is '7':				#mode 
-			commands.wrt_str("Manual input",6)		#
-		elif (data['gpgga'][6]) is '8':				#mode 
-			commands.wrt_str("Simulator",6)			#
+		elif (data['gpgga'][6]) is '1':					#mode 
+			if (Counter2 == 1):
+				return
+			else:
+				commands.wrt_str("Single point",6)		
+				Counter2 = 1			
+		elif (data['gpgga'][6]) is '2':					#mode 
+			if (Counter2 == 1):
+				return
+			else:
+				commands.wrt_str("Pseudorange",6)	
+				Counter2 = 1					#
+		elif (data['gpgga'][6]) is '3':					#mode 
+			if (Counter2 == 2):
+				return
+			else:
+				commands.wrt_str("   ",6)		
+				Counter2 = 2					#
+		elif (data['gpgga'][6]) is '4':					#mode 
+			if (Counter2 == 3):
+				return
+			else:
+				commands.wrt_str("Fixed",6)		
+				Counter2 = 3					#
+		elif (data['gpgga'][6]) is '5':					#mode 
+			if (Counter2 == 4):
+				return
+			else:
+				commands.wrt_str("Floating",6)		
+				Counter2 = 4					#
+		elif (data['gpgga'][6]) is '6':					#mode 
+			if (Counter2 == 5):
+				return
+			else:
+				commands.wrt_str("Dead reckoning",6)		
+				Counter2 = 5					#
+		elif (data['gpgga'][6]) is '7':					#mode 
+			if (Counter2 == 1):
+				return
+			else:
+				commands.wrt_str("Manual input",6)		
+				Counter2 = 1								#
+		elif (data['gpgga'][6]) is '8':					#mode 
+			if (Counter2 == 6):
+				return
+			else:
+				commands.wrt_str("Simulator",6)		
+				Counter2 = 6									#
 		elif (data['gpgga'][6]) is '9':				#mode 
-			commands.wrt_str("WAAS",6)			#
+			if (Counter2 == 7):
+				return
+			else:
+				commands.wrt_str("WAAS",6)					
+				Counter2 = 7						#
 		else:							#when no mode is noticed dont write out anything
-			commands.wrt_str("    ",6)			#
+			if (Counter2 == 8):
+				return
+			else:
+				commands.wrt_str("    ",6)		
+				Counter2 = 8				#
 	except Exception, e:						#error message handling when above try fails
 		print (str(e))						#write out error message to terminal
 	return
