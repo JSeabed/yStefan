@@ -21,6 +21,11 @@ import commands
 import RPi.GPIO as GPIO
 
 
+Counter1 = " "
+Counter2 = " "
+Counter3 = " "
+
+
 def portTry():
 	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)
 
@@ -71,7 +76,7 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 			j = j + 1
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
-		print rcv
+		#print rcv
 		str1 = ''.join(rcv)
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
@@ -157,7 +162,7 @@ def exportData(data):						#def that prints data to the terminal, used to check 
 	print(data['gpgga'][6])					#print dictionary adress 6 in gpgga subclass
 	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
 	print(data['ip'])					#print dictionary ip
-	print(data['finesteering'])				#print dictionary finesteering
+	#print(data['finesteering'])				#print dictionary finesteering
 	tryIns(data)						#call on tryIns function
 	return
 
@@ -167,12 +172,18 @@ def displayData(data):						#main write out to the display
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
 	IP_String = bytearray()
 	#IP_String.extend(" ")
+	print("lmao")
 	IP_String.extend(data['ip'])
 	commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
 	#commands.wrt_str(data['ip'])
-
+	global Counter3
 	if (data['finesteering'] == True):			#testing for finesteering
-		commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
+		print Counter3
+		if (Counter3 == 0):
+			pass
+		else:
+			commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
+			Counter3 = 0
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
     	elif (data['unknown'] == True):
@@ -215,6 +226,7 @@ def tryIns(data):							#def to determine INS
 		partup = (data['ins'][20])				#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')				#split up partup
 		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
+		global Counter1
 		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):			#check library if ins active is true
 			if (Counter1 == 0):
@@ -223,40 +235,77 @@ def tryIns(data):							#def to determine INS
 				commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
 				Counter1 = 0
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
-			commands.wrt_str("Ins aligning",2)		#write out only if aligning is true
-			Counter1 = 1
+			if (Counter1 == 1):
+				return
+			else:
+				commands.wrt_str("Ins aligning",2)		#write to display on adress 2 of the string list
+				Counter1 = 1
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
-			commands.wrt_str("Ins high variance",2)		#write out only if above check passes
-			Counter1 = 2
+			if (Counter1 == 2):
+				return
+			else:
+				commands.wrt_str("Ins high variance",2)		#write to display on adress 2 of the string list
+				Counter1 = 2
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
-			commands.wrt_str("Ins solution good",2)		#write out only if above check passes
-			Counter1 = 3
+			if (Counter1 == 3):
+				return
+			else:
+				commands.wrt_str("Ins solution good",2)		#write to display on adress 2 of the string list
+				Counter1 = 3
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
-			commands.wrt_str("Ins solution free",2)		#write out only if above check passes
-			Counter1 = 4
+			if (Counter1 == 4):
+				return
+			else:
+				commands.wrt_str("Ins solution free",2)		#write to display on adress 2 of the string list
+				Counter1 = 4
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete 
-			commands.wrt_str("Ins alignment complete",2)	#
-			Counter1 = 5
+			if (Counter1 == 5):
+				return
+			else:
+				commands.wrt_str("Ins alignment complete",2)		#write to display on adress 2 of the string list
+				Counter1 = 5
 		elif (data['determining_orientation'] == True):		#
-			commands.wrt_str("Determining orientation",2)	#
-			Counter1 = 6
+			if (Counter1 == 6):
+				return
+			else:
+				commands.wrt_str("Determining orientation",2)		#write to display on adress 2 of the string list
+				Counter1 = 6
 		elif (data['waiting_initialpos'] == True):		#
-			commands.wrt_str("Waiting initialpos",2)	#
+			if (Counter1 == 7):
+				return
+			else:
+				commands.wrt_str("Waiting initialpos",2)		#write to display on adress 2 of the string list
+				Counter1 = 7
 		elif (data['waiting_azimuth'] == True):			#
-			commands.wrt_str("Waiting azimuth",2)		#
+			if (Counter1 == 8):
+				return
+			else:
+				commands.wrt_str("Waiting azimuth",2)		#write to display on adress 2 of the string list
+				Counter1 = 8				#
 		elif (data['initializing_biases'] == True):		#
-			commands.wrt_str("Initializing biases",2)	#
+			if (Counter1 == 9):
+				return
+			else:
+				commands.wrt_str("Initializing biases",2)		#write to display on adress 2 of the string list
+				Counter1 = 9
 		elif (data['motion_detect'] == True):			#
-			commands.wrt_str("Motion detect",2)		#
+			if (Counter1 == 10):
+				return
+			else:
+				commands.wrt_str("Motion detect",2)		#write to display on adress 2 of the string list
+				Counter1 = 10
 		else:							#when INS is inactive
-			commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
-			return
+			if (Counter1 == 11):
+				return
+			else:
+				commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
+				Counter1 = 11			
 	except Exception, e:						#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")					#write error to text file
 		print (str(e))						#write error to the terminal
 
-
+ 
 def findWord(phrase, word):						#word seacher that is used by readSerial
 	if(phrase.find(word) > 0):					#testing for an exact match
 		return True						#return true to confirm the word
@@ -272,7 +321,11 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 def statusGPGGA(data):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
-			commands.wrt_str("No fix",6)			#
+			if (Counter2 == 0):
+				return
+			else:
+				commands.wrt_str("No fix",6)		#
+				Counter2 = 0
 		elif (data['gpgga'][6]) is '1':				#mode 
 			commands.wrt_str("Single point",6)		#
 		elif (data['gpgga'][6]) is '2':				#mode 
@@ -298,7 +351,7 @@ def statusGPGGA(data):							#used to determine the status for GPGGA
 	return
 
 
-time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
+#time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
 commands.wrt_str("...",4)
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
 GPIO.setup(0, GPIO.OUT)			#set pin 0 to output
