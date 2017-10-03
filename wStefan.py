@@ -172,8 +172,10 @@ def exportData(data):						#def that prints data to the terminal, used to check 
 	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
 	print(data['ip'])					#print dictionary ip
 	#print(data['finesteering'])				#print dictionary finesteering
-	commands.wrt_str(Counter1,2)
 	tryIns(data)						#call on tryIns function
+	commands.wrt_str(Counter1,2)
+	commands.wrt_str(Counter2,6)
+	commands.wrt_str(Counter3,5)
 	return
 
 
@@ -199,71 +201,71 @@ def displayData(data):						#main write out to the display
 	global Counter3
 	if (data['finesteering'] == True):			#testing for finesteering
 		print Counter3
-		if (Counter3 == 0):
+		if (Counter3 == "Fine steering"):
 			pass
 		else:
-			commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
-			Counter3 = 0
+			#commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
+			Counter3 = "Fine steering"
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
-		if (Counter3 == 1):
+		if (Counter3 == "Coarse steering"):
 			pass
 		else:
-			commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
-			Counter3 = 1		
+			#commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
+			Counter3 = "Coarse steering"		
     	elif (data['unknown'] == True):
-		if (Counter3 == 2):
+		if (Counter3 == "Unknown"):
 			pass
 		else:
-			commands.wrt_str("Unknown",5)
-			Counter3 = 2		
+			#commands.wrt_str("Unknown",5)
+			Counter3 = "Unknown"		
 	elif (data['aprocimate'] == True):
-		if (Counter3 == 3):
+		if (Counter3 == "Aproximate"):
 			pass
 		else:
-			commands.wrt_str("Aproximate",5)
-			Counter3 = 3		
+			#commands.wrt_str("Aproximate",5)
+			Counter3 = "Aproximate"		
     	elif (data['coarseadjusting'] == True):
-		if (Counter3 == 4):
+		if (Counter3 == "Coarse adjusting"):
 			pass
 		else:
-			commands.wrt_str("Coarse adjusting",5)
-			Counter3 = 4		
+			#commands.wrt_str("Coarse adjusting",5)
+			Counter3 = "Coarse adjusting"		
     	elif (data['coarse'] == True):
-		if (Counter3 == 4):
+		if (Counter3 == "Coarse"):
 			pass
 		else:
-			commands.wrt_str("Coarse",5)
-			Counter3 = 4		
+			#commands.wrt_str("Coarse",5)
+			Counter3 = "Coarse"		
     	elif (data['freewheeling'] == True):
-		if (Counter3 == 5):
+		if (Counter3 == "Freewheeling"):
 			pass
 		else:
-			commands.wrt_str("Freewheeling",5)
-			Counter3 = 5		
+			#commands.wrt_str("Freewheeling",5)
+			Counter3 = "Freewheeling"		
     	elif (data['fineadjusting'] == True):
-		if (Counter3 == 6):
+		if (Counter3 == "Fineadjusting"):
 			pass
 		else:
-			commands.wrt_str("Fineadjusting",5)
-			Counter3 = 6		
+			#commands.wrt_str("Fineadjusting",5)
+			Counter3 = "Fineadjusting"		
     	elif (data['fine'] == True):
-		if (Counter3 == 7):
+		if (Counter3 == "Fine"):
 			pass
 		else:
-			commands.wrt_str("Fine",5)
-			Counter3 = 7		
+			#commands.wrt_str("Fine",5)
+			Counter3 = "Fine"		
     	elif (data['finebackupsteering'] == True):
-		if (Counter3 == 8):
+		if (Counter3 == "Fine backupsteering"):
 			pass
 		else:
-			commands.wrt_str("Fine backupsteering",5)
-			Counter3 = 8		
+			#commands.wrt_str("Fine backupsteering",5)
+			Counter3 = "Fine backupsteering"		
     	elif (data['sattime'] == True):
-		if (Counter3 == 9):
+		if (Counter3 == "sattime"):
 			pass
 		else:
-			commands.wrt_str("sattime",5)
-			Counter3 = 9		
+			#commands.wrt_str("sattime",5)
+			Counter3 = "sattime"		
 	else:
 		return	
 	#tryIns(data)
@@ -392,71 +394,71 @@ def statusGPGGA(data):								#used to determine the status for GPGGA
 	global Counter2
 	try:									#determine the gpgga status
 		if (data['gpgga'][6]) is '0':					#mode 0 of gpgga
-			if (Counter2 == 0):
+			if (Counter2 == "No fix"):
 				return
 			else:
-				commands.wrt_str("No fix",6)			#
-				Counter2 = 0
+				#commands.wrt_str("No fix",6)			#
+				Counter2 = "No fix"
 		elif (data['gpgga'][6]) is '1':					#mode 
-			if (Counter2 == 1):
+			if (Counter2 == "Single point"):
 				return
 			else:
-				commands.wrt_str("Single point",6)		
-				Counter2 = 1			
+				#commands.wrt_str("Single point",6)		
+				Counter2 = "Single point"			
 		elif (data['gpgga'][6]) is '2':					#mode 
-			if (Counter2 == 1):
+			if (Counter2 == "Pseudorange"):
 				return
 			else:
-				commands.wrt_str("Pseudorange",6)	
-				Counter2 = 1					#
+				#commands.wrt_str("Pseudorange",6)	
+				Counter2 = "Pseudorange"					#
 		elif (data['gpgga'][6]) is '3':					#mode 
-			if (Counter2 == 2):
+			if (Counter2 == "   "):
 				return
 			else:
-				commands.wrt_str("   ",6)		
-				Counter2 = 2					#
+				#commands.wrt_str("   ",6)		
+				Counter2 = "   "					#
 		elif (data['gpgga'][6]) is '4':					#mode 
-			if (Counter2 == 3):
+			if (Counter2 == "Fixed"):
 				return
 			else:
-				commands.wrt_str("Fixed",6)		
-				Counter2 = 3					#
+				#commands.wrt_str("Fixed",6)		
+				Counter2 = "Fixed"					#
 		elif (data['gpgga'][6]) is '5':					#mode 
-			if (Counter2 == 4):
+			if (Counter2 == "Floating"):
 				return
 			else:
-				commands.wrt_str("Floating",6)		
-				Counter2 = 4					#
+				#commands.wrt_str("Floating",6)		
+				Counter2 = "Floating"					#
 		elif (data['gpgga'][6]) is '6':					#mode 
-			if (Counter2 == 5):
+			if (Counter2 == "Dead reckoning"):
 				return
 			else:
-				commands.wrt_str("Dead reckoning",6)		
-				Counter2 = 5					#
+				#commands.wrt_str("Dead reckoning",6)		
+				Counter2 = "Dead reckoning"					#
 		elif (data['gpgga'][6]) is '7':					#mode 
-			if (Counter2 == 1):
+			if (Counter2 == "Manual input"):
 				return
 			else:
-				commands.wrt_str("Manual input",6)		
-				Counter2 = 1								#
+				#commands.wrt_str("Manual input",6)		
+				Counter2 = "Manual input"								#
 		elif (data['gpgga'][6]) is '8':					#mode 
-			if (Counter2 == 6):
+			if (Counter2 == "Simulator"):
 				return
 			else:
-				commands.wrt_str("Simulator",6)		
-				Counter2 = 6									#
+				#commands.wrt_str("Simulator",6)		
+				Counter2 = "Simulator"									#
 		elif (data['gpgga'][6]) is '9':				#mode 
-			if (Counter2 == 7):
+			if (Counter2 == "WAAS"):
 				return
 			else:
-				commands.wrt_str("WAAS",6)					
-				Counter2 = 7						#
+				#commands.wrt_str("WAAS",6)					
+				Counter2 = "WAAS"						#
 		else:							#when no mode is noticed dont write out anything
-			if (Counter2 == 8):
+			if (Counter2 == "    "):
 				return
 			else:
-				commands.wrt_str("    ",6)		
-				Counter2 = 8				#
+				#commands.wrt_str("    ",6)		
+				Counter2 = "    "				#
 	except Exception, e:						#error message handling when above try fails
 		print (str(e))						#write out error message to terminal
 	return
