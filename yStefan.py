@@ -26,6 +26,10 @@ Counter2 = " "
 Counter3 = " "
 Counter4 = " "
 Counter5 = " "
+IP_String = bytearray()
+GPHDT_true = " "
+GPHDT_false = " "
+satCount = " "
 
 
 def portTry():
@@ -144,6 +148,7 @@ def readSerial(port):						#reading all the data that is send by the OEM7
 
 		exportData(data)									#call exportData def
 		displayData(data)									#call displayData def
+		ipData(data)
 		statusGPGGA(data)									#call statusGPGGA def
 		gphdt(data)
 		port.close()										#close port to OEM7
@@ -168,17 +173,26 @@ def exportData(data):						#def that prints data to the terminal, used to check 
 	tryIns(data)						#call on tryIns function
 	return
 
-def displayData(data):						#main write out to the display
 
-	#Sattalites
-	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
-	IP_String = bytearray()
-	if (IP_String == data[ip]):
+def satData(data):
+	global satCount
+	if (satCount == (data['gpgga'][7])):
+		pass
+	else:
+		commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7	
+		satCount = (data['gpgga'][7])
+
+
+def ipData(data):
+	global IP_String
+	if (IP_String == data['ip']):
 		pass
 	else:
 		IP_String.extend(data['ip'])
-		commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
-	#commands.wrt_str(data['ip'])
+		commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display	
+
+
+def displayData(data):						#main write out to the display
 	global Counter3
 	if (data['finesteering'] == True):			#testing for finesteering
 		print Counter3
@@ -254,11 +268,21 @@ def displayData(data):						#main write out to the display
 
 
 def gphdt(data):
+	global GPHDT_true
+	global GPHDT_false
 	try:
 		if (data['gphdt'] == True):
-			commands.wrt_str("Ok",4)
+			if(GPHDT_true == True):
+				pass
+			else:
+				commands.wrt_str("Ok",4)
+				GPHDT_true = True
 		else:
-			commands.wrt_str("Non",4)
+			if(GPHDT_false == True):
+				pass
+			else:
+				GPHDT_false = True
+				commands.wrt_str("Non",4)
 	
 	except Exception, e:
 		filewrite(str(e)+"\n")
@@ -356,9 +380,9 @@ def findWord(phrase, word):							#word seacher that is used by readSerial
 
 
 def exact_Match(phrase, word):							#exact match def for filtering words
-    b = r'(\s|^|$)'
-    res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
-    return bool(res)
+	b = r'(\s|^|$)'
+	res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
+	return bool(res)
 
 
 def statusGPGGA(data):								#used to determine the status for GPGGA
