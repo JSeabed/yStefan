@@ -18,7 +18,7 @@ import usb.util
 import re
 import sys
 import commands
-import readSerial
+import readingserial
 import RPi.GPIO as GPIO
 
 
@@ -31,7 +31,6 @@ IP_String = bytearray()
 GPHDT_true = " "
 GPHDT_false = " "
 satCount = " "
-
 
 def portTry():
 	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)
@@ -48,6 +47,7 @@ def portDefine():						#function to define the port the OEM7 is connected to
 	try:							#testing for OEM7
 		PORT = 		"/dev/ttyUSB1"
 		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
+		#readingserial.port
 	except Exception, e:					#used to write out error
 		#print error
 		filewrite(str(e)+"\n")				#write out error to textdocument
@@ -56,7 +56,10 @@ def portDefine():						#function to define the port the OEM7 is connected to
 		print('\nUSB niet aangesloten\n')		#send an error message to the terminal
 
 
-	readSerial(port)
+	readingserial.readSerial(port)
+	data = readingserial.readSerial(tdata)
+	print tdata
+	#exportData(data)
 
 
 def scanPorts():
