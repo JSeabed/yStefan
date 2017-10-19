@@ -81,26 +81,22 @@ void handleEvent (struct genieReplyStruct *reply) {
 	}
 }
 
-
+/* 
 int checkFifo(FILE *file){
 	int retval;
 	struct pollfd fd1;
 	fd1.fd = file;	
 	retval = poll(fd1, 1, TIMEOUT);
 	if(retval < 0){
-		/* error, select()*/
 	} else if(retval > 0){
-		/* Data is available*/
 		getData(file);
-		/* tell parent data is available*/
 	} else {
-		/* No data within x sec.*/
 	}
 	return true;
 }
+*/
 
-
-void getData(FILE *file){
+void getData(int fd_parent){
 	/* Get data from python script */
 	int n;
 	//int fd;
@@ -125,15 +121,19 @@ void getData(FILE *file){
 	unlink(myfifo);
 
 	/* fill data struct*/
-	struct data Newdata;
 	return 0;
 }
 
 int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
+	int fd_child, fd_parent;
+	int status;
 
 	pid_t child, p;
-	int status;
+
+	pipe(fd_child);
+	pipe(fd_parent);
+
 
 	if(genieSetup("/dev/ttyAMA0",9600)<0) {
 		printf("ViSi-Genie Failed to init display!\r\n");
@@ -151,9 +151,14 @@ int main (int argc, char** argv) {
 			/* Here enters the child */ 
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
-
+			close(fd_child[0]);
+			close(fd_parent[1]);
+			getData(fd_parent);
 		}
 
+		close(fd_child[1]);
+		close(fd_parent[0]);
+		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
