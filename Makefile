@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-I
-LIBS = lgeniePi
+LDFLAGS = -L/usr/local/lib
+LDLIBS = -lgeniePi
 
 genieInterface: genieInterface.o
-	$(CC) -o genieInterface genieInterface.o -I -lgeniePi
+	$(CC) -o genieInterface genieInterface.o -I $(LDFLAGS) $(LDLIBS)
