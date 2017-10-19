@@ -1,0 +1,15 @@
+volgorde:
+
+Voor alleen bestaande bestanden te updaten:
+
+git add -u
+git commit -m "bericht hier"
+git push
+
+
+nieuwe bestanden toevoegen
+git add <naam>
+
+
+controleren:
+git status
