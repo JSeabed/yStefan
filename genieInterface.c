@@ -126,13 +126,13 @@ void getData(int fd_parent){
 
 int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
-	int fd_child, fd_parent;
+	int fd_write, fd_read;
 	int status;
 
 	pid_t child, p;
 
-	pipe(fd_child);
-	pipe(fd_parent);
+	pipe(fd_write);
+	pipe(fd_read);
 
 
 	if(genieSetup("/dev/ttyAMA0",9600)<0) {
@@ -151,13 +151,13 @@ int main (int argc, char** argv) {
 			/* Here enters the child */ 
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
-			close(fd_child[0]);
-			close(fd_parent[1]);
+			close(fd_write);
+			close(fd_read);
 			getData(fd_parent);
 		}
 
-		close(fd_child[1]);
-		close(fd_parent[0]);
+		close(fd_write);
+		close(fd_read);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
