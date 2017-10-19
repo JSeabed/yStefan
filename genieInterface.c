@@ -100,7 +100,7 @@ void getData(int fd_write, int fd_read ){
 	/* Get data from python script */
 	char readBuffer[BUFFSIZE];
 
-	read(fd_read[1], &readBuffer, BUFFSIZE);
+	read(fd_read, &readBuffer, BUFFSIZE);
 	prinft("%s", readBuffer);
 
 	int n;
