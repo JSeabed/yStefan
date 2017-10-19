@@ -152,7 +152,7 @@ int main (int argc, char** argv) {
 			/* check if named pipe if filled*/
 			close(fd_write[0]);
 			close(fd_read[1]);
-			getData(fd_write, fd_read);
+			getData(fd_write[1], fd_read[0]);
 		}
 
 		close(fd_write[1]);
