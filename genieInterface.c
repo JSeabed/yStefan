@@ -158,6 +158,7 @@ int main (int argc, char** argv) {
 			/* Here enters the child */ 
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
+			printf("Child pid = %d \n", (int)child);
 			close(fd_write[0]);
 			close(fd_read[1]);
 			getData(fd_write[1], fd_read[0]);
