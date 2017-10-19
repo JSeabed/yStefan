@@ -126,7 +126,7 @@ void getData(int fd_parent){
 
 int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
-	int fd_write, fd_read;
+	int fd_write[2], fd_read[2];
 	int status;
 
 	pid_t child, p;
