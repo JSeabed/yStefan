@@ -96,12 +96,12 @@ int checkFifo(FILE *file){
 }
 */
 
-void getData(int fd_parent){
+void getData(int fd_parent, int fd_child ){
 	/* Get data from python script */
 	int n;
 	//int fd;
 	char buf[BUFFSIZE];
-	//FILE *file;
+	FILE *file;
 	char * myfifo = "/tmp/mypipe";
 
 	/* create the FIFO (named pipe) */
@@ -121,7 +121,6 @@ void getData(int fd_parent){
 	unlink(myfifo);
 
 	/* fill data struct*/
-	return 0;
 }
 
 int main (int argc, char** argv) {
@@ -153,7 +152,7 @@ int main (int argc, char** argv) {
 			/* check if named pipe if filled*/
 			close(fd_write[0]);
 			close(fd_read[1]);
-			getData(fd_parent);
+			getData(fd_write, fd_read);
 		}
 
 		close(fd_write[1]);
