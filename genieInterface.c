@@ -98,9 +98,9 @@ int checkFifo(FILE *file){
 
 void getData(int fd_write, int fd_read ){
 	/* Get data from python script */
-	char test[1000];
+	char readBuffer,[BUFFSIZE]
 
-	test = read(fd_read[1], &readBuffer, BUFFSIZE);
+	read(fd_read[1], &readBuffer, BUFFSIZE);
 	prinft("%s", test);
 
 	int n;
