@@ -101,7 +101,7 @@ void getData(int fd_write, int fd_read ){
 	char readBuffer[BUFFSIZE];
 
 	read(fd_read, &readBuffer, BUFFSIZE);
-	prinft("%s", readBuffer);
+	printf("%s", readBuffer);
 
 	int n;
 	//int fd;
