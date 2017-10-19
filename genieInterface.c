@@ -96,8 +96,13 @@ int checkFifo(FILE *file){
 }
 */
 
-void getData(int fd_parent, int fd_child ){
+void getData(int fd_write, int fd_read ){
 	/* Get data from python script */
+	char test[1000];
+
+	test = read(fd_read[1], &readBuffer, BUFFSIZE);
+	prinft("%s", test);
+
 	int n;
 	//int fd;
 	char buf[BUFFSIZE];
@@ -128,7 +133,12 @@ int main (int argc, char** argv) {
 	int fd_write[2], fd_read[2];
 	int status;
 
+	char test[20];
+	char readBuffer[512];
+	char writeBuffer[128];
+
 	pid_t child, p;
+	child = fork();
 
 	pipe(fd_write);
 	pipe(fd_read);
@@ -138,8 +148,6 @@ int main (int argc, char** argv) {
 		printf("ViSi-Genie Failed to init display!\r\n");
 		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
 	}
-	for(;;) {
-		child = fork();
 
 		if(child == (pid_t)-1){
 			/* failed to create child*/	
@@ -157,6 +165,10 @@ int main (int argc, char** argv) {
 
 		close(fd_write[1]);
 		close(fd_read[0]);
+
+		write(fd_read[0], &test, sizeof(test));
+	for(;;) {
+		read(fd_write[1], &readBuffer, BUFFSIZE);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
