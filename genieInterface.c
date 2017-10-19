@@ -151,13 +151,13 @@ int main (int argc, char** argv) {
 			/* Here enters the child */ 
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
-			close(fd_write);
-			close(fd_read);
+			close(fd_write[0]);
+			close(fd_read[1]);
 			getData(fd_parent);
 		}
 
-		close(fd_write);
-		close(fd_read);
+		close(fd_write[1]);
+		close(fd_read[0]);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
