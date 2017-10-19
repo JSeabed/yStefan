@@ -2,4 +2,4 @@ CC=gcc
 CFLAGS=-I
 
 genieInterface: genieInterface.o
-	$(CC) -o genieInterface genieInterface.o -I
+	$(CC) -o genieInterface genieInterface.o -I -lgeniePi
