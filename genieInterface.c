@@ -84,6 +84,8 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 int checkFifo(FILE *file){
 	int retval;
+	struct pollfd fd1;
+	fd1.fd = file;	
 	retval = poll(file, 1, TIMEOUT);
 	if(retval < 0){
 		/* error, select()*/
