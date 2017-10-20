@@ -143,7 +143,7 @@ int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
-	int status;
+	int status, ret;
 	struct pollfd pfd;
 	char test[20];
 	strcpy(test, "nigger");
