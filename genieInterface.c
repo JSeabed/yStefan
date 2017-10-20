@@ -144,6 +144,7 @@ int main (int argc, char** argv) {
 	int status;
 
 	char test[20];
+	strcpy(test, "nigger");
 	char readBuffer[512];
 	char writeBuffer[128];
 
