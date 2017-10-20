@@ -186,8 +186,19 @@ int main (int argc, char** argv) {
 		pfd.fd = fd_parent[0];
 		pfd.events = POLLIN;
 	for(;;) {
-		read(fd_parent[0], &readBuffer, BUFFSIZE);
-		printf("\n parent: %s", readBuffer);
+		ret = poll(pfd,2,TIMEOUT);
+		if(ret == -1){
+			printf("ret error\n");
+			exit(1);
+		}
+		if(!ret){
+			printf("error: Timout\n");
+		}
+		if(pfd.revents & POLLIN){
+			printf("in poll\n");
+			read(fd_parent[0], &readBuffer, BUFFSIZE);
+			printf("\n parent: %s", readBuffer);
+		}
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
