@@ -185,6 +185,7 @@ int main (int argc, char** argv) {
 		write(fd_child[1], &test, sizeof(test));
 	for(;;) {
 		read(fd_parent[0], &readBuffer, BUFFSIZE);
+		printf("\n parent: %s", readBuffer);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
