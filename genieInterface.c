@@ -152,19 +152,15 @@ int main (int argc, char** argv) {
 	//Init timeout
 	struct timeval tv;
 	// set timeout to x mSec
-	tv.tv_usec =200;
+	tv.tv_sec = 2;
 
 	fd_set set;
-
-
 
 	pipe(fd_child);
 	pipe(fd_parent);
 
 	pid_t child, p;
 	child = fork();
-
-
 
 	if(genieSetup("/dev/ttyAMA0",9600)<0) {
 		printf("ViSi-Genie Failed to init display!\r\n");
@@ -190,8 +186,8 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
-	FD_ZERO(&set);
-	FD_SET(fd_parent[0], &set);
+		FD_ZERO(&set);
+		FD_SET(fd_parent[0], &set);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
 		int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
@@ -207,7 +203,7 @@ int main (int argc, char** argv) {
 			usleep(200);
 		}	
 		//struct data Newdata; //TODO replace
-		usleep(20000);
+		usleep(10000);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
