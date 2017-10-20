@@ -146,13 +146,13 @@ int main (int argc, char** argv) {
 
 	char test[20];
 	strcpy(test, "nigger");
-	char readBuffer[512];
-	char writeBuffer[128];
+	char readBuffer[BUFFSIZE];
+	char writeBuffer[BUFFSIZE];
 
 	//Init timeout
 	struct timeval tv;
 	// set timeout to x mSec
-	tv.tv_usec =1000;
+	tv.tv_usec =200;
 
 	int retval;
 	fd_set set;
