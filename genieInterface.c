@@ -127,7 +127,6 @@ void getData(int fd_child, int fd_parent ){
 	/* remove the FIFO */
 	unlink(myfifo);
 
-	return void;
 	/* fill data struct*/
 }
 
@@ -180,9 +179,9 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
-		write(fd_read[1], &test, sizeof(test));
+		write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		read(fd_write[1], &readBuffer, BUFFSIZE);
+		read(fd_parent[0], &readBuffer, BUFFSIZE);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
