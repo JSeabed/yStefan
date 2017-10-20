@@ -96,11 +96,11 @@ int checkFifo(FILE *file){
 }
 */
 
-void getData(int fd_write, int fd_read ){
+void getData(int fd_child, int fd_parent ){
 	/* Get data from python script */
 	char readBuffer[BUFFSIZE];
 
-	read(fd_read, &readBuffer, BUFFSIZE);
+	read(fd_child, &readBuffer, BUFFSIZE);
 	printf("%s", readBuffer);
 
 	int n;
@@ -119,29 +119,41 @@ void getData(int fd_write, int fd_read ){
 	fgets(buf, BUFFSIZE, file);
 	printf("%s", buf);
 
+	write(fd_parent, buf, sizeof(buf));
+
 	//file = open(myfifo, O_WRONLY);
 	//fclose(file);
 
 	/* remove the FIFO */
 	unlink(myfifo);
 
+	return void;
 	/* fill data struct*/
 }
 
+
+void errorExit(char* error){
+	printf("%s\n", error);
+	//exit(0);
+}
+
+
 int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
-	int fd_write[2], fd_read[2];
+	// fd_child = child read | fd_parent = parent_read
+	int fd_child[2], fd_parent[2];
 	int status;
 
 	char test[20];
 	char readBuffer[512];
 	char writeBuffer[128];
 
+	pipe(fd_child);
+	pipe(fd_parent);
+
 	pid_t child, p;
 	child = fork();
 
-	pipe(fd_write);
-	pipe(fd_read);
 
 
 	if(genieSetup("/dev/ttyAMA0",9600)<0) {
@@ -158,16 +170,17 @@ int main (int argc, char** argv) {
 			/* Here enters the child */ 
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
-			printf("Child pid = %d \n", (int)child);
-			close(fd_write[0]);
-			close(fd_read[1]);
-			getData(fd_write[1], fd_read[0]);
+			//printf("Child pid = %d \n", (int)child);
+			close(fd_child[0]);
+			close(fd_parent[1]);
+			for(;;)
+				getData(fd_child[0], fd_parent[1]);
 		}
 
-		close(fd_write[1]);
-		close(fd_read[0]);
+		close(fd_parent[1]);
+		close(fd_child[0]);
 
-		write(fd_read[0], &test, sizeof(test));
+		write(fd_read[1], &test, sizeof(test));
 	for(;;) {
 		read(fd_write[1], &readBuffer, BUFFSIZE);
 		struct data Newdata; //TODO replace
