@@ -101,8 +101,8 @@ void getData(int fd_child, int fd_parent ){
 	/* Get data from python script */
 	char readBuffer[BUFFSIZE];
 	printf("Child here\n");
-	read(fd_child, &readBuffer, BUFFSIZE);
-	printf("%s", readBuffer);
+	//read(fd_child, &readBuffer, BUFFSIZE);
+	//printf("%s", readBuffer);
 
 	int n;
 	//int fd;
