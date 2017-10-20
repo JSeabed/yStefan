@@ -3,7 +3,6 @@ import errno
 
 FIFO = '/tmp/mypipe'
 
-print "Ik kom hier"
 try:
     os.mkfifo(FIFO)
 except OSError as oe: 
@@ -14,6 +13,8 @@ except OSError as oe:
     with open(FIFO, "w", 1) as fifo:
         print("FIFO opened")
         fifo.write("test")
+        fifo.write("123")
+        fifo.write("456")
         fifo.close()
         #while True:
         #    data = fifo.read()
