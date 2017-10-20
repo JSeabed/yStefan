@@ -186,7 +186,7 @@ int main (int argc, char** argv) {
 		pfd.fd = fd_parent[0];
 		pfd.events = POLLIN;
 	for(;;) {
-		ret = poll(pfd,2,TIMEOUT);
+		ret = poll(pfd,1,TIMEOUT);
 		if(ret == -1){
 			printf("ret error\n");
 			exit(1);
