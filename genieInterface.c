@@ -119,9 +119,9 @@ void getData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	fgets(buf, BUFFSIZE, file);
-	printf("%s", buf);
+	printf("%s \n", buf);
 
-	write(fd_parent, buf, sizeof(buf));
+	write(fd_parent, &buf, sizeof(buf));
 
 	//file = open(myfifo, O_WRONLY);
 	//fclose(file);
