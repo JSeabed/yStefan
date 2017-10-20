@@ -16,7 +16,7 @@
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
-#define BUFFSIZE 2048
+#define BUFFSIZE 4096
 #define TIMEOUT 5
 
 /*#define checksum(x) (x ^= x)*/
@@ -152,7 +152,7 @@ int main (int argc, char** argv) {
 	//Init timeout
 	struct timeval tv;
 	// set timeout to x mSec
-	tv.tv_usec = 50;
+	tv.tv_usec =1000;
 
 	int retval;
 	fd_set set;
