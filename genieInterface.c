@@ -197,10 +197,17 @@ int main (int argc, char** argv) {
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
 		retval = select(fd_parent[0], &rfds, NULL, NULL, &tv);
-
-		read(fd_parent[0], &readBuffer, BUFFSIZE);
-		printf("\n parent: %s", readBuffer);
-		struct data Newdata; //TODO replace
+		if(retval == -1){
+			printf("error: select()\n");
+		}
+		else if(retval){
+			printf("Data is available\n");
+			read(fd_parent[0], &readBuffer, BUFFSIZE);
+			printf("\n parent: %s", readBuffer);
+		} else { 
+			printf("Timeout!\n");
+		}	
+		//struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
