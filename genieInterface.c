@@ -144,7 +144,7 @@ int main (int argc, char** argv) {
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status;
-
+	struct pollfd pfd;
 	char test[20];
 	strcpy(test, "nigger");
 	char readBuffer[512];
