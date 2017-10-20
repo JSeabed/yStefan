@@ -107,7 +107,6 @@ void getData(int fd_child, int fd_parent ){
 	int n;
 	//int fd;
 	char buf[BUFFSIZE];
-	strcpy(buf, "reply\n");
 	FILE *file;
 	char * myfifo = "/tmp/mypipe";
 
@@ -152,8 +151,8 @@ int main (int argc, char** argv) {
 
 	//Init timeout
 	struct timeval tv;
-	// set timeout to 20 mSec
-	tv.tv_usec = 20;
+	// set timeout to x mSec
+	tv.tv_usec = 50;
 
 	int retval;
 	fd_set set;
@@ -206,6 +205,7 @@ int main (int argc, char** argv) {
 			printf("\n parent: %s", readBuffer);
 		} else { 
 			printf("Timeout!\n");
+			usleep(200);
 		}	
 		//struct data Newdata; //TODO replace
 		usleep(20000);
