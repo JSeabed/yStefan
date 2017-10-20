@@ -182,7 +182,7 @@ int main (int argc, char** argv) {
 
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		if(ret = checkSerial()){
+		if(ret = checkSerial(fd_parent[0])){
 			printf("Data is available\n");
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
@@ -204,7 +204,7 @@ int main (int argc, char** argv) {
 	return(0);
 }
 
-int checkSerial(){
+int checkSerial(int fd_parent){
 	//Init timeout
 	struct timeval tv;
 	// set timeout to x mSec
@@ -212,7 +212,7 @@ int checkSerial(){
 
 	fd_set set;
 	FD_ZERO(&set);
-	FD_SET(fd_parent[0], &set);
+	FD_SET(fd_parent, &set);
 
 	int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
 	if(retval == -1){
