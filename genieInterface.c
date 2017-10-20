@@ -156,7 +156,7 @@ int main (int argc, char** argv) {
 	tv.tv_usec = 20;
 
 	int retval;
-	fd_set rfds;
+	fd_set set;
 
 
 
@@ -192,11 +192,11 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
-	FD_ZERO(&rfds);
-	FD_SET(fd_parent[0], &rfds);
+	FD_ZERO(&set);
+	FD_SET(fd_parent[0], &set);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		retval = select(fd_parent[0], &rfds, NULL, NULL, &tv);
+		retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
 		if(retval == -1){
 			printf("error: select()\n");
 		}
