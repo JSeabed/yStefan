@@ -12,9 +12,9 @@ except OSError as oe:
     print("Opening FIFO...")
     with open(FIFO, "w", 1) as fifo:
         print("FIFO opened")
-        fifo.write("test")
-        fifo.write("123")
-        fifo.write("456")
+        fifo.write("test\n")
+        fifo.write("123\n")
+        fifo.write("456\n")
         fifo.close()
         #while True:
         #    data = fifo.read()
