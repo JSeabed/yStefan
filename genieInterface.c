@@ -107,6 +107,7 @@ void getData(int fd_child, int fd_parent ){
 	int n;
 	//int fd;
 	char buf[BUFFSIZE];
+	strcpy(buf, "reply\n");
 	FILE *file;
 	char * myfifo = "/tmp/mypipe";
 
