@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <sys/types.h> // pid
 #include <sys/time.h> // pid
-#include <sys/poll.h> // pid
+//#include <sys/poll.h> // pid
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
 #include <geniePi.h>
@@ -143,12 +143,20 @@ int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
-	int status, ret;
-	struct pollfd pfd;
+	int status;
+
 	char test[20];
 	strcpy(test, "nigger");
 	char readBuffer[512];
 	char writeBuffer[128];
+
+	//Init timeout
+	struct timeval tv;
+	// set timeout to 20 mSec
+	tv.tv_usec = 20;
+
+	int retval;
+
 
 	pipe(fd_child);
 	pipe(fd_parent);
@@ -183,22 +191,11 @@ int main (int argc, char** argv) {
 		close(fd_child[0]);
 
 		//write(fd_child[1], &test, sizeof(test));
-		pfd.fd = fd_parent[0];
-		pfd.events = POLLIN;
 	for(;;) {
-		ret = poll(pfd,1,TIMEOUT);
-		if(ret == -1){
-			printf("ret error\n");
-			exit(1);
-		}
-		if(!ret){
-			printf("error: Timout\n");
-		}
-		if(pfd.revents & POLLIN){
-			printf("in poll\n");
-			read(fd_parent[0], &readBuffer, BUFFSIZE);
-			printf("\n parent: %s", readBuffer);
-		}
+		retval = select(1, &fd_parent, NULL, NULL, &tv);
+
+		read(fd_parent[0], &readBuffer, BUFFSIZE);
+		printf("\n parent: %s", readBuffer);
 		struct data Newdata; //TODO replace
 		usleep(20000);
 		while(genieReplyAvail()) {
