@@ -183,8 +183,8 @@ int main (int argc, char** argv) {
 		close(fd_child[0]);
 
 		//write(fd_child[1], &test, sizeof(test));
-		fdp.fd = fd_parent;
-		fdp.events = POLLIN;
+		pfd.fd = fd_parent;
+		pfd.events = POLLIN;
 	for(;;) {
 		read(fd_parent[0], &readBuffer, BUFFSIZE);
 		printf("\n parent: %s", readBuffer);
