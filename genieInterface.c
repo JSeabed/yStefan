@@ -16,7 +16,7 @@
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
-#define BUFFSIZE 512
+#define BUFFSIZE 2048
 #define TIMEOUT 5
 
 /*#define checksum(x) (x ^= x)*/
