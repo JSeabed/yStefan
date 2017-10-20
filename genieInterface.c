@@ -152,7 +152,7 @@ int main (int argc, char** argv) {
 	//Init timeout
 	struct timeval tv;
 	// set timeout to x mSec
-	tv.tv_sec = 2;
+	tv.tv_sec = TIMEOUT;
 
 	fd_set set;
 
