@@ -179,8 +179,8 @@ int main (int argc, char** argv) {
 				getData(fd_child[0], fd_parent[1]);
 		}
 
-		close(fd_parent[1]);
-		close(fd_child[0]);
+		close(fd_parent[0]);
+		close(fd_child[1]);
 
 		write(fd_child[1], &test, sizeof(test));
 	for(;;) {
