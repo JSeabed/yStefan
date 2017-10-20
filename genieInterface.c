@@ -156,6 +156,8 @@ int main (int argc, char** argv) {
 	tv.tv_usec = 20;
 
 	int retval;
+	fd_set rfds;
+
 
 
 	pipe(fd_child);
@@ -190,9 +192,11 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
+	FD_ZERO(&rfds);
+	FD_SET(fd_parent[0], &rfds);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		retval = select(1, &fd_parent, NULL, NULL, &tv);
+		retval = select(fd_parent[0], &rfds, NULL, NULL, &tv);
 
 		read(fd_parent[0], &readBuffer, BUFFSIZE);
 		printf("\n parent: %s", readBuffer);
