@@ -143,18 +143,12 @@ int main (int argc, char** argv) {
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status;
+	int ret;
 
 	char test[20];
 	strcpy(test, "nigger");
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
-
-	//Init timeout
-	struct timeval tv;
-	// set timeout to x mSec
-	tv.tv_sec = TIMEOUT;
-
-	fd_set set;
 
 	pipe(fd_child);
 	pipe(fd_parent);
@@ -186,19 +180,15 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
-		FD_ZERO(&set);
-		FD_SET(fd_parent[0], &set);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
-		if(retval == -1){
-			printf("error: select()\n");
-		}
-		else if(retval){
+		if(ret = checkSerial()){
 			printf("Data is available\n");
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
-		} else { 
+		} else if(ret == -1){
+			/* error */
+		} else{
 			printf("Timeout!\n");
 			usleep(750);
 		}	
@@ -212,4 +202,26 @@ int main (int argc, char** argv) {
 	}
 
 	return(0);
+}
+
+int checkSerial(){
+	//Init timeout
+	struct timeval tv;
+	// set timeout to x mSec
+	tv.tv_sec = TIMEOUT;
+
+	fd_set set;
+	FD_ZERO(&set);
+	FD_SET(fd_parent[0], &set);
+
+	int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
+	if(retval == -1){
+		printf("error: select()\n");
+		return -1;
+	}
+	else if(retval){
+		return 1;
+	} else { 
+		return 0;
+	}
 }
