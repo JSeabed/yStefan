@@ -173,16 +173,16 @@ int main (int argc, char** argv) {
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
 			//printf("Child pid = %d \n", (int)child);
-			close(fd_child[0]);
-			close(fd_parent[1]);
+			close(fd_child[1]);
+			close(fd_parent[0]);
 			for(;;)
 				getData(fd_child[0], fd_parent[1]);
 		}
 
-		close(fd_parent[0]);
-		close(fd_child[1]);
+		close(fd_parent[1]);
+		close(fd_child[0]);
 
-		write(fd_child[1], &test, sizeof(test));
+		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
 		read(fd_parent[0], &readBuffer, BUFFSIZE);
 		printf("\n parent: %s", readBuffer);
