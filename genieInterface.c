@@ -154,7 +154,6 @@ int main (int argc, char** argv) {
 	// set timeout to x mSec
 	tv.tv_usec =200;
 
-	int retval;
 	fd_set set;
 
 
@@ -195,7 +194,7 @@ int main (int argc, char** argv) {
 	FD_SET(fd_parent[0], &set);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
+		int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
 		if(retval == -1){
 			printf("error: select()\n");
 		}
