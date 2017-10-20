@@ -200,7 +200,7 @@ int main (int argc, char** argv) {
 			printf("\n parent: %s", readBuffer);
 		} else { 
 			printf("Timeout!\n");
-			usleep(200);
+			usleep(750);
 		}	
 		//struct data Newdata; //TODO replace
 		usleep(10000);
