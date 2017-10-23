@@ -107,7 +107,7 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           		#close file
 
 
-def readSerial(port, pipeIn):						#reading all the data that is send by the OEM7
+def readSerial(port, pipeOut):						#reading all the data that is send by the OEM7
 #Read serial
 	try:							#testing if data is transmitted
 		data = {'ip': None, 'gpgga': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
