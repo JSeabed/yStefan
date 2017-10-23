@@ -202,6 +202,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		#os.write(pipeOut, str(data))
                 i = 0
                 for key, value in data.items():
+                    print value
                     if value is None:
                         value = "0"
                     else:
