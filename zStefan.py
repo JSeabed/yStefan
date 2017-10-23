@@ -69,29 +69,30 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-        print "Child checking FD"
-        r, _, _ = select.select([pipeIn], [], [], 5)
-        if not r:
-            #no data
-            print "No data in FD\n"
-            pass
-        else:
-            #data
-            print "data in FD\n"
-            #print os.read(pipeIn, 1024)
-	    print("Opening FIFO...\n")
-	    #pipeIn.readline()
-	    #readline(pipeIn,
-	    with open(FIFO, "w", 1) as fifo:
-	        print("FIFO opened")
-	        fifo.write(data[ip])
-	        fifo.close()
-	            #while True:
-	            #    data = fifo.read()
-	            #    if len(data) == 0:
-	            #            print("Writer closed")
-	            #            break
-	            #    print('Read: "{0}"'.format(data))
+        while True:
+            print "Child checking FD"
+            r, _, _ = select.select([pipeIn], [], [], 5)
+            if not r:
+                #no data
+                print "No data in FD\n"
+                pass
+            else:
+                #data
+                print "data in FD\n"
+                #print os.read(pipeIn, 1024)
+                print("Opening FIFO...\n")
+                #pipeIn.readline()
+                #readline(pipeIn,
+                with open(FIFO, "w", 1) as fifo:
+                    print("FIFO opened")
+                    fifo.write(data[ip])
+                    fifo.close()
+                        #while True:
+                        #    data = fifo.read()
+                        #    if len(data) == 0:
+                        #            print("Writer closed")
+                        #            break
+                        #    print('Read: "{0}"'.format(data))
 
 
 def scanPorts():
