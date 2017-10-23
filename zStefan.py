@@ -1,8 +1,6 @@
 #Written by Stefan van Delft 26/07/2017
 #Display is added by Martijn Rombouts
 #
-#
-#
 
 
 #mattie regex
@@ -21,6 +19,14 @@ import commands
 import RPi.GPIO as GPIO
 import os
 import errno
+import select
+
+#Used for debugging. 
+import logging
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+#exapmle
+#logging.debug('A debug message!')
+#logging.info('We processed %d records', len(processed_records))
 
 
 def portTry():
@@ -50,31 +56,34 @@ def portDefine():						#function to define the port the OEM7 is connected to
 		print('\nUSB niet aangesloten\n')		#send an error message to the terminal
 
 
-	readSerial(port)
+	return port
+	#readSerial(port)
 
 
-def fifoPort(data):
+def fifoPort(pipeIn):
 	FIFO = '/tmp/mypipe'
-
+        print "Child: preparing fifo\n"
 	try:
 	    os.mkfifo(FIFO)
 	except OSError as oe: 
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-	    print("Opening FIFO...")
+        r = select.select([pipeIn], [], [])
+        if r is not None:
+	    print("Opening FIFO...\n")
 	    with open(FIFO, "w", 1) as fifo:
 	        print("FIFO opened")
 	        fifo.write(data[ip])
-	       # fifo.write("123\n")
-	       # fifo.write("456\n")
 	        fifo.close()
-	        #while True:
-	        #    data = fifo.read()
-	        #    if len(data) == 0:
-	        #            print("Writer closed")
-	        #            break
-	        #    print('Read: "{0}"'.format(data))
+	            #while True:
+	            #    data = fifo.read()
+	            #    if len(data) == 0:
+	            #            print("Writer closed")
+	            #            break
+	            #    print('Read: "{0}"'.format(data))
+	else:
+            print "error: select failed."
 
 
 def scanPorts():
@@ -90,7 +99,7 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           		#close file
 
 
-def readSerial(port):						#reading all the data that is send by the OEM7
+def readSerial(port, pipeOut):						#reading all the data that is send by the OEM7
 #Read serial
 	try:							#testing if data is transmitted
 		data = {'ip': None, 'gpgga': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
@@ -309,6 +318,18 @@ def statusGPGGA(data):							#used to determine the status for GPGGA
 		print (str(e))						#write out error message to terminal
 	return
 
+#create subprocess for fifo
+pipeIn, pipeOut = os.pipe()
+try:
+    pid = os.fork()
+except Exception as e:
+    print str(e)
+    exit()
+if pid is 0:
+    #child process
+    fifoPort(pipeIn)
+    exit()
+
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
@@ -318,5 +339,6 @@ portTry()				#call on function portTry
 scanPorts()				#call on function scanPorts
 #port.close()
 while True:				#while loop to make the program run indefinitally
-	portDefine()			#call on function portDefine
+	port = portDefine()			#call on function portDefine (TODO better description)
+	readSerial(port, pipeOut)
 
