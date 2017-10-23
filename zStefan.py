@@ -20,6 +20,7 @@ import RPi.GPIO as GPIO
 import os
 import errno
 import select
+from collections import namedtuple
 
 #Used for debugging. 
 import logging
@@ -114,7 +115,40 @@ def filewrite(rcv):                             		#Function to write data to a .
 
 def readSerial(port, pipeOut):						#reading all the data that is send by the OEM7
 #Read serial
-	try:							#testing if data is transmitted
+	try:		    #testing if data is transmitted
+
+                #create C-like structure so we can sent it to genieInterface.c
+                cStruct = namedtuple("cData",  
+                        " \
+                         ip  \
+                         gpgga \
+                         ins_active  \
+                         ins_aligning  \
+                         ins_high_variance \
+                         ins_solution_good \
+                         ins_solution_free \
+                         ins_alignment_complete \
+                         determining_orientation \
+                         waiting_initialpos \
+                         waiting_azimuth \
+                         initializing_biases \
+                         motion_detect \
+                         finesteering \
+                         coarsesteering \
+                         unknown \
+                         aproximate \
+                         coarseadjusting \
+                         coarse \
+                         freewheeling \
+                         fineadjusting \
+                         fine \
+                         finebackupsteering \
+                         sattime \
+                         ins \
+                        ")
+                cData = cStruct
+
+
 		data = {'ip': None, 'gpgga': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
 		j = 0
 		rcv = [None]*25
@@ -131,6 +165,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 				data['ip'] = m.group()								#adding IP to the dictionary
 			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):			#
 				data['finesteering'] = True							#adding finesteering to the dictionary
+				cData(finesteering = 1)
 			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
 				data['coursesteering'] = True							#adding coursesteering to the dictonary
 			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
@@ -200,25 +235,9 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                 #print "Parent: writing data to child through FD\n"
                 logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
-                i = 0
-                for key, value in data.items():
-                    print value
-                    if value is None:
-                        value = "0"
-                    else:
-                        value = "1"
-                    dataStr[i] = value
-                    i = i + 1
-                try:
-                    print dataStr
-                except Exception as e:
-                    print str(e)
+		print cData(finesteering)
+    
 
-                try:
-                    val_string = ','.join(data.itervalues())
-                except Exception as e:
-                    print str(e)
-                print val_string
 		os.write(pipeOut, "HAAAALLLLLLLLOOOOOO\n")
 
 
