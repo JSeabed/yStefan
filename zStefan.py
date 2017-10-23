@@ -77,6 +77,7 @@ def fifoPort(pipeIn):
             pass
         else:
             #data
+            print "data in FD\n"
             print os.read(pipeIn, 1024)
 	    print("Opening FIFO...\n")
 	    #pipeIn.readline()
