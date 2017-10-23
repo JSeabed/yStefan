@@ -200,6 +200,16 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                 #print "Parent: writing data to child through FD\n"
                 logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
+                i = 0
+                for key, value in data.items():
+                    if value is None:
+                        value = "0"
+                    else:
+                        value = "1"
+                    dataStr[i] = value
+                    i = i + 1
+                print dataStr
+
                 try:
                     val_string = ','.join(data.itervalues())
                 except Exception as e:
