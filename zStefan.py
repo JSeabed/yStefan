@@ -69,7 +69,13 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-        r = select.select([pipeIn], [], [])
+        r, _, _ = select.select([pipeIn], [], [], 1)
+        if not r:
+            #no data
+            pass
+        else:
+            #data
+            print os.read(pipeIn, 1024)
         print "r = \n"
         print r
         if r is not None:
@@ -188,7 +194,7 @@ def readSerial(port, pipeIn):						#reading all the data that is send by the OEM
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
-		write(pipeIn, data)
+		write(pipeOut, data)
 
 
 	except Exception, e:					#not receiving data from OEM7
@@ -333,11 +339,11 @@ except Exception as e:
     exit()
 if pid is 0:
     #child process
-    os.close(pipeOut)
+    #os.close(pipeOut)
     fifoPort(pipeIn)
     exit()
 
-os.close(pipeIn)
+#os.close(pipeIn)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
@@ -348,5 +354,5 @@ scanPorts()				#call on function scanPorts
 #port.close()
 while True:				#while loop to make the program run indefinitally
 	port = portDefine()			#call on function portDefine (TODO better description)
-	readSerial(port, pipeIn)
+	readSerial(port, pipeOut)
 
