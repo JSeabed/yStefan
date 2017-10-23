@@ -169,7 +169,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 				data['ip'] = m.group()								#adding IP to the dictionary
 			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):			#
 				data['finesteering'] = True							#adding finesteering to the dictionary
-				cData = cStruct(finesteering = 1)
+				#cData = cStruct(finesteering = 1)
 			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
 				data['coursesteering'] = True							#adding coursesteering to the dictonary
 			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
@@ -239,7 +239,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                 #print "Parent: writing data to child through FD\n"
                 logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
-		print cData
+		#print cData
     
 
 		os.write(pipeOut, "HAAAALLLLLLLLOOOOOO\n")
