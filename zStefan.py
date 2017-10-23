@@ -208,7 +208,10 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                         value = "1"
                     dataStr[i] = value
                     i = i + 1
-                print dataStr
+                try:
+                    print dataStr
+                except Exception as e:
+                    print str(e)
 
                 try:
                     val_string = ','.join(data.itervalues())
