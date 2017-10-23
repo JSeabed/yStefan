@@ -23,7 +23,8 @@ import select
 
 #Used for debugging. 
 import logging
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+#logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr)
 #exapmle
 #logging.debug('A debug message!')
 #logging.info('We processed %d records', len(processed_records))
