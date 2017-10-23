@@ -194,7 +194,9 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
                 print "Parent: writing data to child through FD\n"
-		os.write(pipeOut, "HALLLLLLLLLOOOOOO\n")
+                for i in data:
+		    os.write(pipeOut, i)
+
 
 
 	except Exception, e:					#not receiving data from OEM7
