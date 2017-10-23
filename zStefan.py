@@ -76,11 +76,8 @@ def fifoPort(pipeIn):
         else:
             #data
             print os.read(pipeIn, 1024)
-        print "r = \n"
-        print r
-        if r is not None:
 	    print("Opening FIFO...\n")
-	    pipeIn.readline()
+	    #pipeIn.readline()
 	    #readline(pipeIn,
 	    with open(FIFO, "w", 1) as fifo:
 	        print("FIFO opened")
@@ -92,8 +89,6 @@ def fifoPort(pipeIn):
 	            #            print("Writer closed")
 	            #            break
 	            #    print('Read: "{0}"'.format(data))
-	else:
-            print "error: select failed."
 
 
 def scanPorts():
