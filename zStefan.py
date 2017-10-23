@@ -70,7 +70,7 @@ def fifoPort(pipeIn):
 	        raise
 
         print "Child checking FD"
-        r, _, _ = select.select([pipeIn], [], [], 1)
+        r, _, _ = select.select([pipeIn], [], [], 5)
         if not r:
             #no data
             print "No data in FD\n"
@@ -192,6 +192,7 @@ def readSerial(port, pipeIn):						#reading all the data that is send by the OEM
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
+                print "Parent: writing data to child through FD\n"
 		write(pipeOut, data)
 
 
