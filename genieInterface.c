@@ -17,7 +17,7 @@
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
 #define BUFFSIZE 4096
-#define TIMEOUT 5
+#define TIMEOUT 250
 
 /*#define checksum(x) (x ^= x)*/
 
@@ -53,6 +53,9 @@ struct data{
 	bool ins;
 };
 
+//struct data Newdata; //TODO replace
+struct data oldData;
+
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
@@ -64,15 +67,20 @@ void handleEvent (struct genieReplyStruct *reply) {
 				/* Main screen. Show no data. Save data.*/
 				genieWriteStr(1,"You pressed the RED button.");
 				genieWriteObj(GENIE_OBJ_FORM, 1, 1);
-				printf("RED");
-				printf("%d\n");
+				#if DEBUG
+					printf("RED");
+					printf("%d\n");
+				#endif
 				break;
 			case 1:
 				/* Screen with data. Obtain old data? */
 				genieWriteStr(2,"You pressed the GREEN button.");
 				genieWriteObj(GENIE_OBJ_FORM,0, 1);
-				printf("Green");
-				printf("%d\n");
+				#if DEBUG
+					printf("Green");
+					printf("%d\n");
+				#endif
+				// sentData();
 				break;
 			default:
 				printf("Error, index not in range or found.");
@@ -80,6 +88,10 @@ void handleEvent (struct genieReplyStruct *reply) {
 				break;
 		}
 	}
+}
+
+int sentData(){
+	
 }
 
 /* 
@@ -129,6 +141,14 @@ void getData(int fd_child, int fd_parent ){
 	unlink(myfifo);
 
 	/* fill data struct*/
+}
+
+/************************************************************************
+ * Fetch the received data from the python script to the data structure *
+ * *********************************************************************/
+int fetchData(struct data, char *buf){
+	//data.ip = 
+	return 1;
 }
 
 
@@ -182,18 +202,23 @@ int main (int argc, char** argv) {
 
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		if(ret = checkSerial(fd_parent[0])){
-			printf("Data is available\n");
+		if(ret = checkFd(fd_parent[0])){
+			#if DEBUG
+				printf("Data is available\n");
+			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
+			// fetchData();
 		} else if(ret == -1){
 			/* error */
 		} else{
-			printf("Timeout!\n");
-			usleep(750);
+			#if DEBUG
+				printf("Timeout!\n");
+			#endif
+			usleep(250);
 		}	
 		//struct data Newdata; //TODO replace
-		usleep(10000);
+		usleep(1000);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
@@ -203,12 +228,14 @@ int main (int argc, char** argv) {
 
 	return(0);
 }
-
-int checkSerial(int fd_parent){
+/************************************
+ * Check file descriptor with child.*
+ ***********************************/
+int checkFd(int fd_parent){
 	//Init timeout
 	struct timeval tv;
-	// set timeout to x mSec
-	tv.tv_sec = TIMEOUT;
+	// set timeout to x Sec
+	tv.tv_usec = TIMEOUT;
 
 	fd_set set;
 	FD_ZERO(&set);
@@ -220,8 +247,10 @@ int checkSerial(int fd_parent){
 		return -1;
 	}
 	else if(retval){
+		/* Data is available */
 		return 1;
 	} else { 
+		/* Timeout */
 		return 0;
 	}
 }
