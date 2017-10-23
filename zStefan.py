@@ -69,10 +69,11 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-        print "hild checking FD"
+        print "Child checking FD"
         r, _, _ = select.select([pipeIn], [], [], 1)
         if not r:
             #no data
+            print "No data in FD\n"
             pass
         else:
             #data
