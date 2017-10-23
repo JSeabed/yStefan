@@ -101,7 +101,7 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           		#close file
 
 
-def readSerial(port, pipeOut):						#reading all the data that is send by the OEM7
+def readSerial(port, pipeIn):						#reading all the data that is send by the OEM7
 #Read serial
 	try:							#testing if data is transmitted
 		data = {'ip': None, 'gpgga': None, 'ins_active': None, 'ins_inactive': None, 'ins_aligning': None, 'ins_high_variance': None, 'ins_solution_good': None, 'ins_solution_free': None, 'ins_alignment_complete': None, 'determining_orientation': None, 'waiting_initialpos': None, 'waiting_azimuth': None, 'initializing_biases': None, 'motion_detect': None, 'finesteering': None, 'coarsesteering': None, 'unknown': None, 'aproximate': None, 'coarseadjusting': None, 'coarse': None, 'freewheeling': None, 'fineadjusting': None, 'fine': None, 'finebackupsteering': None, 'sattime': None, 'gpgga': None, 'ins': None}		#define what to expect in the dictionary
@@ -331,9 +331,11 @@ except Exception as e:
     exit()
 if pid is 0:
     #child process
+    os.close(pipeIn)
     fifoPort(pipeIn)
     exit()
 
+os.close(pipeOut)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
@@ -344,5 +346,5 @@ scanPorts()				#call on function scanPorts
 #port.close()
 while True:				#while loop to make the program run indefinitally
 	port = portDefine()			#call on function portDefine (TODO better description)
-	readSerial(port, pipeOut)
+	readSerial(port, pipeIn)
 
