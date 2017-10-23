@@ -200,6 +200,8 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                 #print "Parent: writing data to child through FD\n"
                 logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
+                val_string = ','.join(data.itervalues())
+                print val_string
 		os.write(pipeOut, "HAAAALLLLLLLLOOOOOO\n")
 
 
