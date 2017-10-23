@@ -331,11 +331,11 @@ except Exception as e:
     exit()
 if pid is 0:
     #child process
-    os.close(pipeIn)
+    os.close(pipeOut)
     fifoPort(pipeIn)
     exit()
 
-os.close(pipeOut)
+os.close(pipeIn)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
