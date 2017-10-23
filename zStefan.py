@@ -70,6 +70,8 @@ def fifoPort(pipeIn):
 	        raise
 
         r = select.select([pipeIn], [], [])
+        print "r = \n"
+        print r
         if r is not None:
 	    print("Opening FIFO...\n")
 	    pipeIn.readline()
