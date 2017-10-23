@@ -72,6 +72,8 @@ def fifoPort(pipeIn):
         r = select.select([pipeIn], [], [])
         if r is not None:
 	    print("Opening FIFO...\n")
+	    pipeIn.readline()
+	    #readline(pipeIn,
 	    with open(FIFO, "w", 1) as fifo:
 	        print("FIFO opened")
 	        fifo.write(data[ip])
@@ -183,7 +185,9 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
-		fifoPort((data['ip']))
+		#fifoPort((data['ip']))
+		write(pipeOut, data)
+
 
 	except Exception, e:					#not receiving data from OEM7
 		#print error
