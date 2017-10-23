@@ -70,21 +70,24 @@ def fifoPort(pipeIn):
 	        raise
 
         while True:
-            print "Child checking FD"
+            #print "Child checking FD"
+            logging.debug("Child checking FD")
             r, _, _ = select.select([pipeIn], [], [], 5)
             if not r:
                 #no data
-                print "No data in FD\n"
+                logging.debug("No data in FD")
+                #print "No data in FD\n"
                 pass
             else:
                 #data available
-                print "data in FD\n"
+                logging.debug("Data in FD")
+                #print "data in FD\n"
                 data =  os.read(pipeIn, 1024)
-                print("Opening FIFO...\n")
+                logging.debug("Opening FIFO...\n")
                 #pipeIn.readline()
                 #readline(pipeIn,
                 with open(FIFO, "w", 1) as fifo:
-                    print("FIFO opened")
+                    logging.debug("FIFO opened")
                     fifo.write(data)
                     fifo.close()
                         #while True:
@@ -193,7 +196,8 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
-                print "Parent: writing data to child through FD\n"
+                #print "Parent: writing data to child through FD\n"
+                logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
 		os.write(pipeOut, "HAAAALLLLLLLLOOOOOO\n")
 
