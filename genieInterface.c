@@ -146,10 +146,10 @@ void getData(int fd_child, int fd_parent ){
 /************************************************************************
  * Fetch the received data from the python script to the data structure *
  * *********************************************************************/
-int fetchData(struct data, char *buf){
+/*int fetchData(struct data, char *buf){
 	//data.ip = 
 	return 1;
-}
+}*/
 
 
 void errorExit(char* error){
