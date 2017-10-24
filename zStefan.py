@@ -270,7 +270,7 @@ def printData(data):						#def that prints data to the terminal, used to check f
 	print(data['finesteering'])				#print dictionary finesteering
 	return
 
-def displayData(data, pipeOut):						#main write out to the display
+def displayData(data):						#main write out to the display
 
 	#Sattalites
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
