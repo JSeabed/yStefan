@@ -224,7 +224,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
 		exportData(data)									#call exportData def
 		displayData(data)									#call displayData def
-		statusGPGGA(data)									#call statusGPGGA def
+		statusGPGGA(data, pipeOut)									#call statusGPGGA def
 
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
@@ -296,36 +296,36 @@ def displayData(data):						#main write out to the display
 	return
 
 
-def tryIns(data):							#def to determine INS
-	try:								#try to define, if failed goes to except
-		partup = (data['ins'][20])				#define dictionary entry 20 from ins as partup for further filtering
-		clean_Ins = partup.split('*')				#split up partup
-		data['insclean'] = clean_Ins				#add the split entry's as seperate dictionary adresses
-		print(data['insclean'][0])				#print the wanted dictionary adress to the terminal for control
-		if (data['ins_active'] == True):			#check library if ins active is true
-			commands.wrt_str("Ins active",2)		#write to display on adress 2 of the string list
+def tryIns(data):										#def to determine INS
+	try:												#try to define, if failed goes to except
+		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
+		clean_Ins = partup.split('*')					#split up partup
+		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
+		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
+		if (data['ins_active'] == True):				#check library if ins active is true
+			os.write(pipeOut, ("Ins active"))			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
-			commands.wrt_str("Ins aligning",2)		#write out only if aligning is true
+			os.write(pipeOut, ("Ins aligning"))			#write out only if aligning is true
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
-			commands.wrt_str("Ins high variance",2)		#write out only if above check passes
+			os.write(pipeOut, ("Ins high variance"))	#write out only if above check passes
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
-			commands.wrt_str("Ins solution good",2)		#write out only if above check passes
+			os.write(pipeOut, ("Ins solution good"))		#write out only if above check passes
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
-			commands.wrt_str("Ins solution free",2)		#write out only if above check passes
+			os.write(pipeOut, ("Ins solution free"))		#write out only if above check passes
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
-			commands.wrt_str("Ins alignment complete",2)	#
+			os.write(pipeOut, ("Ins alignment complete"))	#
 		elif (data['determining_orientation'] == True):		#
-			commands.wrt_str("Determining orientation",2)	#
+			os.write(pipeOut, ("Determining orientation"))	#
 		elif (data['waiting_initialpos'] == True):		#
-			commands.wrt_str("Waiting initialpos",2)	#
+			os.write(pipeOut, ("Waiting initialpos"))	#
 		elif (data['waiting_azimuth'] == True):			#
-			commands.wrt_str("Waiting azimuth",2)		#
+			os.write(pipeOut, ("Waiting azimuth"))		#
 		elif (data['initializing_biases'] == True):		#
-			commands.wrt_str("Initializing biases",2)	#
+			os.write(pipeOut, ("Initializing biases"))	#
 		elif (data['motion_detect'] == True):			#
-			commands.wrt_str("Motion detect",2)		#
-		else:							#when INS is inactive
-			commands.wrt_str("Ins inactive",2)		#write to display on adress 2 of the string list
+			os.write(pipeOut, ("Motion detect"))		#
+		else:											#when INS is inactive
+			os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
 			return
 	except Exception, e:						#error handling INS testing
 		#print error
@@ -346,30 +346,30 @@ def exact_Match(phrase, word):						#exact match def for filtering words
     return bool(res)
 
 
-def statusGPGGA(data):							#used to determine the status for GPGGA
+def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
-			commands.wrt_str("No fix",6)			#
+			os.write(pipeOut, ("No fix"))
 		elif (data['gpgga'][6]) is '1':				#mode
-			commands.wrt_str("Single point",6)		#
+			os.write(pipeOut, ("Single point"))
 		elif (data['gpgga'][6]) is '2':				#mode
-			commands.wrt_str("Pseudorange",6)		#
+			os.write(pipeOut, ("Pseudorange"))
 		elif (data['gpgga'][6]) is '3':				#mode
-			commands.wrt_str("   ",6)				#
+			os.write(pipeOut, (". . ."))
 		elif (data['gpgga'][6]) is '4':				#mode
-			commands.wrt_str("Fixed",6)				#
+			os.write(pipeOut, ("Fixed"))
 		elif (data['gpgga'][6]) is '5':				#mode
-			commands.wrt_str("Floating",6)			#
+			os.write(pipeOut, ("Floating"))
 		elif (data['gpgga'][6]) is '6':				#mode
-			commands.wrt_str("Dead reckoning",6)	#
+			os.write(pipeOut, ("Dead reckoning"))
 		elif (data['gpgga'][6]) is '7':				#mode
-			commands.wrt_str("Manual input",6)		#
+			os.write(pipeOut, ("Manual input"))
 		elif (data['gpgga'][6]) is '8':				#mode
-			commands.wrt_str("Simulator",6)			#
+			os.write(pipeOut, ("Simulator"))
 		elif (data['gpgga'][6]) is '9':				#mode
-			commands.wrt_str("WAAS",6)				#
+			os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
-			commands.wrt_str("    ",6)				#
+			os.write(pipeOut, (". . ."))
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
 	return
