@@ -183,30 +183,30 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 				data['finebackupsteering'] = True
 			if(exact_Match(word,"SATTIME") and data['sattime'] is None):				#
 				data['sattime'] = True
-                        if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
-                                data['ins_active'] = True
-                        if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
-                                data['ins_inactive'] = True
-                        if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
-                                data['ins_aligning'] = True
-                        if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
-                                data['ins_high_variance'] = True
-                        if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
-                                data['ins_solution_good'] = True
-                        if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
-                                data['ins_solution_free'] = True
-                        if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
-                                data['ins_alignment_complete'] = True
-                        if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
-                                data['determining_orientation'] = True
-                        if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
-                                data['waiting_initialpos'] = True
-                        if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
-                                data['waiting_azimuth'] = True
-                        if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
-                                data['initializing_biases'] = True
-                        if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
-                                data['motion_detect'] = True
+        	if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
+    			data['ins_active'] = True
+       		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
+        		data['ins_inactive'] = True
+    		if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
+        		data['ins_aligning'] = True
+    		if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
+        		data['ins_high_variance'] = True
+       		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
+        		data['ins_solution_good'] = True
+    		if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
+        		data['ins_solution_free'] = True
+    		if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
+        		data['ins_alignment_complete'] = True
+    		if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
+        		data['determining_orientation'] = True
+    		if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
+        		data['waiting_initialpos'] = True
+    		if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
+        		data['waiting_azimuth'] = True
+    		if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
+        		data['initializing_biases'] = True
+    		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
+    			data['motion_detect'] = True
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
