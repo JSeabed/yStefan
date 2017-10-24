@@ -97,7 +97,8 @@ def fifoPort(pipeIn):
                 #readline(pipeIn,
                 #with open(FIFO, "w", 1) as fifo:
                 logging.debug("FIFO opened")
-                os.write(fifo, data + ', '+ '\n')
+                for i in data:
+                    os.write(fifo, i + ', '+ '\n')
                     #fifo.write("\0")
         fifo.close()
                         #while True:
@@ -370,7 +371,8 @@ def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
 			os.write(pipeOut, ("No fix"))
 		elif (data['gpgga'][6]) is '1':				#mode
-			os.write(pipeOut, ("Single point"))
+		        pass
+			#os.write(pipeOut, ("Single point"))
 		elif (data['gpgga'][6]) is '2':				#mode
 			os.write(pipeOut, ("Pseudorange"))
 		elif (data['gpgga'][6]) is '3':				#mode
