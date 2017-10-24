@@ -229,7 +229,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
                 tmpList = [data['ip'], data['ins']]
                 for i in tmpList:
-                    os.write(pipeOut, i)
+                    os.write(pipeOut, str(i))
 		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
 		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
 		statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
