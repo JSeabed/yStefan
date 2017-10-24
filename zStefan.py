@@ -260,7 +260,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 		commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
 		print str(e)
-		time.sleep(1)								#put 10 second delay in before repeating try functions
+		#time.sleep(1)								#put 10 second delay in before repeating try functions
 
 
 
