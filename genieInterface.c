@@ -109,10 +109,10 @@ int checkFifo(FILE *file){
 }
 */
 
-void getData(int fd_child, int fd_parent ){
+void childGetData(int fd_child, int fd_parent ){
 	/* Get data from python script */
 	char readBuffer[BUFFSIZE];
-	printf("Child here\n");
+	//printf("Child here\n");
 	//read(fd_child, &readBuffer, BUFFSIZE);
 	//printf("%s", readBuffer);
 
@@ -130,11 +130,13 @@ void getData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-	  fgets(buf, BUFFSIZE, file);
-	  printf("%s \n", buf);
-
+	  if(fgets(buf, BUFFSIZE, file) > 0){
+	  //printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
-
+	  }
+	  else{
+	    break;
+	  }
 	  //file = open(myfifo, O_WRONLY);
 	  //fclose(file);
 	}
@@ -166,8 +168,6 @@ int main (int argc, char** argv) {
 	int status;
 	int ret;
 
-	char test[20];
-	strcpy(test, "nigger");
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
 
@@ -194,7 +194,7 @@ int main (int argc, char** argv) {
 			//printf("Child pid = %d \n", (int)child);
 			close(fd_child[1]);
 			close(fd_parent[0]);
-			getData(fd_child[0], fd_parent[1]);
+			childGetData(fd_child[0], fd_parent[1]);
 		}
 
 		close(fd_parent[1]);
@@ -219,11 +219,11 @@ int main (int argc, char** argv) {
 			usleep(250);
 		}	
 		//struct data Newdata; //TODO replace
-		usleep(1000);
+		usleep(250);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
-			usleep(20000); // wait 20ms between polls to save CPU
+			usleep(250); // wait 20ms between polls to save CPU
 		}
 	}
 
