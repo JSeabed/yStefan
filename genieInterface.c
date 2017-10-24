@@ -216,14 +216,14 @@ int main (int argc, char** argv) {
 			#if DEBUG
 				printf("Timeout!\n");
 			#endif
-			usleep(250);
+			usleep(750);
 		}	
 		//struct data Newdata; //TODO replace
-		usleep(250);
+		usleep(750);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
-			usleep(250); // wait 20ms between polls to save CPU
+			usleep(750); // wait 20ms between polls to save CPU
 		}
 	}
 
