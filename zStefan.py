@@ -230,14 +230,14 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
         #print "Parent: writing data to child through FD\n"
-        logging.debug("Parent: writing data to child through FD\n")
+                logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
 		#print cData
 
 
         #write to the fifo pipe (to genieInterface)
 		os.write(pipeOut, data['ip'])
-        time.sleep(1)
+                time.sleep(1)
 		os.write(pipeOut, data['ins'])
 
 
