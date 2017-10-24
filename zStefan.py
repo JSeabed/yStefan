@@ -31,6 +31,8 @@ logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 #logging.info('We processed %d records', len(processed_records))
 
 
+usleep = lambda x: time.sleep(x/1000000.0)
+
 #ID's
 IP_ID = "0: "
 GPGGA_ID = "1: "
@@ -236,7 +238,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
                 print "i is: \n"
                 for i in sendList:
                     os.write(pipeOut, i)
-                    time.usleep(100)
+                    usleep(100)
 		
                # os.write(pipeOut, data['ip'])
 
