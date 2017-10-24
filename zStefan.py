@@ -22,7 +22,7 @@ import errno
 import select
 from collections import namedtuple
 
-#Used for debugging. 
+#Used for debugging.
 import logging
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 #logging.basicConfig(stream=sys.stderr)
@@ -67,7 +67,7 @@ def fifoPort(pipeIn):
         print "Child: preparing fifo\n"
 	try:
 	    os.mkfifo(FIFO)
-	except OSError as oe: 
+	except OSError as oe:
 	    if oe.errno != errno.EEXIST:
 	        raise
 
@@ -91,6 +91,7 @@ def fifoPort(pipeIn):
                 with open(FIFO, "w", 1) as fifo:
                     logging.debug("FIFO opened")
                     fifo.write(data)
+					fifo.write("\0")
                     fifo.close()
                         #while True:
                         #    data = fifo.read()
@@ -107,50 +108,15 @@ def scanPorts():
 
 
 def filewrite(rcv):                             		#Function to write data to a .txt file
-	logfile = open("templog.txt", "a")      		#open file
+	logfile = open("templog.txt", "a")      			#open file
 	logfile.write(str(datetime.datetime.now()) + "\n")	#adding time of error
-	logfile.write(rcv)                      		#write line in file
-	logfile.close                           		#close file
+	logfile.write(rcv)                      			#write line in file
+	logfile.close                           			#close file
 
 
-def readSerial(port, pipeOut):						#reading all the data that is send by the OEM7
+def readSerial(port, pipeOut):							#reading all the data that is send by the OEM7
 #Read serial
-
-        try:
-                #create C-like structure so we can sent it to genieInterface.c
-                cStruct = namedtuple("cData",  
-                        " \
-                         ip  \
-                         gpgga \
-                         ins_active  \
-                         ins_aligning  \
-                         ins_high_variance \
-                         ins_solution_good \
-                         ins_solution_free \
-                         ins_alignment_complete \
-                         determining_orientation \
-                         waiting_initialpos \
-                         waiting_azimuth \
-                         initializing_biases \
-                         motion_detect \
-                         finesteering \
-                         coarsesteering \
-                         unknown \
-                         aproximate \
-                         coarseadjusting \
-                         coarse \
-                         freewheeling \
-                         fineadjusting \
-                         fine \
-                         finebackupsteering \
-                         sattime \
-                         ins \
-                        ")
-                cData = cStruct
-        except Exception as e:
-            print str(e)
-	try:		    #testing if data is transmitted
-
+	try:		    									#testing if data is transmitted
 
 
 		data = {'ip': None, \
@@ -179,7 +145,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
                         'finebackupsteering': None, \
                         'sattime': None, \
                         'gpgga': None, \
-                        'ins': None}		#define what to expect in the dictionary
+                        'ins': None}					#define what to expect in the dictionary
 
 
 		j = 0
@@ -194,10 +160,9 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
-				data['ip'] = m.group()								#adding IP to the dictionary
+				data['ip'] = m.group()									#adding IP to the dictionary
 			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):			#
-				data['finesteering'] = True							#adding finesteering to the dictionary
-				#cData = cStruct(finesteering = 1)
+				data['finesteering'] = True								#adding finesteering to the dictionary
 			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
 				data['coursesteering'] = True							#adding coursesteering to the dictonary
 			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
@@ -218,30 +183,30 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 				data['finebackupsteering'] = True
 			if(exact_Match(word,"SATTIME") and data['sattime'] is None):				#
 				data['sattime'] = True
-           		if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
-           			data['ins_active'] = True
-           		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
-                		data['ins_inactive'] = True
-            		if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
-                		data['ins_aligning'] = True
-            		if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
-                		data['ins_high_variance'] = True
-           		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
-                		data['ins_solution_good'] = True
-            		if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
-                		data['ins_solution_free'] = True
-            		if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
-                		data['ins_alignment_complete'] = True
-            		if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
-                		data['determining_orientation'] = True
-            		if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
-                		data['waiting_initialpos'] = True
-            		if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
-                		data['waiting_azimuth'] = True
-            		if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
-                		data['initializing_biases'] = True
-            		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
-            			data['motion_detect'] = True
+           	if(exact_Match(word,"INS_ACTIVE") and data['ins_active'] is None):
+    			data['ins_active'] = True
+       		if(exact_Match(word,"INS_INACTIVE") and data['ins_inactive']is None):
+        		data['ins_inactive'] = True
+    		if(exact_Match(word,"INS_ALIGNING") and data['ins_aligning'] is None):
+        		data['ins_aligning'] = True
+    		if(exact_Match(word,"INS_HIGH_VARIANCE") and data['ins_high_variance'] is None):
+        		data['ins_high_variance'] = True
+       		if(exact_Match(word,"INS_SOLUTION_GOOD") and data['ins_solution_good'] is None):
+        		data['ins_solution_good'] = True
+    		if(exact_Match(word,"INS_SOLUTION_FREE") and data['ins_solution_free'] is None):
+        		data['ins_solution_free'] = True
+    		if(exact_Match(word,"INS_ALIGNMENT_COMPLETE") and data['ins_alignment_complete'] is None):
+        		data['ins_alignment_complete'] = True
+    		if(exact_Match(word,"DETERMINING_ORIENTATION") and data['determining_orientation'] is None):
+        		data['determining_orientation'] = True
+    		if(exact_Match(word,"WAITING_INITIALPOS") and data['waiting_inititalpos'] is None):
+        		data['waiting_initialpos'] = True
+    		if(exact_Match(word,"WAITING_AZIMUTH") and data['waiting_azimuth'] is None):
+        		data['waiting_azimuth'] = True
+    		if(exact_Match(word,"INITIALIZING_BIASES") and data['initializing_biases'] is None):
+        		data['initializing_biases'] = True
+    		if(exact_Match(word,"MOTION_DETECT") and data['motion_detect'] is None):
+    			data['motion_detect'] = True
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
@@ -249,7 +214,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
 			if("$GPHDT" in rcv):
-				split_GPHDT = rcv.split(',') 
+				split_GPHDT = rcv.split(',')
 				print(split_GPHDT)
 				if (split_GPHDT[1] >= '0'):
 					print("heading")
@@ -260,38 +225,38 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		exportData(data)									#call exportData def
 		displayData(data)									#call displayData def
 		statusGPGGA(data)									#call statusGPGGA def
-		
+
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
-                #print "Parent: writing data to child through FD\n"
-                logging.debug("Parent: writing data to child through FD\n")
+        #print "Parent: writing data to child through FD\n"
+        logging.debug("Parent: writing data to child through FD\n")
 		#os.write(pipeOut, str(data))
 		#print cData
-    
 
-                #write to the fifo pipe (to genieInterface)
+
+        #write to the fifo pipe (to genieInterface)
 		os.write(pipeOut, data['ip'])
-                time.sleep(1)
+        time.sleep(1)
 		os.write(pipeOut, data['ins'])
 
 
-	except Exception, e:					#not receiving data from OEM7
+	except Exception, e:							#not receiving data from OEM7
 		#print error
-		filewrite(str(e)+"\n")				#write out error to text file
-		port = 0					#define port as 0
+		filewrite(str(e)+"\n")						#write out error to text file
+		port = 0									#define port as 0
 		commands.wrt_str("Connection Error",2)		#write an error message to display
 		print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
-		time.sleep(1)					#put 10 second delay in before repeating try functions
-	
+		time.sleep(1)								#put 10 second delay in before repeating try functions
+
 
 
 def exportData(data):						#def that prints data to the terminal, used to check for problems
 	print(data['gpgga'][6])					#print dictionary adress 6 in gpgga subclass
 	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
-	print(data['ip'])					#print dictionary ip
+	print(data['ip'])						#print dictionary ip
 	print(data['finesteering'])				#print dictionary finesteering
-	tryIns(data)						#call on tryIns function
+	tryIns(data)							#call on tryIns function
 	return
 
 def displayData(data):						#main write out to the display
@@ -308,23 +273,23 @@ def displayData(data):						#main write out to the display
 		commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
-    	elif (data['unknown'] == True):
+    elif (data['unknown'] == True):
 		commands.wrt_str("Unknown",5)
 	elif (data['aprocimate'] == True):
 		commands.wrt_str("Aproximate",5)
-    	elif (data['coarseadjusting'] == True):
+    elif (data['coarseadjusting'] == True):
 		commands.wrt_str("Coarse adjusting",5)
-    	elif (data['coarse'] == True):
+    elif (data['coarse'] == True):
 		commands.wrt_str("Coarse",5)
-    	elif (data['freewheeling'] == True):
+    elif (data['freewheeling'] == True):
 		commands.wrt_str("Freewheeling",5)
-    	elif (data['fineadjusting'] == True):
+    elif (data['fineadjusting'] == True):
 		commands.wrt_str("Fineadjusting",5)
-    	elif (data['Fine'] == True):
+    elif (data['Fine'] == True):
 		commands.wrt_str("Fine",5)
-    	elif (data['finebackupsteering'] == True):
+    elif (data['finebackupsteering'] == True):
 		commands.wrt_str("Fine backupsteering",5)
-    	elif (data['sattime'] == True):
+    elif (data['sattime'] == True):
 		commands.wrt_str("sattime",5)
 
 	#tryIns(data)
@@ -347,7 +312,7 @@ def tryIns(data):							#def to determine INS
 			commands.wrt_str("Ins solution good",2)		#write out only if above check passes
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
 			commands.wrt_str("Ins solution free",2)		#write out only if above check passes
-		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete 
+		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
 			commands.wrt_str("Ins alignment complete",2)	#
 		elif (data['determining_orientation'] == True):		#
 			commands.wrt_str("Determining orientation",2)	#
@@ -377,7 +342,7 @@ def findWord(phrase, word):						#word seacher that is used by readSerial
 def exact_Match(phrase, word):						#exact match def for filtering words
     b = r'(\s|^|$)'
     res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
-   # print res 
+	#print res
     return bool(res)
 
 
@@ -385,28 +350,28 @@ def statusGPGGA(data):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
 			commands.wrt_str("No fix",6)			#
-		elif (data['gpgga'][6]) is '1':				#mode 
+		elif (data['gpgga'][6]) is '1':				#mode
 			commands.wrt_str("Single point",6)		#
-		elif (data['gpgga'][6]) is '2':				#mode 
+		elif (data['gpgga'][6]) is '2':				#mode
 			commands.wrt_str("Pseudorange",6)		#
-		elif (data['gpgga'][6]) is '3':				#mode 
-			commands.wrt_str("   ",6)			#
-		elif (data['gpgga'][6]) is '4':				#mode 
-			commands.wrt_str("Fixed",6)			#
-		elif (data['gpgga'][6]) is '5':				#mode 
+		elif (data['gpgga'][6]) is '3':				#mode
+			commands.wrt_str("   ",6)				#
+		elif (data['gpgga'][6]) is '4':				#mode
+			commands.wrt_str("Fixed",6)				#
+		elif (data['gpgga'][6]) is '5':				#mode
 			commands.wrt_str("Floating",6)			#
-		elif (data['gpgga'][6]) is '6':				#mode 
-			commands.wrt_str("Dead reckoning",6)		#
-		elif (data['gpgga'][6]) is '7':				#mode 
+		elif (data['gpgga'][6]) is '6':				#mode
+			commands.wrt_str("Dead reckoning",6)	#
+		elif (data['gpgga'][6]) is '7':				#mode
 			commands.wrt_str("Manual input",6)		#
-		elif (data['gpgga'][6]) is '8':				#mode 
+		elif (data['gpgga'][6]) is '8':				#mode
 			commands.wrt_str("Simulator",6)			#
-		elif (data['gpgga'][6]) is '9':				#mode 
-			commands.wrt_str("WAAS",6)			#
-		else:							#when no mode is noticed dont write out anything
-			commands.wrt_str("    ",6)			#
-	except Exception, e:						#error message handling when above try fails
-		print (str(e))						#write out error message to terminal
+		elif (data['gpgga'][6]) is '9':				#mode
+			commands.wrt_str("WAAS",6)				#
+		else:										#when no mode is noticed dont write out anything
+			commands.wrt_str("    ",6)				#
+	except Exception, e:							#error message handling when above try fails
+		print (str(e))								#write out error message to terminal
 	return
 
 #create subprocess for fifo
@@ -434,4 +399,3 @@ scanPorts()				#call on function scanPorts
 while True:				#while loop to make the program run indefinitally
 	port = portDefine()			#call on function portDefine (TODO better description)
 	readSerial(port, pipeOut)
-
