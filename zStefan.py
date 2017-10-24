@@ -231,7 +231,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
                 sendList[0] = data['ip']
                 sendList[1] = tryIns(data)							#call on tryIns function 
                 sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
-		printData(data)									#call exportData def / sents one outcome to child
+		#printData(data)									#call exportData def / sents one outcome to child
 
                 print "i is: \n"
                 for i in sendList:
@@ -249,7 +249,6 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
                 time.sleep(1)
-		os.write(pipeOut, tmpList)
 
 
 	except Exception, e:							#not receiving data from OEM7
