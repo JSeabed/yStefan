@@ -91,7 +91,7 @@ def fifoPort(pipeIn):
                 #readline(pipeIn,
                 #with open(FIFO, "w", 1) as fifo:
                 logging.debug("FIFO opened")
-                os.write(fifo, data + '\0')
+                os.write(fifo, data + ', '+ '\n')
                     #fifo.write("\0")
         fifo.close()
                         #while True:
@@ -118,8 +118,6 @@ def filewrite(rcv):                             		#Function to write data to a .
 def readSerial(port, pipeOut):							#reading all the data that is send by the OEM7
 #Read serial
 	try:		    									#testing if data is transmitted
-
-
 		data = {'ip': None, \
                         'gpgga': None, \
                         'ins_active': None, \
