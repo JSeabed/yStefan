@@ -90,8 +90,13 @@ void handleEvent (struct genieReplyStruct *reply) {
 	}
 }
 
-int sentData(){
-	
+int sentData(int isString, struct data *newData){
+  if(isString){
+    genieWriteStr(1,"You pressed the RED button.");
+  } else {
+    // change form
+		genieWriteObj(GENIE_OBJ_FORM,0, 1);
+  }
 }
 
 /* 
