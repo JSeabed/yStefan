@@ -71,6 +71,7 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
+        fifo =os.open(FIFO, os.O_WRONLY)
         while True:
             #print "Child checking FD"
             logging.debug("Child checking FD")
@@ -88,9 +89,9 @@ def fifoPort(pipeIn):
                 logging.debug("Opening FIFO...\n")
                 #pipeIn.readline()
                 #readline(pipeIn,
-                with open(FIFO, "w", 1) as fifo:
-                    logging.debug("FIFO opened")
-                    fifo.write(data + ' ')
+                #with open(FIFO, "w", 1) as fifo:
+                logging.debug("FIFO opened")
+                fifo.write(data + ' ')
                     #fifo.write("\0")
         fifo.close()
                         #while True:
