@@ -98,6 +98,7 @@ def fifoPort(pipeIn):
                 #with open(FIFO, "w", 1) as fifo:
                 logging.debug("FIFO opened")
                 for i in data:
+                    print "i = " + i
                     os.write(fifo, i + ', '+ '\n')
                     #fifo.write("\0")
         fifo.close()
