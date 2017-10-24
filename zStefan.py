@@ -93,6 +93,7 @@ def fifoPort(pipeIn):
                 #data available
                 logging.debug("Data in FD")
                 data =  os.read(pipeIn, 1024)
+                fifo.flush()
                 logging.debug("Opening FIFO...\n")
                 #with open(FIFO, "w", 1) as fifo:
                 logging.debug("FIFO opened")
