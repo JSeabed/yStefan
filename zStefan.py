@@ -31,6 +31,12 @@ logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 #logging.info('We processed %d records', len(processed_records))
 
 
+#ID's
+IP_ID = "0: "
+GPGGA_ID = "1: "
+INS_ID = "1: "
+
+
 def portTry():
 	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)
 #	dev = usb.core.find(idVendor=0x110a, idProduct=0x1110)
@@ -233,7 +239,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
 
         #write to the fifo pipe (to genieInterface)
-		os.write(pipeOut, data['ip'])
+                os.write(pipeOut, "0: " + data['ip'])
                 time.sleep(1)
 		os.write(pipeOut, data['ins'])
 
@@ -301,29 +307,42 @@ def tryIns(data):										#def to determine INS
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
-			os.write(pipeOut, ("Ins active"))			#write to display on adress 2 of the string list
+			#os.write(pipeOut, ("Ins active"))			#write to display on adress 2 of the string list
+			mode = "Ins active"			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
-			os.write(pipeOut, ("Ins aligning"))			#write out only if aligning is true
+			#os.write(pipeOut, ("Ins aligning"))			#write out only if aligning is true
+			mode = "Ins aligning"       			#write out only if aligning is true
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
-			os.write(pipeOut, ("Ins high variance"))	#write out only if above check passes
+			#os.write(pipeOut, ("Ins high variance"))	#write out only if above check passes
+			mode = "Ins high variance"              	#write out only if above check passes
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
-			os.write(pipeOut, ("Ins solution good"))		#write out only if above check passes
+			#os.write(pipeOut, ("Ins solution good"))		#write out only if above check passes
+			mode = "Ins solution good"       		#write out only if above check passes
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
-			os.write(pipeOut, ("Ins solution free"))		#write out only if above check passes
+			#os.write(pipeOut, ("Ins solution free"))		#write out only if above check passes
+			mode = "Ins solution free"      		#write out only if above check passes
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
-			os.write(pipeOut, ("Ins alignment complete"))	#
+			#os.write(pipeOut, ("Ins alignment complete"))	#
+			mode = "Ins alignment complete"         	#
 		elif (data['determining_orientation'] == True):		#
-			os.write(pipeOut, ("Determining orientation"))	#
+			#os.write(pipeOut, ("Determining orientation"))	#
+			mode = "Determining orientation"        	#
 		elif (data['waiting_initialpos'] == True):		#
-			os.write(pipeOut, ("Waiting initialpos"))	#
+			#os.write(pipeOut, ("Waiting initialpos"))	#
+			mode = "Waiting initialpos"             	#
 		elif (data['waiting_azimuth'] == True):			#
-			os.write(pipeOut, ("Waiting azimuth"))		#
+			#os.write(pipeOut, ("Waiting azimuth"))		#
+			mode = "Waiting azimuth"        		#
 		elif (data['initializing_biases'] == True):		#
-			os.write(pipeOut, ("Initializing biases"))	#
+			#os.write(pipeOut, ("Initializing biases"))	#
+			mode = "Initializing biases"            	#
 		elif (data['motion_detect'] == True):			#
-			os.write(pipeOut, ("Motion detect"))		#
+			#os.write(pipeOut, ("Motion detect"))		#
+			mode = "Motion detect"          		#
 		else:											#when INS is inactive
 			os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
+			mode = "Ins inactive"   			#write to display on adress 2 of the string list
+		        os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
 			return
 	except Exception, e:						#error handling INS testing
 		#print error
@@ -368,6 +387,7 @@ def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 			os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
 			os.write(pipeOut, (". . ."))
+		os.write(pipeOut, 
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
 	return
