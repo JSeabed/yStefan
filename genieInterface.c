@@ -129,14 +129,15 @@ void getData(int fd_child, int fd_parent ){
 	//fd = open(myfifo, O_WRONLY);
 	//write(fd, "Hi", sizeof("Hi"));
 
-	fgets(buf, BUFFSIZE, file);
-	printf("%s \n", buf);
+	for(;;){
+	  fgets(buf, BUFFSIZE, file);
+	  printf("%s \n", buf);
 
-	write(fd_parent, &buf, sizeof(buf));
+	  write(fd_parent, &buf, sizeof(buf));
 
-	//file = open(myfifo, O_WRONLY);
-	//fclose(file);
-
+	  //file = open(myfifo, O_WRONLY);
+	  //fclose(file);
+	}
 	/* remove the FIFO */
 	unlink(myfifo);
 
@@ -193,8 +194,7 @@ int main (int argc, char** argv) {
 			//printf("Child pid = %d \n", (int)child);
 			close(fd_child[1]);
 			close(fd_parent[0]);
-			for(;;)
-				getData(fd_child[0], fd_parent[1]);
+			getData(fd_child[0], fd_parent[1]);
 		}
 
 		close(fd_parent[1]);
