@@ -235,7 +235,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
                 print "i is: \n"
                 for i in sendList:
-                    print i
+                    print type(i)
 		
                 os.write(pipeOut, data['ip'])
 
