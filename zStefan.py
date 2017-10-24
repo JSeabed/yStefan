@@ -270,7 +270,8 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 		#print cData
     
 
-		os.write(pipeOut, data['ip'])
+                #write to the fifo pipe (to genieInterface)
+		os.write(pipeOut, data['ip'] + "\n" + data['ins'])
 
 
 	except Exception, e:					#not receiving data from OEM7
