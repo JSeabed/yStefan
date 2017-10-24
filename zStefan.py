@@ -227,7 +227,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 		displayData(data)									#call displayData def / sents one outcome to child
 
                 #fill list for fifo
-                sendList = []
+                sendList = [None]*3
                 sendList[0] = data['ip']
                 sendList[1] = tryIns(data)							#call on tryIns function 
                 sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
