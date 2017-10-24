@@ -229,6 +229,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 				else:
 					commands.wrt_str("Non",4)
 
+		os.write(pipeOut, tmpList)
 		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
 		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
 		statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
