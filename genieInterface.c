@@ -208,6 +208,7 @@ int main (int argc, char** argv) {
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
+			genieWriteStr(1, readBuffer);
 			// fetchData();
 		} else if(ret == -1){
 			/* error */

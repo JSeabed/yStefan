@@ -298,7 +298,7 @@ def displayData(data):						#main write out to the display
 	IP_String = bytearray()
 	#IP_String.extend(" ")
 	IP_String.extend(data['ip'])
-	commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
+	#commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
 	#commands.wrt_str(data['ip'])
 
 	if (data['finesteering'] == True):			#testing for finesteering
