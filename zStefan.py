@@ -273,23 +273,23 @@ def displayData(data):						#main write out to the display
 		commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
-    elif (data['unknown'] == True):
+        elif (data['unknown'] == True):
 		commands.wrt_str("Unknown",5)
 	elif (data['aprocimate'] == True):
 		commands.wrt_str("Aproximate",5)
-    elif (data['coarseadjusting'] == True):
+        elif (data['coarseadjusting'] == True):
 		commands.wrt_str("Coarse adjusting",5)
-    elif (data['coarse'] == True):
+        elif (data['coarse'] == True):
 		commands.wrt_str("Coarse",5)
-    elif (data['freewheeling'] == True):
+        elif (data['freewheeling'] == True):
 		commands.wrt_str("Freewheeling",5)
-    elif (data['fineadjusting'] == True):
+        elif (data['fineadjusting'] == True):
 		commands.wrt_str("Fineadjusting",5)
-    elif (data['Fine'] == True):
+        elif (data['Fine'] == True):
 		commands.wrt_str("Fine",5)
-    elif (data['finebackupsteering'] == True):
+        elif (data['finebackupsteering'] == True):
 		commands.wrt_str("Fine backupsteering",5)
-    elif (data['sattime'] == True):
+        elif (data['sattime'] == True):
 		commands.wrt_str("sattime",5)
 
 	#tryIns(data)
