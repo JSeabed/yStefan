@@ -221,9 +221,9 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 				else:
 					commands.wrt_str("Non",4)
 
-		exportData(data)									#call exportData def
-		displayData(data)									#call displayData def
-		statusGPGGA(data, pipeOut)									#call statusGPGGA def
+		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
+		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
+		statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
 
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
@@ -249,7 +249,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
 
 
-def exportData(data):						#def that prints data to the terminal, used to check for problems
+def exportData(data, pipeOut):						#def that prints data to the terminal, used to check for problems
 	print(data['gpgga'][6])					#print dictionary adress 6 in gpgga subclass
 	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
 	print(data['ip'])						#print dictionary ip
@@ -257,7 +257,7 @@ def exportData(data):						#def that prints data to the terminal, used to check 
 	tryIns(data)							#call on tryIns function
 	return
 
-def displayData(data):						#main write out to the display
+def displayData(data, pipeOut):						#main write out to the display
 
 	#Sattalites
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
