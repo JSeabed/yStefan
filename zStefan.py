@@ -223,14 +223,21 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 					commands.wrt_str("Ok",4)
 				else:
 					commands.wrt_str("Non",4)
+                #print data to terminal
+		displayData(data)									#call displayData def / sents one outcome to child
 
-                tmpList = [data['ip'], data['ins']]
-                for i in tmpList:
+                #fill list for fifo
+                sendList = []
+                sendList[0] = data['ip']
+                sendList[1] = tryIns(data)							#call on tryIns function 
+                sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
+		printData(data, pipeOut)									#call exportData def / sents one outcome to child
+
+                print "i is: \n"
+                for i in sendList:
                     print i
+		
                 os.write(pipeOut, data['ip'])
-		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
-		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
-		statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
 
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
@@ -256,12 +263,11 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
 
 
-def exportData(data, pipeOut):						#def that prints data to the terminal, used to check for problems
+def printData(data):						#def that prints data to the terminal, used to check for problems
 	print(data['gpgga'][6])					#print dictionary adress 6 in gpgga subclass
 	print(data['gpgga'][7])					#print dictionary adress 7 in gpgga subclass
 	print(data['ip'])						#print dictionary ip
 	print(data['finesteering'])				#print dictionary finesteering
-	tryIns(data)							#call on tryIns function
 	return
 
 def displayData(data, pipeOut):						#main write out to the display
@@ -345,7 +351,7 @@ def tryIns(data):										#def to determine INS
 			#os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
 			mode = "Ins inactive"   			#write to display on adress 2 of the string list
 		        #os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
-			return
+			return mode
 	except Exception, e:						#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")					#write error to text file
