@@ -375,7 +375,7 @@ def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
 			os.write(pipeOut, ("No fix"))
 		elif (data['gpgga'][6]) is '1':				#mode
-		        pass
+                    mode = "Single point"
 			#os.write(pipeOut, ("Single point"))
 		elif (data['gpgga'][6]) is '2':				#mode
 			os.write(pipeOut, ("Pseudorange"))
@@ -396,6 +396,7 @@ def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 		else:										#when no mode is noticed dont write out anything
 			os.write(pipeOut, (". . ."))
 		#os.write(pipeOut, GPGGA_ID + mode)
+		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
 	return
