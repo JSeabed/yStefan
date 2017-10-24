@@ -387,7 +387,7 @@ def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 			os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
 			os.write(pipeOut, (". . ."))
-		os.write(pipeOut, 
+		#os.write(pipeOut, GPGGA_ID + mode)
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
 	return
