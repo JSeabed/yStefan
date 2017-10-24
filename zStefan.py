@@ -270,27 +270,27 @@ def displayData(data):						#main write out to the display
 	#commands.wrt_str(data['ip'])
 
 	if (data['finesteering'] == True):			#testing for finesteering
-		commands.wrt_str("Fine steering",5)		#write out 'Fine steering' to the 5th string adress on the display
+		os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
-		commands.wrt_str("Coarse steering",5)		#write out 'Coarse' to the 5th string adress on the display
-        elif (data['unknown'] == True):
-		commands.wrt_str("Unknown",5)
+		os.write(pipeOut, ("Coarse steering"))		#write out 'Coarse' to the 5th string adress on the display
+    elif (data['unknown'] == True):
+		os.write(pipeOut, ("Unknown"))
 	elif (data['aprocimate'] == True):
-		commands.wrt_str("Aproximate",5)
-        elif (data['coarseadjusting'] == True):
-		commands.wrt_str("Coarse adjusting",5)
-        elif (data['coarse'] == True):
-		commands.wrt_str("Coarse",5)
-        elif (data['freewheeling'] == True):
-		commands.wrt_str("Freewheeling",5)
-        elif (data['fineadjusting'] == True):
-		commands.wrt_str("Fineadjusting",5)
-        elif (data['Fine'] == True):
-		commands.wrt_str("Fine",5)
-        elif (data['finebackupsteering'] == True):
-		commands.wrt_str("Fine backupsteering",5)
-        elif (data['sattime'] == True):
-		commands.wrt_str("sattime",5)
+		os.write(pipeOut, ("Aproximate"))
+    elif (data['coarseadjusting'] == True):
+		os.write(pipeOut, ("Coarse adjusting"))
+    elif (data['coarse'] == True):
+		os.write(pipeOut, ("Coarse"))
+    elif (data['freewheeling'] == True):
+		os.write(pipeOut, ("Freewheeling"))
+    elif (data['fineadjusting'] == True):
+		os.write(pipeOut, ("Fineadjusting")
+    elif (data['Fine'] == True):
+		os.write(pipeOut, ("Fine"))
+    elif (data['finebackupsteering'] == True):
+		os.write(pipeOut, ("Fine backupsteering"))
+    elif (data['sattime'] == True):
+		os.write(pipeOut, ("sattime"))
 
 	#tryIns(data)
 	return
