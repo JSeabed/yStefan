@@ -229,6 +229,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 				else:
 					commands.wrt_str("Non",4)
 
+                tmpList = [data['ip'], data['ins']]
 		os.write(pipeOut, tmpList)
 		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
 		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
@@ -242,7 +243,6 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
 
         #write to the fifo pipe (to genieInterface)
-                tmpList = [data['ip'], data['ins']]
                 #os.write(pipeOut, "0: " + data['ip'])
                 time.sleep(1)
 		os.write(pipeOut, tmpList)
