@@ -275,7 +275,8 @@ def displayData(data, pipeOut):						#main write out to the display
 	#commands.wrt_str(data['ip'])
 
 	if (data['finesteering'] == True):			#testing for finesteering
-		os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
+	        pass
+		#os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		os.write(pipeOut, ("Coarse steering"))		#write out 'Coarse' to the 5th string adress on the display
         elif (data['unknown'] == True):
@@ -341,9 +342,9 @@ def tryIns(data):										#def to determine INS
 			#os.write(pipeOut, ("Motion detect"))		#
 			mode = "Motion detect"          		#
 		else:											#when INS is inactive
-			os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
+			#os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
 			mode = "Ins inactive"   			#write to display on adress 2 of the string list
-		        os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
+		        #os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
 			return
 	except Exception, e:						#error handling INS testing
 		#print error
