@@ -273,23 +273,23 @@ def displayData(data):						#main write out to the display
 		os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		os.write(pipeOut, ("Coarse steering"))		#write out 'Coarse' to the 5th string adress on the display
-    elif (data['unknown'] == True):
+        elif (data['unknown'] == True):
 		os.write(pipeOut, ("Unknown"))
 	elif (data['aprocimate'] == True):
 		os.write(pipeOut, ("Aproximate"))
-    elif (data['coarseadjusting'] == True):
+        elif (data['coarseadjusting'] == True):
 		os.write(pipeOut, ("Coarse adjusting"))
-    elif (data['coarse'] == True):
+        elif (data['coarse'] == True):
 		os.write(pipeOut, ("Coarse"))
-    elif (data['freewheeling'] == True):
+        elif (data['freewheeling'] == True):
 		os.write(pipeOut, ("Freewheeling"))
-    elif (data['fineadjusting'] == True):
-		os.write(pipeOut, ("Fineadjusting")
-    elif (data['Fine'] == True):
+        elif (data['fineadjusting'] == True):
+		os.write(pipeOut, ("Fineadjusting"))
+        elif (data['Fine'] == True):
 		os.write(pipeOut, ("Fine"))
-    elif (data['finebackupsteering'] == True):
+        elif (data['finebackupsteering'] == True):
 		os.write(pipeOut, ("Fine backupsteering"))
-    elif (data['sattime'] == True):
+        elif (data['sattime'] == True):
 		os.write(pipeOut, ("sattime"))
 
 	#tryIns(data)
