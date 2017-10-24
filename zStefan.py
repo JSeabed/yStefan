@@ -189,7 +189,7 @@ def readSerial(port, pipeOut):						#reading all the data that is send by the OE
 			j = j + 1
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
-
+                print cData
 		str1 = ''.join(rcv)
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
