@@ -235,9 +235,9 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
                 print "i is: \n"
                 for i in sendList:
-                    print type(i)
+                    os.write(pipeOut, i)
 		
-                os.write(pipeOut, data['ip'])
+               # os.write(pipeOut, data['ip'])
 
 		port.close()										#close port to OEM7
 		time.sleep(2)										#add a delay of 2 seconds
