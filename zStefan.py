@@ -71,28 +71,28 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-        while True:
-            #print "Child checking FD"
-            logging.debug("Child checking FD")
-            r, _, _ = select.select([pipeIn], [], [], 5)
-            if not r:
-                #no data
-                logging.debug("No data in FD")
-                #print "No data in FD\n"
-                pass
-            else:
-                #data available
-                logging.debug("Data in FD")
-                #print "data in FD\n"
-                data =  os.read(pipeIn, 1024)
-                logging.debug("Opening FIFO...\n")
-                #pipeIn.readline()
-                #readline(pipeIn,
-                with open(FIFO, "w", 1) as fifo:
+        with open(FIFO, "w", 1) as fifo:
+            while True:
+                #print "Child checking FD"
+                logging.debug("Child checking FD")
+                r, _, _ = select.select([pipeIn], [], [], 5)
+                if not r:
+                    #no data
+                    logging.debug("No data in FD")
+                    #print "No data in FD\n"
+                    pass
+                else:
+                    #data available
+                    logging.debug("Data in FD")
+                    #print "data in FD\n"
+                    data =  os.read(pipeIn, 1024)
+                    logging.debug("Opening FIFO...\n")
+                    #pipeIn.readline()
+                    #readline(pipeIn,
                     logging.debug("FIFO opened")
                     fifo.write(data)
-		    fifo.write("\0")
-                    fifo.close()
+                    fifo.write("\0")
+        fifo.close()
                         #while True:
                         #    data = fifo.read()
                         #    if len(data) == 0:
