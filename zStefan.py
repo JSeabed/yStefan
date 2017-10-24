@@ -90,11 +90,8 @@ def fifoPort(pipeIn):
             else:
                 #data available
                 logging.debug("Data in FD")
-                #print "data in FD\n"
                 data =  os.read(pipeIn, 1024)
                 logging.debug("Opening FIFO...\n")
-                #pipeIn.readline()
-                #readline(pipeIn,
                 #with open(FIFO, "w", 1) as fifo:
                 logging.debug("FIFO opened")
                 os.write(fifo, data + ', '+ '\n')
@@ -229,7 +226,8 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
 
                 tmpList = [data['ip'], data['ins']]
                 for i in tmpList:
-                    os.write(pipeOut, str(i))
+                    print i
+                os.write(pipeOut, data['ip'])
 		exportData(data, pipeOut)									#call exportData def / sents one outcome to child
 		displayData(data, pipeOut)									#call displayData def / sents one outcome to child
 		statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
