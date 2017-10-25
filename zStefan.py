@@ -232,7 +232,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
                 #fill list for fifo
                 sendList = [None]*3
                 sendList[0] = data['ip']
-                sendList[1] = tryIns(data)							#call on tryIns function 
+                sendList[1] = tryIns(data)							#call on tryIns function
                 sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
 		#printData(data)									#call exportData def / sents one outcome to child
 
@@ -240,7 +240,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the O
                 for i in sendList:
                     os.write(pipeOut, i)
                     usleep(250)
-		
+
                # os.write(pipeOut, data['ip'])
 
 		port.close()										#close port to OEM7
@@ -283,28 +283,28 @@ def displayData(data):						#main write out to the display
 	#commands.wrt_str(data['ip'])
 
 	if (data['finesteering'] == True):			#testing for finesteering
-	        pass
+	        mode = "[1]" + "Fine steering"
 		#os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
-		os.write(pipeOut, ("Coarse steering"))		#write out 'Coarse' to the 5th string adress on the display
+		mode = "[1]" + "Coarse steering"		#write out 'Coarse' to the 5th string adress on the display
         elif (data['unknown'] == True):
-		os.write(pipeOut, ("Unknown"))
+		mode = "[1]" + "Unknown"
 	elif (data['aprocimate'] == True):
-		os.write(pipeOut, ("Aproximate"))
+		mode = "[1]" + "Aproximate"
         elif (data['coarseadjusting'] == True):
-		os.write(pipeOut, ("Coarse adjusting"))
+		mode = "[1]" + "Coarse adjusting"
         elif (data['coarse'] == True):
-		os.write(pipeOut, ("Coarse"))
+		mode = "[1]" + "Coarse"
         elif (data['freewheeling'] == True):
-		os.write(pipeOut, ("Freewheeling"))
+		mode = "[1]" + "Freewheeling"
         elif (data['fineadjusting'] == True):
-		os.write(pipeOut, ("Fineadjusting"))
+		mode = "[1]" + "Fineadjusting"
         elif (data['Fine'] == True):
-		os.write(pipeOut, ("Fine"))
+		mode = "[1]" + "Fine"
         elif (data['finebackupsteering'] == True):
-		os.write(pipeOut, ("Fine backupsteering"))
+		mode = "[1]" + "Fine backupsteering"
         elif (data['sattime'] == True):
-		os.write(pipeOut, ("sattime"))
+		mode = "[1]" + "sattime"
 
 	#tryIns(data)
 	return
@@ -318,40 +318,40 @@ def tryIns(data):										#def to determine INS
 		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
 			#os.write(pipeOut, ("Ins active"))			#write to display on adress 2 of the string list
-			mode = "Ins active"			#write to display on adress 2 of the string list
+			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
 			#os.write(pipeOut, ("Ins aligning"))			#write out only if aligning is true
-			mode = "Ins aligning"       			#write out only if aligning is true
+			mode = "[2]" + "Ins aligning"       			#write out only if aligning is true
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
 			#os.write(pipeOut, ("Ins high variance"))	#write out only if above check passes
-			mode = "Ins high variance"              	#write out only if above check passes
+			mode = "[2]" + "Ins high variance"              	#write out only if above check passes
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
 			#os.write(pipeOut, ("Ins solution good"))		#write out only if above check passes
-			mode = "Ins solution good"       		#write out only if above check passes
+			mode = "[2]" + "Ins solution good"       		#write out only if above check passes
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
 			#os.write(pipeOut, ("Ins solution free"))		#write out only if above check passes
-			mode = "Ins solution free"      		#write out only if above check passes
+			mode = "[2]" + "Ins solution free"      		#write out only if above check passes
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
 			#os.write(pipeOut, ("Ins alignment complete"))	#
-			mode = "Ins alignment complete"         	#
+			mode = "[2]" + "Ins alignment complete"         	#
 		elif (data['determining_orientation'] == True):		#
 			#os.write(pipeOut, ("Determining orientation"))	#
-			mode = "Determining orientation"        	#
+			mode = "[2]" + "Determining orientation"        	#
 		elif (data['waiting_initialpos'] == True):		#
 			#os.write(pipeOut, ("Waiting initialpos"))	#
-			mode = "Waiting initialpos"             	#
+			mode = "[2]" + "Waiting initialpos"             	#
 		elif (data['waiting_azimuth'] == True):			#
 			#os.write(pipeOut, ("Waiting azimuth"))		#
-			mode = "Waiting azimuth"        		#
+			mode = "[2]" + "Waiting azimuth"        		#
 		elif (data['initializing_biases'] == True):		#
 			#os.write(pipeOut, ("Initializing biases"))	#
-			mode = "Initializing biases"            	#
+			mode = "[2]" + "Initializing biases"            	#
 		elif (data['motion_detect'] == True):			#
 			#os.write(pipeOut, ("Motion detect"))		#
-			mode = "Motion detect"          		#
+			mode = "[2]" + "Motion detect"          		#
 		else:											#when INS is inactive
 			#os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
-			mode = "Ins inactive"   			#write to display on adress 2 of the string list
+			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
 		        #os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
 			return mode
 	except Exception, e:						#error handling INS testing
@@ -376,28 +376,38 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
 	try:								#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
-			os.write(pipeOut, ("No fix"))
+			#os.write(pipeOut, ("No fix"))
+			mode = "[3]" + "No fix"
 		elif (data['gpgga'][6]) is '1':				#mode
-                    mode = "Single point"
+                    mode = "[3]" + "Single point"
 			#os.write(pipeOut, ("Single point"))
 		elif (data['gpgga'][6]) is '2':				#mode
-			os.write(pipeOut, ("Pseudorange"))
+			mode = "[3]" + "Pseudorange"
+			#os.write(pipeOut, ("Pseudorange"))
 		elif (data['gpgga'][6]) is '3':				#mode
-			os.write(pipeOut, (". . ."))
+			mode = "[3]" + ". . ."
+			#os.write(pipeOut, (". . ."))
 		elif (data['gpgga'][6]) is '4':				#mode
-			os.write(pipeOut, ("Fixed"))
+			mode = "[3]" + "Fixed"
+			#os.write(pipeOut, ("Fixed"))
 		elif (data['gpgga'][6]) is '5':				#mode
-			os.write(pipeOut, ("Floating"))
+			mode = "[3]" + "Floating"
+			#os.write(pipeOut, ("Floating"))
 		elif (data['gpgga'][6]) is '6':				#mode
-			os.write(pipeOut, ("Dead reckoning"))
+			mode = "[3]" + "Dead reckoning"
+			#os.write(pipeOut, ("Dead reckoning"))
 		elif (data['gpgga'][6]) is '7':				#mode
-			os.write(pipeOut, ("Manual input"))
+			mode = "[3]" + "Manual input"
+			#os.write(pipeOut, ("Manual input"))
 		elif (data['gpgga'][6]) is '8':				#mode
-			os.write(pipeOut, ("Simulator"))
+			mode = "[3]" + "Simulator"
+			#os.write(pipeOut, ("Simulator"))
 		elif (data['gpgga'][6]) is '9':				#mode
-			os.write(pipeOut, ("WAAS"))
+			mode = "[3]" + "WAAS"
+			#os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
-			os.write(pipeOut, (". . ."))
+			#os.write(pipeOut, (". . ."))
+			mode = "[3]" + ". . ."
 		#os.write(pipeOut, GPGGA_ID + mode)
 		return mode
 	except Exception, e:							#error message handling when above try fails
