@@ -39,31 +39,31 @@ GPGGA_ID = "1: "
 INS_ID = "1: "
 
 
-def portTry():
-	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)
+def portTry():															#unused function that is used to identify on which port the receiver is located
+	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)				#the ID's that match with that of the receiver
 #	dev = usb.core.find(idVendor=0x110a, idProduct=0x1110)
-	if dev is None:
+	if dev is None:														#testing if dev has found something
 		#raise ValueError('Device not found')
-		print("niets")
+		print("niets1")													#basic write out to the terminal
 		return
 
-	elif dev is True:
+	elif dev is True:													#testing if the given ID's align with the found version
 		print("Device found")
 		return
-	else:
+	else:																#if all else fails
 		print("niets")
 
-def portDefine():						#function to define the port the OEM7 is connected to
-	try:							#testing for OEM7
-		PORT = 		"/dev/ttyUSB1"
+def portDefine():									#function to define the port the OEM7 is connected to
+	try:											#testing for OEM7
+		PORT = 		"/dev/ttyUSB1"					#
 		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
 		print("gevonden")
-	except Exception, e:					#used to write out error
+	except Exception, e:							#used to write out error
 		#print error
-		filewrite(str(e)+"\n")				#write out error to textdocument
+		filewrite(str(e)+"\n")						#write out error to textdocument
 		port = 0
 		commands.wrt_str("Trying to connect",5)		#send an error message to the display
-		print('\nUSB niet aangesloten\n')		#send an error message to the terminal
+		print('\nUSB niet aangesloten\n')			#send an error message to the terminal
 
 
 	return port
@@ -121,7 +121,7 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           			#close file
 
 
-def readSerial(port, pipeOut):							#reading all the data that is send by the OEM7
+def readSerial(port, pipeOut):							#reading all the data that is send by the receiver. everything that gets send is added together
 #Read serial
 	try:		    									#testing if data is transmitted
 		data = {'ip': None, \
@@ -272,11 +272,11 @@ def printData(data):						#def that prints data to the terminal, used to check f
 	print(data['finesteering'])				#print dictionary finesteering
 	return
 
-def displayData(data):						#main write out to the display
-
+def displayData(data):						#this def tests for 1 of 11 options
+				#for each of the modes stated here take up the same place in the string that gets passed by the receiver
 	#Sattalites
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
-	IP_String = bytearray()
+	IP_String = bytearray()						#converting IP string to a byte array
 	#IP_String.extend(" ")
 	IP_String.extend(data['ip'])
 	#commands.wrt_str(IP_String,1)				#write out the IP adress to the first string adress on the display
@@ -287,7 +287,7 @@ def displayData(data):						#main write out to the display
 		#os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		mode = "[1]" + "Coarse steering"		#write out 'Coarse' to the 5th string adress on the display
-        elif (data['unknown'] == True):
+        elif (data['unknown'] == True):					#
 		mode = "[1]" + "Unknown"
 	elif (data['aprocimate'] == True):
 		mode = "[1]" + "Aproximate"
@@ -354,15 +354,15 @@ def tryIns(data):										#def to determine INS
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
 		        #os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
 			return mode
-	except Exception, e:						#error handling INS testing
+	except Exception, e:								#error handling INS testing
 		#print error
-		filewrite(str(e)+"\n")					#write error to text file
-		print (str(e))						#write error to the terminal
+		filewrite(str(e)+"\n")							#write error to text file
+		print (str(e))									#write error to the terminal
 
 
-def findWord(phrase, word):						#word seacher that is used by readSerial
-	if(phrase.find(word) > 0):					#testing for an exact match
-		return True						#return true to confirm the word
+def findWord(phrase, word):								#word seacher that is used by readSerial
+	if(phrase.find(word) > 0):							#testing for an exact match
+		return True										#return true to confirm the word
 	return False
 
 
@@ -373,41 +373,41 @@ def exact_Match(phrase, word):						#exact match def for filtering words
     return bool(res)
 
 
-def statusGPGGA(data, pipeOut):							#used to determine the status for GPGGA
-	try:								#determine the gpgga status
-		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga
+def statusGPGGA(data, pipeOut):						#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
+	try:											#determine the gpgga status
+		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga, represents "No fix"
 			#os.write(pipeOut, ("No fix"))
-			mode = "[3]" + "No fix"
-		elif (data['gpgga'][6]) is '1':				#mode
-                    mode = "[3]" + "Single point"
+			mode = "[3]" + "No fix"					#setting up data to be send with FIFO
+		elif (data['gpgga'][6]) is '1':				#mode 1 of gpgga, represents "Single point"
+                    mode = "[3]" + "Single point"	#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Single point"))
-		elif (data['gpgga'][6]) is '2':				#mode
-			mode = "[3]" + "Pseudorange"
+		elif (data['gpgga'][6]) is '2':				#mode 2 of gpgga, represents "Pseudorange"
+			mode = "[3]" + "Pseudorange"			#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Pseudorange"))
-		elif (data['gpgga'][6]) is '3':				#mode
-			mode = "[3]" + ". . ."
+		elif (data['gpgga'][6]) is '3':				#mode 3 of gpgga, represents nothing according to Manual
+			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
 			#os.write(pipeOut, (". . ."))
-		elif (data['gpgga'][6]) is '4':				#mode
-			mode = "[3]" + "Fixed"
+		elif (data['gpgga'][6]) is '4':				#mode 4 of gpgga, represents "Fixed"
+			mode = "[3]" + "Fixed"					#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Fixed"))
-		elif (data['gpgga'][6]) is '5':				#mode
-			mode = "[3]" + "Floating"
+		elif (data['gpgga'][6]) is '5':				#mode 5 of gpgga, represents "Floating"
+			mode = "[3]" + "Floating"				#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Floating"))
-		elif (data['gpgga'][6]) is '6':				#mode
-			mode = "[3]" + "Dead reckoning"
+		elif (data['gpgga'][6]) is '6':				#mode 6 of gpgga, represents "Dead reckoning"
+			mode = "[3]" + "Dead reckoning"			#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Dead reckoning"))
-		elif (data['gpgga'][6]) is '7':				#mode
-			mode = "[3]" + "Manual input"
+		elif (data['gpgga'][6]) is '7':				#mode 7 of gpgga, represents "Manual input"
+			mode = "[3]" + "Manual input"			#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Manual input"))
-		elif (data['gpgga'][6]) is '8':				#mode
-			mode = "[3]" + "Simulator"
+		elif (data['gpgga'][6]) is '8':				#mode 8 of gpgga, represents "Simulator"
+			mode = "[3]" + "Simulator"				#setting up data to be send with FIFO
 			#os.write(pipeOut, ("Simulator"))
-		elif (data['gpgga'][6]) is '9':				#mode
-			mode = "[3]" + "WAAS"
+		elif (data['gpgga'][6]) is '9':				#mode 9 of gpgga, represents "WAAS"
+			mode = "[3]" + "WAAS"					#setting up data to be send with FIFO
 			#os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
 			#os.write(pipeOut, (". . ."))
-			mode = "[3]" + ". . ."
+			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
 		#os.write(pipeOut, GPGGA_ID + mode)
 		return mode
 	except Exception, e:							#error message handling when above try fails
