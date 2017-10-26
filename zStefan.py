@@ -25,6 +25,7 @@ from collections import namedtuple
 #import logger
 #logger.basicConfig(stream=sys.stderr)
 #exapmle
+logger = getLogger()
 #logger.debug('A debug message!')
 #logger.info('We processed %d records', len(processed_records))
 
