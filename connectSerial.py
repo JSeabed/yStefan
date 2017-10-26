@@ -20,7 +20,7 @@ def trySerial():
             return None
         attempt = attempt + 1
         logger.info("No connection established with novatel attempt: %d of the 10.", attempt)
-        sleep(1)
+        time.sleep(1)
 
 
 def scanPorts():
