@@ -109,8 +109,8 @@ def scanPorts():
         print "port is: "
 
         print port
-	for p in ports:
-    		print p
+	#for p in ports:
+    		#print p
 
 
 def filewrite(rcv):                             		#Function to write data to a .txt file
