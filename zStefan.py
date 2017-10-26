@@ -16,7 +16,7 @@ import commands
 import RPi.GPIO as GPIO
 import os
 import log
-import connectSerial
+from connectSerial import getNRCPort
 import errno
 import select
 from collections import namedtuple

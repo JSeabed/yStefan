@@ -1,5 +1,5 @@
 import serial.tools.list_ports
-import log
+from log import *
 import serial                   
 
 #returns tty which is used by novatel chip
