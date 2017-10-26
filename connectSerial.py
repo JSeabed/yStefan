@@ -9,7 +9,7 @@ def getNRCPort():
 def scanPorts():
     ports = list(serial.tools.list_ports.comports())
     port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
-    logging.debug("port is: " + port)
+    logger.debug("port is: " + port)
     return port
 
 
@@ -20,13 +20,13 @@ def portDefine(PORT):
             #PORT = "/dev/ttyUSB1"	
             #defining the serial port as a contant value
             port = serial.Serial(PORT, 9600)
-            logging.debug("Port is:" + port)
+            logger.debug("Port is:" + port)
             #print("gevonden")
     except Exception, e:
             #print error
             #write out error to textdocument
             filewrite(str(e)+"\n")
-            logging.debug(str(e))
+            logger.debug(str(e))
 
             port = 0
             #send an error message to the display
