@@ -307,7 +307,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 		mode = "[1]" + "sattime"
 
 	#tryIns(data)
-	return
+	return mode
 
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
