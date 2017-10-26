@@ -49,7 +49,8 @@ def portTry():															#unused function that is used to identify on which 
 		return
 
 	elif dev is not None:	
-		print hex(dev.idVendor)											#testing if the given ID's align with the found version
+		print hex(dev.idVendor)		
+		print dev									#testing if the given ID's align with the found version
 		print("Device found")
 		return
 	else:																#if all else fails
@@ -57,7 +58,7 @@ def portTry():															#unused function that is used to identify on which 
 
 def portDefine():									#function to define the port the OEM7 is connected to
 	try:											#testing for OEM7
-		PORT = 		"/dev/ttyUSB2"					#
+		PORT = 		"/dev/ttyUSB1"					#
 		port = serial.Serial(PORT, 9600)	#defining the serial port as a contant value
 		print("gevonden")
 	except Exception, e:							#used to write out error
@@ -229,10 +230,12 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 					commands.wrt_str("Ok",4)
 				else:
 					commands.wrt_str("Non",4)
+			#print "end filter"
                 #print data to terminal
-		displayData(data)									#call displayData def / sents one outcome to child
+		#displayData(data)									#call displayData def / sents one outcome to child
 
                 #fill list for fifo
+		print "test1234"
                 sendList = [None]*3
                 sendList[0] = data['ip']
                 sendList[1] = tryIns(data)							#call on tryIns function
@@ -240,9 +243,9 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 		#printData(data)									#call exportData def / sents one outcome to child
 
                 print "i is: \n"
-#                for i in sendList:
-#                    os.write(pipeOut, i)
-#                    usleep(250)
+                for i in sendList:
+                    os.write(pipeOut, i)
+                    usleep(250)
 
                # os.write(pipeOut, data['ip'])
 
@@ -261,7 +264,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 		#print error
 		filewrite(str(e)+"\n")						#write out error to text file
 		port = 0									#define port as 0
-		commands.wrt_str("Connection Error",2)		#write an error message to display
+		#commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
                 print "Ik kom hier 1"
 		print str(e)
@@ -361,7 +364,8 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 	except Exception, e:								#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
-		print (str(e))									#write error to the terminal
+		print (str(e))	
+		print (data['ins_active'])									#write error to the terminal
                 print "Ik kom hier 2"
 
 
