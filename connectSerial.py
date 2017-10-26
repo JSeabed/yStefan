@@ -6,7 +6,7 @@ logger = getLogger()
 
 #returns tty which is used by novatel chip
 def getNRCPort():
-    return 
+    return trySerial()
 
 def trySerial():
     attempt = 0
