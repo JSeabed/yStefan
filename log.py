@@ -1,7 +1,7 @@
 import logging
 import sys
 
-def getLoggetr():
+def getLogger():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     #logger.basicConfig(stream=sys.stderr, level=logging.DEBUG)
