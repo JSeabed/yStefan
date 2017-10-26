@@ -15,7 +15,7 @@ def scanPorts():
 
 
 
-#function to define the port the OEM7 is connected to
+#function to define the port the OEM7 is connected
 def portDefine(PORT):									        try:	
             #PORT = "/dev/ttyUSB1"	
             #defining the serial port as a contant value
