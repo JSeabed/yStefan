@@ -9,7 +9,7 @@ def getNRCPort():
 def scanPorts():
     ports = list(serial.tools.list_ports.comports())
     port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
-    logging.debug("port is: " port)
+    logging.debug("port is: " + port)
     return port
 
 
