@@ -48,9 +48,8 @@ def portTry():															#unused function that is used to identify on which 
 		print("niets1")													#basic write out to the terminal
 		return
 
-	elif dev is not None:	
-		print hex(dev.idVendor)		
-		print dev									#testing if the given ID's align with the found version
+	elif dev is not None:
+		print hex(dev.idVendor)											#testing if the given ID's align with the found version
 		print("Device found")
 		return
 	else:																#if all else fails
@@ -176,6 +175,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 				data['coursesteering'] = True							#adding coursesteering to the dictonary
 			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
 				data['unknown'] = True
+			print("polio")
 			if(exact_Match(word,"APROXIMATE") and data['aproximate'] is None):			#
 				data['aproximate'] = True
 			if(exact_Match(word,"COARSEADJUSTING") and data['coarseadjusting'] is None):		#
