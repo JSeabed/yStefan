@@ -22,7 +22,7 @@ def portDefine(PORT):
             port = serial.Serial(PORT, 9600)
             logging.debug("Port is:" + port)
             #print("gevonden")
-     except Exception, e:
+    except Exception, e:
             #print error
             #write out error to textdocument
             filewrite(str(e)+"\n")
