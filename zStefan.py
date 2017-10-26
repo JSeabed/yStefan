@@ -15,7 +15,7 @@ import re
 import commands
 import RPi.GPIO as GPIO
 import os
-from log import getLogger
+#from log import getLogger
 from connectSerial import getNRCPort
 import errno
 import select
@@ -25,7 +25,7 @@ from collections import namedtuple
 #import logger
 #logger.basicConfig(stream=sys.stderr)
 #exapmle
-logger = getLogger()
+#logger = getLogger()
 #logger.debug('A debug message!')
 #logger.info('We processed %d records', len(processed_records))
 
