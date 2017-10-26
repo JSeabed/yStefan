@@ -25,6 +25,7 @@ from collections import namedtuple
 #import logger
 #logger.basicConfig(stream=sys.stderr)
 #exapmle
+logger = getLogger()
 #logger.debug('A debug message!')
 #logger.info('We processed %d records', len(processed_records))
 
@@ -395,7 +396,6 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 port = getNRCPort()
 if port is None:
         exit()
-logger = getLogger()
 while True:				#while loop to make the program run indefinitally
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
