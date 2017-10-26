@@ -1,6 +1,5 @@
 import serial.tools.list_ports
 import serial                   
-import sys
 
 #returns tty which is used by novatel chip
 def getNRCPort():
