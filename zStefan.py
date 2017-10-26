@@ -237,9 +237,9 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 		#printData(data)									#call exportData def / sents one outcome to child
 
                 print "i is: \n"
-                for i in sendList:
-                    os.write(pipeOut, i)
-                    usleep(250)
+#                for i in sendList:
+#                    os.write(pipeOut, i)
+#                    usleep(250)
 
                # os.write(pipeOut, data['ip'])
 
@@ -286,8 +286,8 @@ def displayData(data):						#this def tests for 1 of 11 options
 	        mode = "[1]" + "Fine steering"
 		#os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
-		mode = "[1]" + "Coarse steering"		#write out 'Coarse' to the 5th string adress on the display
-        elif (data['unknown'] == True):					#
+		mode = "[1]" + "Coarse steering"			#write out 'Coarse' to the 5th string adress on the display
+        elif (data['unknown'] == True):				#
 		mode = "[1]" + "Unknown"
 	elif (data['aprocimate'] == True):
 		mode = "[1]" + "Aproximate"
@@ -310,10 +310,10 @@ def displayData(data):						#this def tests for 1 of 11 options
 	return
 
 
-def tryIns(data):										#def to determine INS
+def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
 	try:												#try to define, if failed goes to except
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
-		clean_Ins = partup.split('*')					#split up partup
+		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
