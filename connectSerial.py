@@ -14,6 +14,7 @@ def trySerial():
     for i in range(10):
         port = portDefine(scanPorts())
         if port is not None:
+            print "USB found"
             return port
         if attempt is 10:
             logger.error("Failed to initialise port")
