@@ -7,10 +7,8 @@
 regexIP = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"			#this is used to filter out the IP adress
 
 
-import serial                   #import the serial communication functions
 import time			#time delay function imported
 import datetime
-import serial.tools.list_ports
 import usb.core
 import usb.util
 import re
@@ -18,13 +16,14 @@ import sys
 import commands
 import RPi.GPIO as GPIO
 import os
+import log
+import connectSerial
 import errno
 import select
 from collections import namedtuple
 
 #Used for debugging.
-import logging
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+#import logging
 #logging.basicConfig(stream=sys.stderr)
 #exapmle
 #logging.debug('A debug message!')
@@ -417,10 +416,11 @@ if pid is 0:
 GPIO.setmode(GPIO.BCM)			#set gpio mode to enable control
 GPIO.setup(0, GPIO.OUT)			#set pin 0 to output
 GPIO.output(0, GPIO.HIGH)		#make pin 0 high
-portTry()				#call on function portTry
-scanPorts()				#call on function scanPorts
+#portTry()				#call on function portTry
+#scanPorts()				#call on function scanPorts
 #port.close()
+port = getNRCPort()
 while True:				#while loop to make the program run indefinitally
-	port = portDefine()			#call on function portDefine (TODO better description)
+	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port, pipeOut)
         dataManager(serialData, pipeOut)
