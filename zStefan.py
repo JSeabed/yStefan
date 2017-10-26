@@ -15,11 +15,14 @@ import re
 import commands
 import RPi.GPIO as GPIO
 import os
-#from log import getLogger
-from connectSerial import getNRCPort
+from log 
 import errno
 import select
 from collections import namedtuple
+
+logger = log.setup_custom_logger('dataManager')
+
+from connectSerial import getNRCPort
 
 #Used for debugging.
 #import logger
