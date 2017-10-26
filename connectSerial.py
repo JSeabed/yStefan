@@ -1,8 +1,6 @@
 import serial.tools.list_ports
-from log import getLogger
+from log import *
 import serial                   
-
-logger = getLogger()
 
 #returns tty which is used by novatel chip
 def getNRCPort():
