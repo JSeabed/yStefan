@@ -1,6 +1,7 @@
 import serial.tools.list_ports
 from log import getLogger
-import serial                   
+import serial
+import time			#time delay function imported
 
 logger = getLogger()
 
