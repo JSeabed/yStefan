@@ -306,12 +306,15 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 
 def dataManager(data ,pipeOut):
     #fill list for fifo
-    print "test1234"
-    sendList = [None]*3
-    sendList[0] = data['ip']
-    sendList[1] = tryIns(data)							#call on tryIns function
-    sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
-    #printData(data)									#call exportData def / sents one outcome to child
+    try:
+            sendList = [None]*3
+            sendList[0] = data['ip']
+            sendList[1] = tryIns(data)							#call on tryIns function
+            sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
+    except Exception as e:
+            logger.error(str(e))
+    #printData(data)
+    #call exportData def / sents one outcome to child
 
     print "i is: \n"
     for i in sendList:
