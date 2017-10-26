@@ -1,4 +1,4 @@
-#Written by Stefan van Delft 26/07/2017
+Written by Stefan van Delft 26/07/2017
 #Display is added by Martijn Rombouts
 #
 
@@ -260,6 +260,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 		port = 0									#define port as 0
 		commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
+                print "Ik kom hier 1"
 		print str(e)
 		#time.sleep(1)								#put 10 second delay in before repeating try functions
 
@@ -358,6 +359,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
 		print (str(e))									#write error to the terminal
+                print "Ik kom hier 2"
 
 
 def findWord(phrase, word):								#word seacher that is used by readSerial
@@ -412,6 +414,7 @@ def statusGPGGA(data, pipeOut):						#used to determine the status for GPGGA by 
 		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
+                print "Ik kom hier 3"
 	return
 
 #create subprocess for fifo

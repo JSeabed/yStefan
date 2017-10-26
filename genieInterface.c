@@ -19,6 +19,9 @@
 #define BUFFSIZE 4096
 #define TIMEOUT 250
 
+#define MAIN_SCREEN 0
+#define INFO_SCREEN 1
+
 /*#define checksum(x) (x ^= x)*/
 
 typedef int bool;
@@ -90,12 +93,13 @@ void handleEvent (struct genieReplyStruct *reply) {
 	}
 }
 
-int sentData(int isString, struct data *newData){
+
+int sentData(int isString, struct data *newData, char *str){
   if(isString){
-    genieWriteStr(1,"You pressed the RED button.");
+    genieWriteStr(1, str);
   } else {
     // change form
-		genieWriteObj(GENIE_OBJ_FORM,0, 1);
+    genieWriteObj(GENIE_OBJ_FORM,0, 1);
   }
 }
 
