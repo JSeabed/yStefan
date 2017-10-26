@@ -38,39 +38,6 @@ GPGGA_ID = "1: "
 INS_ID = "1: "
 
 
-def portTry():															#unused function that is used to identify on which port the receiver is located
-	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)				#the ID's that match with that of the receiver
-
-
-	if dev is None:														#testing if dev has found something
-		#raise ValueError('Device not found')
-		print("niets1")													#basic write out to the terminal
-		return
-
-	elif dev is not None:
-		print hex(dev.idVendor)											#testing if the given ID's align with the found version
-		print("Device found")
-		return
-	else:																#if all else fails
-		print("niets")
-
-def portDefine():									#function to define the port the OEM7 is connected to
-	try:											#testing for OEM7
-		PORT = 		"/dev/ttyUSB1"					#
-		port = serial.Serial(PORT, 9600)	#defining the serial port as a contant value
-		print("gevonden")
-	except Exception, e:							#used to write out error
-		#print error
-		filewrite(str(e)+"\n")						#write out error to textdocument
-		port = 0
-		commands.wrt_str("Trying to connect",5)		#send an error message to the display
-		print('\nUSB niet aangesloten\n')			#send an error message to the terminal
-
-
-	return port
-	#readSerial(port)
-
-
 def fifoPort(pipeIn):
 	FIFO = '/tmp/mypipe'
         logging.debug("Child: preparing fifo\n")
@@ -333,7 +300,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 	except Exception, e:								#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
-		print (str(e))	
+		print (str(e))
 		print (data['ins_active'])									#write error to the terminal
                 print "Ik kom hier 2"
 
@@ -351,9 +318,9 @@ def dataManager(data ,pipeOut):
     for i in sendList:
         os.write(pipeOut, i)
         usleep(250)
-        
 
-                
+
+
 def findWord(phrase, word):								#word seacher that is used by readSerial
 	if(phrase.find(word) > 0):							#testing for an exact match
 		return True										#return true to confirm the word
