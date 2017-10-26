@@ -41,13 +41,15 @@ INS_ID = "1: "
 
 def portTry():															#unused function that is used to identify on which port the receiver is located
 	dev = usb.core.find(idVendor=0x09d7, idProduct=0x0100)				#the ID's that match with that of the receiver
-#	dev = usb.core.find(idVendor=0x110a, idProduct=0x1110)
+
+
 	if dev is None:														#testing if dev has found something
 		#raise ValueError('Device not found')
 		print("niets1")													#basic write out to the terminal
 		return
 
-	elif dev is True:													#testing if the given ID's align with the found version
+	elif dev is not None:	
+		print hex(dev.idVendor)											#testing if the given ID's align with the found version
 		print("Device found")
 		return
 	else:																#if all else fails
@@ -55,8 +57,8 @@ def portTry():															#unused function that is used to identify on which 
 
 def portDefine():									#function to define the port the OEM7 is connected to
 	try:											#testing for OEM7
-		PORT = 		"/dev/ttyUSB1"					#
-		port = serial.Serial('/dev/ttyUSB1', 9600)	#defining the serial port as a contant value
+		PORT = 		"/dev/ttyUSB2"					#
+		port = serial.Serial(PORT, 9600)	#defining the serial port as a contant value
 		print("gevonden")
 	except Exception, e:							#used to write out error
 		#print error
