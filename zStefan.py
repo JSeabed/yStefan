@@ -15,7 +15,7 @@ import re
 import commands
 import RPi.GPIO as GPIO
 import os
-import log
+from log import getLogger
 from connectSerial import getNRCPort
 import errno
 import select
