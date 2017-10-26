@@ -1,6 +1,6 @@
 #Written by Stefan van Delft 26/07/2017
 #Display is added by Martijn Rombouts
-#
+
 
 
 #mattie regex
@@ -81,7 +81,7 @@ def fifoPort(pipeIn):
 	    if oe.errno != errno.EEXIST:
 	        raise
 
-        fifo =os.open(FIFO, os.O_WRONLY)
+        fifo = os.open(FIFO, os.O_WRONLY)
         while True:
             #print "Child checking FD"
             logging.debug("Child checking FD")
@@ -102,12 +102,6 @@ def fifoPort(pipeIn):
                 #fifo.flush()
                     #fifo.write("\0")
         fifo.close()
-                        #while True:
-                        #    data = fifo.read()
-                        #    if len(data) == 0:
-                        #            print("Writer closed")
-                        #            break
-                        #    print('Read: "{0}"'.format(data))
 
 
 def scanPorts():
@@ -123,7 +117,7 @@ def filewrite(rcv):                             		#Function to write data to a .
 	logfile.close                           			#close file
 
 
-def readSerial(port, pipeOut):							#reading all the data that is send by the receiver. everything that gets send is added together
+def readSerial(port):							#reading all the data that is send by the receiver. everything that gets send is added together
 #Read serial
 	try:		    									#testing if data is transmitted
 		data = {'ip': None, \
@@ -175,7 +169,6 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 				data['coursesteering'] = True							#adding coursesteering to the dictonary
 			if(exact_Match(word,"UNKNOWN") and data['unknown'] is None):				#
 				data['unknown'] = True
-			print("polio")
 			if(exact_Match(word,"APROXIMATE") and data['aproximate'] is None):			#
 				data['aproximate'] = True
 			if(exact_Match(word,"COARSEADJUSTING") and data['coarseadjusting'] is None):		#
@@ -234,18 +227,6 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
                 #print data to terminal
 		#displayData(data)									#call displayData def / sents one outcome to child
 
-                #fill list for fifo
-		print "test1234"
-                sendList = [None]*3
-                sendList[0] = data['ip']
-                sendList[1] = tryIns(data)							#call on tryIns function
-                sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
-		#printData(data)									#call exportData def / sents one outcome to child
-
-                print "i is: \n"
-                for i in sendList:
-                    os.write(pipeOut, i)
-                    usleep(250)
 
                # os.write(pipeOut, data['ip'])
 
@@ -253,8 +234,9 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
         #print "Parent: writing data to child through FD\n"
-                logging.debug("Parent: writing data to child through FD\n")
+                #logging.debug("Parent: writing data to child through FD\n")
 
+                return data
 
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
@@ -291,7 +273,6 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 	if (data['finesteering'] == True):			#testing for finesteering
 	        mode = "[1]" + "Fine steering"
-		#os.write(pipeOut, ("Fine steering"))		#write out 'Fine steering' to the 5th string adress on the display
 	elif (data['coarsesteering'] == True):			#testing for coarsesteering
 		mode = "[1]" + "Coarse steering"			#write out 'Coarse' to the 5th string adress on the display
         elif (data['unknown'] == True):				#
@@ -313,7 +294,6 @@ def displayData(data):						#this def tests for 1 of 11 options
         elif (data['sattime'] == True):
 		mode = "[1]" + "sattime"
 
-	#tryIns(data)
 	return mode
 
 
@@ -324,42 +304,29 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
-			#os.write(pipeOut, ("Ins active"))			#write to display on adress 2 of the string list
 			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
-			#os.write(pipeOut, ("Ins aligning"))			#write out only if aligning is true
 			mode = "[2]" + "Ins aligning"       			#write out only if aligning is true
 		elif (data['ins_high_variance'] == True):		#check library if high variance is true
-			#os.write(pipeOut, ("Ins high variance"))	#write out only if above check passes
 			mode = "[2]" + "Ins high variance"              	#write out only if above check passes
 		elif (data['ins_solution_good'] == True):		#check if solution good is true
-			#os.write(pipeOut, ("Ins solution good"))		#write out only if above check passes
 			mode = "[2]" + "Ins solution good"       		#write out only if above check passes
 		elif (data['ins_solution_free'] == True):		#check if solution free is true
-			#os.write(pipeOut, ("Ins solution free"))		#write out only if above check passes
 			mode = "[2]" + "Ins solution free"      		#write out only if above check passes
 		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
-			#os.write(pipeOut, ("Ins alignment complete"))	#
 			mode = "[2]" + "Ins alignment complete"         	#
 		elif (data['determining_orientation'] == True):		#
-			#os.write(pipeOut, ("Determining orientation"))	#
 			mode = "[2]" + "Determining orientation"        	#
 		elif (data['waiting_initialpos'] == True):		#
-			#os.write(pipeOut, ("Waiting initialpos"))	#
 			mode = "[2]" + "Waiting initialpos"             	#
 		elif (data['waiting_azimuth'] == True):			#
-			#os.write(pipeOut, ("Waiting azimuth"))		#
 			mode = "[2]" + "Waiting azimuth"        		#
 		elif (data['initializing_biases'] == True):		#
-			#os.write(pipeOut, ("Initializing biases"))	#
 			mode = "[2]" + "Initializing biases"            	#
 		elif (data['motion_detect'] == True):			#
-			#os.write(pipeOut, ("Motion detect"))		#
 			mode = "[2]" + "Motion detect"          		#
 		else:											#when INS is inactive
-			#os.write(pipeOut, ("Ins inactive"))			#write to display on adress 2 of the string list
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
-		        #os.write(pipeOut, (INS_ID + mode))			#write to display on adress 2 of the string list
 			return mode
 	except Exception, e:								#error handling INS testing
 		#print error
@@ -369,6 +336,22 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
                 print "Ik kom hier 2"
 
 
+def dataManager(data ,pipeOut):
+    #fill list for fifo
+    print "test1234"
+    sendList = [None]*3
+    sendList[0] = data['ip']
+    sendList[1] = tryIns(data)							#call on tryIns function
+    sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
+    #printData(data)									#call exportData def / sents one outcome to child
+
+    print "i is: \n"
+    for i in sendList:
+        os.write(pipeOut, i)
+        usleep(250)
+        
+
+                
 def findWord(phrase, word):								#word seacher that is used by readSerial
 	if(phrase.find(word) > 0):							#testing for an exact match
 		return True										#return true to confirm the word
@@ -382,42 +365,30 @@ def exact_Match(phrase, word):						#exact match def for filtering words
     return bool(res)
 
 
-def statusGPGGA(data, pipeOut):						#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
+def statusGPGGA(data):						#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
 	try:											#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga, represents "No fix"
-			#os.write(pipeOut, ("No fix"))
 			mode = "[3]" + "No fix"					#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '1':				#mode 1 of gpgga, represents "Single point"
-                    mode = "[3]" + "Single point"	#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Single point"))
+                        mode = "[3]" + "Single point"	#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '2':				#mode 2 of gpgga, represents "Pseudorange"
 			mode = "[3]" + "Pseudorange"			#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Pseudorange"))
 		elif (data['gpgga'][6]) is '3':				#mode 3 of gpgga, represents nothing according to Manual
 			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
-			#os.write(pipeOut, (". . ."))
 		elif (data['gpgga'][6]) is '4':				#mode 4 of gpgga, represents "Fixed"
 			mode = "[3]" + "Fixed"					#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Fixed"))
 		elif (data['gpgga'][6]) is '5':				#mode 5 of gpgga, represents "Floating"
 			mode = "[3]" + "Floating"				#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Floating"))
 		elif (data['gpgga'][6]) is '6':				#mode 6 of gpgga, represents "Dead reckoning"
 			mode = "[3]" + "Dead reckoning"			#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Dead reckoning"))
 		elif (data['gpgga'][6]) is '7':				#mode 7 of gpgga, represents "Manual input"
 			mode = "[3]" + "Manual input"			#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Manual input"))
 		elif (data['gpgga'][6]) is '8':				#mode 8 of gpgga, represents "Simulator"
 			mode = "[3]" + "Simulator"				#setting up data to be send with FIFO
-			#os.write(pipeOut, ("Simulator"))
 		elif (data['gpgga'][6]) is '9':				#mode 9 of gpgga, represents "WAAS"
 			mode = "[3]" + "WAAS"					#setting up data to be send with FIFO
-			#os.write(pipeOut, ("WAAS"))
 		else:										#when no mode is noticed dont write out anything
-			#os.write(pipeOut, (". . ."))
 			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
-		#os.write(pipeOut, GPGGA_ID + mode)
 		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
@@ -448,4 +419,5 @@ scanPorts()				#call on function scanPorts
 #port.close()
 while True:				#while loop to make the program run indefinitally
 	port = portDefine()			#call on function portDefine (TODO better description)
-	readSerial(port, pipeOut)
+	serialData = readSerial(port, pipeOut)
+        dataManager(serialData, pipeOut)
