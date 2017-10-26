@@ -153,6 +153,7 @@ def readSerial(port, pipeOut):							#reading all the data that is send by the r
                         'ins': None}					#define what to expect in the dictionary
 
 
+                print "Ik kom hier 4"
 		j = 0
 		rcv = [None]*25
 		for x in range (0, 25):
