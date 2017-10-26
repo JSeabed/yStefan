@@ -5,7 +5,7 @@ import serial
 import time			#time delay function imported
 
 #logger = getLogger()
-logger = logging.getLogger('root')
+logger = logging.getLogger('dataManager')
 
 #returns tty which is used by novatel chip
 def getNRCPort():
