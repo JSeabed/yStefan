@@ -5,10 +5,15 @@ import time			#time delay function imported
 
 logger = getLogger()
 
+
 #returns tty which is used by novatel chip
 def getNRCPort():
     return trySerial()
 
+
+#Try to obtain port (tty/USBx).
+#Return None if novatel is not found.
+#Return port if dev/ttyUSBx is found.
 def trySerial():
     attempt = 0
     for i in range(10):
