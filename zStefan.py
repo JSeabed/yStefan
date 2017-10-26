@@ -105,8 +105,9 @@ def fifoPort(pipeIn):
 
 def scanPorts():
 	ports = list(serial.tools.list_ports.comports())
-        port = list(list_ports.grep("09d7:0100")
+        port = list(list_ports.grep("09d7:0100"))
         print "port is: "
+
         print port
 	for p in ports:
     		print p
