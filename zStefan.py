@@ -15,7 +15,7 @@ import re
 import commands
 import RPi.GPIO as GPIO
 import os
-from log 
+import log
 import errno
 import select
 from collections import namedtuple
