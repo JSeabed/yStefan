@@ -22,7 +22,7 @@ def trySerial():
         if port is not None:
             print "USB found"
             return port
-        if attempt is 10:
+        if attempt is 9:
             logger.error("Failed to initialise port")
             return None
         attempt = attempt + 1
