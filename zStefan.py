@@ -12,7 +12,6 @@ import datetime
 import usb.core
 import usb.util
 import re
-import sys
 import commands
 import RPi.GPIO as GPIO
 import os
