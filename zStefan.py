@@ -74,7 +74,7 @@ def portDefine():									#function to define the port the OEM7 is connected to
 
 def fifoPort(pipeIn):
 	FIFO = '/tmp/mypipe'
-        print "Child: preparing fifo\n"
+        loggin.debug("Child: preparing fifo\n")
 	try:
 	    os.mkfifo(FIFO)
 	except OSError as oe:
@@ -83,7 +83,6 @@ def fifoPort(pipeIn):
 
         fifo = os.open(FIFO, os.O_WRONLY)
         while True:
-            #print "Child checking FD"
             logging.debug("Child checking FD")
             r, _, _ = select.select([pipeIn], [], [], )
             if not r:
@@ -106,6 +105,8 @@ def fifoPort(pipeIn):
 
 def scanPorts():
 	ports = list(serial.tools.list_ports.comports())
+        port = list(list_ports.grep("09d7:0100")
+        print "port is: ", port
 	for p in ports:
     		print p
 
