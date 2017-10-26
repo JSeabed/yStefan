@@ -1,17 +1,35 @@
 import serial.tools.list_ports
-from log import *
+from log import getLogger
 import serial                   
+
+logger = getLogger()
 
 #returns tty which is used by novatel chip
 def getNRCPort():
-    return portDefine(scanPorts())
+    return 
+
+def trySerial():
+    attempt = 0
+    for i in range(10):
+        port = portDefine(scanPorts())
+        if port is not None:
+            return port
+        if attempt is 10:
+            logger.error("Failed to initialise port")
+            return None
+        attempt = attempt + 1
+        logger.info("No connection established with novatel attempt: %d of the 10.", attempt)
+        sleep(1)
 
 
 def scanPorts():
-    ports = list(serial.tools.list_ports.comports())
-    port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
-    logger.debug("port is: " + port)
-    return port
+    #ports = list(serial.tools.list_ports.comports())
+    try:
+        port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
+        logger.debug("port is: " + port)
+        return port
+    except Exception as e:
+        logger.error(e)
 
 
 
@@ -31,4 +49,5 @@ def portDefine(PORT):
             #send an error message to the display
             #send an error message to the terminal
             logger.error("Usb not found")
+            return None
     return port

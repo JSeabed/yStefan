@@ -392,7 +392,7 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 #portTry()				#call on function portTry
 #scanPorts()				#call on function scanPorts
 #port.close()
-port = getNRCPort()
+# Try to find novatel USB
 while True:				#while loop to make the program run indefinitally
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
