@@ -26,12 +26,9 @@ def portDefine(PORT):
     except Exception, e:
             #print error
             #write out error to textdocument
-            filewrite(str(e)+"\n")
             logger.debug(str(e))
-
             port = 0
             #send an error message to the display
-            commands.wrt_str("Trying to connect",5)
             #send an error message to the terminal
-            print('\nUSB niet aangesloten\n')	
+            logger.error("Usb not found")
     return port
