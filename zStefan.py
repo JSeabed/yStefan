@@ -318,9 +318,12 @@ def dataManager(data ,pipeOut):
     #call exportData def / sents one outcome to child
 
     print "i is: \n"
-    for i in sendList:
-        os.write(pipeOut, i)
-        usleep(250)
+    try:
+            for i in sendList:
+                    os.write(pipeOut, i)
+                    usleep(250)
+    except Exception as e:
+            logger.error(str(e))
 
 
 
