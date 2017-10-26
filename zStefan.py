@@ -22,11 +22,11 @@ import select
 from collections import namedtuple
 
 #Used for debugging.
-#import logging
-#logging.basicConfig(stream=sys.stderr)
+#import logger
+#logger.basicConfig(stream=sys.stderr)
 #exapmle
-#logging.debug('A debug message!')
-#logging.info('We processed %d records', len(processed_records))
+#logger.debug('A debug message!')
+#logger.info('We processed %d records', len(processed_records))
 
 
 usleep = lambda x: time.sleep(x/1000000.0)
@@ -39,7 +39,7 @@ INS_ID = "1: "
 
 def fifoPort(pipeIn):
 	FIFO = '/tmp/mypipe'
-        logging.debug("Child: preparing fifo\n")
+        logger.debug("Child: preparing fifo\n")
 	try:
 	    os.mkfifo(FIFO)
 	except OSError as oe:
@@ -48,20 +48,20 @@ def fifoPort(pipeIn):
 
         fifo = os.open(FIFO, os.O_WRONLY)
         while True:
-            logging.debug("Child checking FD")
+            logger.debug("Child checking FD")
             r, _, _ = select.select([pipeIn], [], [], )
             if not r:
                 #no data
-                logging.debug("No data in FD")
+                logger.debug("No data in FD")
                 #print "No data in FD\n"
                 pass
             else:
                 #data available
-                logging.debug("Data in FD")
+                logger.debug("Data in FD")
                 data =  os.read(pipeIn, 1024)
-                logging.debug("Opening FIFO...\n")
+                logger.debug("Opening FIFO...\n")
                 #with open(FIFO, "w", 1) as fifo:
-                logging.debug("FIFO opened")
+                logger.debug("FIFO opened")
                 os.write(fifo, data + ', '+ '\n')
                 #fifo.flush()
                     #fifo.write("\0")
@@ -202,7 +202,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
         #print "Parent: writing data to child through FD\n"
-                #logging.debug("Parent: writing data to child through FD\n")
+                #logger.debug("Parent: writing data to child through FD\n")
 
                 return data
 

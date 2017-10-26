@@ -3,7 +3,7 @@ import sys
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logger.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 # create a file handler
 handler = logging.FileHandler('python.log')
