@@ -218,7 +218,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			genieWriteStr(1, readBuffer);
-			fflush(stdout);
+			fflush(fd_parent[0]);
 			// fetchData();
 		} else if(ret == -1){
 			/* error */
