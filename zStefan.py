@@ -189,7 +189,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
 			#print "testoe"
-			if(exact_Match(word,"$GPHDT")and data['gphdt'] is None):
+			if(findWord(word,"$GPHDT")and data['gphdt'] is None):
 				data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
