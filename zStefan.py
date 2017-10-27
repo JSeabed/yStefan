@@ -191,7 +191,6 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			#print "testoe"
 			if(exact_Match(word,"$GPHDT")and data['gphdt'] is None):
 				data['gphdt'] = True
-				print "wolla"
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
 			#	print(split_GPHDT)
@@ -214,7 +213,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
         #print "Parent: writing data to child through FD\n"
                 #logger.debug("Parent: writing data to child through FD\n")
 
-                return data
+                return #data
 
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
