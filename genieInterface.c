@@ -139,7 +139,7 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-		fflush(myfifo* fd_parent[0]);
+		fflush(file);
 	  if(fgets(buf, BUFFSIZE, file) > 0){
 	//  printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
@@ -219,7 +219,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			genieWriteStr(1, readBuffer);
-			fflush(myfifo* fd_parent[0]);
+			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
 		} else if(ret == -1){
 			/* error */
