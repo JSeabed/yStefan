@@ -72,12 +72,12 @@ def fifoPort(pipeIn):
         fifo.close()
 
 
-def scanPorts():
-	ports = list(serial.tools.list_ports.comports())
-        port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
-        print "port is: "
-
-        print port
+#def scanPorts():
+#	ports = list(serial.tools.list_ports.comports())
+#        port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
+#        print "port is: "
+#
+#        print port
 	#for p in ports:
     		#print p
 
