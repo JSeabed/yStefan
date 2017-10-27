@@ -145,7 +145,7 @@ void childGetData(int fd_child, int fd_parent ){
 	  write(fd_parent, &buf, sizeof(buf));
 	  }
 	  else{
-	    break;
+	    //break;
 	  }
 	  //file = open(myfifo, O_WRONLY);
 	  //fclose(file);
