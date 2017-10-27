@@ -37,6 +37,7 @@ def scanPorts():
     #ports = list(serial.tools.list_ports.comports())
     try:
         port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
+        print port
         logger.debug("port is: " + port)
         return port
     except Exception as e:
