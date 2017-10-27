@@ -139,7 +139,7 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-		fflush(file);
+		flush(file);
 	  if(fgets(buf, BUFFSIZE, file) > 0){
 	//  printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
