@@ -131,7 +131,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
                 #print cData
 		str1 = ''.join(rcv)
-		print rcv
+		#print rcv
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
@@ -188,6 +188,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
+			print "testoe"
 			if("$GPHDT" in rcv):
 				split_GPHDT = rcv.split(',')
 				print(split_GPHDT)
