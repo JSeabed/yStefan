@@ -191,6 +191,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			#print "testoe"
 			if(exact_Match(word,"$GPHDT")and data['gphdt'] is None):
 				data['gphdt'] = True
+				print "wolla"
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
 			#	print(split_GPHDT)
