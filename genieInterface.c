@@ -29,10 +29,10 @@ typedef int bool;
 #define false 0
 
 struct data{
-	char* ip; 
+	char* ip;
 	float gpgga;
-	bool ins_active; 
-	bool ins_aligning; 
+	bool ins_active;
+	bool ins_aligning;
 	bool ins_high_variance;
 	bool ins_solution_good;
 	bool ins_solution_free;
@@ -103,11 +103,11 @@ int sentData(int isString, struct data *newData, char *str){
   }
 }
 
-/* 
+/*
 int checkFifo(FILE *file){
 	int retval;
 	struct pollfd fd1;
-	fd1.fd = file;	
+	fd1.fd = file;
 	retval = poll(fd1, 1, TIMEOUT);
 	if(retval < 0){
 	} else if(retval > 0){
@@ -159,7 +159,7 @@ void childGetData(int fd_child, int fd_parent ){
  * Fetch the received data from the python script to the data structure *
  * *********************************************************************/
 /*int fetchData(struct data, char *buf){
-	//data.ip = 
+	//data.ip =
 	return 1;
 }*/
 
@@ -192,12 +192,12 @@ int main (int argc, char** argv) {
 	}
 
 		if(child == (pid_t)-1){
-			/* failed to create child*/	
+			/* failed to create child*/
 
 		}
 
 		if(!child){
-			/* Here enters the child */ 
+			/* Here enters the child */
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
 			//printf("Child pid = %d \n", (int)child);
@@ -218,6 +218,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			genieWriteStr(1, readBuffer);
+			fflush(readBuffer);
 			// fetchData();
 		} else if(ret == -1){
 			/* error */
@@ -226,7 +227,7 @@ int main (int argc, char** argv) {
 				printf("Timeout!\n");
 			#endif
 			usleep(750);
-		}	
+		}
 		//struct data Newdata; //TODO replace
 		usleep(750);
 		while(genieReplyAvail()) {
@@ -259,7 +260,7 @@ int checkFd(int fd_parent){
 	else if(retval){
 		/* Data is available */
 		return 1;
-	} else { 
+	} else {
 		/* Timeout */
 		return 0;
 	}
