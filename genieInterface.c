@@ -140,7 +140,7 @@ void childGetData(int fd_child, int fd_parent ){
 
 	for(;;){
 		if(fgets(buf, BUFFSIZE, file) > 0){
-			fflush(file);
+			__fpurge(file);
 	//  printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
 	  }
