@@ -52,7 +52,7 @@ def portDefine(PORT):
             #defining the serial port as a contant value
             print PORT
             port = serial.Serial(PORT, 9600)
-            logger.debug("Port is:" + port)
+            #logger.debug("Port is:" + port)
             #print("gevonden")
     except Exception, e:
             #print error
