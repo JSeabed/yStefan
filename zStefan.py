@@ -131,7 +131,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		print("----------------------------------------\n")					#adding a line in the terminal for transparity
                 #print cData
 		str1 = ''.join(rcv)
-		#print rcv
+		print rcv
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
@@ -214,7 +214,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                 #logger.debug("Parent: writing data to child through FD\n")
 		print data
                 return data
-
+		time.sleep(1)
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
 
