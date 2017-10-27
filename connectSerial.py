@@ -11,7 +11,7 @@ logger = logging.getLogger('dataManager')
 def getNRCPort():
     #Uncomment als je trySerial wilt vermijden
     #(als er geen connectie gemaakt kan worden met de novatel chip)
-    #return portDefine(scanPorts())
+    return portDefine(scanPorts())
     return trySerial()
 
 
@@ -46,8 +46,8 @@ def scanPorts():
 
 #function to define the port the OEM7 is connected
 def portDefine(PORT):
-    try:	
-            #PORT = "/dev/ttyUSB1"	
+    try:
+            #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
             port = serial.Serial(PORT, 9600)
             logger.debug("Port is:" + port)
