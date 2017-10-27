@@ -49,6 +49,7 @@ def portDefine(PORT):
     try:
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
+            print PORT
             port = serial.Serial(PORT, 9600)
             logger.debug("Port is:" + port)
             #print("gevonden")
