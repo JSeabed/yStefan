@@ -117,7 +117,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                         'fine': None, \
                         'finebackupsteering': None, \
                         'sattime': None, \
-                        'gpgga': None, \
+                        'gphdt': None, \
                         'ins': None}					#define what to expect in the dictionary
 
 
@@ -189,14 +189,17 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
 			print "testoe"
-			if("$GPHDT" in rcv):
-				split_GPHDT = rcv.split(',')
-				print(split_GPHDT)
-				if (split_GPHDT[1] >= '0'):
-					print("heading")
-					commands.wrt_str("Ok",4)
-				else:
-					commands.wrt_str("Non",4)
+			if(exact_Match(word,"$GPHDT")and data['gphdt'] is None)
+				data['gphdt'] = True
+			#if("$GPHDT" in rcv):
+			#	split_GPHDT = rcv.split(',')
+			#	print(split_GPHDT)
+			#	if (split_GPHDT[1] >= '0'):
+			#		print("heading")
+					#commands.wrt_str("Ok",4)
+			#	else:
+					#commands.wrt_str("Non",4)
+			#		return
 			#print "end filter"
                 #print data to terminal
 		#displayData(data)									#call displayData def / sents one outcome to child
