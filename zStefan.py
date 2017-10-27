@@ -216,7 +216,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                 #logger.debug("Parent: writing data to child through FD\n")
 		#print data
 
-		time.sleep()
+		time.sleep(1)
                 return data
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
