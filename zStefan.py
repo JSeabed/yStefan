@@ -207,8 +207,8 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 
                # os.write(pipeOut, data['ip'])
 
-		port.close()										#close port to OEM7
-		time.sleep(2)										#add a delay of 2 seconds
+		#port.close()										#close port to OEM7
+		#time.sleep(2)										#add a delay of 2 seconds
 		#fifoPort((data['ip']))
         #print "Parent: writing data to child through FD\n"
                 #logger.debug("Parent: writing data to child through FD\n")
