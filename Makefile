@@ -16,6 +16,9 @@ $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) -c $(SOURCES) $(LDFLAGS) $(LDLIBS)
 
 
+.PHONY clean
+
+
 all:
 	$(EXE)
 
