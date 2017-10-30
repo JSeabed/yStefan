@@ -163,7 +163,7 @@ void childGetData(int fd_child, int fd_parent ){
 int getID(char *str){
   char *strMask = "%*[^0123456789]%d";
   int id;
-  while(sscanf(str, strMask, &id) != 0){
+  while(sscanf(str, strMask, &id) != 1){
     printf("id is = %d", id);
   }
 }
