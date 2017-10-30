@@ -227,7 +227,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			perror("Error parent: ");
-			genieWriteStr(1, readBuffer);
+			genieWriteStr(1, readBuffer[0] + readBuffer[1] + readBuffer[2]);
 			printf("Laatste keer parent");
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
