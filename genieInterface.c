@@ -86,9 +86,9 @@ int addToStruct(struct data *newData, int id, char dataStr){
 
   switch(id){
   case id:
-    newData -> ip = *dataStr;
+    newData -> ip = dataStr;
  case status:
-    newData -> status = *dataStr;
+    newData -> status = dataStr;
  case position:
     newData -> position = dataStr;
  case heading:
