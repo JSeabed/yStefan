@@ -184,7 +184,6 @@ int main (int argc, char** argv) {
 	int fd_child[2], fd_parent[2];
 	int status;
 	int ret;
-	char strr[3];
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -228,8 +227,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			perror("Error parent: ");
-			*strr =  readBuffer[0] + readBuffer[1] + readBuffer[2];
-			genieWriteStr(1,strr);
+			//genieWriteStr(1, readBuffer);
 			printf("Laatste keer parent");
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
