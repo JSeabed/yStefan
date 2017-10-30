@@ -86,15 +86,20 @@ int addToStruct(struct data *newData, int id, char *dataStr){
 
   switch(id){
   case id:
-    newData -> ip = (char*)dataStr;
+    //newData -> ip = dataStr;
+    strncpy(newData->ip, dataStr, sizeof(dataStr));
  case status:
-   newData -> status = (char*)dataStr;
+    strncpy(newData->jstatus, dataStr, sizeof(dataStr));
+    //newData -> status = dataStr;
  case position:
-   newData -> position = (char*)dataStr;
+    strncpy(newData->position, dataStr, sizeof(dataStr));
+    //newData -> position = dataStr;
  case heading:
-   newData -> heading = (char*)dataStr;
+    strncpy(newData->heading, dataStr, sizeof(dataStr));
+    //newData -> heading = dataStr;
  case rtk:
-   newData -> rtk = (char*)dataStr;
+    strncpy(newData->rtk, dataStr, sizeof(dataStr));
+    //newData -> rtk = dataStr;
  default:
    printf("Error: addToStruct");
 }
