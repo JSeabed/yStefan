@@ -18,6 +18,7 @@
 
 #define BUFFSIZE 4096
 #define TIMEOUT 500
+#define WAIT 250
 
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1
@@ -234,18 +235,18 @@ int main (int argc, char** argv) {
 			#if DEBUG
 				printf("Timeout!\n");
 			#endif
-			usleep(750);
+			usleep(WAIT);
 		}
 		#if DEBUG
 		printf("FD is: %d ",fcntl(fd_parent[0], F_GETFD));
 		printf("parent komt hier nog steeds!\n");
 		#endif
 		//struct data Newdata; //TODO replace
-		usleep(750);
+		usleep(WAIT);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
-			usleep(750); // wait 20ms between polls to save CPU
+			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
 	}
 	printf("Error - parent: exit ");
