@@ -145,7 +145,7 @@ void childGetData(int fd_child, int fd_parent ){
 		}
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
-		fflush(file);
+		//fflush(file);
 		printf("ret is : %d", ret);
 		unlink(myfifo);
 	}
