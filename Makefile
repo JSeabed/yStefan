@@ -2,14 +2,15 @@ CC=gcc
 CFLAGS=-I
 DFLAGS=-D DEBUG
 #LDFLAGS = -L/usr/local/lib
-LDLIBS = -lgeniePi
+#LDLIBS = -lgeniePi
+LIBS = -lgeniePi
 EXE = genieInterface
 SOURCES = genieInterface.c
 OBJ = $(SOURCES:.c=.o)
 #MAIN = genieInterface
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $(DFLAGS) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
+	$(CC) $(CFLAGS) $(DFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
 
 #$(OBJ): $(SOURCES)
