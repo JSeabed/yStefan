@@ -129,6 +129,7 @@ void childGetData(int fd_child, int fd_parent ){
 	//int fd;
 	char buf[BUFFSIZE];
 	FILE *file;
+	int ret;
 	char * myfifo = "/tmp/mypipe";
 	/* create the FIFO (named pipe) */
 	mkfifo(myfifo, 0666);
