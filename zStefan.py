@@ -61,12 +61,9 @@ def fifoPort(pipeIn):
                 pass
             else:
                 #data available
-                logger.debug("Data in FD")
                 data =  os.read(pipeIn, 1024)
-                logger.debug("Opening FIFO...\n")
                 #with open(FIFO, "w", 1) as fifo:
-                logger.debug("FIFO opened")
-                os.write(fifo, data + ', '+ '\n')
+                os.write(fifo, data + '\0')
                 #fifo.flush()
                     #fifo.write("\0")
         fifo.close()
