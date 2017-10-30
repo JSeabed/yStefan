@@ -235,7 +235,9 @@ int main (int argc, char** argv) {
 			usleep(750);
 		}
 		#if DEBUG
-		printf("parent komt hier nog steeds!\n");
+		if(fcntl(fd, F_GETFD))
+		  printf("FD still OK");
+		    printf("parent komt hier nog steeds!\n");
 		#endif
 		//struct data Newdata; //TODO replace
 		usleep(750);
