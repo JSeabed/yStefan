@@ -139,7 +139,6 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-		fflush(file);
 		if(ret = checkFd(file)){
 			if(fgets(buf, BUFFSIZE, file) > 0){
 			//  printf("%s \n", buf);
@@ -157,6 +156,7 @@ void childGetData(int fd_child, int fd_parent ){
 				printf("Child: Timeout!\n");
 			#endif
 		}
+		fflush(file);
 		printf("ret is : %d", ret);
 	}
 	/* remove the FIFO */
