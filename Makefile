@@ -33,8 +33,7 @@ $(OBJ): $(SOURCES)
 .PHONY: all debug clean
 
 
-all:
-	$(EXE)
+all:	$(EXE)
 
 
 debug: DEBUG = -DDEBUG
