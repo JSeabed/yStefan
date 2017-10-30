@@ -138,7 +138,7 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-		fflush( fd_parent );
+		fflush(file);
 		if(fgets(buf, BUFFSIZE, file) > 0){
 		//  printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
