@@ -12,8 +12,8 @@ $(EXE): $(OBJ)
 	$(CC) $(CFLAGS) $(DFLAGS) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 
-$(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) -c $(SOURCES) $(LDFLAGS) $(LDLIBS)
+#$(OBJ): $(SOURCES)
+	#$(CC) $(CFLAGS) -c $(SOURCES) $(LDFLAGS) $(LDLIBS)
 
 
 .PHONY: clean
