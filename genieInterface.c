@@ -144,7 +144,7 @@ void childGetData(int fd_child, int fd_parent ){
 			  printf("verstuurd!: %s \n", buf);
 			n = write(fd_parent, &buf, sizeof(buf));
 			if(n < 0){
-			  perror("Error: ")
+			  perror("Error: ");
 			}
 		}
 	  	//file = open(myfifo, O_WRONLY);
