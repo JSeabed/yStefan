@@ -17,7 +17,7 @@
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
 #define BUFFSIZE 4096
-#define TIMEOUT 250
+#define TIMEOUT 500
 
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1
