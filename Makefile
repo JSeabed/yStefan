@@ -36,7 +36,7 @@ $(OBJ): $(SOURCES)
 all:	$(EXE)
 
 
-debug: DEBUG = -DDEBUG
+debug: DEBUG = -D DEBUG
 
 debug: all
 
