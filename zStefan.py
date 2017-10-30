@@ -63,7 +63,7 @@ def fifoPort(pipeIn):
                 #data available
                 data =  os.read(pipeIn, 1024)
                 #with open(FIFO, "w", 1) as fifo:
-                os.write(fifo, data + '\0')
+                os.write(fifo, data + '\n')
                 #fifo.flush()
                     #fifo.write("\0")
         fifo.close()
