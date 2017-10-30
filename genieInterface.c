@@ -130,7 +130,6 @@ void childGetData(int fd_child, int fd_parent ){
 	char buf[BUFFSIZE];
 	FILE *file;
 	char * myfifo = "/tmp/mypipe";
-	fflush( fd_parent );
 	/* create the FIFO (named pipe) */
 	mkfifo(myfifo, 0666);
 	file = fopen(myfifo, "r");
@@ -139,6 +138,7 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
+		fflush( fd_parent );
 		if(fgets(buf, BUFFSIZE, file) > 0){
 		//  printf("%s \n", buf);
 	  write(fd_parent, &buf, sizeof(buf));
