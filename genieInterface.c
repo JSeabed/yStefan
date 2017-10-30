@@ -224,6 +224,7 @@ int main (int argc, char** argv) {
 				printf("Data is available\n");
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
+			printf("\n parent: %s", readBuffer);
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
@@ -236,6 +237,8 @@ int main (int argc, char** argv) {
 			#endif
 			usleep(WAIT);
 		}
+		#if DEBUG
+		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
 		while(genieReplyAvail()) {
