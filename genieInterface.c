@@ -214,6 +214,7 @@ int main (int argc, char** argv) {
 
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
+	  fflush(fd_parent[0]);
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 				printf("Data is available\n");
