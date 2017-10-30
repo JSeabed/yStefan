@@ -8,14 +8,17 @@ SOURCES = genieInterface.c
 OBJ = genieInterface.o
 MAIN = genieInterface
 
-genieInterface: genieInterface.o
+$(EXE): $(OBJ)
 	$(CC) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
+
 
 $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) -c $(SOURCES) $(LDFLAGS) $(LDLIBS)
 
+
 all:
 	$(EXE)
+
 
 clean:
 	$(RM) $(OBJ) *~ $(MAIN)
