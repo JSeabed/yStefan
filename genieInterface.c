@@ -224,11 +224,11 @@ int main (int argc, char** argv) {
 				printf("Data is available\n");
 				perror("Error parent: ");
 			#endif
-			printf("Laatste keer parent");
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			perror("Error parent: ");
 			genieWriteStr(1, readBuffer);
+			printf("Laatste keer parent");
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
 		} else if(ret == -1){
