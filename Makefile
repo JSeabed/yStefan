@@ -6,10 +6,10 @@ LDLIBS = -lgeniePi
 EXE = genieInterface
 SOURCES = genieInterface.c
 OBJ = genieInterface.o
-MAIN = genieInterface
+#MAIN = genieInterface
 
 $(EXE): $(OBJ)
-	$(CC) -o $(EXE) $(LDFLAGS) $(LDLIBS)
+	$(CC) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 
 $(OBJ): $(SOURCES)
@@ -21,4 +21,4 @@ all:
 
 
 clean:
-	$(RM) $(OBJ) *~ $(MAIN)
+	$(RM) $(OBJ) *~ $(EXE)
