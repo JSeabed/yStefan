@@ -245,6 +245,7 @@ int main (int argc, char** argv) {
 			usleep(750); // wait 20ms between polls to save CPU
 		}
 	}
+	printf("Error - parent: exit ");
 	perror("Error - parent: ");
 	return(0);
 }
