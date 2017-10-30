@@ -168,6 +168,9 @@ void errorExit(char* error){
 
 
 int main (int argc, char** argv) {
+  #if DEBUG
+  printf("Debug mode on\n");
+  #endif
 	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
