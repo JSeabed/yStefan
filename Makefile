@@ -23,7 +23,7 @@ OBJ = genieInterface.o
 
 
 $(EXE): $(OBJ)
-	$(CC) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
 
 
 $(OBJ): $(SOURCES)
@@ -36,6 +36,10 @@ $(OBJ): $(SOURCES)
 all:
 	$(EXE)
 
+
+debug: DEBUG = -DDEBUG
+
+debug: all
 
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
