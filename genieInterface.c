@@ -30,32 +30,20 @@ typedef int bool;
 #define true 1
 #define false 0
 
+enum dataID{
+  ip,
+  status,
+  position,
+  heading,
+  rtk
+};
+
 struct data{
-	char* ip;
-	float gpgga;
-	bool ins_active;
-	bool ins_aligning;
-	bool ins_high_variance;
-	bool ins_solution_good;
-	bool ins_solution_free;
-	bool ins_alignment_complete;
-	bool determining_orientation;
-	bool waiting_initialpos;
-	bool waiting_azimuth;
-	bool initializing_biases;
-	bool motion_detect;
-	bool finesteering;
-	bool coarsesteering;
-	bool unknown;
-	bool aproximate;
-	bool coarseadjusting;
-	bool coarse;
-	bool freewheeling;
-	bool fineadjusting;
-	bool fine;
-	bool finebackupsteering;
-	bool sattime;
-	bool ins;
+  char* ip,
+    status,
+    position,
+    heading,
+    rtk;
 };
 
 //struct data Newdata; //TODO replace
@@ -94,7 +82,26 @@ void handleEvent (struct genieReplyStruct *reply) {
 		}
 	}
 }
+int addToStruct(struct data *newData, int id, char *data){
 
+  switch(id):
+  case id:
+    newData -> ip = data;
+    break;
+ case status:
+    newData -> status = data;
+   break;
+ case position:
+    newData -> position = data;
+   break;
+ case heading:
+    newData -> heading = data;
+   break;
+ case rtk:
+    newData -> rtk = data;
+   break;
+ default:
+}
 
 int sentData(int isString, struct data *newData, char *str){
   if(isString){
