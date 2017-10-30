@@ -190,8 +190,7 @@ int main (int argc, char** argv) {
 	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
-	int status;
-	int ret;
+	int status, id, ret;
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -232,6 +231,7 @@ int main (int argc, char** argv) {
 				printf("Data is available\n");
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
+			id = getID(readBuffer);
 			printf("\n parent: %s", readBuffer);
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
