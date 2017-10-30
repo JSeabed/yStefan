@@ -156,12 +156,10 @@ void childGetData(int fd_child, int fd_parent ){
 		}
 		fflush(file);
 		printf("ret is : %d", ret);
+	unlink(myfifo);
 	}
 	/* remove the FIFO */
-	unlink(myfifo);
 	/* fill data struct*/
-}
-
 /************************************************************************
  * Fetch the received data from the python script to the data structure *
  * *********************************************************************/
