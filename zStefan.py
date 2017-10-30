@@ -69,16 +69,6 @@ def fifoPort(pipeIn):
         fifo.close()
 
 
-def scanPorts():
-	ports = list(serial.tools.list_ports.comports())
-        port = list(serial.tools.list_ports.grep("09d7:0100"))[0][0]
-        print "port is: "
-
-        print port
-	#for p in ports:
-    		#print p
-
-
 def filewrite(rcv):                             		#Function to write data to a .txt file
 	logfile = open("templog.txt", "a")      			#open file
 	logfile.write(str(datetime.datetime.now()) + "\n")	#adding time of error
