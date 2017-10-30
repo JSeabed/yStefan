@@ -235,7 +235,7 @@ int main (int argc, char** argv) {
 			usleep(750);
 		}
 		#if DEBUG
-		if(fcntl(fd, F_GETFD))
+		if(fcntl(fd_parent[0], F_GETFD))
 		  printf("FD still OK");
 		    printf("parent komt hier nog steeds!\n");
 		#endif
