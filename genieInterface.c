@@ -172,6 +172,7 @@ int getID(char *str){
     i++;
   }
   //error
+  printf("ID NOT FOUND\n");
   return -1;
 }
 	/* remove the FIFO */
