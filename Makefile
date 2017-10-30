@@ -9,7 +9,7 @@ OBJ = genieInterface.o
 #MAIN = genieInterface
 
 $(EXE): $(OBJ)
-	$(CC) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
+	$(CC) $(CFLAGS) $(DFLAGS) -o $(EXE) $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 
 $(OBJ): $(SOURCES)
