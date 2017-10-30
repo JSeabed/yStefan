@@ -225,6 +225,7 @@ int main (int argc, char** argv) {
 			// fetchData();
 		} else if(ret == -1){
 			/* error */
+		  perror("Error - parent: ");
 		} else{
 			#if DEBUG
 				printf("Timeout!\n");
