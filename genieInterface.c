@@ -214,7 +214,6 @@ int main (int argc, char** argv) {
 
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-	  fflush(fd_parent[0]);
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 				printf("Data is available\n");
@@ -233,6 +232,9 @@ int main (int argc, char** argv) {
 			#endif
 			usleep(750);
 		}
+		#if DEBUG
+		    printf("parent komt hier nog steeds!\n")
+		#endif
 		//struct data Newdata; //TODO replace
 		usleep(750);
 		while(genieReplyAvail()) {
