@@ -142,11 +142,11 @@ void childGetData(int fd_child, int fd_parent ){
 			if(fgets(buf, BUFFSIZE, file) > 0){
 			//  printf("%s \n", buf);
 			write(fd_parent, &buf, sizeof(buf));
+		printf("verstuurd! \n");
 		}
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
 		//fflush(file);
-		printf("ret is : %d", ret);
 		unlink(myfifo);
 	}
 }
