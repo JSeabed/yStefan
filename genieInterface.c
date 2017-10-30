@@ -222,13 +222,9 @@ int main (int argc, char** argv) {
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 				printf("Data is available\n");
-				perror("Error parent: ");
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
-			printf("\n parent: %s", readBuffer);
-			perror("Error parent: ");
 			//genieWriteStr(1, readBuffer);
-			printf("Laatste keer parent");
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
 		} else if(ret == -1){
@@ -240,10 +236,6 @@ int main (int argc, char** argv) {
 			#endif
 			usleep(WAIT);
 		}
-		#if DEBUG
-		printf("FD is: %d ",fcntl(fd_parent[0], F_GETFD));
-		printf("parent komt hier nog steeds!\n");
-		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
 		while(genieReplyAvail()) {
@@ -252,8 +244,6 @@ int main (int argc, char** argv) {
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
 	}
-	printf("Error - parent: exit ");
-	perror("Error - parent: ");
 	return(0);
 }
 /************************************
