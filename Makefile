@@ -11,11 +11,11 @@ OBJ = genieInterface.o
 #MAIN = genieInterface
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) -lgeniePi
+	$(CC) -o $(EXE) $(OBJ) -lgeniePi
 
 
 $(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) -c $(SOURCES) -lgeniePi 
+	$(CC) -c $(SOURCES) -lgeniePi 
 
 
 .PHONY: clean
