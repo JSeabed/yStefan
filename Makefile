@@ -6,15 +6,16 @@ DFLAGS=-D DEBUG
 LIBS = -lgeniePi
 EXE = genieInterface
 SOURCES = genieInterface.c
-OBJ = $(SOURCES:.c=.o)
+#OBJ = $(SOURCES:.c=.o)
+OBJ = genieInterface.o
 #MAIN = genieInterface
 
 $(EXE): $(OBJ)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) -lgeniePi
 
 
-#$(OBJ): $(SOURCES)
-	#$(CC) $(CFLAGS) -c $(SOURCES) $(LDFLAGS) $(LDLIBS)
+$(OBJ): $(SOURCES)
+	$(CC) $(CFLAGS) -c $(SOURCES) -lgeniePi 
 
 
 .PHONY: clean
