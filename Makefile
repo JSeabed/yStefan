@@ -10,7 +10,7 @@ OBJ = $(SOURCES:.c=.o)
 #MAIN = genieInterface
 
 $(EXE): 
-	$(CC) $(CFLAGS) $(DFLAGS) -o $(EXE) $(OBJ) -lgeniePi
+	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) -lgeniePi
 
 
 #$(OBJ): $(SOURCES)
