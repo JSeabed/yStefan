@@ -82,7 +82,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 		}
 	}
 }
-int addToStruct(struct data *newData, int id, char *dataStr){
+int addToStruct(struct data *newData, int id, char dataStr){
 
   switch(id){
   case id:
