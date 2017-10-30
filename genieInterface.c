@@ -142,7 +142,10 @@ void childGetData(int fd_child, int fd_parent ){
 			if(fgets(buf, BUFFSIZE, file) > 0){
 			//  printf("%s \n", buf);
 			  printf("verstuurd!: %s \n", buf);
-			write(fd_parent, &buf, sizeof(buf));
+			n = write(fd_parent, &buf, sizeof(buf));
+			if(n < 0){
+			  perror("Error: ")
+			}
 		}
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
