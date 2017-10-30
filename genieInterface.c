@@ -155,6 +155,7 @@ void childGetData(int fd_child, int fd_parent ){
 	  	//fclose(file);
 		//fflush(file);
 		unlink(myfifo);
+	  usleep(WAIT);
 	}
 }
 	/* remove the FIFO */
