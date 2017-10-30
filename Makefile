@@ -5,7 +5,7 @@ LDFLAGS = -L/usr/local/lib
 LDLIBS = -lgeniePi
 EXE = genieInterface
 SOURCES = genieInterface.c
-OBJ = genieInterface.o
+OBJ = $(SOURCES:.c=.o)
 #MAIN = genieInterface
 
 $(EXE): $(OBJ)
