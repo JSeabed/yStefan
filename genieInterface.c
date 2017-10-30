@@ -141,8 +141,10 @@ void childGetData(int fd_child, int fd_parent ){
 	for(;;){
 			if(fgets(buf, BUFFSIZE, file) > 0){
 			//  printf("%s \n", buf);
-			  printf("verstuurd!: %s \n", buf);
 			n = write(fd_parent, &buf, sizeof(buf));
+			if(n > 0){
+			  printf("verstuurd!: %s \n", buf);
+			}
 			if(n < 0){
 			  perror("Error: ");
 			}
