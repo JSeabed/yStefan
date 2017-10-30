@@ -147,7 +147,7 @@ void childGetData(int fd_child, int fd_parent ){
 		}
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
-		} else if(ret == -1){
+		else if(ret == -1){
 			/* error */
 		} else {
 			#if DEBUG
@@ -156,8 +156,9 @@ void childGetData(int fd_child, int fd_parent ){
 		}
 		fflush(file);
 		printf("ret is : %d", ret);
-	unlink(myfifo);
 	}
+	unlink(myfifo);
+}
 	/* remove the FIFO */
 	/* fill data struct*/
 /************************************************************************
