@@ -143,10 +143,8 @@ void childGetData(int fd_child, int fd_parent ){
 			if(fgets(buf, BUFFSIZE, file) > 0){
 			//  printf("%s \n", buf);
 			write(fd_parent, &buf, sizeof(buf));
-	  	}
-	  	else{
-	    	//break;
-	  	}
+			}
+		}
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
 		} else if(ret == -1){
