@@ -219,9 +219,11 @@ int main (int argc, char** argv) {
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 				printf("Data is available\n");
+				perror("Error parent: ");
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
+			perror("Error parent: ");
 			genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
