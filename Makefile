@@ -27,7 +27,7 @@ $(EXE): $(OBJ)
 
 
 $(OBJ): $(SOURCES)
-	$(CC) -c $(SOURCES) $(LIBS) 
+	$(CC) $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
 .PHONY: all debug clean
