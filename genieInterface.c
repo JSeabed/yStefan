@@ -84,23 +84,19 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 int addToStruct(struct data *newData, int id, char *data){
 
-  switch(id):
+  switch(id){
   case id:
-    newData -> ip = data;
-    break;
+    newData -> ip = *data;
  case status:
-    newData -> status = data;
-   break;
+    newData -> status = *data;
  case position:
     newData -> position = data;
-   break;
  case heading:
     newData -> heading = data;
-   break;
  case rtk:
     newData -> rtk = data;
-   break;
  default:
+}
 }
 
 int sentData(int isString, struct data *newData, char *str){
