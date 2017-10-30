@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I
 DFLAGS=-D DEBUG
-LDFLAGS = -L. lgeniePi
+#LDFLAGS = -L/usr/local/lib
 LDLIBS = -lgeniePi
 EXE = genieInterface
 SOURCES = genieInterface.c
