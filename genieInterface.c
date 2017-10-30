@@ -138,16 +138,24 @@ void childGetData(int fd_child, int fd_parent ){
 	//write(fd, "Hi", sizeof("Hi"));
 
 	for(;;){
-		fflush(file);
-		if(fgets(buf, BUFFSIZE, file) > 0){
-		//  printf("%s \n", buf);
-	  write(fd_parent, &buf, sizeof(buf));
-	  }
-	  else{
-	    //break;
-	  }
-	  //file = open(myfifo, O_WRONLY);
-	  //fclose(file);
+		if(ret = checkFd(file)){
+			fflush(file);
+			if(fgets(buf, BUFFSIZE, file) > 0){
+			//  printf("%s \n", buf);
+			write(fd_parent, &buf, sizeof(buf));
+	  	}
+	  	else{
+	    	//break;
+	  	}
+	  	//file = open(myfifo, O_WRONLY);
+	  	//fclose(file);
+		} else if(ret == -1){
+			/* error */
+		} else {
+			#if DEBUG
+				printf("Child: Timeout!\n");
+			#endif
+		}
 	}
 	/* remove the FIFO */
 	unlink(myfifo);
