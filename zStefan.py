@@ -132,7 +132,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
-				data['ip'] = m.group()									#adding IP to the dictionary
+				data['ip'] = "[0]" + m.group()									#adding IP to the dictionary
 			if(exact_Match(word,"FINESTEERING") and data['finesteering'] is None):			#
 				data['finesteering'] = True								#adding finesteering to the dictionary
 			if(exact_Match(word,"COARSESTEERING") and data['coarsesteering'] is None):
