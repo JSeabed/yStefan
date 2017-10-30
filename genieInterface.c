@@ -82,20 +82,21 @@ void handleEvent (struct genieReplyStruct *reply) {
 		}
 	}
 }
-int addToStruct(struct data *newData, int id, char dataStr){
+int addToStruct(struct data *newData, int id, char *dataStr){
 
   switch(id){
   case id:
-    newData -> ip = dataStr;
+    newData -> ip = &dataStr;
  case status:
-    newData -> status = dataStr;
+    newData -> status = &dataStr;
  case position:
-    newData -> position = dataStr;
+    newData -> position = &dataStr;
  case heading:
     newData -> heading = dataStr;
  case rtk:
     newData -> rtk = dataStr;
  default:
+   printf("Error: addToStruct");
 }
 }
 
