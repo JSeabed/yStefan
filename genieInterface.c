@@ -154,9 +154,9 @@ void childGetData(int fd_child, int fd_parent ){
 	  	//file = open(myfifo, O_WRONLY);
 	  	//fclose(file);
 		//fflush(file);
-		unlink(myfifo);
 	  usleep(WAIT);
 	}
+	unlink(myfifo);
 }
 	/* remove the FIFO */
 	/* fill data struct*/
@@ -224,6 +224,7 @@ int main (int argc, char** argv) {
 				printf("Data is available\n");
 				perror("Error parent: ");
 			#endif
+			printf("Laatste keer parent");
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			printf("\n parent: %s", readBuffer);
 			perror("Error parent: ");
