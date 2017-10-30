@@ -157,6 +157,7 @@ void childGetData(int fd_child, int fd_parent ){
 				printf("Child: Timeout!\n");
 			#endif
 		}
+		printf("ret is : %d", ret);
 	}
 	/* remove the FIFO */
 	unlink(myfifo);
