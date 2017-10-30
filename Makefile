@@ -30,7 +30,7 @@ $(OBJ): $(SOURCES)
 	$(CC) -c $(SOURCES) $(LIBS) 
 
 
-.PHONY: clean
+.PHONY: all debug clean
 
 
 all:
