@@ -99,24 +99,20 @@ int structManager(struct data *newData, int id, char *dataStr, char dataReady){
   case SATALLITE_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
   default:
-    dataReady == TRUE ? sentData(newData) : return;
+    dataReady == TRUE ? sentData(newData) : ;
     printf("Error: addToStruct");
   }
 }
 
 
 int changeForm(){
+  genieWriteObj(GENIE_OBJ_FORM,0, 1);
   return 1;
 }
 
 
 int sentData(struct data *newData){
-  if(isString){
-    //genieWriteStr(1, str);
-  } else {
-    // change form
-    genieWriteObj(GENIE_OBJ_FORM,0, 1);
-  }
+  genieWriteStr(1, newData->);
 }
 
 /*
