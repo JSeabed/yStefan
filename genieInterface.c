@@ -130,7 +130,6 @@ void clearStruct(struct data *newData){
   //strncpy(newData->&status , NULL , 1);
   #if DEBUG
   printf("ClearStruct \n");
-  printf("%d\n", newData->allData);
   printf("%s\n", (char*)newData->ip);
   printf("ClearStruct \n");
   #endif
@@ -143,14 +142,13 @@ void clearStruct(struct data *newData){
 
 int isStructFull(struct data *newData){
 #if DEBUG
-  printf("isStructFull: %s", newData->allData[0]);
+  //printf("isStructFull: %s", newData->allData[0]);
 #endif
 }
 
 
 void printStruct(struct data *newData){
   #if DEBUG
-  printf("allData: %s\n", newData->allData);
   printf("STRUCTURE: \n");
   printf("ip: %s\n", newData->ip);
   printf("status: %s\n", newData->status);
