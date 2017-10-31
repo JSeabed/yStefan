@@ -104,9 +104,6 @@ int addStruct(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strcpy(newData->ip, dataStr);
-    #if DEBUG
-	printf("IP now is: %s \n", newData->ip);
-    #endif
     break;
   case STATUS_ID:
     strncpy(newData->status, dataStr, sizeof(dataStr));
@@ -156,7 +153,7 @@ int isStructFull(struct data *newData){
 
 void printStruct(struct data *newData){
   #if DEBUG
-  printf("%s\n", newData->allData);
+  printf("allData: %s\n", newData->allData);
   printf("STRUCTURE: \n");
   printf("ip: %s\n", newData->ip);
   printf("status: %s\n", newData->status);
