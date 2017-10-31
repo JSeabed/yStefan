@@ -108,7 +108,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                         'ins': None}					#define what to expect in the dictionary
 
 
-                print "Ik kom hier 4"
+                #print "Ik kom hier 4"
 		j = 0
 		rcv = [None]*25
 		for x in range (0, 25):
@@ -270,7 +270,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
-		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
+		#print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
 			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
@@ -367,7 +367,7 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
 		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
-                print "Ik kom hier 3"
+                #print "Ik kom hier 3"
 	return
 
 #create subprocess for fifo
