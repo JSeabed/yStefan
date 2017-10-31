@@ -308,10 +308,10 @@ def dataManager(data ,pipeOut):
     #fill list for fifo
     try:
             sendList = [None]*3
-            sendList[0] = ("[0]" + data['ip'])
+            sendList[0] = (data['ip'])
             sendList[1] = tryIns(data)							#call on tryIns function
 	    sendList[2] = ("[7]" + data['gpgga'][7])
-        #    sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
+            #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
     printData(data)
@@ -321,7 +321,7 @@ def dataManager(data ,pipeOut):
     try:
             for i in sendList:
                     os.write(pipeOut, i)
-                    usleep(250)
+                    usleep(275)
     except Exception as e:
             logger.error(str(e))
 

@@ -29,30 +29,7 @@ typedef int bool;
 
 #define IP_ID 1
 #define STATUS_ID 2
-#define POSITION_ID 5
-#define HEADING_ID 4
-#define RTK_ID 6
-#define SATALLITE_ID 7
-
-#define MAIN_SCREEN 0
-#define INFO_SCREEN 1
-
-#define toggle(x) (x = !x)
-#define isIdentical(a, b) (a == b)
-
-int FORM = 0;
-
-struct data{
-  char ip[30];
-  char status[30];
-  char position [30];
-  char heading [30];
-  char rtk [30];
-  char satallite [30];
-  union {
-    char allData[160];
-  };
-};
+#define POSITION_ID 
 
 //struct data Newdata; //TODO replace
 struct data oldData;
@@ -95,21 +72,30 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 
 int addStruct(struct data *newData, int id, char *dataStr){
+  #if DEBUG
+  printf("Add to Struct: %s", dataStr );
+  #endif
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
+    break;
   case STATUS_ID:
     strncpy(newData->status, dataStr, sizeof(dataStr));
+    break;
   case POSITION_ID:
     strncpy(newData->position, dataStr, sizeof(dataStr));
+    break;
   case HEADING_ID:
     strncpy(newData->heading, dataStr, sizeof(dataStr));
+    break;
   case RTK_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
+    break;
   case SATALLITE_ID:
     strncpy(newData->satallite, dataStr, sizeof(dataStr));
+    break;
   default:
-    printf("Error: addToStruct");
+    //printf("Error: addToStruct");
   }
 }
 
