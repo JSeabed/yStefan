@@ -252,8 +252,8 @@ int main (int argc, char** argv) {
 	int status, id, ret;
 
 	struct data newData;
-	clearStruct(newData);
-	isStructFull(newData);
+	clearStruct(&newData);
+	isStructFull(&newData);
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
