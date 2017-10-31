@@ -111,7 +111,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
 }
 
 
-void structManager(struct data *newData, int id, char* data){
+void structManager(struct data *newData, int id, char* data, char dataReady){
   // compare
   addStruct(newData, id, data);
   if(dataReady)
