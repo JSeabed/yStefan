@@ -30,13 +30,12 @@ typedef int bool;
 #define true 1
 #define false 0
 
-enum dataID{
-  ip,
-  status,
-  position,
-  heading,
-  rtk
-};
+#define IP_ID 0
+#define STATUS_ID 1
+#define POSTION_ID 2
+#define HEADING_ID 3
+#define RTK_ID 4
+
 
 struct data{
   char* ip,
@@ -82,22 +81,24 @@ void handleEvent (struct genieReplyStruct *reply) {
 		}
 	}
 }
+
+
 int addToStruct(struct data *newData, int id, char *dataStr){
 
   switch(id){
-  case id:
+  case IP_ID:
     //newData -> ip = dataStr;
     strncpy(newData->ip, dataStr, sizeof(dataStr));
- case status:
+ case STATUS_ID:
     strncpy(newData->jstatus, dataStr, sizeof(dataStr));
     //newData -> status = dataStr;
- case position:
+  case POSITION_ID:
     strncpy(newData->position, dataStr, sizeof(dataStr));
     //newData -> position = dataStr;
- case heading:
+ case HEADING_ID:
     strncpy(newData->heading, dataStr, sizeof(dataStr));
     //newData -> heading = dataStr;
- case rtk:
+ case RTK_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
     //newData -> rtk = dataStr;
  default:
