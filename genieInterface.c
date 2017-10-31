@@ -139,6 +139,19 @@ int isStructFull(struct data *newData){
 }
 
 
+void printStruct(struct data *newData){
+  #if DEBUG
+  printf("STRUCTURE: \n");
+  printf("%s\n", newData->ip);
+  printf("%s\n", newData->status);
+  printf("%s\n", newData->postion);
+  printf("%s\n", newData->heading);
+  printf("%s\n", newData->rtk);
+  printf("%s\n", newData->satallite);
+  #endif
+}
+
+
 void structManager(struct data *newData, int id, char* data, char dataReady){
   // compare
   #if DEBUG
@@ -146,6 +159,7 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   dataReady = 1;
   #endif
   addStruct(newData, id, data);
+  printStruct(newData);
   if(dataReady)
     sentData(newData);
 }
