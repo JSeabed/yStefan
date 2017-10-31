@@ -119,7 +119,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
     strcpy(newData->satallite, dataStr);
     break;
   default:
-    printf("address newdata->ip is: %d\n", &newData->ip);
+    printf("address newdata->ip is: %d\n", *newData->ip);
     printf("Error: addToStruct");
   }
 }
