@@ -103,19 +103,19 @@ int addStruct(struct data *newData, int id, char *dataStr){
     strcpy(newData->ip, dataStr);
     break;
   case STATUS_ID:
-    strncpy(newData->status, dataStr, sizeof(dataStr));
+    strcpy(newData->status, dataStr);
     break;
   case POSITION_ID:
-    strncpy(newData->position, dataStr, sizeof(dataStr));
+    strcpy(newData->position, dataStr);
     break;
   case HEADING_ID:
-    strncpy(newData->heading, dataStr, sizeof(dataStr));
+    strcpy(newData->heading, dataStr);
     break;
   case RTK_ID:
-    strncpy(newData->rtk, dataStr, sizeof(dataStr));
+    strcpy(newData->rtk, dataStr);
     break;
   case SATALLITE_ID:
-    strncpy(newData->satallite, dataStr, sizeof(dataStr));
+    strcpy(newData->satallite, dataStr);
     break;
   default:
     printf("Error: addToStruct");
@@ -164,9 +164,6 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   // compare
   #if DEBUG
   printf("structManager\n");
-  printf(" toggle test: %d\n", FORM);
-  toggle(FORM);
-  printf(" toggle test: %d\n", FORM);
   dataReady = 1;
   #endif
   addStruct(newData, id, data);
