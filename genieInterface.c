@@ -115,7 +115,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void clearStruct(struct data *newData){
-  &newData = (struct data){ 0 };
+  newData = (const struct data*){ 0 };
   
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
