@@ -54,6 +54,8 @@ struct data{
 //struct data Newdata; //TODO replace
 struct data oldData;
 
+void sentData(struct data);
+
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
