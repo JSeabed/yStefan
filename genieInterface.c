@@ -37,7 +37,10 @@ typedef int bool;
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1
 
-#define toggle(x) (x ^= x)
+#define toggle(x) (x = !x)
+#define isIdentical(a, b) (a == b)
+
+int FORM = 0;
 
 struct data{
   char ip[30];
@@ -109,12 +112,15 @@ int addStruct(struct data *newData, int id, char *dataStr){
 void structManager(struct data *newData, int id, char* data){
   // compare
   addStruct(newData, id, data);
-  dataReady == TRUE ? sentData(newData) : return TRUE ;
+  if(dataReady)
+    sentData(newData);
+  return TRUE;
 }
 
 
 int changeForm(){
-  genieWriteObj(GENIE_OBJ_FORM,0, 1);
+  toggle(FORM);
+  genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
   return 1;
 }
 
@@ -123,7 +129,7 @@ void sentData(struct data *newData){
   genieWriteStr(IP_ID, newData->ip);
   genieWriteStr(STATUS_ID, newData->status);
   genieWriteStr(POSITION_ID, newData->position);
-  genieWriteStr(HEADINGS_ID, newData->headings);
+  genieWriteStr(HEADING_ID, newData->heading);
   genieWriteStr(RTK_ID, newData->rtk);
   genieWriteStr(SATALLITE_ID, newData->satallite);
 }
