@@ -49,6 +49,9 @@ struct data{
   char heading [30];
   char rtk [30];
   char satallite [30];
+  union {
+    char allData[160];
+  }
 };
 
 //struct data Newdata; //TODO replace
@@ -108,6 +111,22 @@ int addStruct(struct data *newData, int id, char *dataStr){
   default:
     printf("Error: addToStruct");
   }
+}
+
+
+void clearStruct(struct data *newData){
+  newData->ip = '0';
+  newData->status = '0';
+  newData->position = '0';
+  newData->heading = '0';
+  newData->rtk = '0';
+  newData->stallite = '0';
+}
+
+
+int isStructFull(struct data *newData){
+#if DEBUG
+  printf("isStructFull: %s", newData->allData);
 }
 
 
@@ -230,6 +249,10 @@ int main (int argc, char** argv) {
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;
+
+	struct data newData;
+	clearStruct(newData);
+	isStructFull(newData);
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
