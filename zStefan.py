@@ -114,8 +114,8 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		for x in range (0, 25):
 			rcv[j] = port.readline()                 #rvc is the serial data received
 			j = j + 1
-		print("----------------------------------------\n")					#adding a line in the terminal for transparity
-		print("----------------------------------------\n")					#adding a line in the terminal for transparity
+		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
+		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
                 #print cData
 		str1 = ''.join(rcv)
 		#print rcv
@@ -215,7 +215,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		port = 0									#define port as 0
 		#commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
-                print "Ik kom hier 1"
+                #print "Ik kom hier 1"
 		print str(e)
 		#time.sleep(1)								#put 10 second delay in before repeating try functions
 
@@ -231,7 +231,7 @@ def printData(data):						#def that prints data to the terminal, used to check f
 def displayData(data):						#this def tests for 1 of 11 options
 				#for each of the modes stated here take up the same place in the string that gets passed by the receiver
 	#Sattalites
-	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
+	#commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
 
 	IP_String = bytearray()						#converting IP string to a byte array
 	#IP_String.extend(" ")
@@ -301,7 +301,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		filewrite(str(e)+"\n")							#write error to text file
 		print (str(e))
 		print (data['ins_active'])									#write error to the terminal
-                print "Ik kom hier 2"
+                #print "Ik kom hier 2"
 
 
 def dataManager(data ,pipeOut):
