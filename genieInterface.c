@@ -126,7 +126,7 @@ void clearStruct(struct data *newData){
 
 int isStructFull(struct data *newData){
 #if DEBUG
-  printf("isStructFull: %s", newData->allData);
+  printf("isStructFull: %s", newData->allData[0]);
 #endif
 }
 
