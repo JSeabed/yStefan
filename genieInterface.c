@@ -21,21 +21,21 @@
 #define TIMEOUT 500
 #define WAIT 250
 
-#define MAIN_SCREEN 0
-#define INFO_SCREEN 1
-
 /*#define checksum(x) (x ^= x)*/
 
 typedef int bool;
 #define true 1
 #define false 0
 
-#define IP_ID 0
-#define STATUS_ID 1
-#define POSITION_ID 2
-#define HEADING_ID 3
-#define RTK_ID 4
+#define IP_ID 1
+#define STATUS_ID 2
+#define POSITION_ID 5
+#define HEADING_ID 4
+#define RTK_ID 6
+#define SATALLITE_ID 7
 
+#define MAIN_SCREEN 0
+#define INFO_SCREEN 1
 
 struct data{
   char ip[30];
@@ -43,6 +43,7 @@ struct data{
   char position [30];
   char heading [30];
   char rtk [30];
+  char satallite [30];
 };
 
 //struct data Newdata; //TODO replace
@@ -83,7 +84,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 
 
-int addToStruct(struct data *newData, int id, char *dataStr){
+int structManager(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
@@ -95,13 +96,21 @@ int addToStruct(struct data *newData, int id, char *dataStr){
     strncpy(newData->heading, dataStr, sizeof(dataStr));
   case RTK_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
+  case SATALLITE_ID:
+    strncpy(newData->rtk, dataStr, sizeof(dataStr));
   default:
+    sentData ? sentData(newData) : return;
     printf("Error: addToStruct");
   }
 }
 
 
-int sentData(int isString, struct data *newData){
+int changeForm(){
+  return 1;
+}
+
+
+int sentData(struct data *newData){
   if(isString){
     //genieWriteStr(1, str);
   } else {
