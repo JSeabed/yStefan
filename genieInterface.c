@@ -100,8 +100,9 @@ int addStruct(struct data *newData, int id, char *dataStr){
   #endif
   switch(id){
   case IP_ID:
+    printf("address newdata->ip is: %d\n", &newData->ip);
     ptr = strcpy(newData->ip, dataStr);
-    printf("Als het goed is..... %s\n", *ptr );
+    //printf("Als het goed is..... %s\n", *ptr );
     break;
   case STATUS_ID:
     strcpy(newData->status, dataStr);
@@ -119,7 +120,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
     strcpy(newData->satallite, dataStr);
     break;
   default:
-    printf("Error: addToStruct");
+    //printf("Error: addToStruct");
   }
 }
 
