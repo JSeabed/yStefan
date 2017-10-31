@@ -114,7 +114,6 @@ void structManager(struct data *newData, int id, char* data){
   addStruct(newData, id, data);
   if(dataReady)
     sentData(newData);
-  return TRUE;
 }
 
 
