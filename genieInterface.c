@@ -104,6 +104,9 @@ int addStruct(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
+    #if DEBUG
+	prinft("IP now is: %s \n", newData->ip);
+    #endif
     break;
   case STATUS_ID:
     strncpy(newData->status, dataStr, sizeof(dataStr));
