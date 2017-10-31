@@ -141,6 +141,10 @@ int isStructFull(struct data *newData){
 
 void structManager(struct data *newData, int id, char* data, char dataReady){
   // compare
+  #if DEBUG
+  printf("structManager\n");
+  dataReady = 1;
+  #endif
   addStruct(newData, id, data);
   if(dataReady)
     sentData(newData);
@@ -260,8 +264,8 @@ int main (int argc, char** argv) {
 	int status, id, ret;
 
 	struct data newData;
-	clearStruct(&newData);
-	isStructFull(&newData);
+	//clearStruct(&newData);
+	//isStructFull(&newData);
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -304,6 +308,8 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			id = getID(readBuffer);
 			printf("\n parent: %s", readBuffer);
+			structManager(&newData, id, readBuffer, 0);
+			//void structManager(struct data *newData, int id, char* data, char dataReady){
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
 			// fetchData();
