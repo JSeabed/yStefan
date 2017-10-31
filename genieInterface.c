@@ -95,6 +95,9 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 
 int addStruct(struct data *newData, int id, char *dataStr){
+  // first remove id from string
+  dataStr = dataStr+3;
+  
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
   #endif
