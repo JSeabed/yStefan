@@ -121,7 +121,7 @@ void clearStruct(struct data *newData){
   //strncpy(newData->&status , NULL , 1);
   #if DEBUG
   printf("ClearStruct \n");
-  printf("%s\n", newData->ip);
+  printf("%s\n", (char*)newData->ip);
   printf("ClearStruct \n");
   #endif
   //strncpy(newData->position , (char*)'0', 1);
