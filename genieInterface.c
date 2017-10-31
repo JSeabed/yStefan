@@ -32,17 +32,17 @@ typedef int bool;
 
 #define IP_ID 0
 #define STATUS_ID 1
-#define POSTION_ID 2
+#define POSITION_ID 2
 #define HEADING_ID 3
 #define RTK_ID 4
 
 
 struct data{
-  char* ip,
-    status,
-    position,
-    heading,
-    rtk;
+  char ip[30];
+  char status[30];
+  char position [30];
+  char heading [30];
+  char rtk [30];
 };
 
 //struct data Newdata; //TODO replace
@@ -84,29 +84,24 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 
 int addToStruct(struct data *newData, int id, char *dataStr){
-
   switch(id){
   case IP_ID:
-    //newData -> ip = dataStr;
     strncpy(newData->ip, dataStr, sizeof(dataStr));
- case STATUS_ID:
+  case STATUS_ID:
     strncpy(newData->jstatus, dataStr, sizeof(dataStr));
-    //newData -> status = dataStr;
   case POSITION_ID:
     strncpy(newData->position, dataStr, sizeof(dataStr));
-    //newData -> position = dataStr;
- case HEADING_ID:
+  case HEADING_ID:
     strncpy(newData->heading, dataStr, sizeof(dataStr));
-    //newData -> heading = dataStr;
- case RTK_ID:
+  case RTK_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
-    //newData -> rtk = dataStr;
- default:
-   printf("Error: addToStruct");
-}
+  default:
+    printf("Error: addToStruct");
+  }
 }
 
-int sentData(int isString, struct data *newData, char *str){
+
+int sentData(int isString, struct data *newData){
   if(isString){
     genieWriteStr(1, str);
   } else {
