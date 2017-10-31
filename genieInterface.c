@@ -100,7 +100,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
   #endif
   switch(id){
   case IP_ID:
-    ptr = strcpy(newData->ip, dataStr);
+    ptr = (int*)strcpy(newData->ip, dataStr);
     printf("Als het goed is..... %s\n", *ptr );
     break;
   case STATUS_ID:
