@@ -103,7 +103,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
   #endif
   switch(id){
   case IP_ID:
-    strncpy(newData->ip, dataStr, sizeof(dataStr));
+    strcpy(newData->ip, dataStr);
     #if DEBUG
 	printf("IP now is: %s \n", newData->ip);
     #endif
