@@ -51,7 +51,7 @@ struct data{
   char satallite [30];
   union {
     char allData[160];
-  }
+  };
 };
 
 //struct data Newdata; //TODO replace
@@ -120,7 +120,7 @@ void clearStruct(struct data *newData){
   strncpy(newData->position , (char*)'0', sizeof('0'));
   strncpy(newData->heading , (char*)'0', sizeof('0'));
   strncpy(newData->rtk , (char*)'0', sizeof('0'));
-  strncpy(newData->stallite , (char*)'0', sizeof('0'));
+  strncpy(newData->satallite , (char*)'0', sizeof('0'));
 }
 
 
