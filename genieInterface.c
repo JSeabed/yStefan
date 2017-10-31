@@ -24,8 +24,8 @@
 /*#define checksum(x) (x ^= x)*/
 
 typedef int bool;
-#define true 1
-#define false 0
+#define TRUE 1
+#define FALSE 0
 
 #define IP_ID 1
 #define STATUS_ID 2
@@ -84,7 +84,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 
 
-int structManager(struct data *newData, int id, char *dataStr){
+int structManager(struct data *newData, int id, char *dataStr, char sentData){
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
@@ -99,7 +99,7 @@ int structManager(struct data *newData, int id, char *dataStr){
   case SATALLITE_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
   default:
-    sentData ? sentData(newData) : return;
+    sentData == TRUE ? sentData(newData) : return;
     printf("Error: addToStruct");
   }
 }
