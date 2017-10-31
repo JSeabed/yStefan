@@ -43,14 +43,14 @@ typedef int bool;
 int FORM = 0;
 
 struct data{
-  char ip[30];
-  char status[30];
-  char position [30];
-  char heading [30];
-  char rtk [30];
-  char satallite [30];
+  char ip[50];
+  char status[50];
+  char position [50];
+  char heading [50];
+  char rtk [50];
+  char satallite [50];
   union {
-    char allData[160];
+    char allData[300];
   };
 };
 
