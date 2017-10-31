@@ -37,6 +37,8 @@ typedef int bool;
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1
 
+#define toggle(x) (x ^= x)
+
 struct data{
   char ip[30];
   char status[30];
@@ -84,7 +86,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 
 
-int structManager(struct data *newData, int id, char *dataStr, char dataReady){
+int addStruct(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
@@ -97,11 +99,17 @@ int structManager(struct data *newData, int id, char *dataStr, char dataReady){
   case RTK_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
   case SATALLITE_ID:
-    strncpy(newData->rtk, dataStr, sizeof(dataStr));
+    strncpy(newData->satallite, dataStr, sizeof(dataStr));
   default:
-    dataReady == TRUE ? sentData(newData) : ;
     printf("Error: addToStruct");
   }
+}
+
+
+void structManager(struct data *newData, int id, char* data){
+  // compare
+  addStruct(newData, id, data);
+  dataReady == TRUE ? sentData(newData) : return TRUE ;
 }
 
 
@@ -111,8 +119,13 @@ int changeForm(){
 }
 
 
-int sentData(struct data *newData){
-  genieWriteStr(1, newData->);
+void sentData(struct data *newData){
+  genieWriteStr(IP_ID, newData->ip);
+  genieWriteStr(STATUS_ID, newData->status);
+  genieWriteStr(POSITION_ID, newData->position);
+  genieWriteStr(HEADINGS_ID, newData->headings);
+  genieWriteStr(RTK_ID, newData->rtk);
+  genieWriteStr(SATALLITE_ID, newData->satallite);
 }
 
 /*
