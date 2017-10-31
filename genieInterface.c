@@ -153,6 +153,7 @@ int isStructFull(struct data *newData){
 
 void printStruct(struct data *newData){
   #if DEBUG
+  printf("%s\n", newData->allData);
   printf("STRUCTURE: \n");
   printf("%s\n", newData->ip);
   printf("%s\n", newData->status);
