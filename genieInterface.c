@@ -115,8 +115,8 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void clearStruct(struct data *newData){
-  strncpy(newData->ip , NULL, 1);
-  strncpy(newData->status , NULL , 1);
+  strncpy(newData->*ip , NULL, 1);
+  strncpy(newData->*status , NULL , 1);
   #if DEBUG
   printf("ClearStruct \n");
   #endif
