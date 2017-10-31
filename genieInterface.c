@@ -120,7 +120,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
     strcpy(newData->satallite, dataStr);
     break;
   default:
-    //printf("Error: addToStruct");
+    printf("Error: addToStruct");
   }
 }
 
