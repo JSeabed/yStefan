@@ -115,18 +115,19 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void clearStruct(struct data *newData){
-  newData->ip = '0';
-  newData->status = '0';
-  newData->position = '0';
-  newData->heading = '0';
-  newData->rtk = '0';
-  newData->stallite = '0';
+  strncpy(newData->ip , '0', sizeof('0'));
+  strncpy(newData->status , '0', sizeof('0'));
+  strncpy(newData->position , '0', sizeof('0'));
+  strncpy(newData->heading , '0', sizeof('0'));
+  strncpy(newData->rtk , '0', sizeof('0'));
+  strncpy(newData->stallite , '0', sizeof('0'));
 }
 
 
 int isStructFull(struct data *newData){
 #if DEBUG
   printf("isStructFull: %s", newData->allData);
+#endif
 }
 
 
