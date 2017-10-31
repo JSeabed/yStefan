@@ -88,7 +88,7 @@ int addToStruct(struct data *newData, int id, char *dataStr){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
   case STATUS_ID:
-    strncpy(newData->jstatus, dataStr, sizeof(dataStr));
+    strncpy(newData->status, dataStr, sizeof(dataStr));
   case POSITION_ID:
     strncpy(newData->position, dataStr, sizeof(dataStr));
   case HEADING_ID:
@@ -103,7 +103,7 @@ int addToStruct(struct data *newData, int id, char *dataStr){
 
 int sentData(int isString, struct data *newData){
   if(isString){
-    genieWriteStr(1, str);
+    //genieWriteStr(1, str);
   } else {
     // change form
     genieWriteObj(GENIE_OBJ_FORM,0, 1);
