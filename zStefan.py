@@ -232,6 +232,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 				#for each of the modes stated here take up the same place in the string that gets passed by the receiver
 	#Sattalites
 	commands.wrt_str(data['gpgga'][7],7)			#write out the amount of sattalites are in contact with OEM7
+
 	IP_String = bytearray()						#converting IP string to a byte array
 	#IP_String.extend(" ")
 	IP_String.extend(data['ip'])
@@ -307,8 +308,9 @@ def dataManager(data ,pipeOut):
     #fill list for fifo
     try:
             sendList = [None]*3
-            sendList[0] = ("[0]" + data['ip']) 
+            sendList[0] = ("[0]" + data['ip'])
             sendList[1] = tryIns(data)							#call on tryIns function
+			sendList[2] = ("[7]" + data['gpgga'][7])
         #    sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
