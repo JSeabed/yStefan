@@ -115,12 +115,12 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void clearStruct(struct data *newData){
-  strncpy(newData->ip , '0', sizeof('0'));
-  strncpy(newData->status , '0', sizeof('0'));
-  strncpy(newData->position , '0', sizeof('0'));
-  strncpy(newData->heading , '0', sizeof('0'));
-  strncpy(newData->rtk , '0', sizeof('0'));
-  strncpy(newData->stallite , '0', sizeof('0'));
+  strncpy(newData->ip , (char*)'0', sizeof('0'));
+  strncpy(newData->status , (char*)'0', sizeof('0'));
+  strncpy(newData->position , (char*)'0', sizeof('0'));
+  strncpy(newData->heading , (char*)'0', sizeof('0'));
+  strncpy(newData->rtk , (char*)'0', sizeof('0'));
+  strncpy(newData->stallite , (char*)'0', sizeof('0'));
 }
 
 
