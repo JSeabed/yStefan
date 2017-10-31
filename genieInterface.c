@@ -165,7 +165,7 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   #if DEBUG
   printf("structManager\n");
   printf(" toggle test: %d\n", FORM);
-  toggle(FORM)
+  toggle(FORM);
   printf(" toggle test: %d\n", FORM);
   dataReady = 1;
   #endif
