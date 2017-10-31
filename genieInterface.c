@@ -144,7 +144,7 @@ void printStruct(struct data *newData){
   printf("STRUCTURE: \n");
   printf("%s\n", newData->ip);
   printf("%s\n", newData->status);
-  printf("%s\n", newData->postion);
+  printf("%s\n", newData->position);
   printf("%s\n", newData->heading);
   printf("%s\n", newData->rtk);
   printf("%s\n", newData->satallite);
