@@ -49,9 +49,6 @@ struct data{
   char heading [150];
   char rtk [150];
   char satallite [150];
-  union {
-    char allData[900];
-  };
 };
 
 //struct data Newdata; //TODO replace
@@ -169,6 +166,9 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   // compare
   #if DEBUG
   printf("structManager\n");
+  printf(" toggle test: %d\n", FORM);
+  toggle(FORM)
+  printf(" toggle test: %d\n", FORM);
   dataReady = 1;
   #endif
   addStruct(newData, id, data);
