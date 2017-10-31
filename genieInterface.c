@@ -115,15 +115,15 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void clearStruct(struct data *newData){
-  #if DEBUG
-  printf("ClearStruct \n");
-  #endif
   strncpy(newData->ip , (char*)'0', sizeof('0'));
   strncpy(newData->status , (char*)'0', sizeof('0'));
   strncpy(newData->position , (char*)'0', sizeof('0'));
   strncpy(newData->heading , (char*)'0', sizeof('0'));
   strncpy(newData->rtk , (char*)'0', sizeof('0'));
   strncpy(newData->satallite , (char*)'0', sizeof('0'));
+  #if DEBUG
+  printf("ClearStruct \n");
+  #endif
 }
 
 
