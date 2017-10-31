@@ -310,7 +310,7 @@ def dataManager(data ,pipeOut):
             sendList = [None]*3
             sendList[0] = ("[0]" + data['ip'])
             sendList[1] = tryIns(data)							#call on tryIns function
-			sendList[2] = ("[7]" + data['gpgga'][7])
+	    sendList[2] = ("[7]" + data['gpgga'][7])
         #    sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
