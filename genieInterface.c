@@ -84,7 +84,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 
 
-int structManager(struct data *newData, int id, char *dataStr, char sentData){
+int structManager(struct data *newData, int id, char *dataStr, char dataReady){
   switch(id){
   case IP_ID:
     strncpy(newData->ip, dataStr, sizeof(dataStr));
@@ -99,7 +99,7 @@ int structManager(struct data *newData, int id, char *dataStr, char sentData){
   case SATALLITE_ID:
     strncpy(newData->rtk, dataStr, sizeof(dataStr));
   default:
-    sentData == TRUE ? sentData(newData) : return;
+    dataReady == TRUE ? sentData(newData) : return;
     printf("Error: addToStruct");
   }
 }
