@@ -155,12 +155,12 @@ void printStruct(struct data *newData){
   #if DEBUG
   printf("%s\n", newData->allData);
   printf("STRUCTURE: \n");
-  printf("%s\n", newData->ip);
-  printf("%s\n", newData->status);
-  printf("%s\n", newData->position);
-  printf("%s\n", newData->heading);
-  printf("%s\n", newData->rtk);
-  printf("%s\n", newData->satallite);
+  printf("ip: %s\n", newData->ip);
+  printf("status: %s\n", newData->status);
+  printf("position: %s\n", newData->position);
+  printf("heading: %s\n", newData->heading);
+  printf("rtk: %s\n", newData->rtk);
+  printf("satallite: %s\n", newData->satallite);
   #endif
 }
 
@@ -173,8 +173,8 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   #endif
   addStruct(newData, id, data);
   printStruct(newData);
-  if(dataReady)
-    sentData(newData);
+  //if(dataReady)
+  // sentData(newData);
 }
 
 
