@@ -94,13 +94,13 @@ void handleEvent (struct genieReplyStruct *reply) {
 int addStruct(struct data *newData, int id, char *dataStr){
   // first remove id from string
   dataStr += 3;
-  int ptr; 
+  char* ptr; 
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
   #endif
   switch(id){
   case IP_ID:
-    ptr = (int*)strcpy(newData->ip, dataStr);
+    ptr = strcpy(newData->ip, dataStr);
     printf("Als het goed is..... %s\n", *ptr );
     break;
   case STATUS_ID:
