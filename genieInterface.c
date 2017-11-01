@@ -365,8 +365,9 @@ int main (int argc, char** argv) {
 		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
-		if(isStructFull(&newData)
+		if(isStructFull(&newData){
 		   sentData(&newData);
+		  }
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
