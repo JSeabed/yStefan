@@ -193,16 +193,16 @@ void structManager(struct data *newData, int id, char* data){
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(strncmp(newData->ip, ZERO, 1) !=0)
 	sentData(newData->ip, IP_ID);
-  if(strncmp(newData->status, ZERO, 1) != 0)
-	sentData(newData->status, STATUS_ID);
-  if(strncmp(newData->position, ZERO, 1) != 0)
-	sentData(newData->position, POSITION_ID);
-  if(strncmp(newData->heading, ZERO, 1) != 0)
-	sentData(newData->heading, HEADING_ID);
-  if(strncmp(newData->rtk, ZERO, 1) != 0)
-	sentData(newData->rtk, RTK_ID);
-  if(strncmp(newData->satallite, ZERO, 1) != 0)
-	sentData(newData->satallite, SATALLITE_ID);
+  //if(strncmp(newData->status, ZERO, 1) != 0)
+  //	sentData(newData->status, STATUS_ID);
+  //if(strncmp(newData->position, ZERO, 1) != 0)
+  //	sentData(newData->position, POSITION_ID);
+  //if(strncmp(newData->heading, ZERO, 1) != 0)
+  //	sentData(newData->heading, HEADING_ID);
+  //if(strncmp(newData->rtk, ZERO, 1) != 0)
+  //	sentData(newData->rtk, RTK_ID);
+  //if(strncmp(newData->satallite, ZERO, 1) != 0)
+  //	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
 
 }
