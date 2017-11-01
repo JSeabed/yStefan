@@ -364,6 +364,7 @@ int main (int argc, char** argv) {
 		close(fd_parent[1]);
 		close(fd_child[0]);
 
+		usleep(20);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
 		if(ret = checkFd(fd_parent[0])){
