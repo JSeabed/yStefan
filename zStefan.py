@@ -316,7 +316,7 @@ def dataManager(data ,pipeOut):
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
-    printData(data)
+    #printData(data)
     #call exportData def / sents one outcome to child
 
     print "i is: \n"
