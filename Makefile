@@ -6,7 +6,7 @@ CC=gcc
 CFLAGS=-O3
 
 #Rpi flags
-RPFLAGS=-march=armv7l -mfpu=vfp -mfloat-abi=hard
+RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
 DFLAGS=-D DEBUG
