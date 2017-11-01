@@ -134,8 +134,12 @@ void initStruct(struct data *newData){
 
 void clearStruct(struct data *newData){
   char str[10] = "0";
-  newData = (struct data *);
   strcpy(newData->ip, str);
+  strcpy(newData->status, str);
+  strcpy(newData->position, str);
+  strcpy(newData->heading, str);
+  strcpy(newData->rtk, str);
+  strcpy(newData->satallite, str);
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
   #if DEBUG
