@@ -2,7 +2,7 @@
 CC=gcc
 
 #Include dir
-CFLAGS=-I
+CFLAGS=-I -Wall
 
 #??
 DFLAGS=-D DEBUG
