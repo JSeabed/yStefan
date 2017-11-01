@@ -190,8 +190,9 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
-  genieWriteObj(GENIE_OBJ_FORM,0, 1);
-  //i = genieWriteStr(IP_ID, "...");
+  int i = 0;
+  i = genieWriteStr(IP_ID, "...");
+  printf("i = %d \n", i);
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
   //genieWriteStr(HEADING_ID, "...");
@@ -217,7 +218,6 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
 
 }
 
-
 int changeForm(){
   toggle(FORM);
   genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
@@ -225,7 +225,7 @@ int changeForm(){
 }
 
 
-void sentData(char* data, int id){
+  void sentData(char* data, int id){
   genieWriteStr(id, data);
   usleep(500);
   //genieWriteStr(STATUS_ID, newData->status);
@@ -341,9 +341,8 @@ int main (int argc, char** argv) {
 	initStruct(&newData);
 	clearStruct(&newData);
 	isStructFull(&newData);
-	dataReady(&newData, &reply);
+	//dataReady(&newData, &reply);
 
-	clearScreen();
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -358,6 +357,7 @@ int main (int argc, char** argv) {
 		printf("ViSi-Genie Failed to init display!\r\n");
 		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
 	}
+	clearScreen();
 
 		if(child == (pid_t)-1){
 			/* failed to create child*/

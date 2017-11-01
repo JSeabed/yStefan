@@ -14,6 +14,7 @@ DFLAGS=-D DEBUG
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 LIBS = -lgeniePi
+#LIBS = -ldiabloSerial -lm
 
 #the executable file that will be created
 EXE = genieInterface
