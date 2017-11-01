@@ -190,8 +190,7 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
-  toggle(FORM);
-  genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+  genieWriteObj(GENIE_OBJ_FORM,1, 1);
   //i = genieWriteStr(IP_ID, "...");
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
@@ -344,6 +343,7 @@ int main (int argc, char** argv) {
 	isStructFull(&newData);
 	dataReady(&newData, &reply);
 
+	clearScreen();
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -380,7 +380,6 @@ int main (int argc, char** argv) {
 		usleep(20);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-	clearScreen();
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 			    printf("Data is available\n");
