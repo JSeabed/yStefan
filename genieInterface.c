@@ -178,7 +178,7 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   addStruct(newData, id, data);
   printStruct(newData);
   //if(dataReady)
-  sentData(newData);
+  //sentData(newData);
 }
 
 
@@ -364,6 +364,7 @@ int main (int argc, char** argv) {
 		usleep(WAIT);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
+			sentData(newData);
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
