@@ -190,7 +190,7 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
-  genieWriteObj(GENIE_OBJ_FORM,1, 1);
+  genieWriteObj(GENIE_OBJ_FORM,0, 1);
   //i = genieWriteStr(IP_ID, "...");
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
