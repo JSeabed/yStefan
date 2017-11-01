@@ -50,6 +50,9 @@ struct data{
   char *heading ;
   char *rtk ;
   char *satallite ;
+  union {
+    allData[STRUCTSIZE*6]
+  }
 };
 
 //struct data Newdata; //TODO replace
@@ -133,6 +136,9 @@ void initStruct(struct data *newData){
 }
 
 void clearStruct(struct data *newData){
+  #if DEBUG
+  printf("ClearStruct \n");
+  #endif
   char str[10] = "0";
   strcpy(newData->ip, str);
   strcpy(newData->status, str);
@@ -140,13 +146,9 @@ void clearStruct(struct data *newData){
   strcpy(newData->heading, str);
   strcpy(newData->rtk, str);
   strcpy(newData->satallite, str);
+  printf("allData = %s\n", newData->allData)
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
-  #if DEBUG
-  printf("ClearStruct \n");
-  printf("%s\n", newData->ip);
-  printf("ClearStruct \n");
-  #endif
   //strncpy(newData->position , (char*)'0', 1);
   //strncpy(newData->heading , (char*)'0', 1);
   //strncpy(newData->rtk , (char*)'0', 1);
