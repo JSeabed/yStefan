@@ -394,8 +394,8 @@ int main (int argc, char** argv) {
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
 
-	return(0);
 }
+	return(0);
 }
 /************************************
  * Check file descriptor with child.*
