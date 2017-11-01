@@ -18,6 +18,7 @@
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
+#define STRUCTSIZE 150
 #define TIMEOUT 500
 #define WAIT 250
 
@@ -124,6 +125,15 @@ int addStruct(struct data *newData, int id, char *dataStr){
   }
 }
 
+
+void initStruct(struct data *newData){
+  newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->status = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->position = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->heading = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->rtk = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->satallite = (char*)malloc(sizeof(char)*STRUCTSIZE);
+}
 
 void clearStruct(struct data *newData){
   newData = (struct data*){ 0 };
@@ -289,6 +299,7 @@ int main (int argc, char** argv) {
 	int status, id, ret;
 
 	struct data newData;
+	initStruct(&newData);
 	//clearStruct(&newData);
 	//isStructFull(&newData);
 
