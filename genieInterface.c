@@ -28,7 +28,7 @@ typedef int bool;
 #define TRUE 1
 #define FALSE 0
 
-#DEFINE ZERO "0"
+#define ZERO "0"
 
 #define IP_ID 0
 #define STATUS_ID 2
