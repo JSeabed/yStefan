@@ -210,6 +210,7 @@ int changeForm(){
 
   void sentData(char* data, int id){
   genieWriteStr(id, data);
+  usleep(250);
   //genieWriteStr(STATUS_ID, newData->status);
   //perror("sentData");
   //genieWriteStr(POSITION_ID, newData->position);
@@ -392,7 +393,7 @@ int main (int argc, char** argv) {
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
-	}
+
 	return(0);
 }
 /************************************
