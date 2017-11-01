@@ -100,7 +100,9 @@ int addStruct(struct data *newData, int id, char *dataStr){
   #endif
   switch(id){
   case IP_ID:
+    printf("IP IP IP IP IP IP IP\n");
     strcpy(newData->ip, dataStr);
+
     break;
   case STATUS_ID:
     strcpy(newData->status, dataStr);
