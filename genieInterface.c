@@ -101,23 +101,22 @@ int addStruct(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strcpy(newData->ip, dataStr);
-
-    break;
+    return;
   case STATUS_ID:
     strcpy(newData->status, dataStr);
-    break;
+    return;
   case POSITION_ID:
     strcpy(newData->position, dataStr);
-    break;
+    return;
   case HEADING_ID:
     strcpy(newData->heading, dataStr);
-    break;
+    return;
   case RTK_ID:
     strcpy(newData->rtk, dataStr);
-    break;
+    return;
   case SATALLITE_ID:
     strcpy(newData->satallite, dataStr);
-    break;
+    return;
   default:
     printf("Error: addToStruct");
   }
