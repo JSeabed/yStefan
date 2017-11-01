@@ -1,14 +1,14 @@
 #use C compiler
 CC=gcc
 
-#Include dir
-#CFLAGS=-Wall -O2
+#uncomment below to show all warinings
+#CFLAGS=-Wall -Werror -O3
 CFLAGS=-O3
 
 #Rpi flags
-RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
+RPFLAGS=-march=armv7 -mfpu=vfp -mfloat-abi=hard
 
-#??
+#Macro Flag
 DFLAGS=-D DEBUG
 
 #LDFLAGS = -L/usr/local/lib
