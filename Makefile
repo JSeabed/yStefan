@@ -2,7 +2,10 @@
 CC=gcc
 
 #Include dir
-CFLAGS=-I -Wall -O2
+CFLAGS=-Wall -O2
+
+#Rpi flags
+RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #??
 DFLAGS=-D DEBUG
@@ -23,11 +26,11 @@ OBJ = genieInterface.o
 
 
 $(EXE): $(OBJ)
-	$(CC) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
 
 
 $(OBJ): $(SOURCES)
-	$(CC) $(DEBUG) -c $(SOURCES) $(LIBS) 
+	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
 .PHONY: all debug clean
