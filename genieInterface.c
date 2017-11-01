@@ -52,7 +52,7 @@ struct data{
   char *satallite ;
   union {
     allData[STRUCTSIZE*6]
-  }
+  };
 };
 
 //struct data Newdata; //TODO replace
