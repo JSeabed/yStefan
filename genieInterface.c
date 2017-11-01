@@ -191,19 +191,19 @@ void structManager(struct data *newData, int id, char* data){
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
   char *zero = "0";
   printf("te vergelijken %s en %s \n", zero, newData->ip);
-  if(!strcmp(newData->ip, zero)){
-    sentData(newData->ip, IP_ID);
+  if(strncmp(newData->ip, zero, 1) != 0){
+    //sentData(newData->ip, IP_ID);
     printf("data is send :( \n ");
   }
   else printf("data not send\n");
-  if(newData->status != 0)
+  if(strncmp(newData->status, zero, 1) != 0){
     sentData(newData->status, STATUS_ID);
   else printf("data not send\n");
-  if(newData->position != 0)
+  if(strncmp(newData->position, zero, 1) != 0){
     sentData(newData->position, POSITION_ID);
   else printf("data not send\n");
-  if(newData->ip != 0)
-    sentData(newData->ip, IP_ID);
+  if(strncmp(newData->heading, zero, 1) != 0){
+    sentData(newData->heading, IP_ID);
   else printf("data not send\n");
     //if(isIdentical)
     
@@ -332,6 +332,7 @@ int main (int argc, char** argv) {
 	initStruct(&newData);
 	clearStruct(&newData);
 	isStructFull(&newData);
+	dataReady(&newData, &reply);
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
