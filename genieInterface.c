@@ -189,7 +189,7 @@ void structManager(struct data *newData, int id, char* data){
 
 //TODO change name
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
-  char *zero = '0';
+  char *zero = "0";
   printf("te vergelijken %s en %s \n", zero, newData->ip);
   if(!strcmp(newData->ip, zero)){
     sentData(newData->ip, IP_ID);
