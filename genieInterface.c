@@ -151,7 +151,9 @@ void clearStruct(struct data *newData){
 
 int isStructFull(struct data *newData){
 #if DEBUG
-  printf("isStructFull: %s", newData->allData[0]);
+  printf("isStructFull: %s", newData->ip);
+  if(newData->ip == 0)
+    printf("passed second test. IP is 0\n");
 #endif
 }
 
