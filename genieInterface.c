@@ -28,7 +28,7 @@ typedef int bool;
 #define TRUE 1
 #define FALSE 0
 
-#define IP_ID 1
+#define IP_ID 0
 #define STATUS_ID 2
 #define POSITION_ID 5
 #define HEADING_ID 4
@@ -97,10 +97,10 @@ int addStruct(struct data *newData, int id, char *dataStr){
   dataStr += 3;
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
+  printf("ID ip = ")
   #endif
   switch(id){
   case IP_ID:
-    printf("IP IP IP IP IP IP IP\n");
     strcpy(newData->ip, dataStr);
 
     break;
