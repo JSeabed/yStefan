@@ -316,7 +316,10 @@ def dataManager(data ,pipeOut):
             #add
 	    sendList[2] = ("[7]" + data['gpgga'][7])
             #add
-            sendList[3] = statusGPGGA(data)
+            try:
+                    sendList[3] = statusGPGGA(data)
+            except Exception as e:
+                    print str(e)
             print "GPGGA is : "
             print sendList[3]
             print (data['gpgga'][6])
@@ -375,8 +378,6 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
 			mode = "[3]" + "WAAS"					#setting up data to be send with FIFO
 		else:										#when no mode is noticed dont write out anything
 			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
-                print "mode gpgga = "
-                print mode
 		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
