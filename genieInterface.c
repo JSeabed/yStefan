@@ -44,12 +44,12 @@ typedef int bool;
 int FORM = 0;
 
 struct data{
-  char ip[150];
-  char status[150];
-  char position [150];
-  char heading [150];
-  char rtk [150];
-  char satallite [150];
+  char *ip;
+  char *status;
+  char *position ;
+  char *heading ;
+  char *rtk ;
+  char *satallite ;
 };
 
 //struct data Newdata; //TODO replace
@@ -127,7 +127,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 
 void initStruct(struct data *newData){
-  newData->ip = malloc(sizeof(char)*STRUCTSIZE);
+  newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->status = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->position = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->heading = (char*)malloc(sizeof(char)*STRUCTSIZE);
