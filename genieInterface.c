@@ -188,7 +188,7 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 //TODO change name
-void dataReady(struct data *newData){
+void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(newData->ip != 0)
     sentData(newData->ip, IP_ID);
   if(newData->status != 0)
@@ -360,12 +360,15 @@ int main (int argc, char** argv) {
 	for(;;) {
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
-				printf("Data is available\n");
+			    printf("Data is available\n");
 			#endif
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			id = getID(readBuffer);
-			printf("\n parent: %s", readBuffer);
+			#if DEBUG
+			    printf("\n parent: %s", readBuffer);
+			#endif
 			structManager(&newData, id, readBuffer);
+			dataReady(&newData, &reply)
 			//void structManager(struct data *newData, int id, char* data, char dataReady){
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
