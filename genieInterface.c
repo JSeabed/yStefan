@@ -190,9 +190,7 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
-  int i = 0;
-  i = genieWriteStr(IP_ID, "...");
-  printf("i = %d \n", i);
+  //i = genieWriteStr(IP_ID, "...");
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
   //genieWriteStr(HEADING_ID, "...");
