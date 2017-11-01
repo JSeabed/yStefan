@@ -31,8 +31,8 @@ typedef int bool;
 #define IP_ID 0
 #define STATUS_ID 2
 #define POSITION_ID 1
-#define HEADING_ID 3
-#define RTK_ID 6
+#define HEADING_ID 6
+#define RTK_ID 3
 #define SATALLITE_ID 7
 
 #define MAIN_SCREEN 0
@@ -178,7 +178,7 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   addStruct(newData, id, data);
   printStruct(newData);
   //if(dataReady)
-  // sentData(newData);
+  sentData(newData);
 }
 
 
