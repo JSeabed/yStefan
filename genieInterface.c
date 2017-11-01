@@ -57,6 +57,7 @@ struct data oldData;
 
 void sentData(char* data, int id);
 void dataReady(struct data *newData);
+void structManager(struct data *newData, int id, char* data);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
@@ -180,7 +181,6 @@ void structManager(struct data *newData, int id, char* data){
   // compare
   #if DEBUG
   printf("structManager\n");
-  dataReady = 1;
   #endif
   addStruct(newData, id, data);
   printStruct(newData);
