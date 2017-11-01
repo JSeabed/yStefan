@@ -97,7 +97,6 @@ int addStruct(struct data *newData, int id, char *dataStr){
   dataStr += 3;
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
-  printf("ID ip = ")
   #endif
   switch(id){
   case IP_ID:
