@@ -176,7 +176,7 @@ void printStruct(struct data *newData){
 }
 
 
-void structManager(struct data *newData, int id, char* data, char dataReady){
+void structManager(struct data *newData, int id, char* data){
   // compare
   #if DEBUG
   printf("structManager\n");
