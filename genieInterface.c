@@ -151,7 +151,7 @@ void clearStruct(struct data *newData){
 
 int isStructFull(struct data *newData){
 #if DEBUG
-  //printf("isStructFull: %s", newData->allData[0]);
+  printf("isStructFull: %s", newData->allData[0]);
 #endif
 }
 
@@ -303,8 +303,8 @@ int main (int argc, char** argv) {
 
 	struct data newData;
 	initStruct(&newData);
-	//clearStruct(&newData);
-	//isStructFull(&newData);
+	clearStruct(&newData);
+	isStructFull(&newData);
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -365,7 +365,8 @@ int main (int argc, char** argv) {
 		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
-		sentData(&newData);
+		if(isStructFull(&newData)
+		   sentData(&newData);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
