@@ -30,8 +30,8 @@ typedef int bool;
 
 #define IP_ID 0
 #define STATUS_ID 2
-#define POSITION_ID 5
-#define HEADING_ID 4
+#define POSITION_ID 1
+#define HEADING_ID 3
 #define RTK_ID 6
 #define SATALLITE_ID 7
 
