@@ -311,8 +311,8 @@ def dataManager(data ,pipeOut):
             sendList[0] = (data['ip'])
             sendList[1] = tryIns(data)							#call on tryIns function
 	    sendList[2] = ("[7]" + data['gpgga'][7])
-		sendList[3] = statusGPGGA(data)
-		sendList[4] = displayData(data)
+            sendList[3] = statusGPGGA(data)
+            sendList[4] = displayData(data)
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
