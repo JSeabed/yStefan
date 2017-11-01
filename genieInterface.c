@@ -189,6 +189,16 @@ void structManager(struct data *newData, int id, char* data){
   //dataReady(newData);
 }
 
+void clearScreen(){
+  sentData("...", IP_ID);
+  sentData("...", STATUS_ID);
+  sentData("...", POSITION_ID);
+  sentData("...", HEADING_ID);
+  sentData("...", RTK_ID);
+  sentData("", SATALLITE_ID);
+
+}
+
 //TODO change name
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(strncmp(newData->ip, ZERO, 1) !=0)
@@ -331,6 +341,8 @@ int main (int argc, char** argv) {
 	clearStruct(&newData);
 	isStructFull(&newData);
 	dataReady(&newData, &reply);
+
+	clearScreen();
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
