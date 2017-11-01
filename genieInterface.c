@@ -190,6 +190,8 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
+  toggle(FORM);
+  genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
   //i = genieWriteStr(IP_ID, "...");
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
@@ -216,6 +218,7 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
 
 }
 
+
 int changeForm(){
   toggle(FORM);
   genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
@@ -223,7 +226,7 @@ int changeForm(){
 }
 
 
-  void sentData(char* data, int id){
+void sentData(char* data, int id){
   genieWriteStr(id, data);
   usleep(500);
   //genieWriteStr(STATUS_ID, newData->status);
@@ -341,7 +344,6 @@ int main (int argc, char** argv) {
 	isStructFull(&newData);
 	dataReady(&newData, &reply);
 
-	clearScreen();
 
 	char readBuffer[BUFFSIZE];
 	char writeBuffer[BUFFSIZE];
@@ -378,6 +380,7 @@ int main (int argc, char** argv) {
 		usleep(20);
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
+	clearScreen();
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 			    printf("Data is available\n");
