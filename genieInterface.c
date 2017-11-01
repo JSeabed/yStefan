@@ -95,14 +95,12 @@ void handleEvent (struct genieReplyStruct *reply) {
 int addStruct(struct data *newData, int id, char *dataStr){
   // first remove id from string
   dataStr += 3;
-  char* ptr; 
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
   #endif
   switch(id){
   case IP_ID:
-    ptr = strcpy(newData->ip, dataStr);
-    //printf("Als het goed is..... %s\n", *ptr );
+    strcpy(newData->ip, dataStr);
     break;
   case STATUS_ID:
     strcpy(newData->status, dataStr);
@@ -120,12 +118,11 @@ int addStruct(struct data *newData, int id, char *dataStr){
     strcpy(newData->satallite, dataStr);
     break;
   default:
-    printf("address newdata->ip is: %d\n", *newData->ip);
     printf("Error: addToStruct");
   }
 }
 
-
+// allocate memory for struct
 void initStruct(struct data *newData){
   newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->status = (char*)malloc(sizeof(char)*STRUCTSIZE);
