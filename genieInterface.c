@@ -191,12 +191,16 @@ void structManager(struct data *newData, int id, char* data){
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(newData->ip != 0)
     sentData(newData->ip, IP_ID);
+  else printf("data not send\n");
   if(newData->status != 0)
     sentData(newData->status, STATUS_ID);
+  else printf("data not send\n");
   if(newData->position != 0)
     sentData(newData->position, POSITION_ID);
+  else printf("data not send\n");
   if(newData->ip != 0)
     sentData(newData->ip, IP_ID);
+  else printf("data not send\n");
     //if(isIdentical)
     
 }
