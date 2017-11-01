@@ -189,7 +189,8 @@ void structManager(struct data *newData, int id, char* data){
 
 //TODO change name
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
-  if(!strcmp(newData->ip, '0')){
+  char *zero = '0';
+  if(!strcmp(newData->ip, zero)){
     sentData(newData->ip, IP_ID);
     printf("data is send :( \n ");
   }
