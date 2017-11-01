@@ -51,7 +51,7 @@ struct data{
   char *rtk ;
   char *satallite ;
   union {
-    allData[STRUCTSIZE*6]
+    char allData[STRUCTSIZE*6]
   };
 };
 
