@@ -362,9 +362,9 @@ int main (int argc, char** argv) {
 		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
+		sentData(&newData);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
-			sentData(&newData);
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
