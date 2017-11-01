@@ -358,6 +358,7 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga, represents "No fix"
 			mode = "[3]" + "No fix"					#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '1':				#mode 1 of gpgga, represents "Single point"
+                        print "ik kom hier"
                         mode = "[3]" + "Single point"	#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '2':				#mode 2 of gpgga, represents "Pseudorange"
 			mode = "[3]" + "Pseudorange"			#setting up data to be send with FIFO
