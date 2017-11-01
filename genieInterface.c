@@ -191,16 +191,18 @@ int changeForm(){
 
 void sentData(struct data *newData){
   int i = 0;
-  i = genieWriteStr(IP_ID, "teast");
-  perror("sentData");
-  printf("i is nu : %d", i);
-  i = genieWriteStr(IP_ID, newData->ip);
+  genieWriteStr(IP_ID, newData->ip);
   genieWriteStr(STATUS_ID, newData->status);
+  perror("sentData");
   genieWriteStr(POSITION_ID, newData->position);
+  perror("sentData");
 
   genieWriteStr(HEADING_ID, newData->heading);
+  perror("sentData");
   genieWriteStr(RTK_ID, newData->rtk);
+  perror("sentData");
   genieWriteStr(SATALLITE_ID, newData->satallite);
+  perror("sentData");
 }
 
 /*
