@@ -134,6 +134,7 @@ void initStruct(struct data *newData){
 
 void clearStruct(struct data *newData){
   newData = (struct data){ 0 };
+  newData->ip = '0';
   
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
