@@ -56,6 +56,7 @@ struct data{
 struct data oldData;
 
 void sentData(char* data, int id);
+void dataReady(struct data *newData);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
