@@ -190,12 +190,12 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
-  sentData("...", IP_ID);
-  sentData("...", STATUS_ID);
-  sentData("...", POSITION_ID);
-  sentData("...", HEADING_ID);
-  sentData("...", RTK_ID);
-  sentData("", SATALLITE_ID);
+  genieWriteStr(IP_ID, "...");
+  genieWriteStr(STATUS_ID, "...");
+  genieWriteStr(POSITION_ID, "...");
+  genieWriteStr(HEADING_ID, "...");
+  genieWriteStr(RTK_ID, "...");
+  genieWriteStr(SATALLITE_ID, "...");
 
 }
 
