@@ -28,6 +28,8 @@ typedef int bool;
 #define TRUE 1
 #define FALSE 0
 
+#DEFINE ZERO "0"
+
 #define IP_ID 0
 #define STATUS_ID 2
 #define POSITION_ID 1
@@ -189,25 +191,18 @@ void structManager(struct data *newData, int id, char* data){
 
 //TODO change name
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
-  char *zero = "0";
-  printf("te vergelijken %s en %s \n", zero, newData->ip);
-  if(strncmp(newData->ip, zero, 1) != 0){
-    sentData(newData->ip, IP_ID);
-    printf("data is send :( \n ");
-  }
-  else printf("data not send\n");
-  if(strncmp(newData->status, zero, 1) != 0){
-    sentData(newData->status, STATUS_ID);
-  }
-  else printf("data not send\n");
-  if(strncmp(newData->position, zero, 1) != 0){
-    sentData(newData->position, POSITION_ID);
-  }
-  else printf("data not send\n");
-  if(strncmp(newData->heading, zero, 1) != 0){
-    sentData(newData->heading, HEADING_ID);
-  }
-  else printf("data not send\n");
+  if(strncmp(newData->ip, ZERO, 1) !=0)
+	sentData(newData->ip, IP_ID);
+  if(strncmp(newData->status, ZERO, 1) != 0)
+	sentData(newData->status, STATUS_ID);
+  if(strncmp(newData->position, ZERO, 1) != 0)
+	sentData(newData->position, POSITION_ID);
+  if(strncmp(newData->heading, ZERO, 1) != 0)
+	sentData(newData->heading, HEADING_ID);
+  if(strncmp(newData->rtk, ZERO, 1) != 0)
+	sentData(newData->rtk, RTK_ID);
+  if(strncmp(newData->satallite, ZERO, 1) != 0)
+	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
     
 }
