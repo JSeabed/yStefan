@@ -352,13 +352,10 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 
 
 def statusGPGGA(data):						#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
-        print "length list is "
-        print (data['gpgga'][6])
 	try:											#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga, represents "No fix"
 			mode = "[3]" + "No fix"					#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '1':				#mode 1 of gpgga, represents "Single point"
-                        print "ik kom hier"
                         mode = "[3]" + "Single point"	#setting up data to be send with FIFO
 		elif (data['gpgga'][6]) is '2':				#mode 2 of gpgga, represents "Pseudorange"
 			mode = "[3]" + "Pseudorange"			#setting up data to be send with FIFO
@@ -378,6 +375,8 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
 			mode = "[3]" + "WAAS"					#setting up data to be send with FIFO
 		else:										#when no mode is noticed dont write out anything
 			mode = "[3]" + ". . ."					#setting up data to be send with FIFO
+                print "mode gpgga = "
+                print mode
 		return mode
 	except Exception, e:							#error message handling when above try fails
 		print (str(e))								#write out error message to terminal
