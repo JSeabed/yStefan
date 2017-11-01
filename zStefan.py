@@ -352,6 +352,8 @@ def exact_Match(phrase, word):						#exact match def for filtering words
 
 
 def statusGPGGA(data):						#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
+        print "length list is "
+        print len(data['gpgga'])
 	try:											#determine the gpgga status
 		if (data['gpgga'][6]) is '0':				#mode 0 of gpgga, represents "No fix"
 			mode = "[3]" + "No fix"					#setting up data to be send with FIFO
