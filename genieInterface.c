@@ -55,7 +55,7 @@ struct data{
 //struct data Newdata; //TODO replace
 struct data oldData;
 
-void sentData(struct data*);
+void sentData(char* data, int id);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
@@ -183,7 +183,7 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   #endif
   addStruct(newData, id, data);
   printStruct(newData);
-  (dataReady(newData);
+  dataReady(newData);
 }
 
 //TODO change name
