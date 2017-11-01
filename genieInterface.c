@@ -44,14 +44,14 @@ typedef int bool;
 int FORM = 0;
 
 struct data{
+  union {
   char *ip;
   char *status;
   char *position ;
   char *heading ;
   char *rtk ;
   char *satallite ;
-  union {
-    char allData[STRUCTSIZE*6];
+  char allData[STRUCTSIZE*6];
   };
 };
 
@@ -147,7 +147,7 @@ void clearStruct(struct data *newData){
   strcpy(newData->rtk, str);
   strcpy(newData->satallite, str);
   printf("allData = %s\n", newData->allData);
-  printf("allData (int)= %d\n", (char*)newData->allData);
+  printf("allData (int)= %d\n", newData->allData);
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
   //strncpy(newData->position , (char*)'0', 1);
