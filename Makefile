@@ -2,7 +2,8 @@
 CC=gcc
 
 #Include dir
-CFLAGS=-Wall -O2
+#CFLAGS=-Wall -O2
+CFLAGS=-O3
 
 #Rpi flags
 RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
