@@ -364,7 +364,7 @@ int main (int argc, char** argv) {
 		usleep(WAIT);
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
-			sentData(newData);
+			sentData(&newData);
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
