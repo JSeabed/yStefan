@@ -308,7 +308,7 @@ def dataManager(data ,pipeOut):
     #fill list for fifo
     try:
             #create list
-            sendList = [None]*3
+            sendList = [None]*5
             #add IP
             sendList[0] = (data['ip'])
             #add status
