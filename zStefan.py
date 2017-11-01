@@ -172,6 +172,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
+                                print myList
 			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
@@ -307,11 +308,17 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 def dataManager(data ,pipeOut):
     #fill list for fifo
     try:
+            #create list
             sendList = [None]*3
+            #add IP
             sendList[0] = (data['ip'])
+            #add status
             sendList[1] = tryIns(data)							#call on tryIns function
+            #add
 	    sendList[2] = ("[7]" + data['gpgga'][7])
+            #add
             sendList[3] = statusGPGGA(data)
+            #add 
             sendList[4] = displayData(data)
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
