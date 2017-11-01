@@ -143,8 +143,6 @@ void clearStruct(struct data *newData){
   strcpy(newData->heading, str);
   strcpy(newData->rtk, str);
   strcpy(newData->satallite, str);
-  printf("allData = %s\n", newData);
-  printf("allData (int)= %d\n", newData);
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
   //strncpy(newData->position , (char*)'0', 1);
@@ -159,6 +157,7 @@ int isStructFull(struct data *newData){
   printf("isStructFull: %s", newData->ip);
   if(newData->ip == 0)
     printf("passed second test. IP is 0\n");
+
 #endif
 }
 
@@ -184,10 +183,22 @@ void structManager(struct data *newData, int id, char* data, char dataReady){
   #endif
   addStruct(newData, id, data);
   printStruct(newData);
-  //if(dataReady)
-  //sentData(newData);
+  (dataReady(newData);
 }
 
+//TODO change name
+void dataReady(struct data *newData){
+  if(newData->ip != 0)
+    sentData(newData->ip, IP_ID);
+  if(newData->status != 0)
+    sentData(newData->status, STATUS_ID);
+  if(newData->position != 0)
+    sentData(newData->position, POSITION_ID);
+  if(newData->ip != 0)
+    sentData(newData->ip, IP_ID);
+    //if(isIdentical)
+    
+}
 
 int changeForm(){
   toggle(FORM);
@@ -196,20 +207,19 @@ int changeForm(){
 }
 
 
-void sentData(struct data *newData){
-  int i = 0;
-  genieWriteStr(IP_ID, newData->ip);
-  genieWriteStr(STATUS_ID, newData->status);
-  perror("sentData");
-  genieWriteStr(POSITION_ID, newData->position);
-  perror("sentData");
+  void sentData(char* data, int id){
+  genieWriteStr(id, data);
+  //genieWriteStr(STATUS_ID, newData->status);
+  //perror("sentData");
+  //genieWriteStr(POSITION_ID, newData->position);
+  //perror("sentData");
 
-  genieWriteStr(HEADING_ID, newData->heading);
-  perror("sentData");
-  genieWriteStr(RTK_ID, newData->rtk);
-  perror("sentData");
-  genieWriteStr(SATALLITE_ID, newData->satallite);
-  perror("sentData");
+  //genieWriteStr(HEADING_ID, newData->heading);
+  //perror("sentData");
+  //genieWriteStr(RTK_ID, newData->rtk);
+  //perror("sentData");
+  //genieWriteStr(SATALLITE_ID, newData->satallite);
+  //perror("sentData");
 }
 
 /*
