@@ -191,8 +191,9 @@ int changeForm(){
 
 void sentData(struct data *newData){
   int i = 0;
-  i = genieWriteStr(IP_ID, newData->ip);
+  i = genieWriteStr(IP_ID, "teast");
   printf("i is nu : %d", i);
+  i = genieWriteStr(IP_ID, newData->ip);
   genieWriteStr(STATUS_ID, newData->status);
   genieWriteStr(POSITION_ID, newData->position);
 
