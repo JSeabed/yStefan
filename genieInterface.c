@@ -198,6 +198,7 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
   else printf("data not send\n");
   if(strncmp(newData->status, zero, 1) != 0){
     sentData(newData->status, STATUS_ID);
+  }
   else printf("data not send\n");
   if(strncmp(newData->position, zero, 1) != 0){
     sentData(newData->position, POSITION_ID);
