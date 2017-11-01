@@ -184,7 +184,7 @@ void structManager(struct data *newData, int id, char* data){
   #endif
   addStruct(newData, id, data);
   printStruct(newData);
-  dataReady(newData);
+  //dataReady(newData);
 }
 
 //TODO change name
@@ -395,6 +395,7 @@ int main (int argc, char** argv) {
 		}
 
 	return(0);
+}
 }
 /************************************
  * Check file descriptor with child.*
