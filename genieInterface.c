@@ -192,19 +192,20 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
   char *zero = "0";
   printf("te vergelijken %s en %s \n", zero, newData->ip);
   if(strncmp(newData->ip, zero, 1) != 0){
-    //sentData(newData->ip, IP_ID);
+    sentData(newData->ip, IP_ID);
     printf("data is send :( \n ");
   }
   else printf("data not send\n");
   if(strncmp(newData->status, zero, 1) != 0){
     sentData(newData->status, STATUS_ID);
+  }
   else printf("data not send\n");
   if(strncmp(newData->position, zero, 1) != 0){
     sentData(newData->position, POSITION_ID);
   }
   else printf("data not send\n");
   if(strncmp(newData->heading, zero, 1) != 0){
-    sentData(newData->heading, IP_ID);
+    sentData(newData->heading, HEADING_ID);
   }
   else printf("data not send\n");
     //if(isIdentical)
@@ -220,7 +221,7 @@ int changeForm(){
 
   void sentData(char* data, int id){
   genieWriteStr(id, data);
-  usleep(250);
+  usleep(500);
   //genieWriteStr(STATUS_ID, newData->status);
   //perror("sentData");
   //genieWriteStr(POSITION_ID, newData->position);
