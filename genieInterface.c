@@ -8,40 +8,40 @@
 //#include <sys/poll.h> // pid
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
-#include <geniePi.h>
+#include <geniepi.h>
 
-#define GENIE_OBJ_FORM 10
-#define GENIE_OBJ_USERBUTTON 33
-#define GENIE_OBJ_4DBUTTON 30
+#define genie_obj_form 10
+#define genie_obj_userbutton 33
+#define genie_obj_4dbutton 30
 
-#define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
+#define from(x) (0x010a + x + 0000) // todo needs to be checked
 
-//#define BUFFSIZE 4096
-#define BUFFSIZE 2048
-#define STRUCTSIZE 150
-#define TIMEOUT 500
-#define WAIT 250
+//#define buffsize 4096
+#define buffsize 2048
+#define structsize 150
+#define timeout 500
+#define wait 250
 
 /*#define checksum(x) (x ^= x)*/
 
 typedef int bool;
-#define TRUE 1
-#define FALSE 0
+#define true 1
+#define false 0
 
-#define IP_ID 0
-#define STATUS_ID 2
-#define POSITION_ID 1
-#define HEADING_ID 6
-#define RTK_ID 3
-#define SATALLITE_ID 7
+#define ip_id 0
+#define status_id 2
+#define position_id 1
+#define heading_id 6
+#define rtk_id 3
+#define satallite_id 7
 
-#define MAIN_SCREEN 0
-#define INFO_SCREEN 1
+#define main_screen 0
+#define info_screen 1
 
 #define toggle(x) (x = !x)
-#define isIdentical(a, b) (a == b)
+#define isidentical(a, b) (a == b)
 
-int FORM = 0;
+int form = 0;
 
 struct data{
   char *ip;
@@ -52,41 +52,41 @@ struct data{
   char *satallite;
 };
 
-//struct data Newdata; //TODO replace
-struct data oldData;
+//struct data newdata; //todo replace
+struct data olddata;
 
-void sentData(char* data, int id);
-void dataReady(struct data *newData, struct genieReplyStruct *reply);
-void structManager(struct data *newData, int id, char* data);
+void sentdata(char* data, int id);
+void dataready(struct data *newdata, struct geniereplystruct *reply);
+void structmanager(struct data *newdata, int id, char* data);
 
 /* remove eventually
-   if(reply->object == GENIE_OBJ_4DBUTTON) {
+   if(reply->object == genie_obj_4dbutton) {
    */
 
-void handleEvent (struct genieReplyStruct *reply) {
-	if(reply->object == GENIE_OBJ_4DBUTTON) {
+void handleevent (struct geniereplystruct *reply) {
+	if(reply->object == genie_obj_4dbutton) {
 		switch (reply->index) {
 			case 0:
-				/* Main screen. Show no data. Save data.*/
-				genieWriteStr(1,"You pressed the RED button.");
-				genieWriteObj(GENIE_OBJ_FORM, 1, 1);
-				#if DEBUG
-					printf("RED");
+				/* main screen. show no data. save data.*/
+				geniewritestr(1,"you pressed the red button.");
+				geniewriteobj(genie_obj_form, 1, 1);
+				#if debug
+					printf("red");
 					printf("%d\n");
 				#endif
 				break;
 			case 1:
-				/* Screen with data. Obtain old data? */
-				genieWriteStr(2,"You pressed the GREEN button.");
-				genieWriteObj(GENIE_OBJ_FORM,0, 1);
-				#if DEBUG
-					printf("Green");
+				/* screen with data. obtain old data? */
+				geniewritestr(2,"you pressed the green button.");
+				geniewriteobj(genie_obj_form,0, 1);
+				#if debug
+					printf("green");
 					printf("%d\n");
 				#endif
-				// sentData();
+				// sentdata();
 				break;
 			default:
-				printf("Error, index not in range or found.");
+				printf("error, index not in range or found.");
 				exit(0);
 				break;
 		}
@@ -94,248 +94,251 @@ void handleEvent (struct genieReplyStruct *reply) {
 }
 
 
-int addStruct(struct data *newData, int id, char *dataStr){
+int addstruct(struct data *newdata, int id, char *datastr){
   // first remove id from string
-  dataStr += 3;
-  #if DEBUG
-  printf("Add to struct: %s\n", dataStr);
+  datastr += 3;
+  #if debug
+  printf("add to struct: %s\n", datastr);
   #endif
   switch(id){
-  case IP_ID:
-    strcpy(newData->ip, dataStr);
+  case ip_id:
+    strcpy(newdata->ip, datastr);
     return;
-  case STATUS_ID:
-    strcpy(newData->status, dataStr);
+  case status_id:
+    strcpy(newdata->status, datastr);
     return;
-  case POSITION_ID:
-    strcpy(newData->position, dataStr);
+  case position_id:
+    strcpy(newdata->position, datastr);
     return;
-  case HEADING_ID:
-    strcpy(newData->heading, dataStr);
+  case heading_id:
+    strcpy(newdata->heading, datastr);
     return;
-  case RTK_ID:
-    strcpy(newData->rtk, dataStr);
+  case rtk_id:
+    strcpy(newdata->rtk, datastr);
     return;
-  case SATALLITE_ID:
-    strcpy(newData->satallite, dataStr);
+  case satallite_id:
+    strcpy(newdata->satallite, datastr);
     return;
   default:
-    printf("Error: addToStruct");
+    printf("error: addtostruct");
   }
 }
 
 // allocate memory for struct
-void initStruct(struct data *newData){
-  newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->status = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->position = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->heading = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->rtk = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->satallite = (char*)malloc(sizeof(char)*STRUCTSIZE);
+void initstruct(struct data *newdata){
+  newdata->ip = (char*)malloc(sizeof(char)*structsize);
+  newdata->status = (char*)malloc(sizeof(char)*structsize);
+  newdata->position = (char*)malloc(sizeof(char)*structsize);
+  newdata->heading = (char*)malloc(sizeof(char)*structsize);
+  newdata->rtk = (char*)malloc(sizeof(char)*structsize);
+  newdata->satallite = (char*)malloc(sizeof(char)*structsize);
 }
 
-void clearStruct(struct data *newData){
-  #if DEBUG
-  printf("ClearStruct \n");
+void clearstruct(struct data *newdata){
+  #if debug
+  printf("clearstruct \n");
   #endif
   char str[10] = "0";
-  strcpy(newData->ip, str);
-  strcpy(newData->status, str);
-  strcpy(newData->position, str);
-  strcpy(newData->heading, str);
-  strcpy(newData->rtk, str);
-  strcpy(newData->satallite, str);
-  // strncpy(newData->&ip , NULL, 1);
-  //strncpy(newData->&status , NULL , 1);
-  //strncpy(newData->position , (char*)'0', 1);
-  //strncpy(newData->heading , (char*)'0', 1);
-  //strncpy(newData->rtk , (char*)'0', 1);
-  //strncpy(newData->satallite , (char*)'0', 1);
+  strcpy(newdata->ip, str);
+  strcpy(newdata->status, str);
+  strcpy(newdata->position, str);
+  strcpy(newdata->heading, str);
+  strcpy(newdata->rtk, str);
+  strcpy(newdata->satallite, str);
+  // strncpy(newdata->&ip , null, 1);
+  //strncpy(newdata->&status , null , 1);
+  //strncpy(newdata->position , (char*)'0', 1);
+  //strncpy(newdata->heading , (char*)'0', 1);
+  //strncpy(newdata->rtk , (char*)'0', 1);
+  //strncpy(newdata->satallite , (char*)'0', 1);
 }
 
 
-int isStructFull(struct data *newData){
-#if DEBUG
-  printf("isStructFull: %s", newData->ip);
-  if(newData->ip == 0)
-    printf("passed second test. IP is 0\n");
+int isstructfull(struct data *newdata){
+#if debug
+  printf("isstructfull: %s", newdata->ip);
+  if(newdata->ip == 0)
+    printf("passed second test. ip is 0\n");
 
 #endif
 }
 
 
-void printStruct(struct data *newData){
-  #if DEBUG
-  printf("STRUCTURE: \n");
-  printf("ip: %s\n", newData->ip);
-  printf("status: %s\n", newData->status);
-  printf("position: %s\n", newData->position);
-  printf("heading: %s\n", newData->heading);
-  printf("rtk: %s\n", newData->rtk);
-  printf("satallite: %s\n", newData->satallite);
+void printstruct(struct data *newdata){
+  #if debug
+  printf("structure: \n");
+  printf("ip: %s\n", newdata->ip);
+  printf("status: %s\n", newdata->status);
+  printf("position: %s\n", newdata->position);
+  printf("heading: %s\n", newdata->heading);
+  printf("rtk: %s\n", newdata->rtk);
+  printf("satallite: %s\n", newdata->satallite);
   #endif
 }
 
 
-void structManager(struct data *newData, int id, char* data){
+void structmanager(struct data *newdata, int id, char* data){
   // compare
-  #if DEBUG
-  printf("structManager\n");
+  #if debug
+  printf("structmanager\n");
   #endif
-  addStruct(newData, id, data);
-  printStruct(newData);
-  //dataReady(newData);
+  addstruct(newdata, id, data);
+  printstruct(newdata);
+  //dataready(newdata);
 }
 
-//TODO change name
-void dataReady(struct data *newData, struct genieReplyStruct *reply){
+//todo change name
+void dataready(struct data *newdata, struct geniereplystruct *reply){
   char *zero = "0";
-  printf("te vergelijken %s en %s \n", zero, newData->ip);
-  if(strncmp(newData->ip, zero, 1) != 0){
-    //sentData(newData->ip, IP_ID);
+  printf("te vergelijken %s en %s \n", zero, newdata->ip);
+  if(strncmp(newdata->ip, zero, 1) != 0){
+    //sentdata(newdata->ip, ip_id);
     printf("data is send :( \n ");
   }
   else printf("data not send\n");
-  if(strncmp(newData->status, zero, 1) != 0){
-    sentData(newData->status, STATUS_ID);
+  if(strncmp(newdata->status, zero, 1) != 0){
+    sentdata(newdata->status, status_id);
+  }
   else printf("data not send\n");
-  if(strncmp(newData->position, zero, 1) != 0){
-    sentData(newData->position, POSITION_ID);
+  if(strncmp(newdata->position, zero, 1) != 0){
+    sentdata(newdata->position, position_id);
+  }
   else printf("data not send\n");
-  if(strncmp(newData->heading, zero, 1) != 0){
-    sentData(newData->heading, IP_ID);
+  if(strncmp(newdata->heading, zero, 1) != 0){
+    sentdata(newdata->heading, ip_id);
+  }
   else printf("data not send\n");
-    //if(isIdentical)
+    //if(isidentical)
     
 }
 
-int changeForm(){
-  toggle(FORM);
-  genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+int changeform(){
+  toggle(form);
+  geniewriteobj(genie_obj_form,form, 1);
   return 1;
 }
 
 
-  void sentData(char* data, int id){
-  genieWriteStr(id, data);
+  void sentdata(char* data, int id){
+  geniewritestr(id, data);
   usleep(250);
-  //genieWriteStr(STATUS_ID, newData->status);
-  //perror("sentData");
-  //genieWriteStr(POSITION_ID, newData->position);
-  //perror("sentData");
+  //geniewritestr(status_id, newdata->status);
+  //perror("sentdata");
+  //geniewritestr(position_id, newdata->position);
+  //perror("sentdata");
 
-  //genieWriteStr(HEADING_ID, newData->heading);
-  //perror("sentData");
-  //genieWriteStr(RTK_ID, newData->rtk);
-  //perror("sentData");
-  //genieWriteStr(SATALLITE_ID, newData->satallite);
-  //perror("sentData");
+  //geniewritestr(heading_id, newdata->heading);
+  //perror("sentdata");
+  //geniewritestr(rtk_id, newdata->rtk);
+  //perror("sentdata");
+  //geniewritestr(satallite_id, newdata->satallite);
+  //perror("sentdata");
 }
 
 /*
-int checkFifo(FILE *file){
+int checkfifo(file *file){
 	int retval;
 	struct pollfd fd1;
 	fd1.fd = file;
-	retval = poll(fd1, 1, TIMEOUT);
+	retval = poll(fd1, 1, timeout);
 	if(retval < 0){
 	} else if(retval > 0){
-		getData(file);
+		getdata(file);
 	} else {
 	}
 	return true;
 }
 */
 
-void childGetData(int fd_child, int fd_parent ){
-	/* Get data from python script */
-	char readBuffer[BUFFSIZE];
-	//printf("Child here\n");
-	//read(fd_child, &readBuffer, BUFFSIZE);
-	//printf("%s", readBuffer);
+void childgetdata(int fd_child, int fd_parent ){
+	/* get data from python script */
+	char readbuffer[buffsize];
+	//printf("child here\n");
+	//read(fd_child, &readbuffer, buffsize);
+	//printf("%s", readbuffer);
 
 	int n;
 	//int fd;
-	char buf[BUFFSIZE];
-	FILE *file;
+	char buf[buffsize];
+	file *file;
 	int ret;
 	char * myfifo = "/tmp/mypipe";
-	/* create the FIFO (named pipe) */
+	/* create the fifo (named pipe) */
 	mkfifo(myfifo, 0666);
 	file = fopen(myfifo, "r");
-	/* write "Hi" to the FIFO */
-	//fd = open(myfifo, O_WRONLY);
-	//write(fd, "Hi", sizeof("Hi"));
+	/* write "hi" to the fifo */
+	//fd = open(myfifo, o_wronly);
+	//write(fd, "hi", sizeof("hi"));
 
 	for(;;){
-			if(fgets(buf, BUFFSIZE, file) > 0){
+			if(fgets(buf, buffsize, file) > 0){
 			//  printf("%s \n", buf);
 			n = write(fd_parent, &buf, sizeof(buf));
 			if(n > 0){
 			  printf("verstuurd!: %s \n", buf);
 			}
 			if(n < 0){
-			  perror("Error: ");
+			  perror("error: ");
 			}
 		}
-	  	//file = open(myfifo, O_WRONLY);
+	  	//file = open(myfifo, o_wronly);
 	  	//fclose(file);
 		//fflush(file);
-	  usleep(WAIT);
+	  usleep(wait);
 	}
 	unlink(myfifo);
 }
 
 
-int getID(char *str){
-  char *strMask = "%*[^0123456789]%d";
+int getid(char *str){
+  char *strmask = "%*[^0123456789]%d";
   int id;
   int i = 0;
   while(sizeof(str) > i){
-    if(sscanf(str, strMask, &id) == 1){
+    if(sscanf(str, strmask, &id) == 1){
     printf("id is = %d", id);
     return id;
     }
     i++;
   }
   //error
-  printf("ID NOT FOUND\n");
+  printf("id not found\n");
   return -1;
 }
-	/* remove the FIFO */
+	/* remove the fifo */
 	/* fill data struct*/
 /************************************************************************
- * Fetch the received data from the python script to the data structure *
+ * fetch the received data from the python script to the data structure *
  * *********************************************************************/
-/*int fetchData(struct data, char *buf){
+/*int fetchdata(struct data, char *buf){
 	//data.ip =
 	return 1;
 }*/
 
 
-void errorExit(char* error){
+void errorexit(char* error){
 	printf("%s\n", error);
 	//exit(0);
 }
 
 
 int main (int argc, char** argv) {
-  #if DEBUG
-  printf("Debug mode on\n");
+  #if debug
+  printf("debug mode on\n");
   #endif
-	struct genieReplyStruct reply;
+	struct geniereplystruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;
 
-	struct data newData;
-	initStruct(&newData);
-	clearStruct(&newData);
-	isStructFull(&newData);
-	dataReady(&newData, &reply);
+	struct data newdata;
+	initstruct(&newdata);
+	clearstruct(&newdata);
+	isstructfull(&newdata);
+	dataready(&newdata, &reply);
 
-	char readBuffer[BUFFSIZE];
-	char writeBuffer[BUFFSIZE];
+	char readbuffer[buffsize];
+	char writebuffer[buffsize];
 
 	pipe(fd_child);
 	pipe(fd_parent);
@@ -343,9 +346,9 @@ int main (int argc, char** argv) {
 	pid_t child, p;
 	child = fork();
 
-	if(genieSetup("/dev/ttyAMA0",9600)<0) {
-		printf("ViSi-Genie Failed to init display!\r\n");
-		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+	if(geniesetup("/dev/ttyama0",9600)<0) {
+		printf("visi-genie failed to init display!\r\n");
+		return(1); // failed to initialize visi-genie display. check connections!
 	}
 
 		if(child == (pid_t)-1){
@@ -354,13 +357,13 @@ int main (int argc, char** argv) {
 		}
 
 		if(!child){
-			/* Here enters the child */
+			/* here enters the child */
 			/* create pipe to python script */
 			/* check if named pipe if filled*/
-			//printf("Child pid = %d \n", (int)child);
+			//printf("child pid = %d \n", (int)child);
 			close(fd_child[1]);
 			close(fd_parent[0]);
-			childGetData(fd_child[0], fd_parent[1]);
+			childgetdata(fd_child[0], fd_parent[1]);
 		}
 
 		close(fd_parent[1]);
@@ -368,67 +371,67 @@ int main (int argc, char** argv) {
 
 		//write(fd_child[1], &test, sizeof(test));
 	for(;;) {
-		if(ret = checkFd(fd_parent[0])){
-			#if DEBUG
-			    printf("Data is available\n");
+		if(ret = checkfd(fd_parent[0])){
+			#if debug
+			    printf("data is available\n");
 			#endif
-			read(fd_parent[0], &readBuffer, BUFFSIZE);
-			id = getID(readBuffer);
-			#if DEBUG
-			    printf("\n parent: %s", readBuffer);
+			read(fd_parent[0], &readbuffer, buffsize);
+			id = getid(readbuffer);
+			#if debug
+			    printf("\n parent: %s", readbuffer);
 			#endif
-			structManager(&newData, id, readBuffer);
-			dataReady(&newData, &reply);
-			//void structManager(struct data *newData, int id, char* data, char dataReady){
-			//genieWriteStr(1, readBuffer);
+			structmanager(&newdata, id, readbuffer);
+			dataready(&newdata, &reply);
+			//void structmanager(struct data *newdata, int id, char* data, char dataready){
+			//geniewritestr(1, readbuffer);
 			//fflush(myfifo* fd_parent[0]);
-			// fetchData();
+			// fetchdata();
 		} else if(ret == -1){
 			/* error */
-		  perror("Error - parent: ");
+		  perror("error - parent: ");
 		} else{
-			#if DEBUG
-				printf("Timeout!\n");
+			#if debug
+				printf("timeout!\n");
 			#endif
-			usleep(WAIT);
+			usleep(wait);
 		}
-		#if DEBUG
+		#if debug
 		#endif
-		//struct data Newdata; //TODO replace
-		usleep(WAIT);
-		//if(isStructFull(&newData)) sentData(&newData);
-		while(genieReplyAvail()) {
-			genieGetReply(&reply);
-			handleEvent(&reply);
-			usleep(WAIT); // wait 20ms between polls to save CPU
+		//struct data newdata; //todo replace
+		usleep(wait);
+		//if(isstructfull(&newdata)) sentdata(&newdata);
+		while(geniereplyavail()) {
+			geniegetreply(&reply);
+			handleevent(&reply);
+			usleep(wait); // wait 20ms between polls to save cpu
 		}
 
 }
 	return(0);
 }
 /************************************
- * Check file descriptor with child.*
+ * check file descriptor with child.*
  ***********************************/
-int checkFd(int fd_parent){
-	//Init timeout
+int checkfd(int fd_parent){
+	//init timeout
 	struct timeval tv;
-	// set timeout to x Sec
-	tv.tv_usec = TIMEOUT;
+	// set timeout to x sec
+	tv.tv_usec = timeout;
 
 	fd_set set;
-	FD_ZERO(&set);
-	FD_SET(fd_parent, &set);
+	fd_zero(&set);
+	fd_set(fd_parent, &set);
 
-	int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
+	int retval = select(fd_setsize, &set, null, null, &tv);
 	if(retval == -1){
 		printf("error: select()\n");
 		return -1;
 	}
 	else if(retval){
-		/* Data is available */
+		/* data is available */
 		return 1;
 	} else {
-		/* Timeout */
+		/* timeout */
 		return 0;
 	}
 }
