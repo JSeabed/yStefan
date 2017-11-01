@@ -319,6 +319,7 @@ def dataManager(data ,pipeOut):
             sendList[3] = statusGPGGA(data)
             print "GPGGA is : "
             print sendList[3]
+            print (data['gpgga'][6])
             #add 
             sendList[4] = displayData(data)
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
