@@ -204,7 +204,7 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(strncmp(newData->satallite, ZERO, 1) != 0)
 	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
-    
+
 }
 
 int changeForm(){
@@ -387,7 +387,7 @@ int main (int argc, char** argv) {
 		  perror("Error - parent: ");
 		} else{
 			#if DEBUG
-				printf("Timeout!\n");
+				//printf("Timeout!\n");
 			#endif
 			usleep(WAIT);
 		}
