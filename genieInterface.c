@@ -56,7 +56,7 @@ struct data{
 struct data oldData;
 
 void sentData(char* data, int id);
-void dataReady(struct data *newData);
+void dataReady(struct data *newData, struct genieReplyStruct *reply);
 void structManager(struct data *newData, int id, char* data);
 
 /* remove eventually
@@ -368,7 +368,7 @@ int main (int argc, char** argv) {
 			    printf("\n parent: %s", readBuffer);
 			#endif
 			structManager(&newData, id, readBuffer);
-			dataReady(&newData, &reply)
+			dataReady(&newData, &reply);
 			//void structManager(struct data *newData, int id, char* data, char dataReady){
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
