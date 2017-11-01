@@ -143,8 +143,8 @@ void clearStruct(struct data *newData){
   strcpy(newData->heading, str);
   strcpy(newData->rtk, str);
   strcpy(newData->satallite, str);
-  printf("allData = %s\n", newData->newData);
-  printf("allData (int)= %d\n", newData->newData);
+  printf("allData = %s\n", newData);
+  printf("allData (int)= %d\n", newData);
   // strncpy(newData->&ip , NULL, 1);
   //strncpy(newData->&status , NULL , 1);
   //strncpy(newData->position , (char*)'0', 1);
