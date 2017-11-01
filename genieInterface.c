@@ -365,7 +365,7 @@ int main (int argc, char** argv) {
 			read(fd_parent[0], &readBuffer, BUFFSIZE);
 			id = getID(readBuffer);
 			printf("\n parent: %s", readBuffer);
-			structManager(&newData, id, readBuffer, 0);
+			structManager(&newData, id, readBuffer);
 			//void structManager(struct data *newData, int id, char* data, char dataReady){
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
