@@ -63,5 +63,5 @@ diablo: LIBS = -ldiabloSerial -lm
 #diablo: all
 
 dg:
-	DFLAGS = -D DEBUG : CFLAGS += -DGENIE : LIBS = lgeniePi : all
+	$(DFLAGS) = -D DEBUG : $(CFLAGS) += -DGENIE : $(LIBS) = lgeniePi : all
 dd:	debug diablo all
