@@ -45,38 +45,35 @@ $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) -c $(SOURCES)
 
 
-.PHONY: all debug clean release
-.DEFAULT: all
-
-release: $(SOURCES)
-	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(DIABLOLIBS)
-
-all:	$(EXE) 
-
-genie: $(SOURCES)
-	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(GENIELIBS)
+.PHONY: all debug clean release dg dd
 
 
+#debug genie
 dg: CFLAGS += $(DEBUGFLAGS)
 dg: CFLAGS += $(DGENIE)
 dg: LIBS += $(GENIELIBS)
-dg: all 
+dg: $(EXE) 
 
 
 #debug diablo
 dd: CFLAGS += $(DEBUGFLAGS)
 dd: LIBS += $(DIABLOLIBS)
-dd: all 
+dd: $(EXE) 
 
-#debug: all
+#install bin to /usr/bin
+install: release
+	install -D $(EXE) $(BINDIR)/$(EXE)
+
+
+#release is with diablo for now.
+release: $(SOURCES)
+	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(DIABLOLIBS)
+
+
+uninstall:
+	$(RM) $(BINDIR)/$(EXE)
+
 
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
-
-
-#use to choose library
-
-#genie: all
-
-diablo: LIBS = -ldiabloSerial -lm
 
