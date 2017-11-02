@@ -51,15 +51,15 @@ clean:
 
 
 #use to choose library
-dg:	debug genie
-dd:	debug diablo
+dg:	debug genie all
+dd:	debug diablo all
 
 genie: CFLAGS += -DGENIE
 	LIBS = -lgeniePi
 
-genie: all
+#genie: all
 
 diablo: LIBS = -ldiabloSerial -lm
 
-diablo: all
+#diablo: all
 
