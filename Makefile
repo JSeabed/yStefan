@@ -56,8 +56,8 @@ genie: $(SOURCES)
 	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(GENIELIBS)
 
 
-dg:	$(OBJ) $(DIABLOLIBS)
-	$(EXE) $(DEBUGFLAGS) $(DIABLOLIBS)
+dg:	CFLAGS += $(DEBUGFLAGS)
+	$(EXE) 
 
 #debug: all
 
