@@ -51,11 +51,12 @@ clean:
 .PHONY: genie debug
 
 #use make genie to use the genie library
-genie: CFLAGS += -DGENIE -lgeniePi
+genie: CFLAGS += -DGENIE
+	LIBS = -lgeniePi
 
 genie: all
 
-diablo: LBIS += -lgeniePi
+diablo: LIBS = -lgeniePi
 
 diablo: all
 
