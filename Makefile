@@ -37,11 +37,11 @@ BINDIR = $(PREFIX)/bin
 
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
 
 
 $(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -c $(SOURCES) $(LIBS) 
+	$(CC) $(CFLAGS) -c $(SOURCES)
 
 
 .PHONY: all debug clean release
@@ -57,7 +57,7 @@ genie: $(SOURCES)
 
 
 dg:
-	genie $(DEBUGFLAGS)
+	$(EXE) $(DEBUGFLAGS) $(DIABLOLIBS)
 
 #debug: all
 
