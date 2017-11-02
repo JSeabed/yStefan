@@ -8,11 +8,24 @@
 //#include <sys/poll.h> // pid
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
-#include <geniePi.h>
+#if GENIE
+    #include <geniePi.h>
+#else
+    #include <diabloSerial.h>
+    #include <Diablo_Types4D.h>
+    #include <Diablo_const4D.h>
+#endif
 
-#define GENIE_OBJ_FORM 10
-#define GENIE_OBJ_USERBUTTON 33
-#define GENIE_OBJ_4DBUTTON 30
+#if GENIE
+    #define GENIE_OBJ_FORM 10
+    #define GENIE_OBJ_USERBUTTON 33
+    #define GENIE_OBJ_4DBUTTON 30
+#else
+// diablo code
+#endif
+
+#define PORT "/dev/ttyAMA0"
+#define BAUDRATE 9600
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
@@ -65,6 +78,7 @@ void structManager(struct data *newData, int id, char* data);
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
 
+#if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
 	if(reply->object == GENIE_OBJ_4DBUTTON) {
 		switch (reply->index) {
@@ -94,8 +108,13 @@ void handleEvent (struct genieReplyStruct *reply) {
 		}
 	}
 }
+#endif
 
 
+/*
+Return TRUE (1) if data was added to struct. 
+Otherwise return FALSE (0) 
+*/
 int addStruct(struct data *newData, int id, char *dataStr){
   // first remove id from string
   dataStr += 3;
@@ -105,24 +124,25 @@ int addStruct(struct data *newData, int id, char *dataStr){
   switch(id){
   case IP_ID:
     strcpy(newData->ip, dataStr);
-    return;
+    return TRUE;
   case STATUS_ID:
     strcpy(newData->status, dataStr);
-    return;
+    return TRUE;
   case POSITION_ID:
     strcpy(newData->position, dataStr);
-    return;
+    return TRUE;
   case HEADING_ID:
     strcpy(newData->heading, dataStr);
-    return;
+    return TRUE;
   case RTK_ID:
     strcpy(newData->rtk, dataStr);
-    return;
+    return TRUE;
   case SATALLITE_ID:
     strcpy(newData->satallite, dataStr);
-    return;
+    return TRUE;
   default:
     printf("Error: addToStruct");
+    return FALSE;
   }
 }
 
@@ -200,7 +220,7 @@ void clearScreen(){
   //genieWriteStr(SATALLITE_ID, "...");
 }
 
-//TODO change name
+//TODO change namae
 void dataReady(struct data *newData, struct genieReplyStruct *reply){
   if(strncmp(newData->ip, ZERO, 1) !=0)
 	sentData(newData->ip, IP_ID);
@@ -218,15 +238,25 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
 
 }
 
+
 int changeForm(){
   toggle(FORM);
-  genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+  #if GENIE
+    genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+  #else
+    //diablo code
+  #endif
+  
   return 1;
 }
 
 
   void sentData(char* data, int id){
-  genieWriteStr(id, data);
+#if GENIE
+    genieWriteStr(id, data);
+#else
+    //diablo code
+#endif
   usleep(500);
   //genieWriteStr(STATUS_ID, newData->status);
   //perror("sentData");
@@ -330,7 +360,12 @@ void errorExit(char* error){
 
 int main (int argc, char** argv) {
   #if DEBUG
-  printf("Debug mode on\n");
+    printf("Debug mode on\n");
+  #endif
+  #if GENIE
+
+  #else
+    int rc;
   #endif
 	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
@@ -353,10 +388,19 @@ int main (int argc, char** argv) {
 	pid_t child, p;
 	child = fork();
 
-	if(genieSetup("/dev/ttyAMA0",9600)<0) {
+	#if GENIE
+	if(genieSetup(PORT ,BAUDRATE)<0) {
 		printf("ViSi-Genie Failed to init display!\r\n");
 		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
 	}
+	#else
+	// diablo init code
+	rc = OpenComm(PORT, BAUDRATE);
+	if(rc != 0){
+	  printf("Failed to init display\n");
+	  exit(EXIT_FAILURE);
+	}
+	#endif
 	clearScreen();
 
 		if(child == (pid_t)-1){
@@ -404,16 +448,20 @@ int main (int argc, char** argv) {
 			#endif
 			usleep(WAIT);
 		}
-		#if DEBUG
-		#endif
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
 		//if(isStructFull(&newData)) sentData(&newData);
+
+		#if GENIE
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
+		#else
+		// diablo code
+		#endif
+
 
 }
 	return(0);
