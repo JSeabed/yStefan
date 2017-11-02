@@ -20,6 +20,7 @@ RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
 #LIBS = -lgeniePi
 GENIELIBS = -lgeniePi
 DIABLOLIBS = -ldiabloSerial
+LIBS = 
 
 #the executable file that will be created
 EXE = genieInterface
@@ -37,7 +38,7 @@ BINDIR = $(PREFIX)/bin
 
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
+	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
 
 $(OBJ): $(SOURCES)
@@ -57,7 +58,8 @@ genie: $(SOURCES)
 
 
 dg: CFLAGS += $(DEBUGFLAGS)
-dg: $(EXE) 
+dg: LIBS += $(DIABLOLIBS)
+dg: all 
 
 #debug: all
 
