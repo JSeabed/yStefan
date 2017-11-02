@@ -39,12 +39,6 @@
 
 #define ZERO "0"
 
-#define IP_ID 0
-#define STATUS_ID 2
-#define POSITION_ID 1
-#define HEADING_ID 6
-#define RTK_ID 3
-#define SATALLITE_ID 7
 
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1

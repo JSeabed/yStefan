@@ -9,6 +9,14 @@ typedef int bool;
 #define TRUE 1
 #define FALSE 0
 
+// TODO might want to place this somewhere else
+#define IP_ID 0
+#define STATUS_ID 2
+#define POSITION_ID 1
+#define HEADING_ID 6
+#define RTK_ID 3
+#define SATALLITE_ID 7
+
 struct data{
   char *ip;
   char *status;
