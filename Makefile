@@ -36,7 +36,7 @@ $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
-.PHONY: all debug genie clean
+.PHONY: all debug clean
 
 
 all:	$(EXE)
@@ -53,3 +53,10 @@ debug: all
 
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
+
+.PHONY: genie
+
+genie: GENIE = -D GENIE
+
+genie: all
+
