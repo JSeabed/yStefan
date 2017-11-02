@@ -37,6 +37,7 @@ $(OBJ): $(SOURCES)
 
 
 .PHONY: all debug clean dg dd
+.DEFAULT: all
 
 
 all:	$(EXE) 
@@ -61,5 +62,5 @@ diablo: LIBS = -ldiabloSerial -lm
 
 #diablo: all
 
-dg:	DEBUG = -D DEBUG : CFLAGS += -DGENIE : LIBS = lgeniePi : all
-dd:	debug diablo all
+dg:	DEBUG = -D DEBUG : CFLAGS += -DGENIE : LIBS = lgeniePi
+dd:	debug diablo 
