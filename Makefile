@@ -9,7 +9,8 @@ CFLAGS=-O3
 RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
-DFLAGS=-D DEBUG -D GENIE
+DFLAGS=-D DEBUG 
+XFLAGS=-X GENIE
 #DGENIE=-D GENIE
 
 #LDFLAGS = -L/usr/local/lib
@@ -55,7 +56,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: GENIE = -D GENIE -lgeniePi
+genie: GENIE = -X GENIE -lgeniePi
 
 genie: all
 
