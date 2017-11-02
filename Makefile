@@ -55,7 +55,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: GENIE = -D GENIE LIBS=lgeniePi
+genie: GENIE = -D GENIE $(LIBS)=lgeniePi
 
 genie: all
 
