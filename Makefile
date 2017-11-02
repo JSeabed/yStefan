@@ -41,12 +41,6 @@ $(OBJ): $(SOURCES)
 
 all:	$(EXE)
 
-
-#use make genie to use the genie library
-genie: GENIE = -D GENIE -lgeniePi
-
-genie: all
-
 debug: DEBUG = -D DEBUG
 
 debug: all
@@ -56,6 +50,7 @@ clean:
 
 .PHONY: genie
 
+#use make genie to use the genie library
 genie: GENIE = -D GENIE
 
 genie: all
