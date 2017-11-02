@@ -11,7 +11,7 @@ CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 DEBUGFLAGS = O0 -D DEBUG
 
 #RELEASE FLAG
-RELEASEFLAGS = O3 -D NDEBUG -combine -fwhole-program
+RELEASEFLAGS = O3 -D NDEBUG -fwhole-program
 
 #DGENIE=-D GENIE
 
