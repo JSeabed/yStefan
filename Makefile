@@ -71,8 +71,3 @@ clean:
 
 diablo: LIBS = -ldiabloSerial -lm
 
-#diablo: all
-
-dg:
-	debug genie all
-dd:	debug diablo all
