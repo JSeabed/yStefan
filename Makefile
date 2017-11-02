@@ -20,6 +20,7 @@ ifeq ($(DFLAGS), -D GENIE)
 else
 	LIBS = -ldiabloSerial -lm
 endif
+
 #the executable file that will be created
 EXE = genieInterface
 
