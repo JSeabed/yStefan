@@ -52,7 +52,7 @@ clean:
 
 #use to choose library
 dg:	debug genie
-dg:	debug diablo
+dd:	debug diablo
 
 genie: CFLAGS += -DGENIE
 	LIBS = -lgeniePi
