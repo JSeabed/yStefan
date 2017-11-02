@@ -10,7 +10,6 @@ RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
 DFLAGS=-D DEBUG 
-DGENIE=-D GENIE
 #DGENIE=-D GENIE
 
 #LDFLAGS = -L/usr/local/lib
@@ -34,11 +33,11 @@ OBJ = genieInterface.o
 
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(GENIE) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
 
 
 $(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(GENIE) $(DEBUG) -c $(SOURCES) $(LIBS) 
+	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
 .PHONY: all debug clean
@@ -56,7 +55,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: GENIE = -D GENIE -lgeniePi
+genie: GENIE = -DGENIE -lgeniePi
 
 genie: all
 
