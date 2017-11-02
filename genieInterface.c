@@ -213,10 +213,10 @@ void clearScreen(){
   #if GENIE
   int i = 0;
   i = genieWriteStr(IP_ID, ";;;");
+  printf("i = %d \n", i);
   #else
   // diablo code 
   #endif
-  printf("i = %d \n", i);
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
   //genieWriteStr(HEADING_ID, "...");
