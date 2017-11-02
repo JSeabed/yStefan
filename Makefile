@@ -39,12 +39,12 @@ PREFIX = $(DESTDIR)/usr/local
 BINDIR = $(PREFIX)/bin
 
 
-$(EXE): $(OBJ)
+$(EXE): $(OBJ) $(HEADERS)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
 
-$(OBJ): $(SOURCES) $(HEADERS)
-	$(CC) $(CFLAGS) -c $(SOURCES)
+#$(OBJ): $(SOURCES) $(HEADERS)
+	#$(CC) $(CFLAGS) -c $(SOURCES)
 
 
 .PHONY: all debug clean release dg dd
