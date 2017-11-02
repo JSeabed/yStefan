@@ -56,7 +56,7 @@ genie: $(SOURCES)
 	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(GENIELIBS)
 
 
-dg: genie:
+dg: genie
 	genie $(DEBUGFLAGS)
 
 #debug: all
