@@ -1,6 +1,5 @@
 #include "../include/struct.h"
 #include <stdio.h>
-#include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 //#include <stdlib.h>

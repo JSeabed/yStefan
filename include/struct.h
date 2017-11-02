@@ -4,6 +4,7 @@
 #define STRUCTSIZE 150
 
 #include <stdlib.h>
+#include <string.h>
 
 typedef int bool;
 #define TRUE 1
