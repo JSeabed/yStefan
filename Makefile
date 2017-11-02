@@ -1,31 +1,39 @@
+#Shell
+SHELL = /bin/sh
 #use C compiler
 CC=gcc
 
-#uncomment below to show all warinings
-#CFLAGS=-Wall -Werror -O3
-CFLAGS=-O3
-
-#Rpi flags
-RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
+#Basic C flags; optimisation for RPi
+CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
-DFLAGS=-D DEBUG 
+#DFLAGS=-D DEBUG 
+DEBUGFLAGS = O0 -D DEBUG
+
+#RELEASE FLAG
+RELEASEFLAGS = O3 -D NDEBUG -combine -fwhole-program
+
 #DGENIE=-D GENIE
 
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
-LIBS =
+GENIELIBS = -lgeniePi
+DIABLOLIBS = -ldiabloSerial
 
 #the executable file that will be created
 EXE = genieInterface
 
 #include .c files
-SOURCES = genieInterface.c
+SOURCES = $(shell echo src/*.c)
 
 #obj file
-OBJ = genieInterface.o
-#OBJ = $(SOURCES:.c=.o)
+#OBJ = genieInterface.o
+OBJ = $(SOURCES:.c=.o)
+
+#Install dir
+PREFIX = $(DESTDIR)/usr/local
+BINDIR = $(PREFIX)/bin
 
 
 $(EXE): $(OBJ)
@@ -36,14 +44,20 @@ $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
-.PHONY: all debug clean dg dd
+.PHONY: all debug clean release
 .DEFAULT: all
 
+release: $(SOURCES)
+	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(DIABLOLIBS)
 
 all:	$(EXE) 
 
+genie: $(SOURCES)
+	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(GENIELIBS)
 
-debug: DEBUG = -D DEBUG
+
+dg: genie:
+	genie $(DEBUGFLAGS)
 
 #debug: all
 
@@ -52,9 +66,6 @@ clean:
 
 
 #use to choose library
-
-genie: CFLAGS += -DGENIE
-	LIBS = -lgeniePi
 
 #genie: all
 
