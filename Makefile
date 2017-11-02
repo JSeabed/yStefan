@@ -64,9 +64,9 @@ dg: all
 
 
 #debug diablo
-dg: CFLAGS += $(DEBUGFLAGS)
-dg: LIBS += $(DIABLOLIBS)
-dg: all 
+dd: CFLAGS += $(DEBUGFLAGS)
+dd: LIBS += $(DIABLOLIBS)
+dd: all 
 
 #debug: all
 
