@@ -3,6 +3,8 @@
 
 #define STRUCTSIZE 150
 
+#include <stdlib.h>
+
 struct data{
   char *ip;
   char *status;
