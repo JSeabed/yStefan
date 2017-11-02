@@ -43,7 +43,7 @@ $(EXE): $(OBJ)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
 
-$(OBJ): $(SOURCES)
+$(OBJ): $(SOURCES) $(HEADERS)
 	$(CC) $(CFLAGS) -c $(SOURCES)
 
 
