@@ -15,7 +15,7 @@ DFLAGS=-D DEBUG
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
-ifeq ($(DFLAGS), -D GENIE)
+ifeq ($(CFLAGS), -DGENIE)
 	LIBS = -lgeniePi 
 else
 	LIBS = -ldiabloSerial -lm
@@ -55,7 +55,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: CFLAGS += -GENIE -lgeniePi
+genie: CFLAGS += -DGENIE -lgeniePi
 
 genie: all
 

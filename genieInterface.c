@@ -8,7 +8,7 @@
 //#include <sys/poll.h> // pid
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
-#if GENIE
+#if DGENIE
     #include <geniePi.h>
 #else
     #include <diabloSerial.h>
@@ -16,7 +16,7 @@
     #include <Diablo_const4D.h>
 #endif
 
-#if GENIE
+#if DGENIE
     #define GENIE_OBJ_FORM 10
     #define GENIE_OBJ_USERBUTTON 33
     #define GENIE_OBJ_4DBUTTON 30
@@ -78,7 +78,7 @@ void structManager(struct data *newData, int id, char* data);
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
 
-#if GENIE
+#if DGENIE
 void handleEvent (struct genieReplyStruct *reply) {
 	if(reply->object == GENIE_OBJ_4DBUTTON) {
 		switch (reply->index) {
@@ -241,7 +241,7 @@ void dataReady(struct data *newData, struct genieReplyStruct *reply){
 
 int changeForm(){
   toggle(FORM);
-  #if GENIE
+  #if DGENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
   #else
     //diablo code
@@ -252,7 +252,7 @@ int changeForm(){
 
 
   void sentData(char* data, int id){
-#if GENIE
+#if DGENIE
     genieWriteStr(id, data);
 #else
     //diablo code
@@ -362,7 +362,7 @@ int main (int argc, char** argv) {
   #if DEBUG
     printf("Debug mode on\n");
   #endif
-  #if GENIE
+  #if DGENIE
 
   #else
     int rc;
@@ -388,7 +388,7 @@ int main (int argc, char** argv) {
 	pid_t child, p;
 	child = fork();
 
-	#if GENIE
+	#if DGENIE
 	if(genieSetup(PORT ,BAUDRATE)<0) {
 		printf("ViSi-Genie Failed to init display!\r\n");
 		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
@@ -452,7 +452,7 @@ int main (int argc, char** argv) {
 		usleep(WAIT);
 		//if(isStructFull(&newData)) sentData(&newData);
 
-		#if GENIE
+		#if DGENIE
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
