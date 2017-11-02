@@ -41,6 +41,7 @@ $(OBJ): $(SOURCES)
 
 all:	$(EXE) 
 
+
 debug: DEBUG = -D DEBUG
 
 debug: all
@@ -48,9 +49,11 @@ debug: all
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
 
-.PHONY: genie debug
 
-#use make genie to use the genie library
+#use to choose library
+dg:	debug genie
+dg:	debug diablo
+
 genie: CFLAGS += -DGENIE
 	LIBS = -lgeniePi
 
