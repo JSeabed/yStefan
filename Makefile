@@ -44,7 +44,7 @@ all:	$(EXE)
 
 debug: DEBUG = -D DEBUG
 
-debug: all
+#debug: all
 
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
