@@ -28,8 +28,8 @@ EXE = genieInterface
 SOURCES = $(shell echo src/*.c)
 
 #obj file
-#OBJ = genieInterface.o
-OBJ = $(SOURCES:.c=.o)
+OBJ = genieInterface.o
+#OBJ = $(SOURCES:.c=.o)
 
 #Install dir
 PREFIX = $(DESTDIR)/usr/local
