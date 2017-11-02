@@ -71,7 +71,7 @@ struct data{
 struct data oldData;
 
 void sentData(char* data, int id);
-void dataReady(struct data *newData, struct genieReplyStruct *reply);
+void dataReady(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
 
 /* remove eventually
@@ -221,7 +221,7 @@ void clearScreen(){
 }
 
 //TODO change namae
-void dataReady(struct data *newData, struct genieReplyStruct *reply){
+void dataReady(struct data *newData){
   if(strncmp(newData->ip, ZERO, 1) !=0)
 	sentData(newData->ip, IP_ID);
   if(strncmp(newData->status, ZERO, 1) != 0)
@@ -363,11 +363,10 @@ int main (int argc, char** argv) {
     printf("Debug mode on\n");
   #endif
   #if GENIE
-
+	struct genieReplyStruct reply;
   #else
     int rc;
   #endif
-	struct genieReplyStruct reply;
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;
@@ -385,7 +384,7 @@ int main (int argc, char** argv) {
 	pipe(fd_child);
 	pipe(fd_parent);
 
-	pid_t child, p;
+	pid_t child;
 	child = fork();
 
 	#if GENIE
@@ -434,7 +433,7 @@ int main (int argc, char** argv) {
 			    printf("\n parent: %s", readBuffer);
 			#endif
 			structManager(&newData, id, readBuffer);
-			dataReady(&newData, &reply);
+			dataReady(&newData);
 			//void structManager(struct data *newData, int id, char* data, char dataReady){
 			//genieWriteStr(1, readBuffer);
 			//fflush(myfifo* fd_parent[0]);
