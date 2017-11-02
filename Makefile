@@ -56,7 +56,7 @@ genie: CFLAGS += -DGENIE
 
 genie: all
 
-diablo: LIBS = -lgeniePi
+diablo: LIBS = -ldiabloSerial -lm
 
 diablo: all
 
