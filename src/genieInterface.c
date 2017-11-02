@@ -2,7 +2,11 @@
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+<<<<<<< HEAD
 //#include <stdlib.h>
+=======
+#include <stdlib.h>
+>>>>>>> cca82ef50e36400b4ad5493c17ac752ffeab9ab3
 #include "../include/struct.h"
 #include <sys/types.h> // pid
 #include <sys/time.h> // pid
