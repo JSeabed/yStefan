@@ -48,7 +48,7 @@ $(OBJ): $(SOURCES)
 .DEFAULT: all
 
 release: $(SOURCES)
-	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(DIABLOLIBS)
+	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(DIABLOLIBS)
 
 all:	$(EXE) 
 
