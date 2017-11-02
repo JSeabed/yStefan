@@ -8,7 +8,7 @@ CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
 #DFLAGS=-D DEBUG 
-DEBUGFLAGS = -O0 -D DEBUG
+DEBUGFLAGS = -O -D DEBUG
 
 #RELEASE FLAG
 RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
