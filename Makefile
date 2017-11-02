@@ -18,7 +18,6 @@ DFLAGS=-D DEBUG -D GENIE
 ifeq ($(DFLAGS), -D GENIE)
 	LIBS = -lgeniePi 
 else
-	@echo $(DFLAGS)
 	LIBS = -ldiabloSerial -lm
 endif
 #the executable file that will be created
@@ -44,6 +43,7 @@ $(OBJ): $(SOURCES)
 
 
 all:	$(EXE)
+	@echo $(DFLAGS)
 
 debug: DEBUG = -D DEBUG
 
