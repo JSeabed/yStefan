@@ -55,7 +55,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: GENIE = -DGENIE -lgeniePi
+genie: CFLAGS += -DGENIE -lgeniePi
 
 genie: all
 
