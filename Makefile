@@ -42,8 +42,7 @@ $(OBJ): $(SOURCES)
 .PHONY: all debug clean
 
 
-all:	$(EXE)
-	@echo $(DFLAGS)
+all:	$(EXE) @echo $(DFLAGS)
 
 debug: DEBUG = -D DEBUG
 
