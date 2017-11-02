@@ -36,7 +36,7 @@ $(OBJ): $(SOURCES)
 	$(CC) $(CFLAGS) $(RPFLAGS)  $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
-.PHONY: all debug clean
+.PHONY: all debug clean dg dd
 
 
 all:	$(EXE) 
