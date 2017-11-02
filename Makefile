@@ -52,7 +52,7 @@ debug: all
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
 
-.PHONY: genie
+.PHONY: genie debug
 
 #use make genie to use the genie library
 genie: CFLAGS += -DGENIE -lgeniePi
