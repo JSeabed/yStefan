@@ -43,7 +43,7 @@ all:	$(EXE)
 
 
 #use make genie to use the genie library
-genie: GENIE = -D GENIE
+genie: GENIE = -D GENIE -lgeniePi
 
 genie: all
 
