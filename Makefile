@@ -15,7 +15,7 @@ DFLAGS=-D DEBUG -D GENIE
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
-ifeq GENIE
+ifeq ($(DFLAGS), -D GENIE)
 	LIBS = -lgeniePi 
 else
 	LIBS = -ldiabloSerial -lm
