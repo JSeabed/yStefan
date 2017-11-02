@@ -210,8 +210,12 @@ void structManager(struct data *newData, int id, char* data){
 }
 
 void clearScreen(){
+  #if GENIE
   int i = 0;
   i = genieWriteStr(IP_ID, ";;;");
+  #else
+  // diablo code 
+  #endif
   printf("i = %d \n", i);
   //genieWriteStr(STATUS_ID, "...");
   //genieWriteStr(POSITION_ID, "...");
