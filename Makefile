@@ -10,7 +10,7 @@ RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
 DFLAGS=-D DEBUG 
-DGENIE=-
+DGENIE=-D GENIE
 
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
