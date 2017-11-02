@@ -29,11 +29,11 @@ OBJ = genieInterface.o
 
 
 $(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) $(RPFLAGS) $(GENIE) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
 
 
 $(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -c $(SOURCES) $(LIBS) 
+	$(CC) $(CFLAGS) $(RPFLAGS) $(GENIE) $(DEBUG) -c $(SOURCES) $(LIBS) 
 
 
 .PHONY: all debug clean
