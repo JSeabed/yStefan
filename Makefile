@@ -20,7 +20,6 @@ ifeq ($(DFLAGS), -D GENIE)
 else
 	LIBS = -ldiabloSerial -lm
 endif
-@echo $(DFLAGS)
 #the executable file that will be created
 EXE = genieInterface
 
@@ -55,7 +54,7 @@ clean:
 .PHONY: genie
 
 #use make genie to use the genie library
-genie: GENIE = -D GENIE
+genie: GENIE = -D GENIE LIBS=lgeniePi
 
 genie: all
 
