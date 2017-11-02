@@ -13,7 +13,7 @@ DEBUGFLAGS = -O -D DEBUG
 #RELEASE FLAG
 RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
 
-#DGENIE=-D GENIE
+DGENIE=-D GENIE
 
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
@@ -57,6 +57,13 @@ genie: $(SOURCES)
 	$(CC) $(CFLAGS) $(RELEASEFLAGS) -o $(EXE) $(SOURCES) $(GENIELIBS)
 
 
+dg: CFLAGS += $(DEBUGFLAGS)
+dg: CFLAGS += $(DGENIE)
+dg: LIBS += $(GENIELIBS)
+dg: all 
+
+
+#debug diablo
 dg: CFLAGS += $(DEBUGFLAGS)
 dg: LIBS += $(DIABLOLIBS)
 dg: all 
