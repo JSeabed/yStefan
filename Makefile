@@ -15,6 +15,8 @@ RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
 
 DGENIE=-D GENIE
 
+HEADERS = $(shell echo include/*.h)
+
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
