@@ -1,3 +1,4 @@
+#include "../include/struct.h"
 
 /*
 Return TRUE (1) if data was added to struct. 
