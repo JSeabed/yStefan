@@ -20,6 +20,7 @@ ifeq ($(DFLAGS), -D GENIE)
 else
 	LIBS = -ldiabloSerial -lm
 endif
+@echo $(DFLAGS)
 #the executable file that will be created
 EXE = genieInterface
 
@@ -41,8 +42,6 @@ $(OBJ): $(SOURCES)
 
 .PHONY: all debug clean
 
-
-all:	@echo $(DFLAGS)
 
 all:	$(EXE) 
 
