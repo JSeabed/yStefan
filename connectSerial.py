@@ -7,7 +7,11 @@ import time			#time delay function imported
 #logger = getLogger()
 logger = logging.getLogger('dataManager')
 
-class TrySerialExe():
+class TrySerialExe(poort):
+    def __init__(self, poortnmbr, baudrate):
+        self.poortnmbr = poortnmbr
+        self.baudrate = baudrate
+
     #returns tty which is used by novatel chip
     def getNRCPort():
     #Uncomment als je trySerial wilt vermijden
@@ -19,12 +23,14 @@ class TrySerialExe():
 #Try to obtain port (tty/USBx).
 #Return None if novatel is not found.
 #Return port if dev/ttyUSBx is found.
-    def _trySerial():
+    def _trySerial(self):
         attempt = 0
         for i in range(10):
             port = _portDefine(_scanPorts())
             if port is not None:
                 print "USB found"
+                print port
+                return self.poortnmbr
                 return port
             if attempt is 9:
                 logger.error("Failed to initialise port")
