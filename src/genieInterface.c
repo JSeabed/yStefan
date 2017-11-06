@@ -50,7 +50,8 @@
 int FORM = 0;
 
 struct data oldData = (struct data*)malloc(6*STRUCTSIZE);
-initStruct(struct data *oldData);
+oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
+//initStruct(struct data *oldData);
 //struct data Newdata; //TODO replace
 
 void sentData(char* data, int id);
