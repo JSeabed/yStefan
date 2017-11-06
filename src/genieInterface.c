@@ -38,7 +38,7 @@
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
 #define TIMEOUT 500
-#define WAIT 250
+#define WAIT 25
 
 /*#define checksum(x) (x ^= x)*/
 
@@ -76,28 +76,14 @@ void handleEvent (struct genieReplyStruct *reply) {
 		switch (reply->index) {
 			case 0:
 				/* Main screen. Show no data. Save data.*/
-				//genieWriteStr(1,"You pressed the RED button.");
 				changeForm();
-				return 1;
-				//genieWriteObj(GENIE_OBJ_FORM, 1, 1);
-				#if DEBUG
-					printf("RED");
-					printf("%d\n");
-				#endif
 				break;
 			case 1:
 				/* Screen with data. Obtain old data? */
 				changeForm();
-				return 1;
-				//genieWriteStr(2,"You pressed the GREEN button.");
-				//genieWriteObj(GENIE_OBJ_FORM,0, 1);
-				#if DEBUG
-					printf("Green");
-					printf("%d\n");
-				#endif
-				// sentData();
 				break;
 			default:
+				// TODO error screen
 				printf("Error, index not in range or found.");
 				exit(0);
 				break;
@@ -110,7 +96,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 //TODO change namae
 void dataReady(struct data *newData){
-  sleep(1);
+  usleep(20);
   if(strncmp(newData->ip, ZERO, 1) !=0)
     if(strcmp(newData->ip, oldData.ip) != 0)
 	sentData(newData->ip, LABEL_IP_ID);
@@ -183,7 +169,7 @@ void sentData(char* data, int id){
 #else
     //diablo code
 #endif
-  usleep(500);
+  usleep(50);
   //genieWriteStr(STATUS_ID, newData->status);
   //perror("sentData");
   //genieWriteStr(POSITION_ID, newData->position);
