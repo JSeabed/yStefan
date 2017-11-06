@@ -234,6 +234,9 @@ def headingGPHDT(data):
 	try:
             if (data['gphdt']):
                 pass
+            return
+        except Exception as e:
+            print str(e)
 
 
 def displayData(data):						#this def tests for 1 of 11 options
