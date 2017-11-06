@@ -112,7 +112,7 @@ void dataReady(struct data *newData){
   	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
 
-  (struct data*) oldData = newData;
+   &oldData = newData;
 }
 
 
