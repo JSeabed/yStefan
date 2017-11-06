@@ -331,6 +331,7 @@ def dataManager(data ,pipeOut):
             sendList[3] = statusGPGGA(data)
             #add
             sendList[4] = displayData(data)
+			sendlist[5] = headingGPHDT(data)
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
             logger.error(str(e))
