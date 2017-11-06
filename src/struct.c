@@ -13,8 +13,8 @@ char* removeGarbage(char *str){
 		/*for(i < (int)(pchr - str + 1); i++;){
 			tmpStr[i] += str[i];
 		}*/
+		printf("cpy str to tmp\n");
 		strncpy(tmpStr, str, (int)(pchr - str + 1));
-		printf("tmpStr = %s", tmpStr);
 	return tmpStr;
 	} // found [ char. remove everything behind it.
 
