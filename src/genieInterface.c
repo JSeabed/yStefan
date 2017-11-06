@@ -328,6 +328,7 @@ int main (int argc, char** argv) {
 		}
 		#endif*/
 	for(;;) {
+	  printf("test");
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 			    printf("Data is available\n");
