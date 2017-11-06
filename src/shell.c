@@ -8,8 +8,8 @@ void shell(){
     scanf("%d", &input);
     switch(input){
     case 0:
-      printf("test string\n");
       #if GENIE
+	printf("test string\n");
 	genieWriteStr(1,"Test string");
       #endif
       break;
