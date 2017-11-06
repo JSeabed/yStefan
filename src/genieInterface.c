@@ -87,7 +87,9 @@ void handleEvent (struct genieReplyStruct *reply) {
 				break;
 			case 1:
 				/* Screen with data. Obtain old data? */
-				genieWriteStr(2,"You pressed the GREEN button.");
+				changeForm();
+				return 1;
+				//genieWriteStr(2,"You pressed the GREEN button.");
 				//genieWriteObj(GENIE_OBJ_FORM,0, 1);
 				#if DEBUG
 					printf("Green");
