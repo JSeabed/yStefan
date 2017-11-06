@@ -179,8 +179,8 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			#print "testoe"
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
 				data['gphdt'] = word.split(',')							#add INs to the dictionary
-				(data['gphdt2'][0]) = (data['gphdt'][0]).split('$')
-				print data['gphdt2'][0]
+				data['gphdt2'] = (data['gphdt'][0]).split('$')
+				print data['gphdt2'][1]
 
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
