@@ -12,11 +12,18 @@ typedef int bool;
 #define FALSE 0
 
 // TODO might want to place this somewhere else
+#define LABEL_IP_ID 1
+#define LABEL_STATUS_ID 2
+#define LABEL_HEADING_ID 4
+#define LABEL_POSITION_ID 5
+#define LABEL_RTK_ID 6
+#define LABEL_SATALLITE_ID 7
+
 #define IP_ID 0
-#define STATUS_ID 2
 #define POSITION_ID 1
-#define HEADING_ID 6
+#define STATUS_ID 2
 #define RTK_ID 3
+#define HEADING_ID 4
 #define SATALLITE_ID 7
 
 struct data{
