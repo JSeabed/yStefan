@@ -244,7 +244,7 @@ char* removeID(char *str){
 
 	pchr = strchr(str, '[');
 	if(pchr != NULL){
-		for(int i = 0; i < pchr; i++){
+		for(int i = 0; i < pchr - str + 1; i++){
 			tmpStr += str[i];
 		}
 		printf("tmpStr = %s", tmpStr);
