@@ -26,7 +26,8 @@
 #endif
 
 #define PORT "/dev/ttyAMA0"
-#define BAUDRATE 9600
+//#define BAUDRATE 9600
+#define BAUDRATE 115200
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
