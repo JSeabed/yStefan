@@ -20,7 +20,7 @@ typedef int bool;
 #define SATALLITE_ID 7
 
 struct data{
-  char *ip;
+  char ip[STRUCTSIZE];
   char *status;
   char *position;
   char *heading;
