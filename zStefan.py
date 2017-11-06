@@ -233,9 +233,9 @@ def headingGPHDT(data):
 	try:
             if ((data['gphdt'][0]) is 'GPHDT'):
                 mode = "[4]" + "OK"
-			else:
-				mode = "[4]" + "Non"
-            return
+	    else:
+		mode = "[4]" + "Non"
+            return mode
         except Exception as e:
             print str(e)
 

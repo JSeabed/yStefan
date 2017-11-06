@@ -31,6 +31,10 @@
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
+#define INIT_FORM 0
+#define INFO_FORM 1
+#define SUPPORT_FORM 2
+
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
 #define TIMEOUT 500
@@ -148,9 +152,12 @@ void clearScreen(){
 
 
 int changeForm(){
-  toggle(FORM);
+  FORM == INFO_FORM ? FORM = SUPPORT_FORM : FORM = INFO_FORM;
   #if GENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+    if(FORM == INFO_FORM){
+	    printf("INFO_FORM\n");
+    } // load data for INFO FORM
   #else
     //diablo code
   #endif
