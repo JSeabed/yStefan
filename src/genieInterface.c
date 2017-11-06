@@ -320,13 +320,13 @@ int main (int argc, char** argv) {
 
 		usleep(20);
 		//write(fd_child[1], &test, sizeof(test));
-		#if GENIE
+		/*#if GENIE
 		while(genieReplyAvail()) {
 			genieGetReply(&reply);
 			handleEvent(&reply);
 			usleep(WAIT); // wait 20ms between polls to save CPU
 		}
-		#endif
+		#endif*/
 	for(;;) {
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
@@ -354,6 +354,11 @@ int main (int argc, char** argv) {
 		}
 		//struct data Newdata; //TODO replace
 		usleep(WAIT);
+		if(genieReplyAvail()) {
+			genieGetReply(&reply);
+			handleEvent(&reply);
+			usleep(WAIT); // wait 20ms between polls to save CPU
+		}
 		//if(isStructFull(&newData)) sentData(&newData);
 
 
