@@ -122,7 +122,7 @@ void dataReady(struct data *newData){
   	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
   printf("Komt hier de segmentation fault?\n");
-  oldData = (struct data )newData;
+  oldData = (struct data )&newData;
 }
 
 
