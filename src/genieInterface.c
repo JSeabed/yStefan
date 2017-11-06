@@ -71,13 +71,14 @@ void structManager(struct data *newData, int id, char* data);
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
   printf("Ik kom hier\n");
-	if(reply->object == GENIE_OBJ_4DBUTTON) {
+	//if(reply->object == GENIE_OBJ_4DBUTTON) {
+	if(reply->object == GENIE_OBJ_USERBUTTON) {
 		switch (reply->index) {
 			case 0:
 				/* Main screen. Show no data. Save data.*/
 				//genieWriteStr(1,"You pressed the RED button.");
 				changeForm();
-				return
+				return 1;
 				//genieWriteObj(GENIE_OBJ_FORM, 1, 1);
 				#if DEBUG
 					printf("RED");
@@ -86,7 +87,9 @@ void handleEvent (struct genieReplyStruct *reply) {
 				break;
 			case 1:
 				/* Screen with data. Obtain old data? */
-				genieWriteStr(2,"You pressed the GREEN button.");
+				changeForm();
+				return 1;
+				//genieWriteStr(2,"You pressed the GREEN button.");
 				//genieWriteObj(GENIE_OBJ_FORM,0, 1);
 				#if DEBUG
 					printf("Green");
@@ -153,13 +156,17 @@ void clearScreen(){
 }
 
 
+void goToInfo(){
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+}
+
+
 int changeForm(){
   (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
   #if GENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
     if(FORM == INFO_FORM){
 	    printf("INFO_FORM\n");
-	    //dataReady
     } // load data for INFO FORM
   #else
     //diablo code
@@ -306,6 +313,7 @@ int main (int argc, char** argv) {
     shell();
     exit(0);
     }*/
+	goToInfo();
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;

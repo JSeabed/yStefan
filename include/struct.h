@@ -12,12 +12,12 @@ typedef int bool;
 #define FALSE 0
 
 // TODO might want to place this somewhere else
-#define LABEL_IP_ID 1
-#define LABEL_STATUS_ID 2
-#define LABEL_HEADING_ID 4
-#define LABEL_POSITION_ID 5
-#define LABEL_RTK_ID 6
-#define LABEL_SATALLITE_ID 7
+#define LABEL_IP_ID 0
+#define LABEL_STATUS_ID 1
+#define LABEL_POSITION_ID 2
+#define LABEL_HEADING_ID 3
+#define LABEL_RTK_ID 4
+#define LABEL_SATALLITE_ID 5
 
 #define IP_ID 0
 #define POSITION_ID 1
