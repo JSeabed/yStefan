@@ -143,6 +143,7 @@ int changeForm(){
 
 
 void sentData(char* data, int id){
+  sleep(1);
 #if GENIE
     genieWriteStr(id, data);
 #else
