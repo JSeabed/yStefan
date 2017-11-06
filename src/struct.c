@@ -10,7 +10,7 @@ char* removeGarbage(char *str){
 	pchr = strchr(str, '[');
 	if(pchr != NULL){
 		for(i < (int)(pchr - str + 1); i++;){
-			tmpStr += str[i];
+			tmpStr[i] += str[i];
 		}
 		printf("tmpStr = %s", tmpStr);
 	return tmpStr;
