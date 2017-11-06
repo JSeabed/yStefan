@@ -153,6 +153,11 @@ void clearScreen(){
 }
 
 
+void goToInfo(){
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+}
+
+
 int changeForm(){
   (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
   #if GENIE
@@ -305,6 +310,7 @@ int main (int argc, char** argv) {
     shell();
     exit(0);
     }*/
+	goToInfo();
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;
