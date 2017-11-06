@@ -232,7 +232,8 @@ def printData(data):						#def that prints data to the terminal, used to check f
 def headingGPHDT(data):
 	print data('gphdt')
 	try:
-		if (data['gphdt'])
+            if (data['gphdt']):
+                pass
 
 
 def displayData(data):						#this def tests for 1 of 11 options
