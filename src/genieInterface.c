@@ -150,6 +150,7 @@ int changeForm(){
     //diablo code
   #endif
   
+    clearStruct(&oldData);
   return 1;
 }
 
