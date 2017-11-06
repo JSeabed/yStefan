@@ -7,7 +7,7 @@ import time			#time delay function imported
 #logger = getLogger()
 logger = logging.getLogger('dataManager')
 
-class TrySerialExe(poort):
+class TrySerialExe(port):
     def __init__(self, poortnmbr, baudrate):
         self.poortnmbr = poortnmbr
         self.baudrate = baudrate
