@@ -238,6 +238,22 @@ void childGetData(int fd_child, int fd_parent ){
 }
 
 
+char* removeID(char *str){
+	char* pchr;
+	char* tmpStr;
+
+	pchr = strchr(str, '[');
+	if(pchr != NULL){
+		for(int i = 0; i < pchr; i++){
+			tmpStr += str[i];
+		}
+		printf("tmpStr = %s", tmpStr);
+	} // found [ char. remove everything behind it.
+	return tmpStr;
+
+}
+
+
 int getID(char *str){
   char *strMask = "%*[^0123456789]%d";
   int id;
