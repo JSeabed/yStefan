@@ -181,8 +181,6 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				(data['gphdt'][0]) = (data['gphdt'][0]).split('$')
 				print data['gphdt'][0]
 
-        except Exception as e:
-	    logger.debug(str(e))
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
