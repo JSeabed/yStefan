@@ -10,9 +10,10 @@ char* removeGarbage(char *str){
 	pchr = strchr(str, '[');
 	printf("[ found on position %d", (int)(pchr - str + 1));
 	if(pchr != NULL){
-		for(i < (int)(pchr - str + 1); i++;){
+		/*for(i < (int)(pchr - str + 1); i++;){
 			tmpStr[i] += str[i];
-		}
+		}*/
+		strncp(tmpStr, str, (int)(pchr - str + 1));
 		printf("tmpStr = %s", tmpStr);
 	return tmpStr;
 	} // found [ char. remove everything behind it.
