@@ -238,21 +238,6 @@ void childGetData(int fd_child, int fd_parent ){
 }
 
 
-char* removeID(char *str){
-	int i = 0;
-	char* pchr;
-	char* tmpStr;
-
-	pchr = strchr(str, '[');
-	if(pchr != NULL){
-		for(i < (int)(pchr - str + 1); i++;){
-			tmpStr += str[i];
-		}
-		printf("tmpStr = %s", tmpStr);
-	} // found [ char. remove everything behind it.
-	return tmpStr;
-
-}
 
 
 int getID(char *str){

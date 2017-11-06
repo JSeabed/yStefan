@@ -1,5 +1,26 @@
 #include "../include/struct.h"
 
+
+
+char* removeGarbage(char *str){
+	int i = 0;
+	char* pchr;
+	char* tmpStr;
+
+	pchr = strchr(str, '[');
+	if(pchr != NULL){
+		for(i < (int)(pchr - str + 1); i++;){
+			tmpStr += str[i];
+		}
+		printf("tmpStr = %s", tmpStr);
+	return tmpStr;
+	} // found [ char. remove everything behind it.
+
+	// No garbage found. Remove original string
+	return str;
+}
+
+
 /*
 Return TRUE (1) if data was added to struct. 
 Otherwise return FALSE (0) 
@@ -7,6 +28,7 @@ Otherwise return FALSE (0)
 int addStruct(struct data *newData, int id, char *dataStr){
   // first remove id from string
   dataStr += 3;
+  dataStr = removeGarbage(dataStr);
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
   #endif
