@@ -118,7 +118,7 @@ void clearScreen(){
   #if GENIE
   int i = 0;
   i = genieWriteStr(IP_ID, ";;;");
-  printf("i = %d \n", i);
+  //printf("i = %d \n", i);
   #else
   // diablo code 
   #endif
