@@ -179,6 +179,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
 				mylist3 = word.split(',')						#split up the line in which INS was found
 				data['gphdt'] = mylist3							#add INs to the dictionary
+				print mylist3
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -227,6 +228,12 @@ def printData(data):						#def that prints data to the terminal, used to check f
 	print(data['ip'])						#print dictionary ip
 	print(data['finesteering'])				#print dictionary finesteering
 	return
+
+def headingGPHDT(data):
+	print data('gphdt')
+	try:
+		if (data['gphdt'])
+
 
 def displayData(data):						#this def tests for 1 of 11 options
 				#for each of the modes stated here take up the same place in the string that gets passed by the receiver
@@ -317,7 +324,7 @@ def dataManager(data ,pipeOut):
 	    sendList[2] = ("[7]" + data['gpgga'][7])
             #add
             sendList[3] = statusGPGGA(data)
-            #add 
+            #add
             sendList[4] = displayData(data)
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
