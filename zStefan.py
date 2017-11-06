@@ -235,9 +235,9 @@ def headingGPHDT(data):
                 mode = "[4]" + "OK"
 	    else:
 		mode = "[4]" + "Non"
-            return mode
         except Exception as e:
             print str(e)
+        return mode
 
 
 def displayData(data):						#this def tests for 1 of 11 options
