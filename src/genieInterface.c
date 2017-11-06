@@ -52,7 +52,7 @@ int FORM = 0;
 //struct data oldData;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
 //struct data *oldData = malloc(STRUCTSIZE*6);
-struct data *oldData;
+struct data oldData;
 //initStruct(struct data *oldData);
 //struct data Newdata; //TODO replace
 
@@ -298,7 +298,7 @@ int main (int argc, char** argv) {
 	initStruct(&newData);
 	clearStruct(&newData);
 	printf("clear struct old data\n");
-	clearStruct(oldData);
+	clearStruct(&oldData);
 	//dataReady(&newData, &reply);
 
 
