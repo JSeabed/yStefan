@@ -285,7 +285,6 @@ int main (int argc, char** argv) {
 	struct data newData;
 	initStruct(&newData);
 	clearStruct(&newData);
-	isStructFull(&newData);
 	//dataReady(&newData, &reply);
 
 
