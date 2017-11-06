@@ -37,12 +37,12 @@ int addStruct(struct data *newData, int id, char *dataStr){
 
 // allocate memory for struct
 void initStruct(struct data *newData){
-  //newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  /*newData->ip = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->status = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->position = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->heading = (char*)malloc(sizeof(char)*STRUCTSIZE);
   newData->rtk = (char*)malloc(sizeof(char)*STRUCTSIZE);
-  newData->satallite = (char*)malloc(sizeof(char)*STRUCTSIZE);
+  newData->satallite = (char*)malloc(sizeof(char)*STRUCTSIZE);*/
 }
 
 void clearStruct(struct data *newData){

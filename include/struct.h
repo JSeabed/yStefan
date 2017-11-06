@@ -21,11 +21,11 @@ typedef int bool;
 
 struct data{
   char ip[STRUCTSIZE];
-  char *status;
-  char *position;
-  char *heading;
-  char *rtk;
-  char *satallite;
+  char status[STRUCTSIZE];
+  char position[STRUCTSIZE];
+  char heading[STRUCTSIZE];
+  char rtk[STRUCTSIZE];
+  char satallite[STRUCTSIZE];
 };
 
 
