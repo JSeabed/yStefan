@@ -152,7 +152,7 @@ void clearScreen(){
 
 
 int changeForm(){
-  FORM == INFO_FORM ? FORM = SUPPORT_FORM : FORM = INFO_FORM;
+  (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
   #if GENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
     if(FORM == INFO_FORM){
