@@ -32,7 +32,7 @@
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
 #define INIT_FORM 0
-#define INFO_FORM 0
+#define INFO_FORM 1
 #define SUPPORT_FORM 2
 
 //#define BUFFSIZE 4096
