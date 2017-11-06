@@ -1,3 +1,4 @@
+#include <string.h>
 /* The shell can be used to test 
  * certain parts of the program */
 void shell(){
