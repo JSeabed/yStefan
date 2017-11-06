@@ -234,7 +234,7 @@ def printData(data):						#def that prints data to the terminal, used to check f
 def headingGPHDT(data):
 	print data('gphdt')
 	try:
-            if ((data['gphdt'][0]) == 'GPHDT'):
+            if ((data['gphdt2'][1]) == 'GPHDT'):
                 mode = "[4]" + "OK"
 	    else:
 		mode = "[4]" + "Non"
