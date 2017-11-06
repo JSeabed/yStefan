@@ -97,6 +97,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 
 //TODO change namae
 void dataReady(struct data *newData){
+  sleep(1);
   if(strncmp(newData->ip, ZERO, 1) !=0)
 	sentData(newData->ip, IP_ID);
   if(strncmp(newData->status, ZERO, 1) != 0)
@@ -143,7 +144,6 @@ int changeForm(){
 
 
 void sentData(char* data, int id){
-  sleep(1);
 #if GENIE
     genieWriteStr(id, data);
 #else
