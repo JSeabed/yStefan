@@ -1,5 +1,9 @@
 #include "../include/struct.h"
 
+
+struct data oldData;
+initStruct(&oldData);
+
 /*
 Return TRUE (1) if data was added to struct. 
 Otherwise return FALSE (0) 
