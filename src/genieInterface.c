@@ -50,7 +50,6 @@
 int FORM = 0;
 
 //struct data Newdata; //TODO replace
-struct data oldData;
 
 void sentData(char* data, int id);
 void dataReady(struct data *newData);
