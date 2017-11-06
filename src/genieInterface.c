@@ -51,7 +51,7 @@
 #define toggle(x) (x = !x)
 #define isIdentical(a, b) (a == b)
 
-int FORM = 0;
+int FORM = 1;
 
 //struct data oldData;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
