@@ -70,4 +70,4 @@ class TrySerialExe(poort):
             #send an error message to the terminal
                 logger.error("Usb not found")
                 return None
-            return port
+        return port
