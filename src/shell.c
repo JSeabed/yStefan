@@ -13,7 +13,8 @@ void shell(){
     case 0:
       #if GENIE
 	printf("test string\n");
-	genieWriteStr(1,"Test string");
+	genieWriteStr(1,"Test string\n");
+	printf("test string 2\n");
       #endif
       break;
     case 1:
