@@ -159,7 +159,7 @@ int changeForm(){
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
     if(FORM == INFO_FORM){
 	    printf("INFO_FORM\n");
-	    dataReady
+	    //dataReady
     } // load data for INFO FORM
   #else
     //diablo code
