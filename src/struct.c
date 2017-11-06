@@ -47,7 +47,7 @@ void initStruct(struct data *newData){
 
 void clearStruct(struct data *newData){
   #if DEBUG
-  printf("ClearStruct \n");
+    printf("ClearStruct \n");
   #endif
   char str[10] = "0";
   strcpy(newData->ip, str);
