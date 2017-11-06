@@ -1,0 +1,25 @@
+/* The shell can be used to test 
+ * certain parts of the program */
+void shell(){
+  int done = 0;
+  int input;
+  do{
+    printf("> ");
+    scanf("%d", &input);
+    switch(input){
+    case 0:
+      printf("test string\n");
+      #if GENIE
+	genieWriteStr(1,"Test string");
+      #endif
+      break;
+    case 1:
+      done = 1;
+      break;
+    default:
+      printf("input is not valid. \n");
+      break;
+    }
+  } while(!done);
+  exit(1);
+}

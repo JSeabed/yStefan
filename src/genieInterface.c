@@ -1,4 +1,5 @@
 #include "../include/struct.h"
+#include "../include/shell.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 //#include <stdlib.h>
@@ -254,6 +255,13 @@ int main (int argc, char** argv) {
   #else
     int rc;
   #endif
+
+    // shell: use for testing
+  const char* c = (const char* )argv[1];
+  if((strcmp(c, "-s")) == 0 ){
+    shell();
+    exit(0);
+  }
 	// fd_child = child read | fd_parent = parent_read
 	int fd_child[2], fd_parent[2];
 	int status, id, ret;
