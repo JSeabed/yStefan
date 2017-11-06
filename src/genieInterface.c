@@ -239,12 +239,13 @@ void childGetData(int fd_child, int fd_parent ){
 
 
 char* removeID(char *str){
+	int i = 0;
 	char* pchr;
 	char* tmpStr;
 
 	pchr = strchr(str, '[');
 	if(pchr != NULL){
-		for(int i = 0; i < pchr - str + 1; i++){
+		for(i < int(pchr - str + 1); i++){
 			tmpStr += str[i];
 		}
 		printf("tmpStr = %s", tmpStr);
