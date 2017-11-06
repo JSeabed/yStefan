@@ -28,7 +28,8 @@ struct data{
   char *satallite;
 };
 
-struct data oldData = (struct data*)malloc(STRUCTSIZE);
+struct data oldData;
+initStruct(&oldData);
 
 int addStruct(struct data *newData, int id, char *dataStr);
 void initStruct(struct data *newData);
