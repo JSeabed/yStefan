@@ -49,7 +49,7 @@
 
 int FORM = 0;
 
-struct data oldData = malloc(6*STRUCTSIZE);
+struct data oldData = (struct data*)malloc(6*STRUCTSIZE);
 initStruct(struct data *oldData);
 //struct data Newdata; //TODO replace
 
