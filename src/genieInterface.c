@@ -259,6 +259,19 @@ int main (int argc, char** argv) {
     int rc;
   #endif
 
+	#if GENIE
+	if(genieSetup(PORT ,BAUDRATE)<0) {
+		printf("ViSi-Genie Failed to init display!\r\n");
+		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+	}
+	#else
+	// diablo init code
+	rc = OpenComm(PORT, BAUDRATE);
+	if(rc != 0){
+	  printf("Failed to init display\n");
+	  exit(EXIT_FAILURE);
+	}
+	#endif
     // shell: use for testing
     const char* c = (const char* )argv[1];
   if((strcmp(c, "-s")) == 0 ){
@@ -285,19 +298,6 @@ int main (int argc, char** argv) {
 	pid_t child;
 	child = fork();
 
-	#if GENIE
-	if(genieSetup(PORT ,BAUDRATE)<0) {
-		printf("ViSi-Genie Failed to init display!\r\n");
-		return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
-	}
-	#else
-	// diablo init code
-	rc = OpenComm(PORT, BAUDRATE);
-	if(rc != 0){
-	  printf("Failed to init display\n");
-	  exit(EXIT_FAILURE);
-	}
-	#endif
 	clearScreen();
 
 		if(child == (pid_t)-1){
