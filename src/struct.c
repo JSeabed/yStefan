@@ -1,25 +1,27 @@
 #include "../include/struct.h"
 
-
-
-char* removeGarbage(char *str){
+/* 
+ * todo
+ * */
+int removeGarbage(char *str){
 	int i = 0;
 	char* pchr;
-	char* tmpStr;
+	char tmpStr[STRUCTSIZE];
 
 	pchr = strchr(str, '[');
-	printf("[ found on position %d", (int)(pchr - str + 1));
+	printf("[ found on position %d\n", (int)(pchr - str + 1));
 	if(pchr != NULL){
 		/*for(i < (int)(pchr - str + 1); i++;){
 			tmpStr[i] += str[i];
 		}*/
 		printf("cpy str to tmp\n");
 		strncpy(tmpStr, str, (int)(pchr - str + 1));
-	return tmpStr;
+		strcpy(str, tmpStr);
+	return 1;
 	} // found [ char. remove everything behind it.
 
 	// No garbage found. Remove original string
-	return str;
+	return 0;
 }
 
 
@@ -30,7 +32,8 @@ Otherwise return FALSE (0)
 int addStruct(struct data *newData, int id, char *dataStr){
   // first remove id from string
   dataStr += 3;
-  dataStr = removeGarbage(dataStr);
+  if(removeGarbage(dataStr))
+	  printf("removed garbage\n");
   #if DEBUG
   printf("Add to struct: %s\n", dataStr);
   #endif
