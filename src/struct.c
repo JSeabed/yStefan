@@ -16,7 +16,7 @@ int removeGarbage(char *str){
 		}*/
 		printf("cpy str to tmp\n");
 		strncpy(tmpStr, str, (int)(pchr - str));
-		strcpy(str, tmpStr);
+		strncpy(str, tmpStr, sizeof(tmpStr)-1);
 	return 1;
 	} // found [ char. remove everything behind it.
 
