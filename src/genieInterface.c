@@ -77,7 +77,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 				/* Main screen. Show no data. Save data.*/
 				//genieWriteStr(1,"You pressed the RED button.");
 				changeForm();
-				return NULL;
+				return 1;
 				//genieWriteObj(GENIE_OBJ_FORM, 1, 1);
 				#if DEBUG
 					printf("RED");
