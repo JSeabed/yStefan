@@ -12,6 +12,7 @@
     #include <geniePi.h>
 #else
     #include <diabloSerial.h>
+    #include <Diablo_Serial_4DLibrary.h>
     #include <Diablo_Types4D.h>
     #include <Diablo_const4D.h>
 #endif
