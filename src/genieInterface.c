@@ -297,7 +297,7 @@ int main (int argc, char** argv) {
 	pid_t child;
 	child = fork();
 
-	clearScreen();
+	//clearScreen();
 
 	  printf("test");
 		if(child == (pid_t)-1){
