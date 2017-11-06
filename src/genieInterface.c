@@ -77,7 +77,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 				/* Main screen. Show no data. Save data.*/
 				//genieWriteStr(1,"You pressed the RED button.");
 				changeForm();
-				return
+				return NULL;
 				//genieWriteObj(GENIE_OBJ_FORM, 1, 1);
 				#if DEBUG
 					printf("RED");
@@ -159,7 +159,6 @@ int changeForm(){
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
     if(FORM == INFO_FORM){
 	    printf("INFO_FORM\n");
-	    //dataReady
     } // load data for INFO FORM
   #else
     //diablo code
