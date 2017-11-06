@@ -26,8 +26,7 @@
 #endif
 
 #define PORT "/dev/ttyAMA0"
-//#define BAUDRATE 9600
-#define BAUDRATE 115200
+#define BAUDRATE 9600
 
 #define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
@@ -67,7 +66,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 			case 0:
 				/* Main screen. Show no data. Save data.*/
 				genieWriteStr(1,"You pressed the RED button.");
-				genieWriteObj(GENIE_OBJ_FORM, 1, 1);
+				//genieWriteObj(GENIE_OBJ_FORM, 1, 1);
 				#if DEBUG
 					printf("RED");
 					printf("%d\n");
@@ -76,7 +75,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 			case 1:
 				/* Screen with data. Obtain old data? */
 				genieWriteStr(2,"You pressed the GREEN button.");
-				genieWriteObj(GENIE_OBJ_FORM,0, 1);
+				//genieWriteObj(GENIE_OBJ_FORM,0, 1);
 				#if DEBUG
 					printf("Green");
 					printf("%d\n");
