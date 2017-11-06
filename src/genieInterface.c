@@ -51,7 +51,7 @@ int FORM = 0;
 
 //struct data oldData;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
-struct data *oldData = (char* )malloc(STRUCTSIZE*6);
+struct data *oldData = malloc(STRUCTSIZE*6);
 //initStruct(struct data *oldData);
 //struct data Newdata; //TODO replace
 
