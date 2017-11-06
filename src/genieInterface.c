@@ -61,6 +61,7 @@ void structManager(struct data *newData, int id, char* data);
 
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
+  printf("Ik kom hier\n");
 	if(reply->object == GENIE_OBJ_4DBUTTON) {
 		switch (reply->index) {
 			case 0:
