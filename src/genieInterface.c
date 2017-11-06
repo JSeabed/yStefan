@@ -300,6 +300,7 @@ int main (int argc, char** argv) {
 
 	clearScreen();
 
+	  printf("test");
 		if(child == (pid_t)-1){
 			/* failed to create child*/
 
@@ -328,7 +329,6 @@ int main (int argc, char** argv) {
 		}
 		#endif*/
 	for(;;) {
-	  printf("test");
 		if(ret = checkFd(fd_parent[0])){
 			#if DEBUG
 			    printf("Data is available\n");
