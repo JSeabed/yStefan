@@ -8,6 +8,7 @@ char* removeGarbage(char *str){
 	char* tmpStr;
 
 	pchr = strchr(str, '[');
+	printf("[ found on position %d", (int)(pchr - str + 1));
 	if(pchr != NULL){
 		for(i < (int)(pchr - str + 1); i++;){
 			tmpStr[i] += str[i];
