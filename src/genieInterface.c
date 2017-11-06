@@ -113,6 +113,7 @@ void dataReady(struct data *newData){
     //if(isIdentical)
 
   oldData = &newData;
+  //52
 }
 
 
