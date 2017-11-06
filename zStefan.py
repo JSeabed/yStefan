@@ -177,10 +177,8 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				data['ins'] = mylist2							#add INs to the dictionary
 			#print "testoe"
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
-				mylist3 = word.split(',')						#split up the line in which INS was found
-				data['gphdt'] = mylist3							#add INs to the dictionary
-				mylist4 = (data['gphdt'][0]).split('$')
-				print mylist4
+				data['gphdt'] = word.split(',')							#add INs to the dictionary
+				(data['gphdt'][0]) = (data['gphdt'][0]).split('$')
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -233,8 +231,10 @@ def printData(data):						#def that prints data to the terminal, used to check f
 def headingGPHDT(data):
 	print data('gphdt')
 	try:
-            if (data['gphdt']):
-                pass
+            if ((data['gphdt'][0]) is 'GPHDT'):
+                mode = "[4]" + "OK"
+			else:
+				mode = "[4]" + "Non"
             return
         except Exception as e:
             print str(e)
