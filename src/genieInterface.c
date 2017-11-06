@@ -121,7 +121,7 @@ void dataReady(struct data *newData){
     if(strcmp(newData->satallite, oldData->satallite) != 0)
   	sentData(newData->satallite, SATALLITE_ID);
     //if(isIdentical)
-
+  printf("Komt hier de segmentation fault?\n");
  oldData = newData;
 }
 
