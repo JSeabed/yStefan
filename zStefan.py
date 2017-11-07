@@ -432,6 +432,8 @@ if port is None:
         exit()
 print port
 while True:				#while loop to make the program run indefinitally
+	#port = getNRCPort()
+	while((port = getNRCPort) == None)
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
