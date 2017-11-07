@@ -406,7 +406,7 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
 
 
 def isConnected():
-	retur  False
+	return False
 
 #create subprocess for fifo
 pipeIn, pipeOut = os.pipe()
