@@ -447,8 +447,8 @@ while True:				#while loop to make the program run indefinitally
 			#port = getNRCPort()
 			port = TrySerialExe(BAUD)
 			print port
-			port.scanPorts()
-			print port
+			prtnmr = port.scanPorts()
+			print prtnmr
 	#port = portDefine()			#call on function portDefine (TODO better description)
-	serialData = readSerial(port)
+	serialData = readSerial(prtnmr)
         dataManager(serialData, pipeOut)
