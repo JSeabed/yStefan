@@ -13,7 +13,7 @@ class TrySerialExe():
         self.baudrate = baudrate
 
     #returns tty which is used by novatel chip 1
-    def getNRCPort():
+    def getNRCPort(self):
     #Uncomment als je trySerial wilt vermijden
     #(als er geen connectie gemaakt kan worden met de novatel chip)
         return portDefine(scanPorts())
