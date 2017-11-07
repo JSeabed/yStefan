@@ -8,7 +8,7 @@ import time			#time delay function imported
 logger = logging.getLogger('dataManager')
 
 class TrySerialExe(object):
-    def __init__(self, poortnmbr, baudrate):
+    def __init__(self):
         self.poortnmbr = poortnmbr
         self.baudrate = baudrate
 
@@ -20,7 +20,8 @@ class TrySerialExe(object):
         #return trySerial()
         #kjhlhp;
     def getNRCPort(self):
-        return self.portDefine(self.scanPorts)
+        self.poortnmbr = portDefine(scanPorts)
+        return self.poortnmbr
 
     def getBaudrate(self):
         return self.baudrate
