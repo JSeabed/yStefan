@@ -446,8 +446,8 @@ while True:				#while loop to make the program run indefinitally
                 print 'lkhiterajxckyvlk'
                 #port = getNRCPort()
                 port = TrySerialExe()
-                print port.scanPorts()
-                print port.getBaudrate()
+                #print port.scanPorts()
+                #print port.getBaudrate()
                 #print port
                 #prtnmr = port.scanPorts()
                 #print prtnmr
