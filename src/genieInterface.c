@@ -12,7 +12,7 @@
     #include <geniePi.h>
 #else
     #include <diabloSerial.h>
-    #include <Diablo_Serial_4DLibrary.h>
+    //#include <Diablo_Serial_4DLibrary.h>
     #include <Diablo_Types4D.h>
     #include <Diablo_const4D.h>
 #endif
@@ -28,8 +28,6 @@
 #define PORT "/dev/ttyAMA0"
 //#define BAUDRATE 9600
 #define BAUDRATE 115200
-
-#define FROM(x) (0x010a + x + 0000) // TODO needs to be checked
 
 #define INIT_FORM 0
 #define INFO_FORM 1
@@ -51,7 +49,7 @@
 #define toggle(x) (x = !x)
 #define isIdentical(a, b) (a == b)
 
-int FORM = 1;
+volatile int FORM = 0;
 
 //struct data oldData;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
@@ -70,7 +68,8 @@ void structManager(struct data *newData, int id, char* data);
 
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
-    printf("Ik kom hier\n");
+
+
     if(reply->object == GENIE_OBJ_USERBUTTON) {
         switch (reply->index) {
             case 0:
@@ -120,17 +119,15 @@ void dataReady(struct data *newData){
     if(strncmp(newData->satallite, ZERO, 1) != 0)
         if(strcmp(newData->satallite, oldData.satallite) != 0)
             sentData(newData->satallite, LABEL_SATALLITE_ID);
+
     oldData = *newData;
 }
 
 
 void clearScreen(){
   #if GENIE
-  int i = 0;
-  i = genieWriteStr(IP_ID, ";;;");
-  //printf("i = %d \n", i);
-  #else
-  // diablo code 
+      int i = 0;
+      i = genieWriteStr(IP_ID, ";;;");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
@@ -146,17 +143,22 @@ void goToInfo(){
 
 /*Change display screen*/
 int changeForm(){
+
   (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
+
   #if GENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+
     if(FORM == INFO_FORM){
             printf("INFO_FORM\n");
     } // load data for INFO FORM
+
   #else
     //diablo code
   #endif
   
     clearStruct(&oldData);
+
   return 1;
 }
 
@@ -177,21 +179,26 @@ void sentData(char* data, int id){
 void childGetData(int fd_child, int fd_parent ){
     /* Get data from python script */
     char readBuffer[BUFFSIZE];
-    int n;
     char buf[BUFFSIZE];
-    FILE *file;
+    int n;
     int ret;
+    FILE *file;
+
     char * myfifo = "/tmp/mypipe";
 
     /* create the FIFO (named pipe) */
     if(mkfifo(myfifo, 0666) == -1){
         perror("mkfifo: \n");
+    }
+
     file = fopen(myfifo, "r");
 
     for(;;){
+
         if(file == NULL){
             file = fopen(myfifo, "r");
         } // if no file is opened yet. Open it.
+
         if(fgets(buf, BUFFSIZE, file) > 0){
             //  printf("%s \n", buf);
             n = write(fd_parent, &buf, sizeof(buf));
@@ -212,6 +219,7 @@ int getID(char *str){
     char *strMask = "%*[^0123456789]%d";
     int id;
     int i = 0;
+
     while(sizeof(str) > i){
         if(sscanf(str, strMask, &id) == 1){
             printf("id is = %d", id);
@@ -221,6 +229,7 @@ int getID(char *str){
     }
     //error
     printf("Id not found\n");
+
     return -1;
 }
         /* remove the FIFO */
@@ -241,20 +250,30 @@ void errorExit(char* error){
 
 
 int main (int argc, char** argv) {
+
 #if DEBUG
+
     printf("Debug mode on\n");
-#endif
-#if GENIE
-    struct genieReplyStruct reply;
-#else
-    int rc;
+
 #endif
 
 #if GENIE
+
+    struct genieReplyStruct reply;
+
+#else
+
+    int rc;
+
+#endif
+
+#if GENIE
+
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
+
 #else
     // diablo init code
     rc = OpenComm(PORT, BAUDRATE);
@@ -293,9 +312,12 @@ int main (int argc, char** argv) {
         perror("Failed to create child\n");
         exit(EXIT_FAILURE);
     } /* failed to create child*/
+
+
     if(!child){
         close(fd_child[1]);
         close(fd_parent[0]);
+
         for(;;){
             childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
@@ -305,16 +327,26 @@ int main (int argc, char** argv) {
     close(fd_child[0]);
 
     usleep(20);
+
+
     for(;;) {
         if(ret = checkFd(fd_parent[0])){
+
 #if DEBUG
+
             printf("Data is available\n");
+
 #endif
+
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
+
 #if DEBUG
+
             printf("\n parent: %s", readBuffer);
+
 #endif
+
             structManager(&newData, id, readBuffer);
             dataReady(&newData);
         } else if(ret == -1){
