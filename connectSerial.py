@@ -20,7 +20,7 @@ class TrySerialExe(object):
         #return trySerial()
         #kjhlhp;
     def getNRCPort(self):
-        return portDefine(scanPorts)
+        return self.portDefine(self.scanPorts)
 
     def getBaudrate(self):
         return self.baudrate
@@ -39,7 +39,7 @@ class TrySerialExe(object):
             return PORT
 
     def __str__(self):
-        return "%s with %s" % (self.getBaudrate, zelf.scanPorts)
+        return "%s with %s" % (self.getBaudrate, self.scanPorts)
 
 #function to define the port the OEM7 is connected
     def portDefine(PORT):
