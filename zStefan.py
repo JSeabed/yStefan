@@ -19,6 +19,8 @@ import log
 import errno
 import select
 from collections import namedtuple
+global BAUD = 9600
+
 
 logger = log.setup_custom_logger('dataManager')
 
@@ -443,7 +445,7 @@ while True:				#while loop to make the program run indefinitally
 		while(port == None):
 			print 'lkhiterajxckyvlk'
 			#port = getNRCPort()
-			port = TrySerialExe()
+			port = TrySerialExe(BAUD)
 			port.getNRCPort()
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)

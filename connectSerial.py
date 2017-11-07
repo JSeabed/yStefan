@@ -8,8 +8,8 @@ import time			#time delay function imported
 logger = logging.getLogger('dataManager')
 
 class TrySerialExe():
-    def __init__(self, poortnmbr, baudrate):
-        self.poortnmbr = poortnmbr
+    def __init__(self, baudrate):
+        #self.poortnmbr = poortnmbr
         self.baudrate = baudrate
 
     #returns tty which is used by novatel chip 1
