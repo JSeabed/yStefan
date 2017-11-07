@@ -452,5 +452,5 @@ while True:				#while loop to make the program run indefinitally
 			#prtnmr = port.scanPorts()
 			#print prtnmr
 	#port = portDefine()			#call on function portDefine (TODO better description)
-	serialData = readSerial(prtnmr)
+	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
