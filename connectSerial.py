@@ -9,7 +9,14 @@ logger = logging.getLogger('dataManager')
 
 class TrySerialExe(object):
     def __init__(self):
-        pass
+        try:
+            self.port = TrySerialExe.scanPorts(self)
+            self.ser = serial.Serial(
+            port = TrySerialExe.scanPorts(self),
+            baudrate = 9600)
+        except SerialException:
+            print "polio"
+        
 
     #returns tty which is used by novatel chip 1
     #def getNRCPort(self):
