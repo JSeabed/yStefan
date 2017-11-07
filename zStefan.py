@@ -404,6 +404,10 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
                 #print "Ik kom hier 3"
 	return
 
+
+def isConnected():
+	return False
+
 #create subprocess for fifo
 pipeIn, pipeOut = os.pipe()
 try:
@@ -417,6 +421,7 @@ if pid is 0:
     fifoPort(pipeIn)
     exit()
 
+
 #os.close(pipeIn)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
@@ -427,11 +432,17 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 #scanPorts()				#call on function scanPorts
 #port.close()
 # Try to find novatel USB
-port = getNRCPort()
-if port is None:
-        exit()
-print port
+#port = getNRCPort()
+#if port is None:
+#        exit()
+#print port
+port = None
 while True:				#while loop to make the program run indefinitally
+	#port = getNRCPort()
+	if(isConnected() is False):
+		while(port == None):
+			print 'lkhiterajxckyvlk'
+			port = getNRCPort()
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
