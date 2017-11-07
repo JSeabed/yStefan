@@ -105,6 +105,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                         'finebackupsteering': None, \
                         'sattime': None, \
                         'gphdt': None, \
+                        'gphdt2': None, \
                         'ins': None}					#define what to expect in the dictionary
 
 
@@ -177,9 +178,10 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				data['ins'] = mylist2							#add INs to the dictionary
 			#print "testoe"
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
-				mylist3 = word.split(',')						#split up the line in which INS was found
-				data['gphdt'] = mylist3							#add INs to the dictionary
-				print mylist3
+				data['gphdt'] = word.split(',')							#add INs to the dictionary
+				data['gphdt2'] = (data['gphdt'][0]).split('$')
+				print data['gphdt2'][1]
+
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -204,7 +206,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                 #logger.debug("Parent: writing data to child through FD\n")
 		#print data
 
-		time.sleep(1)
+		#time.sleep(1)
                 return data
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
@@ -230,9 +232,14 @@ def printData(data):						#def that prints data to the terminal, used to check f
 	return
 
 def headingGPHDT(data):
-	print data('gphdt')
 	try:
-		if (data['gphdt'])
+            if ((data['gphdt2'][1]) == 'GPHDT'):
+                mode = "[4]" + "OK"
+	    else:
+		mode = "[4]" + "Non"
+        except Exception as e:
+            print str(e)
+        return mode
 
 
 def displayData(data):						#this def tests for 1 of 11 options
@@ -312,22 +319,34 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 
 
 def dataManager(data ,pipeOut):
+    i = 0
     #fill list for fifo
     try:
             #create list
-            sendList = [None]*5
+            sendList = [None]*6
+            i += 1
             #add IP
             sendList[0] = (data['ip'])
+            i += 1
             #add status
             sendList[1] = tryIns(data)							#call on tryIns function
+            i += 1
             #add
 	    sendList[2] = ("[7]" + data['gpgga'][7])
+            i += 1
             #add
             sendList[3] = statusGPGGA(data)
+            i += 1
             #add
             sendList[4] = displayData(data)
+            i += 1
+	    sendList[5] = headingGPHDT(data)
+            i += 1
+	    print sendList[5]
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
+            logger.error("Hier gaat het fout..")
+            logger.error(i)
             logger.error(str(e))
     #printData(data)
     #call exportData def / sents one outcome to child
@@ -385,6 +404,10 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
                 #print "Ik kom hier 3"
 	return
 
+
+def isConnected(port):
+	return False
+
 #create subprocess for fifo
 pipeIn, pipeOut = os.pipe()
 try:
@@ -398,6 +421,7 @@ if pid is 0:
     fifoPort(pipeIn)
     exit()
 
+
 #os.close(pipeIn)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
@@ -408,11 +432,17 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 #scanPorts()				#call on function scanPorts
 #port.close()
 # Try to find novatel USB
-port = getNRCPort()
-if port is None:
-        exit()
-print port
+#port = getNRCPort()
+#if port is None:
+#        exit()
+#print port
+port = None
 while True:				#while loop to make the program run indefinitally
+	#port = getNRCPort()
+	if(isConnected() is False):
+		while(port == None):
+			print 'lkhiterajxckyvlk'
+			port = getNRCPort()
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
