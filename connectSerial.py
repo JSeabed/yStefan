@@ -9,6 +9,7 @@ logger = logging.getLogger('dataManager')
 
 class TrySerialExe(object):
     def __init__(self):
+        pass
 
     #returns tty which is used by novatel chip 1
     #def getNRCPort(self):
