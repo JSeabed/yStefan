@@ -9,7 +9,7 @@ logger = logging.getLogger('dataManager')
 
 class TrySerialExe(object):
     def __init__(self, baudrate):
-        self.poortnmbr = scanPorts()
+        #self.poortnmbr = scanPorts()
         self.baudrate = baudrate
 
     #returns tty which is used by novatel chip 1
