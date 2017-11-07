@@ -8,17 +8,20 @@ import time			#time delay function imported
 logger = logging.getLogger('dataManager')
 
 class TrySerialExe(object):
-    def __init__(self, baudrate):
-        #self.poortnmbr = scanPorts()
+    def __init__(self, poortnmbr, baudrate):
+        self.poortnmbr = scanPorts()
         self.baudrate = baudrate
 
     #returns tty which is used by novatel chip 1
-    def getNRCPort(self):
+    #def getNRCPort(self):
     #Uncomment als je trySerial wilt vermijden
     #(als er geen connectie gemaakt kan worden met de novatel chip)
-        return scanPorts()
+        #return scanPorts()
         #return trySerial()
         #kjhlhp;
+    def getBaudrate(self):
+        return self.baudrate
+
 
     def scanPorts(self):
         #ports = list(serial.tools.list_ports.comports())
@@ -31,6 +34,9 @@ class TrySerialExe(object):
             logger.error(e)
             self.poortnmbr = None
             return self.poortnmbr
+
+    def __str__(self):
+        return "%s with %s" % (self.getBaudrate, zelf.scanPorts)
 
 #function to define the port the OEM7 is connected
     def portDefine(self):
