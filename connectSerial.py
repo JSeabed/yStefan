@@ -7,17 +7,18 @@ import time			#time delay function imported
 #logger = getLogger()
 logger = logging.getLogger('dataManager')
 
-class TrySerialExe(port):
+class TrySerialExe():
     def __init__(self, poortnmbr, baudrate):
         self.poortnmbr = poortnmbr
         self.baudrate = baudrate
 
-    #returns tty which is used by novatel chip
+    #returns tty which is used by novatel chip 1
     def getNRCPort():
     #Uncomment als je trySerial wilt vermijden
     #(als er geen connectie gemaakt kan worden met de novatel chip)
         return portDefine(scanPorts())
         #return trySerial()
+        #kjhlhp;
 
     def scanPorts(self):
         #ports = list(serial.tools.list_ports.comports())
