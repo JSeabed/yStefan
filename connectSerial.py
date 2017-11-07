@@ -26,7 +26,7 @@ class TrySerialExe(object):
         #return trySerial()
         #kjhlhp;
     def getNRCPort(self):
-        self.poortnmbr = self.portDefine(self.scanPorts)
+        self.poortnmbr = self.portDefine(self.scanPorts())
         return self.poortnmbr
 
     def getBaudrate(self):
