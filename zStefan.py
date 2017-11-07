@@ -439,7 +439,7 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 port = None
 while True:				#while loop to make the program run indefinitally
 	#port = getNRCPort()
-	if(isConnected() is False):
+	if(isConnected(port) is False):
 		while(port == None):
 			print 'lkhiterajxckyvlk'
 			#port = getNRCPort()
