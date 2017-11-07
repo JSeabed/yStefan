@@ -19,7 +19,7 @@ import log
 import errno
 import select
 from collections import namedtuple
-global BAUD = 9600
+BAUD = 9600
 
 
 logger = log.setup_custom_logger('dataManager')
