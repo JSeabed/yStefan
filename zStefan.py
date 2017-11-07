@@ -453,5 +453,6 @@ while True:				#while loop to make the program run indefinitally
                 #print prtnmr
         #call on function portDefine (TODO better description)
 	portnr = port.getNRCPort()
+	print portnr
 	serialData = readSerial(portnr)
         dataManager(serialData, pipeOut)
