@@ -31,7 +31,7 @@ class TrySerialExe(object):
         try:
             PORT = list(serial.tools.list_ports.grep("09d7:0100"))[1][0]
             #print self.poortnmbr
-            logger.debug("port is: " + self.poortnmbr)
+            #logger.debug("port is: " + self.poortnmbr)
             return PORT
         except Exception as e:
             logger.error(e)
@@ -57,7 +57,7 @@ class TrySerialExe(object):
             #send an error message to the display
             #send an error message to the terminal
             logger.error("Usb not found")
-            #return None
+            return None
         return poortnmbr
 
 
