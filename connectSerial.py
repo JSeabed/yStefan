@@ -16,7 +16,7 @@ class TrySerialExe():
     def getNRCPort(self):
     #Uncomment als je trySerial wilt vermijden
     #(als er geen connectie gemaakt kan worden met de novatel chip)
-        return portDefine(scanPorts())
+        return scanPorts()
         #return trySerial()
         #kjhlhp;
 
