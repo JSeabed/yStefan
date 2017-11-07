@@ -22,7 +22,7 @@ from collections import namedtuple
 
 logger = log.setup_custom_logger('dataManager')
 
-from connectSerial import getNRCPort
+from connectSerial import TrySerialExe
 
 #Used for debugging.
 #import logger
@@ -442,7 +442,9 @@ while True:				#while loop to make the program run indefinitally
 	if(isConnected() is False):
 		while(port == None):
 			print 'lkhiterajxckyvlk'
-			port = getNRCPort()
+			#port = getNRCPort()
+			port = TrySerialExe()
+			port.getNRCPort()
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
