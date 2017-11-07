@@ -46,20 +46,19 @@ class TrySerialExe(object):
         try:
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
-            print self.poortnmbr
-            self.poortnmbr = serial.Serial(PORT, 9600)
+            poortnmbr = serial.Serial(PORT, 9600)
             #logger.debug("Port is:" + port)
             #print("gevonden")
         except Exception, e:
             #print error
             #write out error to textdocument
             logger.debug(str(e))
-            self.poortnmbr = None
+            poortnmbr = None
             #send an error message to the display
             #send an error message to the terminal
             logger.error("Usb not found")
             #return None
-        return self.poortnmbr
+        return poortnmbr
 
 
 #Try to obtain port (tty/USBx).
