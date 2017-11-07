@@ -304,7 +304,6 @@ int main (int argc, char** argv) {
     close(fd_child[0]);
 
     usleep(20);
-#endif
     for(;;) {
         if(ret = checkFd(fd_parent[0])){
 #if DEBUG
