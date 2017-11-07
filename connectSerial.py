@@ -42,7 +42,7 @@ class TrySerialExe(object):
         return "%s with %s" % (self.getBaudrate, self.scanPorts)
 
 #function to define the port the OEM7 is connected
-    def portDefine(PORT):
+    def portDefine(self, PORT):
         try:
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
