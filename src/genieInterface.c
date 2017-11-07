@@ -363,4 +363,5 @@ int checkFd(int fd_parent){
         /* Timeout */
         return 0;
     }
+    return 1;
 }
