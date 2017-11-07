@@ -55,6 +55,7 @@ class TrySerialExe(object):
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
             poortnmbr = serial.Serial(PORT, 9600)
+            logger.info(poortnmbr)
             #logger.debug("Port is:" + port)
             #print("gevonden")
         except Exception, e:
