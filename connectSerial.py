@@ -51,11 +51,11 @@ class TrySerialExe(object):
 #function to define the port the OEM7 is connected
     def portDefine(self, PORT):
         logger.info(PORT)
+        logger.info(poortnmbr)
         try:
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
             poortnmbr = serial.Serial(PORT, 9600)
-            logger.info(poortnmbr)
             #logger.debug("Port is:" + port)
             #print("gevonden")
         except Exception, e:
