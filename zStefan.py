@@ -441,16 +441,17 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 port = None
 while True:				#while loop to make the program run indefinitally
 	#port = getNRCPort()
-	if(isConnected(port) is False):
-		while(port == None):
-			print 'lkhiterajxckyvlk'
-			#port = getNRCPort()
-			port = TrySerialExe(None, BAUD)
-			print port.scanPorts()
-			print port.getBaudrate()
-			#print port
-			#prtnmr = port.scanPorts()
-			#print prtnmr
-	portnr = port.scanPorts()			#call on function portDefine (TODO better description)
+	#if(isConnected(port) is False):
+        while(port == None):
+                print 'lkhiterajxckyvlk'
+                #port = getNRCPort()
+                port = TrySerialExe(None, BAUD)
+                print port.scanPorts()
+                print port.getBaudrate()
+                #print port
+                #prtnmr = port.scanPorts()
+                #print prtnmr
+        #call on function portDefine (TODO better description)
+	portnr = port.portDefine()			
 	serialData = readSerial(portnr)
         dataManager(serialData, pipeOut)
