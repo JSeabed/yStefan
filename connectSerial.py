@@ -19,6 +19,9 @@ class TrySerialExe(object):
         #return scanPorts()
         #return trySerial()
         #kjhlhp;
+    def getNRCPort(self):
+        return portDefine(scanPorts)
+
     def getBaudrate(self):
         return self.baudrate
 
@@ -26,25 +29,25 @@ class TrySerialExe(object):
     def scanPorts(self):
         #ports = list(serial.tools.list_ports.comports())
         try:
-            self.poortnmbr = list(serial.tools.list_ports.grep("09d7:0100"))[1][0]
-            print self.poortnmbr
+            PORT = list(serial.tools.list_ports.grep("09d7:0100"))[1][0]
+            #print self.poortnmbr
             logger.debug("port is: " + self.poortnmbr)
-            return self.poortnmbr
+            return PORT
         except Exception as e:
             logger.error(e)
-            self.poortnmbr = None
-            return self.poortnmbr
+            PORT = None
+            return PORT
 
     def __str__(self):
         return "%s with %s" % (self.getBaudrate, zelf.scanPorts)
 
 #function to define the port the OEM7 is connected
-    def portDefine(self):
+    def portDefine(self, PORT):
         try:
             #PORT = "/dev/ttyUSB1"
             #defining the serial port as a contant value
             print self.poortnmbr
-            self.poortnmbr = serial.Serial(self.poortnmbr, 9600)
+            self.poortnmbr = serial.Serial(PORT, 9600)
             #logger.debug("Port is:" + port)
             #print("gevonden")
         except Exception, e:
@@ -56,7 +59,7 @@ class TrySerialExe(object):
             #send an error message to the terminal
             logger.error("Usb not found")
             #return None
-            return self.poortnmbr
+        return self.poortnmbr
 
 
 #Try to obtain port (tty/USBx).
