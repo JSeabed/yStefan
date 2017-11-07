@@ -16,7 +16,7 @@ class TrySerialExe(object):
             baudrate = 9600)
         except SerialException:
             print "polio"
-        
+
 
     #returns tty which is used by novatel chip 1
     #def getNRCPort(self):
@@ -26,7 +26,7 @@ class TrySerialExe(object):
         #return trySerial()
         #kjhlhp;
     def getNRCPort(self):
-        self.poortnmbr = portDefine(scanPorts)
+        self.poortnmbr = TrySerialExe.portDefine(scanPorts)
         return self.poortnmbr
 
     def getBaudrate(self):
