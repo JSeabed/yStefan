@@ -184,7 +184,8 @@ void childGetData(int fd_child, int fd_parent ){
     char * myfifo = "/tmp/mypipe";
 
     /* create the FIFO (named pipe) */
-    mkfifo(myfifo, 0666);
+    if(mkfifo(myfifo, 0666) == -1){
+        perror("mkfifo: \n");
     file = fopen(myfifo, "r");
 
     for(;;){
