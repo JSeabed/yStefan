@@ -404,6 +404,10 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
                 #print "Ik kom hier 3"
 	return
 
+
+def isConnected():
+	pass
+
 #create subprocess for fifo
 pipeIn, pipeOut = os.pipe()
 try:
@@ -416,6 +420,7 @@ if pid is 0:
     #os.close(pipeOut)
     fifoPort(pipeIn)
     exit()
+
 
 #os.close(pipeIn)
 
@@ -434,8 +439,9 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 port = None
 while True:				#while loop to make the program run indefinitally
 	#port = getNRCPort()
-	while(port == None):
-		port = getNRCPort()
+	if(isConnected() is False):
+		while(port == None):
+			port = getNRCPort()
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
