@@ -445,13 +445,13 @@ while True:				#while loop to make the program run indefinitally
         while(port == None):
                 print 'lkhiterajxckyvlk'
                 #port = getNRCPort()
-                port = TrySerialExe(None, BAUD)
+                port = TrySerialExe()
                 print port.scanPorts()
                 print port.getBaudrate()
                 #print port
                 #prtnmr = port.scanPorts()
                 #print prtnmr
         #call on function portDefine (TODO better description)
-	portnr = port.getNRCPort()			
+	portnr = port.getNRCPort()
 	serialData = readSerial(portnr)
         dataManager(serialData, pipeOut)
