@@ -1,6 +1,8 @@
 #include "../include/struct.h"
 #include "../include/demo.h"
 
+volatile int DFORM = 0;
+
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
         for(i = 0; i <= (wait*750); i++){
@@ -25,7 +27,7 @@ void demo(){
 
     struct genieReplyStruct reply;
     goToInfo(); // go to next form on display
-    FORM = 1;
+    DFORM = 1;
 
     struct data newData0;
     struct data newData1;
