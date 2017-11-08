@@ -296,7 +296,7 @@ void demo(){
     strcpy(newData3.satallite , "17");
 
     for(;;){
-        clearStruct(&oldData);
+       // clearStruct(&oldData);
         dataReady(&newData0);    
         demoRead(2, &reply);
         dataReady(&newData1);    
@@ -315,7 +315,7 @@ void demo(){
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
         for(i = 0; i <= (wait*4); i++){
-        usleep(250);
+        usleep(2500);
         if(genieReplyAvail()) {
             printf("ik kom hier\n");
             genieGetReply(reply);
