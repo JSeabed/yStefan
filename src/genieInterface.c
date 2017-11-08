@@ -257,7 +257,6 @@ void errorExit(char* error){
 
 #if DEMO
 void demo(){
-    int i = 0;
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
         exit(1); // Failed to initialize ViSi-Genie Display. Check Connections!
@@ -265,6 +264,7 @@ void demo(){
 
     struct genieReplyStruct reply;
     goToInfo(); // go to next form on display
+    FORM = 1;
 
     struct data newData0;
     struct data newData1;
