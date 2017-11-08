@@ -27,7 +27,6 @@
 
 #define PORT "/dev/ttyAMA0"
 //#define BAUDRATE 9600
-#define BAUDRATE 115200
 
 #define INIT_FORM 0
 #define INFO_FORM 1
