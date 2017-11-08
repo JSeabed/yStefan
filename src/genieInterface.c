@@ -17,7 +17,6 @@
     #include <Diablo_const4D.h>
 #endif
 
-#include "../include/demo.h"
 #if GENIE
     #define GENIE_OBJ_FORM 10
     #define GENIE_OBJ_USERBUTTON 33
@@ -39,6 +38,7 @@
 #define TIMEOUT 500
 #define WAIT 25
 
+#include "../include/demo.h"
 /*#define checksum(x) (x ^= x)*/
 
 #define ZERO "0"
