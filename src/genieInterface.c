@@ -314,13 +314,13 @@ void demo(){
 }
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
-        for(i = 0; i <= (wait*4); i++){
-        sleep(1);
+        for(i = 0; i <= (wait*5); i++){
+        usleep(200);
         if(genieReplyAvail()) {
             printf("ik kom hier\n");
             genieGetReply(reply);
             handleEvent(reply);
-            sleep(wait-i);
+            //usleep(wait-i);
         } // handle input from display
         }
 }
