@@ -1,10 +1,12 @@
 # GenieInterface
+The GenieInterface is used to display ..... data on the 4D LCD display.
+
 LCD 4D systems control
 
 
 
 
-##Shell
+## Shell
 There is a small script function added for testing individual functions. The shell is commented in the genieInterface.c file. Uncomment the shell and use the command:
 > make
 
@@ -13,7 +15,7 @@ To start the shell enter:
 
 The shell is limited. You can add extra functionality in shell.c.
 
-##Debugging
+## Debugging
 To debug genieInterface enter the following command in the directory whit the Makefile
 >make dg
 
