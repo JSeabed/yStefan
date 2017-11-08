@@ -261,6 +261,7 @@ void demo(){
     }
 
     struct genieReplyStruct reply;
+    goToInfo(); // go to next form on display
 
     struct data newData0;
     struct data newData1;
