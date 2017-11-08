@@ -127,6 +127,31 @@ void dataReady(struct data *newData){
     oldData = *newData;
 }
 
+//TODO change namae
+/*Check and send data to display */
+void demoDataReady(struct data *newData){
+    usleep(20);
+    if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
+            sentData(newData->ip, LABEL_IP_ID); // send data
+
+    if(strncmp(newData->status, ZERO, 1) != 0)
+            sentData(newData->status, LABEL_STATUS_ID);
+
+    if(strncmp(newData->position, ZERO, 1) != 0)
+            sentData(newData->position, LABEL_POSITION_ID);
+
+    if(strncmp(newData->heading, ZERO, 1) != 0)
+            sentData(newData->heading, LABEL_HEADING_ID);
+
+    if(strncmp(newData->rtk, ZERO, 1) != 0)
+            sentData(newData->rtk, LABEL_RTK_ID);
+
+    if(strncmp(newData->satallite, ZERO, 1) != 0)
+            sentData(newData->satallite, LABEL_SATALLITE_ID);
+
+    oldData = *newData;
+}
+
 
 void clearScreen(){
   #if GENIE
@@ -297,17 +322,17 @@ void demo(){
     strcpy(newData3.satallite , "17");
 
     for(;;){
-        dataReady(&newData0);    
+        demoDataReady(&newData0);    
         demoRead(2, &reply);
-        dataReady(&newData1);    
+        demoDataReady(&newData1);    
         demoRead(7, &reply);
-        dataReady(&newData2);    
+        demoDataReady(&newData2);    
         demoRead(12, &reply);
-        dataReady(&newData1);    
+        demoDataReady(&newData1);    
         demoRead(3, &reply);
-        dataReady(&newData2);    
+        demoDataReady(&newData2);    
         demoRead(8, &reply);
-        dataReady(&newData3);    
+        demoDataReady(&newData3);    
         demoRead(11, &reply);
 
     }
