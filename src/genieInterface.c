@@ -16,6 +16,7 @@
     #include <Diablo_Types4D.h>
     #include <Diablo_const4D.h>
 #endif
+#include "demo.h"
 
 #if GENIE
     #define GENIE_OBJ_FORM 10
