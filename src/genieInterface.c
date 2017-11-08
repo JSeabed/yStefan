@@ -45,7 +45,7 @@
 #define toggle(x) (x = !x)
 #define isIdentical(a, b) (a == b)
 
-volatile int FORM = 0;
+//volatile int FORM = 0;
 
 //struct data oldData;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);

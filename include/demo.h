@@ -9,6 +9,8 @@
 #define PORT "/dev/ttyAMA0"
 #define BAUDRATE 115200
 
+volatile int FORM = 0;
+
 void demo(void);
 //void demoRead(int , struct genieReplyStruct);
 /**/
