@@ -252,7 +252,7 @@ void errorExit(char* error){
 void demo(){
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
-        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+        exit(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
 
     struct genieReplyStruct reply;
@@ -260,6 +260,7 @@ void demo(){
     struct data newData0;
     struct data newData1;
     struct data newData2;
+    struct data newData3;
 
     strcpy(newData0.ip , "172.16.45.5");
     strcpy(newData0.status , "Ins inactive");
