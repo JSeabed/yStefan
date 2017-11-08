@@ -298,18 +298,18 @@ void demo(){
 
     for(;;){
         i = 0;
-        demoRead(2, &reply);
         dataReady(&newData0);    
+        demoRead(2, &reply);
+        dataReady(&newData1);    
         demoRead(7, &reply);
-        dataReady(&newData1);    
+        dataReady(&newData2);    
         demoRead(12, &reply);
-        dataReady(&newData2);    
-        demoRead(3, &reply);
         dataReady(&newData1);    
-        demoRead(8, &reply);
+        demoRead(3, &reply);
         dataReady(&newData2);    
-        demoRead(11, &reply);
+        demoRead(8, &reply);
         dataReady(&newData3);    
+        demoRead(11, &reply);
 
     }
 }
@@ -317,6 +317,7 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
         for(i <= wait; i++;){
         sleep(1);
+        printf("ik kom hier");
         if(genieReplyAvail()) {
             genieGetReply(reply);
             handleEvent(reply);
