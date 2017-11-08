@@ -248,6 +248,41 @@ void errorExit(char* error){
     //exit(0);
 }
 
+#if DEMO
+void demo(){
+    if(genieSetup(PORT ,BAUDRATE)<0) {
+        printf("ViSi-Genie Failed to init display!\r\n");
+        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+    }
+    struct data newData0;
+    struct data newData1;
+    struct data newData2;
+
+    newData0.ip = "172.16.45.5";
+    newData0.status = "Ins inactive";
+    newData0.position = "Finesteering";
+    newData0.heading = "OK";
+    newData0.rtk = "Single point";
+    newData0.satallite = "19";
+
+    newData1.ip = "172.16.45.5";
+    newData1.status = "Ins inactive";
+    newData1.position = "Finesteering";
+    newData1.heading = "OK";
+    newData1.rtk = "Single point";
+    newData1.satallite = "21";
+
+    newData2.ip = "172.16.45.5";
+    newData2.status = "Ins inactive";
+    newData2.position = "Finesteering";
+    newData2.heading = "OK";
+    newData2.rtk = "Single point";
+    newData2.satallite = "20";
+
+    dataReady();    
+}
+#endif
+
 
 int main (int argc, char** argv) {
 
@@ -255,6 +290,9 @@ int main (int argc, char** argv) {
 
     printf("Debug mode on\n");
 
+#endif
+#if DEMO
+    demo();
 #endif
 
 #if GENIE

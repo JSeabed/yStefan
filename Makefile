@@ -15,6 +15,8 @@ RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
 
 DGENIE=-D GENIE
 
+DDEMO=-D DEMO
+
 HEADERS = $(shell echo include/*.h)
 
 #LDFLAGS = -L/usr/local/lib
@@ -48,6 +50,13 @@ $(EXE): $(OBJ) $(HEADERS)
 
 
 .PHONY: all debug clean release dg dd
+
+
+#demo
+demo: CFLAGS += $(DDEMO)
+demo: CFLAGS += $(DEBUGFLAGS)
+demo: LIBS += $(GENIELIBS)
+demo: $(EXE)
 
 
 #debug genie
