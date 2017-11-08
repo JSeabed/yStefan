@@ -1,4 +1,5 @@
 #include "../include/struct.h"
+#include "../include/demo.h"
 
 void demo(){
     if(genieSetup(PORT ,BAUDRATE)<0) {
