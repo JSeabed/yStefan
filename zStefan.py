@@ -259,7 +259,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 		mode = "[1]" + "Coarse steering"			#write out 'Coarse' to the 5th string adress on the display
         elif (data['unknown'] == True):				#
 		mode = "[1]" + "Unknown"
-	elif (data['aprocimate'] == True):
+	elif (data['aproximate'] == True):
 		mode = "[1]" + "Aproximate"
         elif (data['coarseadjusting'] == True):
 		mode = "[1]" + "Coarse adjusting"
