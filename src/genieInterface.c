@@ -155,6 +155,9 @@ int changeForm(){
 
     if(FORM == INFO_FORM){
             printf("INFO_FORM\n");
+    #if DEMO
+            return 1;
+    #endif
     } // load data for INFO FORM
 
   #else
