@@ -64,7 +64,7 @@ void structManager(struct data *newData, int id, char* data);
 
 #if DEMO
     void demo();
-    void demoRead(int, struct geneReplyStruct*);
+    void demoRead(int, struct geneReplyStruct *);
 #endif
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
