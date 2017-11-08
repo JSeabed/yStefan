@@ -10,7 +10,7 @@
 #define BAUDRATE 115200
 
 void demo(void);
-void demoRead(int , struct genieReplyStruct);
+//void demoRead(int , struct genieReplyStruct);
 /**/
 
 #endif
