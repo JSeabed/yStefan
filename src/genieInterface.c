@@ -300,7 +300,6 @@ void demo(){
     strcpy(newData3.satallite , "17");
 
     for(;;){
-        i = 0;
         dataReady(&newData0);    
         demoRead(2, &reply);
         dataReady(&newData1);    
