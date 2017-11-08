@@ -312,7 +312,7 @@ void demo(){
 
     }
 }
-void demoRead(int wait){
+void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
         for(i < wait; i++;){
         sleep(1);
