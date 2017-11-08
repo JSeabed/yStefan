@@ -315,7 +315,7 @@ void demo(){
 }
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
-        for(i < wait; i++;){
+        for(i <= wait; i++;){
         sleep(1);
         if(genieReplyAvail()) {
             genieGetReply(reply);
