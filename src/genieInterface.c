@@ -25,12 +25,8 @@
 // diablo code
 #endif
 
-#define PORT "/dev/ttyAMA0"
 //#define BAUDRATE 9600
 
-#define INIT_FORM 0
-#define INFO_FORM 1
-#define SUPPORT_FORM 2
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
