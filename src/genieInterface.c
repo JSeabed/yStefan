@@ -62,6 +62,10 @@ void sentData(char* data, int id);
 void dataReady(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
 
+#if DEMO
+    void demo();
+    void demoRead(int);
+#endif
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
