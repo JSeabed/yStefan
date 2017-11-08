@@ -323,8 +323,6 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
             printf("ik kom hier\n");
             genieGetReply(reply);
             handleEvent(reply);
-            sleep(wait-i); // wait 20ms between polls to save CPU
-            break;
         } // handle input from display
         }
 }
