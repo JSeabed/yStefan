@@ -261,33 +261,33 @@ void demo(){
     struct data newData1;
     struct data newData2;
 
-    newData0.ip = "172.16.45.5";
-    newData0.status = "Ins inactive";
-    newData0.position = "Finesteering";
-    newData0.heading = "OK";
-    newData0.rtk = "Single point";
-    newData0.satallite = "19";
+    strcpy(newData0.ip , "172.16.45.5");
+    strcpy(newData0.status , "Ins inactive");
+    strcpy(newData0.position , "Finesteering");
+    strcpy(newData0.heading , "OK");
+    strcpy(newData0.rtk , "Single point");
+    strcpy(newData0.satallite , "19");
 
-    newData1.ip = "172.16.45.5";
-    newData1.status = "Ins inactive";
-    newData1.position = "Finesteering";
-    newData1.heading = "OK";
-    newData1.rtk = "Single point";
-    newData1.satallite = "21";
+    strcpy(newData1.ip , "172.16.45.5");
+    strcpy(newData1.status , "Ins inactive");
+    strcpy(newData1.position , "Finesteering");
+    strcpy(newData1.heading , "OK");
+    strcpy(newData1.rtk , "Single point");
+    strcpy(newData1.satallite , "21");
 
-    newData2.ip = "172.16.45.5";
-    newData2.status = "Ins inactive";
-    newData2.position = "Finesteering";
-    newData2.heading = "OK";
-    newData2.rtk = "Single point";
-    newData2.satallite = "20";
+    strcpy(newData2.ip , "172.16.45.5");
+    strcpy(newData2.status , "Ins inactive");
+    strcpy(newData2.position , "Finesteering");
+    strcpy(newData2.heading , "OK");
+    strcpy(newData2.rtk , "Single point");
+    strcpy(newData2.satallite , "20");
 
-    newData3.ip = "172.16.45.5";
-    newData3.status = "Ins inactive";
-    newData3.position = "Finesteering";
-    newData3.heading = "OK";
-    newData3.rtk = "Single point";
-    newData3.satallite = "17";
+    strcpy(newData3.ip , "172.16.45.5");
+    strcpy(newData3.status , "Ins inactive");
+    strcpy(newData3.position , "Finesteering");
+    strcpy(newData3.heading , "OK");
+    strcpy(newData3.rtk , "Single point");
+    strcpy(newData3.satallite , "17");
 
     for(;;){
         sleep(2);
