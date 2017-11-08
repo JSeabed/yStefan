@@ -1,5 +1,6 @@
 #include "../include/struct.h"
 #include "../include/shell.h"
+#include "../include/demo.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 //#include <stdlib.h>
@@ -16,7 +17,6 @@
     #include <Diablo_Types4D.h>
     #include <Diablo_const4D.h>
 #endif
-#include "../include/demo.h"
 
 #if GENIE
     #define GENIE_OBJ_FORM 10
