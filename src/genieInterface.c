@@ -64,7 +64,7 @@ void structManager(struct data *newData, int id, char* data);
 
 #if DEMO
     void demo();
-    void demoRead(int, struct geneReplyStruct*);
+    void demoRead(int, struct geneReplyStruct);
 #endif
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
@@ -312,7 +312,7 @@ void demo(){
 
     }
 }
-void demoRead(int wait, struct genieReplyStruct *reply ){
+void demoRead(int wait, struct genieReplyStruct reply ){
         int i = 0;
         for(i < wait; i++;){
         sleep(1);
