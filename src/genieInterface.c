@@ -254,6 +254,9 @@ void demo(){
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
+
+    struct genieReplyStruct reply;
+
     struct data newData0;
     struct data newData1;
     struct data newData2;
@@ -279,7 +282,34 @@ void demo(){
     newData2.rtk = "Single point";
     newData2.satallite = "20";
 
-    dataReady();    
+    newData3.ip = "172.16.45.5";
+    newData3.status = "Ins inactive";
+    newData3.position = "Finesteering";
+    newData3.heading = "OK";
+    newData3.rtk = "Single point";
+    newData3.satallite = "17";
+
+    for(;;){
+        sleep(2);
+        dataReady(&newData0);    
+        sleep(7);
+        dataReady(&newData1);    
+        sleep(122);
+        dataReady(&newData2);    
+        sleep(3);
+        dataReady(&newData1);    
+        sleep(8);
+        dataReady(&newData2);    
+        sleep(11);
+        dataReady(&newData3);    
+
+        usleep(WAIT);
+        if(genieReplyAvail()) {
+            genieGetReply(&reply);
+            handleEvent(&reply);
+            usleep(WAIT); // wait 20ms between polls to save CPU
+        } // handle input from display
+    }
 }
 #endif
 

@@ -54,6 +54,7 @@ $(EXE): $(OBJ) $(HEADERS)
 
 #demo
 demo: CFLAGS += $(DDEMO)
+demo: CFLAGS += $(DGENIE)
 demo: CFLAGS += $(DEBUGFLAGS)
 demo: LIBS += $(GENIELIBS)
 demo: $(EXE)
