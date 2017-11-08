@@ -1,4 +1,7 @@
 #if DEMO
+
+#include "demo.h"
+
 void demo(){
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
