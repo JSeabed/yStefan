@@ -11,7 +11,7 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
             printf("ik kom hier\n");
             genieGetReply(reply);
             handleEvent(reply);
-            if(FORM == INFO_FORM){
+            if(DFORM == INFO_FORM){
                 break;
             }
             //usleep(wait-i);
