@@ -1,6 +1,22 @@
 #include "../include/struct.h"
 #include "../include/demo.h"
 
+void demoRead(int wait, struct genieReplyStruct *reply ){
+        int i = 0;
+        for(i = 0; i <= (wait*750); i++){
+        usleep(200);
+        if(genieReplyAvail()) {
+            printf("ik kom hier\n");
+            genieGetReply(reply);
+            handleEvent(reply);
+            if(FORM == INFO_FORM){
+                break;
+            }
+            //usleep(wait-i);
+        } // handle input from display
+        }
+}
+
 void demo(){
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
@@ -62,18 +78,3 @@ void demo(){
     }
 }
 
-void demoRead(int wait, struct genieReplyStruct *reply ){
-        int i = 0;
-        for(i = 0; i <= (wait*750); i++){
-        usleep(200);
-        if(genieReplyAvail()) {
-            printf("ik kom hier\n");
-            genieGetReply(reply);
-            handleEvent(reply);
-            if(FORM == INFO_FORM){
-                break;
-            }
-            //usleep(wait-i);
-        } // handle input from display
-        }
-}
