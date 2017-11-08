@@ -297,17 +297,17 @@ void demo(){
 
     for(;;){
         i = 0;
-        demoRead(2);
+        demoRead(2, &reply);
         dataReady(&newData0);    
-        demoRead(7);
+        demoRead(7, &reply);
         dataReady(&newData1);    
-        demoRead(12);
+        demoRead(12, &reply);
         dataReady(&newData2);    
-        demoRead(3);
+        demoRead(3, &reply);
         dataReady(&newData1);    
-        demoRead(8);
+        demoRead(8, &reply);
         dataReady(&newData2);    
-        demoRead(11);
+        demoRead(11, &reply);
         dataReady(&newData3);    
 
     }
