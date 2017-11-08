@@ -315,7 +315,7 @@ void demo(){
 }
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
-        for(i <= (wait*4); i++;){
+        for(i <= (wait*4); i++){
         printf("ik kom hier");
         usleep(250);
         printf("%d\n", genieReplyAvail());
