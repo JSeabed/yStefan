@@ -298,15 +298,15 @@ void demo(){
     for(;;){
        // clearStruct(&oldData);
         dataReady(&newData0);    
-        demoRead(2, &reply);
+        demoRead(16, &reply);
         dataReady(&newData1);    
-        demoRead(7, &reply);
-        dataReady(&newData2);    
         demoRead(12, &reply);
-        dataReady(&newData1);    
-        demoRead(3, &reply);
         dataReady(&newData2);    
-        demoRead(8, &reply);
+        demoRead(18, &reply);
+        dataReady(&newData1);    
+        demoRead(20, &reply);
+        dataReady(&newData2);    
+        demoRead(18, &reply);
         dataReady(&newData3);    
         demoRead(11, &reply);
 
@@ -315,11 +315,12 @@ void demo(){
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
         for(i = 0; i <= (wait*4); i++){
-        usleep(2500);
+        sleep(1);
         if(genieReplyAvail()) {
             printf("ik kom hier\n");
             genieGetReply(reply);
             handleEvent(reply);
+            sleep(wait-i);
         } // handle input from display
         }
 }
