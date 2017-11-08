@@ -320,6 +320,7 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
         for(i = 0; i <= (wait*4); i++){
         usleep(250);
         if(genieReplyAvail()) {
+            printf("ik kom hier\n");
             genieGetReply(reply);
             handleEvent(reply);
             sleep(wait-i); // wait 20ms between polls to save CPU
