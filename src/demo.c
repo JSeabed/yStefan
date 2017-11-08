@@ -1,6 +1,3 @@
-#if DEMO
-
-#include "demo.h"
 
 void demo(){
     if(genieSetup(PORT ,BAUDRATE)<0) {
@@ -78,4 +75,3 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
         } // handle input from display
         }
 }
-#endif
