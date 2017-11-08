@@ -1,5 +1,4 @@
 #include "../include/struct.h"
-#include "../include/demo.h"
 
 void demoRead(int wait, struct genieReplyStruct *reply ){
         int i = 0;
