@@ -1,6 +1,9 @@
 #ifndef _DEMO_HEADER
 #define _DEMO_HEADER
 
+#if GENIE
+    #include <geniePi.h>
+#endif
 
 #define INIT_FORM 0
 #define INFO_FORM 1

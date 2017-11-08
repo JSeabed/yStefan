@@ -9,7 +9,6 @@
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
 #if GENIE
-    #include <geniePi.h>
 #else
     #include <diabloSerial.h>
     //#include <Diablo_Serial_4DLibrary.h>
