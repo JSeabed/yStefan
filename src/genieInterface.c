@@ -320,7 +320,7 @@ void demoRead(int wait, struct genieReplyStruct *reply ){
         if(genieReplyAvail()) {
             genieGetReply(reply);
             handleEvent(reply);
-            usleep(WAIT); // wait 20ms between polls to save CPU
+            sleep(wait-i); // wait 20ms between polls to save CPU
             break;
         } // handle input from display
         }
