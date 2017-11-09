@@ -2,3 +2,6 @@ in /web/views/api.py starting on line 9 is the code that handles the port identi
 
 
 in /seabed/settings.py on line 27 are the hosts defined
+
+
+in /web/templates/pages/dashboard.html om line 18 is the code that calls the satalite constallation to the web page
