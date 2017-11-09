@@ -1,1 +1,4 @@
 in /web/views/api.py starting on line 9 is the code that handles the port identifier.
+
+
+in /seabed/settings.py on line 27 are the hosts defined
