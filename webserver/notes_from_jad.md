@@ -17,7 +17,9 @@ Main functions:
 
 mail send from Karl:
 
-""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""" 
+
+
 Hello, 
 
 Find notes below:
@@ -51,4 +53,4 @@ The services that the solution uses are the following
 
 Regards, 
 
-""""
+"""""""""""""""""""""""""""""""""""""""""""""" 
