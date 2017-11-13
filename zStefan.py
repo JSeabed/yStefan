@@ -289,29 +289,29 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
 		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
-		if (data['ins_active'] == True):				#check library if ins active is true
+		if(exact_Match((data['insclean'][0]),"INS_ACTIVE")):			#check library if ins active is true
 			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
-		elif (data['ins_aligning'] == True):			#check library if aligning is true
+		elif (exact_Match((data['insclean'][0]),"INS_ALIGNING")):			#check library if aligning is true
 			mode = "[2]" + "Ins aligning"       			#write out only if aligning is true
-		elif (data['ins_high_variance'] == True):		#check library if high variance is true
+		elif (exact_Match((data['insclean'][0]),"INS_HIGH_VARIANCE")):		#check library if high variance is true
 			mode = "[2]" + "Ins high variance"              	#write out only if above check passes
-		elif (data['ins_solution_good'] == True):		#check if solution good is true
+		elif (exact_Match((data['insclean'][0]),"INS_SOLUTION_GOOD")):		#check if solution good is true
 			mode = "[2]" + "Ins solution good"       		#write out only if above check passes
-		elif (data['ins_solution_free'] == True):		#check if solution free is true
+		elif (exact_Match((data['insclean'][0]),"INS_SOLUTION_FREE")):		#check if solution free is true
 			mode = "[2]" + "Ins solution free"      		#write out only if above check passes
-		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
+		elif (exact_Match((data['insclean'][0]),"INS_ALIGNMENT_COMPLETE")):		#check if alignment is complete
 			mode = "[2]" + "Ins alignment complete"         	#
-		elif (data['determining_orientation'] == True):		#
+		elif (exact_Match((data['insclean'][0]),"DETERMINING_ORIENTATION")):		#
 			mode = "[2]" + "Determining orientation"        	#
-		elif (data['waiting_initialpos'] == True):		#
+		elif (exact_Match((data['insclean'][0]),"WAITING_INITIALPOS")):		#
 			mode = "[2]" + "Waiting initialpos"             	#
-		elif (data['waiting_azimuth'] == True):			#
+		elif (exact_Match((data['insclean'][0]),"WAITING_AZIMUTH")):			#
 			mode = "[2]" + "Waiting azimuth"        		#
-		elif (data['initializing_biases'] == True):		#
+		elif (exact_Match((data['insclean'][0]),"INITIALIZING_BIASES")):		#
 			mode = "[2]" + "Initializing biases"            	#
-		elif (data['motion_detect'] == True):			#
+		elif (exact_Match((data['insclean'][0]),"MOTION_DETECT")):			#
 			mode = "[2]" + "Motion detect"          		#
-		elif (data['ins_inactive'] == True):											#when INS is inactive
+		elif (exact_Match((data['insclean'][0]),"INS_INACTIVE")):											#when INS is inactive
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
 
 		return mode
