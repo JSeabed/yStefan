@@ -300,9 +300,9 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		elif (exact_Match((data['insclean'][0]),"INS_SOLUTION_FREE")):		#check if solution free is true
 			mode = "[2]" + "Ins solution free"      		#write out only if above check passes
 		elif (exact_Match((data['insclean'][0]),"INS_ALIGNMENT_COMPLETE")):		#check if alignment is complete
-			mode = "[2]" + "Ins alignment complete"         	#
+			mode = "[2]" + "Ins align complete"         	#
 		elif (exact_Match((data['insclean'][0]),"DETERMINING_ORIENTATION")):		#
-			mode = "[2]" + "Determining orientation"        	#
+			mode = "[2]" + "Determ orientation"        	#
 		elif (exact_Match((data['insclean'][0]),"WAITING_INITIALPOS")):		#
 			mode = "[2]" + "Waiting initialpos"             	#
 		elif (exact_Match((data['insclean'][0]),"WAITING_AZIMUTH")):			#
