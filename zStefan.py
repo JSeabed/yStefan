@@ -280,7 +280,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
-	mode = "unkown"
+	mode = "[2]" +  "unkown"
 	try:												#try to define, if failed goes to except
 
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
