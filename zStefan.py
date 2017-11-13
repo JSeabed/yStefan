@@ -281,6 +281,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
 	try:												#try to define, if failed goes to except
+		mode = "unkown"
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
@@ -309,13 +310,14 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 			mode = "[2]" + "Motion detect"          		#
 		elif (data['ins_inactive'] == True):											#when INS is inactive
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
+
 		return mode
 	except Exception, e:								#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
 		print (str(e))
 		print (data['ins_active'])									#write error to the terminal
-                #print "Ik kom hier 2"
+                print "Ik kom hier 2"
 
 
 def dataManager(data ,pipeOut):
