@@ -182,6 +182,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 				data['gphdt2'] = (data['gphdt'][0]).split('$')
 				print data['gphdt2'][1]
 
+			print data
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -280,7 +281,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
-	mode = "[2]" +  "unkown"
+	mode = "[2]" +  "unknown"
 	try:												#try to define, if failed goes to except
 
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
