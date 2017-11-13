@@ -280,8 +280,9 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
+	mode = "unkown"
 	try:												#try to define, if failed goes to except
-		mode = "unkown"
+
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
@@ -318,6 +319,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		print (str(e))
 		print (data['ins_active'])									#write error to the terminal
                 print "Ik kom hier 2"
+		return mode
 
 
 def dataManager(data ,pipeOut):
