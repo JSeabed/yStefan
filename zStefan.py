@@ -307,9 +307,9 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 			mode = "[2]" + "Initializing biases"            	#
 		elif (data['motion_detect'] == True):			#
 			mode = "[2]" + "Motion detect"          		#
-		else:											#when INS is inactive
+		elif (data['ins_inactive'] == True):											#when INS is inactive
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
-			return mode
+		return mode
 	except Exception, e:								#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
