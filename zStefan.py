@@ -173,16 +173,17 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
-			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
+			if(findWord(word,"INSPVAA") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
+				#print data['ins']
 			#print "testoe"
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
 				data['gphdt'] = word.split(',')							#add INs to the dictionary
 				data['gphdt2'] = (data['gphdt'][0]).split('$')
 				print data['gphdt2'][1]
 
-			print data
+			#print data
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -287,7 +288,7 @@ def tryIns(data):										#def to determine INS value. in order to keep track o
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
-		#print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
+		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
 		if (data['ins_active'] == True):				#check library if ins active is true
 			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
 		elif (data['ins_aligning'] == True):			#check library if aligning is true
