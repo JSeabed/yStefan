@@ -14,6 +14,8 @@ def getNRCPort():
     return portDefine(scanPorts())
     return trySerial()
 
+    def getBaudrate(self):
+        return self.baudrate
 
 #Try to obtain port (tty/USBx).
 #Return None if novatel is not found.
@@ -43,7 +45,12 @@ def scanPorts():
     except Exception as e:
         logger.error(e)
 
+    def __str__(self):
+        return "%s with %s" % (self.getBaudrate, self.scanPorts)
 
+#function to define the port the OEM7 is connected
+    def portDefine(self, PORT):
+        logger.info(PORT)
 
 #function to define the port the OEM7 is connected
 def portDefine(PORT):
@@ -64,3 +71,23 @@ def portDefine(PORT):
             logger.error("Usb not found")
             return None
     return port
+
+
+#Try to obtain port (tty/USBx).
+#Return None if novatel is not found.
+#Return port if dev/ttyUSBx is found.
+#    def trySerial(self):
+#        attempt = 0
+#        for i in range(10):
+#            port = _portDefine(_scanPorts())
+#            if port is not None:
+#                print "USB found"
+#                print port
+#                return self.poortnmbr
+#                return port
+#            if attempt is 9:
+#                logger.error("Failed to initialise port")
+#                return None
+#            attempt = attempt + 1
+#            logger.info("No connection established with novatel attempt: %d of the 10.", attempt)
+#            time.sleep(1)
