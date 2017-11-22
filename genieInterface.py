@@ -17,7 +17,7 @@ class GenieInterface(object):
         GPIO.output(0, GPIO.HIGH)		
         createFifo(self)
 
-    # init fifo
+    # init fifo when initialised
     def createFifo(self):
         try:
             os.mkfifo(self.FIFO)
@@ -27,31 +27,14 @@ class GenieInterface(object):
                 raise
 
     # write data to fifo
-    def write(self, data_dict):
+    def write(self, data):
         try:
             fifo = os.open(self.FIFO, os.O_WRONLY)
             # data =  os.read(pipeIn, BUFFSIZE)
-            os.write(fifo, data_dic + '\n')
+            os.write(fifo, data + '\n')
             fifo.close()
         except Exception as e:
             print str(e)
-
-    # Add id to the data
-    def __setId(self, string, id):
-        if(id is 0):
-            return "[0]" + string
-        if(id is 1):
-            return "[1]" + string
-        if(id is 2):
-            return "[2]" + string
-        if(id is 3):
-            return "[3]" + string
-        if(id is 4):
-            return "[4]" + string
-        if(id is 5):
-            return "[5]" + string
-        # If data is not recognized. return None
-        return None
 
 
     def __exact_Match(phrase, word):
@@ -68,7 +51,7 @@ class GenieInterface(object):
         data[2] = __filterHeading(raw)
         data[3] = __filterIns(raw)
         data[4] = __filterGpgga(raw)
-        data[5] = __filterGpgga(raw)
+        data[5] = ("[7]" + raw['gpgga'][7])
         return data
 
 #heading = 4
@@ -251,7 +234,9 @@ class GenieInterface(object):
             return mode
 
 
-#used to determine the status for GPGGA by reading a number out of the input string. the defenition for each number can be found in Novatel's manual
+# used to determine the status for GPGGA by reading a 
+# number out of the input string. the defenition for 
+# each number can be found in Novatel's manual.
     def __filterGPGGA(data):						
             try:
                     if (data['gpgga'][6]) is '0':
