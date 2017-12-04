@@ -198,9 +198,8 @@ void childGetData(int fd_child, int fd_parent ){
         if(file == NULL){
             file = fopen(myfifo, "r");
         } // if no file is opened yet. Open it.
+	sleep(1);
 
-	ret = checkFd(file);
-	if(ret == 1){
 		if(fgets(buf, BUFFSIZE, file) > 0){
 		    //  printf("%s \n", buf);
 		    n = write(fd_parent, &buf, sizeof(buf));
@@ -212,10 +211,6 @@ void childGetData(int fd_child, int fd_parent ){
 		    }
 		}
 		usleep(WAIT);
-	    } else {
-		sleep(1);
-		continue;
-	    }
     }
     unlink(myfifo);
 }
