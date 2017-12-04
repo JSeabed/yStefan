@@ -3,6 +3,11 @@ The GenieInterface is used to display ..... data on the 4D LCD display.
 
 LCD 4D systems control
 
+## Installation
+To install the genieInterface and webserver. Go to the directory with install.sh.
+run:
+> ./install.sh
+
 
 ## Genie Shell
 There is a small script function added for testing individual functions. The shell is commented in the genieInterface.c file. Uncomment the shell and use the command:
