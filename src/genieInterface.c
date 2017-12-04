@@ -213,6 +213,7 @@ void childGetData(int fd_child, int fd_parent ){
 		}
 		usleep(WAIT);
 	    } else {
+		usleep(500);
 		continue;
 	    }
     }
