@@ -219,6 +219,22 @@ void childGetData(int fd_child, int fd_parent ){
 }
 
 
+void getDisplayInput(){
+    	struct genieReplyStruct reply;
+	for(;;){
+        usleep(WAIT);
+        if(genieReplyAvail()) {
+            genieGetReply(&reply);
+            //handleEvent(&reply);
+    		if(reply->object == GENIE_OBJ_USERBUTTON) {
+			changeForm();
+		}
+            usleep(WAIT); // wait 20ms between polls to save CPU
+        } // handle input from display
+	}
+}
+
+
 int getID(char *str){
     char *strMask = "%*[^0123456789]%d";
     int id;
@@ -263,7 +279,6 @@ int main (int argc, char** argv) {
 
 #if GENIE
 
-    struct genieReplyStruct reply;
 
 #else
 
@@ -293,7 +308,7 @@ int main (int argc, char** argv) {
       }*/
     goToInfo(); // go to next form on display
 
-    int fd_child[2], fd_parent[2];
+    int fd_child[2], fd_parent[2], fd_display[2];
     int status, id, ret;
 
     struct data newData;
@@ -307,9 +322,12 @@ int main (int argc, char** argv) {
 
     pipe(fd_child);
     pipe(fd_parent);
+    pipe(fd_display);
 
-    pid_t child;
+    pid_t child, displayChild;
+
     child = fork();
+    displayChild = fork();
 
     if(child == (pid_t)-1){
         perror("Failed to create child\n");
@@ -326,18 +344,24 @@ int main (int argc, char** argv) {
         } // if something goes wrong, initalise new named pipe
     } // child enters here
 
+    if(!displayChild){
+	close(fd_display[0]);
+	getDisplayInput();
+    }
+
     close(fd_parent[1]);
     close(fd_child[0]);
 
-    usleep(20);
-
 
     for(;;) {
-        if(ret = checkFd(fd_parent[0])){
+	if(ret = checkFd(fd_display[0])){
+		getDisplayInput();	
+	} // child enters here
 
+
+        if(ret = checkFd(fd_parent[0])){
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
-
 #if DEBUG
 
             printf("\n parent: %s", readBuffer);
@@ -357,12 +381,6 @@ int main (int argc, char** argv) {
             usleep(WAIT);
         }
         //struct data Newdata; //TODO replace
-        usleep(WAIT);
-        if(genieReplyAvail()) {
-            genieGetReply(&reply);
-            handleEvent(&reply);
-            usleep(WAIT); // wait 20ms between polls to save CPU
-        } // handle input from display
 
     }
     return(0);
