@@ -226,7 +226,7 @@ void getDisplayInput(){
         if(genieReplyAvail()) {
             genieGetReply(&reply);
             //handleEvent(&reply);
-    		if(reply->object == GENIE_OBJ_USERBUTTON) {
+    		if(reply.object == GENIE_OBJ_USERBUTTON) {
 			changeForm();
 		}
             usleep(WAIT); // wait 20ms between polls to save CPU
