@@ -95,7 +95,7 @@ void handleEvent (struct genieReplyStruct *reply) {
 //TODO change namae
 /*Check and send data to display */
 void dataReady(struct data *newData){
-	printf("parent: check data\n");
+	printf("parent: check data: %s \n", newData->status);
 	usleep(20);
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
