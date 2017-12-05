@@ -172,7 +172,7 @@ void sentData(char* data, int id){
 #else
     //diablo code
 #endif
-    usleep(50);
+    usleep(250);
 }
 
 /*
