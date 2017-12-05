@@ -134,6 +134,7 @@ void clearScreen(){
       i = genieWriteStr(RTK_ID, "");
       i = genieWriteStr(HEADING_ID, "");
       i = genieWriteStr(SATALLITE_ID, "");
+      printf("Done");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
