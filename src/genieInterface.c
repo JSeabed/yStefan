@@ -128,12 +128,12 @@ void clearScreen(){
   #if GENIE
       int i = 0;
       printf("Clear screen\n");
-      i = genieWriteStr(IP_ID, "");
-      i = genieWriteStr(POSITION_ID, "");
-      i = genieWriteStr(STATUS_ID, "");
-      i = genieWriteStr(RTK_ID, "");
-      i = genieWriteStr(HEADING_ID, "");
-      i = genieWriteStr(SATALLITE_ID, "");
+      i = genieWriteStr(IP_ID, "...");
+      i = genieWriteStr(POSITION_ID, "...");
+      i = genieWriteStr(STATUS_ID, "...");
+      i = genieWriteStr(RTK_ID, "...");
+      i = genieWriteStr(HEADING_ID, "...");
+      i = genieWriteStr(SATALLITE_ID, "...");
       printf("Done");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
