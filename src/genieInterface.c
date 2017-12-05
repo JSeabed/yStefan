@@ -95,32 +95,33 @@ void handleEvent (struct genieReplyStruct *reply) {
 //TODO change namae
 /*Check and send data to display */
 void dataReady(struct data *newData){
-    usleep(20);
-    if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
-        if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
-            sentData(newData->ip, LABEL_IP_ID); // send data
+	printf("parent: check data\n");
+	usleep(20);
+	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
+		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
+			sentData(newData->ip, LABEL_IP_ID); // send data
 
-    if(strncmp(newData->status, ZERO, 1) != 0)
-        if(strcmp(newData->status, oldData.status) != 0)
-            sentData(newData->status, LABEL_STATUS_ID);
+	if(strncmp(newData->status, ZERO, 1) != 0)
+		if(strcmp(newData->status, oldData.status) != 0)
+			sentData(newData->status, LABEL_STATUS_ID);
 
-    if(strncmp(newData->position, ZERO, 1) != 0)
-        if(strcmp(newData->position, oldData.position) != 0)
-            sentData(newData->position, LABEL_POSITION_ID);
+	if(strncmp(newData->position, ZERO, 1) != 0)
+		if(strcmp(newData->position, oldData.position) != 0)
+			sentData(newData->position, LABEL_POSITION_ID);
 
-    if(strncmp(newData->heading, ZERO, 1) != 0)
-        if(strcmp(newData->heading, oldData.heading) != 0)
-            sentData(newData->heading, LABEL_HEADING_ID);
+	if(strncmp(newData->heading, ZERO, 1) != 0)
+		if(strcmp(newData->heading, oldData.heading) != 0)
+			sentData(newData->heading, LABEL_HEADING_ID);
 
-    if(strncmp(newData->rtk, ZERO, 1) != 0)
-        if(strcmp(newData->rtk, oldData.rtk) != 0)
-            sentData(newData->rtk, LABEL_RTK_ID);
+	if(strncmp(newData->rtk, ZERO, 1) != 0)
+		if(strcmp(newData->rtk, oldData.rtk) != 0)
+			sentData(newData->rtk, LABEL_RTK_ID);
 
-    if(strncmp(newData->satallite, ZERO, 1) != 0)
-        if(strcmp(newData->satallite, oldData.satallite) != 0)
-            sentData(newData->satallite, LABEL_SATALLITE_ID);
+	if(strncmp(newData->satallite, ZERO, 1) != 0)
+		if(strcmp(newData->satallite, oldData.satallite) != 0)
+			sentData(newData->satallite, LABEL_SATALLITE_ID);
 
-    oldData = *newData;
+	oldData = *newData;
 }
 
 
