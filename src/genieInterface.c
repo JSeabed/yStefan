@@ -223,6 +223,7 @@ void getDisplayInput(){
     	struct genieReplyStruct reply;
 	for(;;){
         usleep(WAIT);
+	printf("GET DISPLAY DATA\n");
         if(genieReplyAvail()) {
             genieGetReply(&reply);
             //handleEvent(&reply);
