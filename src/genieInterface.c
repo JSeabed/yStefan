@@ -127,6 +127,7 @@ void dataReady(struct data *newData){
 void clearScreen(){
   #if GENIE
       int i = 0;
+      printf("Clear screen\n");
       i = genieWriteStr(IP_ID, "");
       i = genieWriteStr(POSITION_ID, "");
       i = genieWriteStr(STATUS_ID, "");
