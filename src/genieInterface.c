@@ -333,12 +333,6 @@ int main (int argc, char** argv) {
     for(;;) {
         if(ret = checkFd(fd_parent[0])){
 
-#if DEBUG
-
-            printf("Data is available\n");
-
-#endif
-
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
 
@@ -350,6 +344,7 @@ int main (int argc, char** argv) {
 
             structManager(&newData, id, readBuffer);
             dataReady(&newData);
+    	    usleep(20);
         } else if(ret == -1){
             /* error */
             perror("Error - parent: ");

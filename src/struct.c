@@ -9,7 +9,7 @@ int removeGarbage(char *str){
     char tmpStr[STRUCTSIZE];
 
     pchr = strchr(str, '[');
-    printf("[ found on position %d\n", (int)(pchr - str + 1));
+    //printf("[ found on position %d\n", (int)(pchr - str + 1));
 
     
     if(pchr != NULL){
@@ -35,12 +35,15 @@ int addStruct(struct data *newData, int id, char *dataStr){
     // first remove id from string
     dataStr += 3;
 
-    if(removeGarbage(dataStr))
-        printf("removed garbage\n");
 
 
 #if DEBUG
     printf("Add to struct: %s\n", dataStr);
+
+    /*
+    if(removeGarbage(dataStr))
+        printf("removed garbage\n");
+	*/
 #endif
 
 
@@ -93,8 +96,8 @@ void clearStruct(struct data *newData){
 }
 
 
-void printStruct(struct data *newData){
 #if DEBUG
+void printStruct(struct data *newData){
     printf("STRUCTURE: \n");
     printf("ip: %s\n", newData->ip);
     printf("status: %s\n", newData->status);
@@ -102,14 +105,10 @@ void printStruct(struct data *newData){
     printf("heading: %s\n", newData->heading);
     printf("rtk: %s\n", newData->rtk);
     printf("satallite: %s\n", newData->satallite);
-#endif
 }
-
+#endif
 
 void structManager(struct data *newData, int id, char* data){
-#if DEBUG
-    printf("structManager\n");
-#endif
 
     addStruct(newData, id, data);
     printStruct(newData);
