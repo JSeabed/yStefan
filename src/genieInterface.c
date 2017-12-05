@@ -223,11 +223,11 @@ void getDisplayInput(){
     	struct genieReplyStruct reply;
 	for(;;){
         usleep(WAIT);
-	printf("GET DISPLAY DATA\n");
         if(genieReplyAvail()) {
             genieGetReply(&reply);
             //handleEvent(&reply);
     		if(reply.object == GENIE_OBJ_USERBUTTON) {
+			printf("GET DISPLAY DATA\n");
 			changeForm();
 		}
             usleep(WAIT); // wait 20ms between polls to save CPU
