@@ -126,8 +126,10 @@ void dataReady(struct data *newData){
 
 void clearScreen(){
   #if GENIE
+      printf("clear screen\n");
       int i = 0;
       genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+      printf("screen cleared\n");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
