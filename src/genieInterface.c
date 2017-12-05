@@ -308,7 +308,7 @@ int main (int argc, char** argv) {
       }*/
     goToInfo(); // go to next form on display
 
-    int fd_child[2], fd_parent[2], fd_display[2];
+    int fd_child[2], fd_parent[2];
     int status, id, ret;
 
     struct data newData;
@@ -345,7 +345,6 @@ int main (int argc, char** argv) {
     } // child enters here
 
     if(!displayChild){
-	close(fd_display[0]);
 	getDisplayInput();
     }
 
