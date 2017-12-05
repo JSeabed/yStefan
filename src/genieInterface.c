@@ -402,9 +402,7 @@ int checkFd(int fd_parent){
     FD_ZERO(&set);
     FD_SET(fd_parent, &set);
 
-printf("check parent select");
     int retval = select(FD_SETSIZE, &set, NULL, NULL, &tv);
-printf("checked\n");
     if(retval == -1){
         printf("error: select()\n");
         return -1;
