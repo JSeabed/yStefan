@@ -322,7 +322,6 @@ int main (int argc, char** argv) {
 
     pipe(fd_child);
     pipe(fd_parent);
-    pipe(fd_display);
 
     pid_t child, displayChild;
 
