@@ -352,11 +352,6 @@ int main (int argc, char** argv) {
 
 
     for(;;) {
-	if(ret = checkFd(fd_display[0])){
-		getDisplayInput();	
-	} // child enters here
-
-
         if(ret = checkFd(fd_parent[0])){
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
