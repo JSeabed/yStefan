@@ -127,7 +127,12 @@ void dataReady(struct data *newData){
 void clearScreen(){
   #if GENIE
       int i = 0;
-      i = genieWriteStr(IP_ID, ";;;");
+      i = genieWriteStr(IP_ID, "");
+      i = genieWriteStr(POSITION_ID, "");
+      i = genieWriteStr(STATUS_ID, "");
+      i = genieWriteStr(RTK_ID, "");
+      i = genieWriteStr(HEADING_ID, "");
+      i = genieWriteStr(SATALLITE_ID, "");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
@@ -274,7 +279,7 @@ int main (int argc, char** argv) {
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
-
+	clearScreen();
 #else
     // diablo init code
     rc = OpenComm(PORT, BAUDRATE);
