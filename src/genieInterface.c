@@ -96,7 +96,6 @@ void handleEvent (struct genieReplyStruct *reply) {
 /*Check and send data to display */
 void dataReady(struct data *newData){
 	printf("parent: check data: %s \n", newData->status);
-	usleep(20);
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
 			sentData(newData->ip, LABEL_IP_ID); // send data
@@ -172,7 +171,7 @@ void sentData(char* data, int id){
 #else
     //diablo code
 #endif
-    usleep(250);
+    sleep(1);
 }
 
 /*
