@@ -129,10 +129,15 @@ void clearScreen(){
       int i = 0;
       printf("Clear screen\n");
       i = genieWriteStr(IP_ID, "...");
+      usleep(20);
       i = genieWriteStr(POSITION_ID, "...");
+      usleep(20);
       i = genieWriteStr(STATUS_ID, "...");
+      usleep(20);
       i = genieWriteStr(RTK_ID, "...");
+      usleep(20);
       i = genieWriteStr(HEADING_ID, "...");
+      usleep(20);
       i = genieWriteStr(SATALLITE_ID, "...");
       printf("Done");
   #endif
