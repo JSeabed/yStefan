@@ -97,39 +97,27 @@ void handleEvent (struct genieReplyStruct *reply) {
 void dataReady(struct data *newData){
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
-printf("check ip");
 			sentData(newData->ip, LABEL_IP_ID); // send data
-		printf("checked\n");
 
 	if(strncmp(newData->status, ZERO, 1) != 0)
 		if(strcmp(newData->status, oldData.status) != 0)
-printf("check status");
 			sentData(newData->status, LABEL_STATUS_ID);
-		printf("checked\n");
 
 	if(strncmp(newData->position, ZERO, 1) != 0)
 		if(strcmp(newData->position, oldData.position) != 0)
-printf("check position");
 			sentData(newData->position, LABEL_POSITION_ID);
-		printf("checked\n");
 
 	if(strncmp(newData->heading, ZERO, 1) != 0)
 		if(strcmp(newData->heading, oldData.heading) != 0)
-printf("check heading");
 			sentData(newData->heading, LABEL_HEADING_ID);
-		printf("checked\n");
 
 	if(strncmp(newData->rtk, ZERO, 1) != 0)
 		if(strcmp(newData->rtk, oldData.rtk) != 0)
-		printf("check rtk");	
 			sentData(newData->rtk, LABEL_RTK_ID);
-		printf("checked\n");
 
 	if(strncmp(newData->satallite, ZERO, 1) != 0)
 		if(strcmp(newData->satallite, oldData.satallite) != 0)
-printf("check satallite");
 			sentData(newData->satallite, LABEL_SATALLITE_ID);
-		printf("checked\n");
 
 	oldData = *newData;
 }
@@ -376,7 +364,9 @@ printf("check parent read");
 #endif
 
             structManager(&newData, id, readBuffer);
+printf("check dataReady");
             dataReady(&newData);
+	printf("checked\n");
     	    usleep(20);
         } else if(ret == -1){
             /* error */
