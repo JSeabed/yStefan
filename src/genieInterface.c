@@ -324,7 +324,6 @@ int main (int argc, char** argv) {
     pid_t child, displayChild;
 
     child = fork();
-    displayChild = fork();
 
     if(child == (pid_t)-1){
         perror("Failed to create child\n");
@@ -341,6 +340,9 @@ int main (int argc, char** argv) {
             childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
     } // child enters here
+
+
+    displayChild = fork();
 
     if(!displayChild){
       printf("display here! \n");
