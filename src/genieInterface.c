@@ -36,6 +36,7 @@
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
 #define TIMEOUT 500
+#define INTERFALL 3 // seconds
 #define WAIT 25
 
 /*#define checksum(x) (x ^= x)*/
@@ -95,46 +96,37 @@ void handleEvent (struct genieReplyStruct *reply) {
 //TODO change namae
 /*Check and send data to display */
 void dataReady(struct data *newData){
-	printf("0 ");
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
 			sentData(newData->ip, LABEL_IP_ID); // send data
-	printf("1 ");
 	if(strncmp(newData->status, ZERO, 1) != 0)
 		if(strcmp(newData->status, oldData.status) != 0)
 			sentData(newData->status, LABEL_STATUS_ID);
 
-	printf("2 ");
 	if(strncmp(newData->position, ZERO, 1) != 0)
 		if(strcmp(newData->position, oldData.position) != 0)
 			sentData(newData->position, LABEL_POSITION_ID);
 
-	printf("3 ");
 	if(strncmp(newData->heading, ZERO, 1) != 0)
 		if(strcmp(newData->heading, oldData.heading) != 0)
 			sentData(newData->heading, LABEL_HEADING_ID);
 
-	printf("4 ");
 	if(strncmp(newData->rtk, ZERO, 1) != 0)
 		if(strcmp(newData->rtk, oldData.rtk) != 0)
 			sentData(newData->rtk, LABEL_RTK_ID);
 
-	printf("5 ");
 	if(strncmp(newData->satallite, ZERO, 1) != 0)
 		if(strcmp(newData->satallite, oldData.satallite) != 0)
 			sentData(newData->satallite, LABEL_SATALLITE_ID);
 
-	printf("6\n ");
 	oldData = *newData;
 }
 
 
 void clearScreen(){
   #if GENIE
-      printf("clear screen\n");
       int i = 0;
       genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
-      printf("screen cleared\n");
   #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
@@ -178,7 +170,7 @@ printf("checked\n");
 #else
     //diablo code
 #endif
-    sleep(2);
+    sleep(INTERFALL);
 }
 
 /*
@@ -207,7 +199,7 @@ void childGetData(int fd_child, int fd_parent ){
         if(file == NULL){
             file = fopen(myfifo, "r");
         } // if no file is opened yet. Open it.
-	sleep(1);
+	sleep(INTERFALL);
 
 		if(fgets(buf, BUFFSIZE, file) > 0){
 		    //  printf("%s \n", buf);
