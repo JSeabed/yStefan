@@ -178,7 +178,7 @@ printf("checked\n");
 #else
     //diablo code
 #endif
-    sleep(1);
+    sleep(2);
 }
 
 /*
