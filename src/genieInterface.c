@@ -333,7 +333,7 @@ int main (int argc, char** argv) {
 
 
     if(!child){
-      printf("Child here! "\n);
+      printf("Child here! \n");
         close(fd_child[1]);
         close(fd_parent[0]);
 
@@ -343,7 +343,7 @@ int main (int argc, char** argv) {
     } // child enters here
 
     if(!displayChild){
-      printf("display here! "\n);
+      printf("display here! \n");
 	getDisplayInput();
     }
 
