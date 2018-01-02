@@ -217,6 +217,9 @@ void childGetData(int fd_child, int fd_parent ){
 }
 
 
+/* Wait for input from the display.
+   Change form if button is pressed.
+*/
 void getDisplayInput(){
     	struct genieReplyStruct reply;
 	for(;;){
@@ -228,11 +231,12 @@ void getDisplayInput(){
 			changeForm();
 		}
             usleep(WAIT); // wait 20ms between polls to save CPU
-        } // handle input from display
+            } // handle input from display
 	}
 }
 
 
+/* Subtract and return ID from string */
 int getID(char *str){
     char *strMask = "%*[^0123456789]%d";
     int id;
@@ -355,20 +359,19 @@ int main (int argc, char** argv) {
 
     for(;;) {
         if(ret = checkFd(fd_parent[0])){
-printf("check parent read");
+            printf("check parent read");
             read(fd_parent[0], &readBuffer, BUFFSIZE);
-	printf("checked\n");
+	    printf("checked\n");
             id = getID(readBuffer);
 #if DEBUG
 
             printf("\n parent: %s", readBuffer);
 
 #endif
-
             structManager(&newData, id, readBuffer);
-printf("check dataReady");
+            printf("check dataReady");
             dataReady(&newData);
-	printf("checked\n");
+	    printf("checked\n");
     	    usleep(20);
         } else if(ret == -1){
             /* error */
