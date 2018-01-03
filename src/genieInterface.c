@@ -1,3 +1,15 @@
+
+/* 
+ * Seabed 2017-2018 - Stefan van Delft and Jeroen Komen.
+ * This file manages the communication between the diablo display 
+ * and the python scripts/webserver. Two child processes are created to
+ * manage the data input from the python scripts and the data input from the
+ * diablo display. Data is stored in a structure and is then sent to the display 
+ * and added to old structure. When new data arrives, it is compared to the old data.
+ * Only data which is different from the old data is sent to the display to reduce
+ * data transfer.
+*/
+
 #include "../include/struct.h"
 #include "../include/shell.h"
 #include <fcntl.h>
@@ -42,7 +54,6 @@
 /*#define checksum(x) (x ^= x)*/
 
 #define ZERO "0"
-
 
 #define MAIN_SCREEN 0
 #define INFO_SCREEN 1
@@ -162,6 +173,7 @@ int changeForm(){
 }
 
 
+/* Sent data to label with id on display*/
 void sentData(char* data, int id){
 #if GENIE
 printf("check sendData");
@@ -271,6 +283,7 @@ void errorExit(char* error){
 }
 
 
+/* */
 int main (int argc, char** argv) {
 
 #if DEBUG
