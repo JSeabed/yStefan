@@ -285,14 +285,13 @@ void errorExit(char* error){
 
 /* */
 int main (int argc, char** argv) {
-
+    printf("Ik kom hier nog 0");
 #if DEBUG
 
   // printf("Debug mode on\n");
 
 #endif
 
-    printf("Ik kom hier nog 0");
 #if GENIE
 
 
