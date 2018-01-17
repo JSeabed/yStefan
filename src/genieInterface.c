@@ -39,8 +39,8 @@
 #endif
 
 #define PORT "/dev/ttyAMA0"
-//#define BAUDRATE 9600
-#define BAUDRATE 115200
+#define BAUDRATE 9600
+//#define BAUDRATE 115200
 
 #define INIT_FORM 0
 #define INFO_FORM 1
@@ -148,7 +148,8 @@ void clearScreen(){
 #if DEBUG
 /*Change init form to info form on display */
 void goToInfo(){
-    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    printf("goToInfo\n");
+    //genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
     printf("Function: goToInfo\n");
 }
 #endif
@@ -290,6 +291,8 @@ void errorExit(char* error){
 
 /* */
 int main (int argc, char** argv) {
+    int status, id, ret; 
+    struct data newData;
     char readBuffer[BUFFSIZE];
     char writeBuffer[BUFFSIZE];
     int fd_child[2], fd_parent[2];
@@ -315,7 +318,7 @@ int main (int argc, char** argv) {
 
 	sleep(10);
         for(;;){
-            // childGetData(fd_child[0], fd_parent[1]);
+             childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
     } // child enters here
 
@@ -325,8 +328,7 @@ int main (int argc, char** argv) {
     if(!displayChild){
       printf("display here! \n");
 	sleep(10);
-	for(;;);
-	//getDisplayInput();
+	getDisplayInput();
     }
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
@@ -355,25 +357,16 @@ int main (int argc, char** argv) {
     digitalWrite (12, HIGH) ; delay (500) ;
     digitalWrite (13, HIGH) ; delay (500) ;
 
-
-    printf("Ik kom hier nog 2\n");
-
-    int status, id, ret;
-
-    struct data newData;
+    printf("----Ik kom hier nog 2-----\n");
 
     initStruct(&newData);
     clearStruct(&newData);
     clearStruct(&oldData);
 
-
-	clearScreen();
-
-
     close(fd_parent[1]);
     close(fd_child[0]);
 
-
+    goToInfo();
     //goToInfo(); // go to next form on display
     for(;;) {
 	printf("Kom ik hier?\n");
