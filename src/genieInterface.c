@@ -13,6 +13,7 @@
 #include "../include/struct.h"
 #include "../include/shell.h"
 #include <fcntl.h>
+#include <wiringPi.h>
 #include <sys/stat.h>
 //#include <stdlib.h>
 #include <sys/types.h> // pid
@@ -54,9 +55,6 @@
 /*#define checksum(x) (x ^= x)*/
 
 #define ZERO "0"
-
-#define MAIN_SCREEN 0
-#define INFO_SCREEN 1
 
 #define toggle(x) (x = !x)
 #define isIdentical(a, b) (a == b)
@@ -146,12 +144,15 @@ void clearScreen(){
   genieWriteStr(SATALLITE_ID, "...");*/
 }
 
+
+#if DEBUG
 /*Change init form to info form on display */
 void goToInfo(){
-  #if DEBUG
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
-    #endif
+    printf("Function: goToInfo\n");
 }
+#endif
+
 
 /*Change display screen*/
 int changeForm(){
@@ -289,61 +290,10 @@ void errorExit(char* error){
 
 /* */
 int main (int argc, char** argv) {
-    printf("Ik kom hier nog 0");
-#if DEBUG
-
-  // printf("Debug mode on\n");
-
-#endif
-
-#if GENIE
-
-
-#else
-
-    int rc;
-
-#endif
-
-#if GENIE
-
-    printf("Ik kom hier nog 1");
-    if(genieSetup(PORT ,BAUDRATE)<0) {
-        printf("ViSi-Genie Failed to init display!\r\n");
-        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
-    }
-#endif
-/*
-#else
-    // diablo init code
-    rc = OpenComm(PORT, BAUDRATE);
-    if(rc != 0){
-        printf("Failed to init display\n");
-        exit(EXIT_FAILURE);
-    }
-#endif
-*/
-    // shell: use for testing
-    /*const char* c = (const char* )argv[1];
-      if((strcmp(c, "-s")) == 0 ){
-      shell();
-      exit(0);
-      }*/
-    printf("Ik kom hier nog 2");
-    goToInfo(); // go to next form on display
-
-    int fd_child[2], fd_parent[2];
-    int status, id, ret;
-
-    struct data newData;
-
-    printf("Ik kom hier nog 1");
-    initStruct(&newData);
-    clearStruct(&newData);
-    clearStruct(&oldData);
-
     char readBuffer[BUFFSIZE];
     char writeBuffer[BUFFSIZE];
+    int fd_child[2], fd_parent[2];
+    int rc;
 
     pipe(fd_child);
     pipe(fd_parent);
@@ -363,8 +313,9 @@ int main (int argc, char** argv) {
         close(fd_child[1]);
         close(fd_parent[0]);
 
+	sleep(10);
         for(;;){
-            childGetData(fd_child[0], fd_parent[1]);
+            // childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
     } // child enters here
 
@@ -373,14 +324,59 @@ int main (int argc, char** argv) {
 
     if(!displayChild){
       printf("display here! \n");
-	getDisplayInput();
+	sleep(10);
+	for(;;);
+	//getDisplayInput();
     }
+
+    if(genieSetup(PORT ,BAUDRATE)<0) {
+        printf("ViSi-Genie Failed to init display!\r\n");
+        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+    }
+/*
+#else
+    // diablo init code
+    rc = OpenComm(PORT, BAUDRATE);
+    if(rc != 0){
+        printf("Failed to init display\n");
+        exit(EXIT_FAILURE);
+    }
+#endif
+*/
+    // shell: use for testing
+    /*const char* c = (const char* )argv[1];
+      if((strcmp(c, "-s")) == 0 ){
+      shell();
+      exit(0);
+      }*/
+  wiringPiSetup () ;
+  pinMode (12, OUTPUT) ;
+  pinMode (13, OUTPUT) ;
+    digitalWrite (12, HIGH) ; delay (500) ;
+    digitalWrite (13, HIGH) ; delay (500) ;
+
+
+    printf("Ik kom hier nog 2\n");
+
+    int status, id, ret;
+
+    struct data newData;
+
+    initStruct(&newData);
+    clearStruct(&newData);
+    clearStruct(&oldData);
+
+
+	clearScreen();
+
 
     close(fd_parent[1]);
     close(fd_child[0]);
 
 
+    //goToInfo(); // go to next form on display
     for(;;) {
+	printf("Kom ik hier?\n");
         if(ret = checkFd(fd_parent[0])){
             printf("check parent read");
             read(fd_parent[0], &readBuffer, BUFFSIZE);
