@@ -1,6 +1,8 @@
 import os
 import RPi.GPIO as GPIO
 
+from werserver.seabed-server.web.services.dataManager import dataManager
+
 # Create fifo to communicate with genieInterface.c
 # Filter data
 class GenieInterface(object):
@@ -41,6 +43,8 @@ class GenieInterface(object):
         b = r'(\s|^|$)'
         res = re.match(b + word + b, phrase, flags=re.IGNORECASE)
         return bool(res)
+
+
 
     # Use this command to get data
     def getData():
@@ -265,3 +269,6 @@ class GenieInterface(object):
             except Exception, e:
                     print (str(e))
             return None
+
+
+

@@ -303,6 +303,7 @@ int main (int argc, char** argv) {
 
 #if GENIE
 
+    printf("Ik kom hier nog 1");
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
@@ -321,6 +322,7 @@ int main (int argc, char** argv) {
       shell();
       exit(0);
       }*/
+    printf("Ik kom hier nog 2");
     goToInfo(); // go to next form on display
 
     int fd_child[2], fd_parent[2];
@@ -328,6 +330,7 @@ int main (int argc, char** argv) {
 
     struct data newData;
 
+    printf("Ik kom hier nog 1");
     initStruct(&newData);
     clearStruct(&newData);
     clearStruct(&oldData);
