@@ -312,6 +312,8 @@ int main (int argc, char** argv) {
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
+#endif
+/*
 #else
     // diablo init code
     rc = OpenComm(PORT, BAUDRATE);
@@ -320,6 +322,7 @@ int main (int argc, char** argv) {
         exit(EXIT_FAILURE);
     }
 #endif
+*/
     // shell: use for testing
     /*const char* c = (const char* )argv[1];
       if((strcmp(c, "-s")) == 0 ){
