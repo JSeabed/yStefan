@@ -288,7 +288,7 @@ int main (int argc, char** argv) {
 
 #if DEBUG
 
-    printf("Debug mode on\n");
+  // printf("Debug mode on\n");
     printf("Ik kom hier nog 0");
 
 #endif
