@@ -148,7 +148,9 @@ void clearScreen(){
 
 /*Change init form to info form on display */
 void goToInfo(){
+  #if DEBUG
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    #endif
 }
 
 /*Change display screen*/
@@ -233,6 +235,7 @@ void childGetData(int fd_child, int fd_parent ){
    Change form if button is pressed.
 */
 void getDisplayInput(){
+#if DEBUG
     	struct genieReplyStruct reply;
 	for(;;){
         if(genieReplyAvail()) {
@@ -245,6 +248,7 @@ void getDisplayInput(){
             usleep(WAIT); // wait 20ms between polls to save CPU
             } // handle input from display
 	}
+#endif
 }
 
 
