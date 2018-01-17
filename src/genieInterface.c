@@ -330,7 +330,7 @@ int main (int argc, char** argv) {
       exit(0);
       }*/
     printf("Ik kom hier nog 2");
-goToInfo(); // go to next form on display
+    goToInfo(); // go to next form on display
 
     int fd_child[2], fd_parent[2];
     int status, id, ret;
