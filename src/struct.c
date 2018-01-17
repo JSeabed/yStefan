@@ -96,8 +96,8 @@ void clearStruct(struct data *newData){
 }
 
 
-#if DEBUG
 void printStruct(struct data *newData){
+#if DEBUG
     printf("STRUCTURE: \n");
     printf("ip: %s\n", newData->ip);
     printf("status: %s\n", newData->status);
@@ -105,8 +105,8 @@ void printStruct(struct data *newData){
     printf("heading: %s\n", newData->heading);
     printf("rtk: %s\n", newData->rtk);
     printf("satallite: %s\n", newData->satallite);
-}
 #endif
+}
 
 void structManager(struct data *newData, int id, char* data){
 
