@@ -243,7 +243,9 @@ void getDisplayInput(){
 	    sleep(1);
 	    printf("displayinput()\n");
 	    data_ready = genieReplyAvail();
+            genieGetReply(&reply);
 	    printf("input = %d \n", data_ready);
+	    printf("reply =  = %d \n", reply.object);
         if(data_ready) {
 	    printf("GET DISPLAY DATA\n");
             genieGetReply(&reply);
@@ -355,9 +357,9 @@ int main (int argc, char** argv) {
       shell();
       exit(0);
       }*/
-  wiringPiSetup () ;
-  pinMode (12, OUTPUT) ;
-  pinMode (13, OUTPUT) ;
+    wiringPiSetup () ;
+    pinMode (12, OUTPUT) ;
+    pinMode (13, OUTPUT) ;
     digitalWrite (12, HIGH) ; delay (500) ;
     digitalWrite (13, HIGH) ; delay (500) ;
 
