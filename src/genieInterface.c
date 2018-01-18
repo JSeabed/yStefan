@@ -341,7 +341,7 @@ int main (int argc, char** argv) {
 	    while (genieReplyAvail ())
 	    {
 	    genieGetReply    (&reply) ;
-	    handleEvent (reply.object) ;
+	    handleEvent      (&reply) ;
 	    }
 	    usleep (10000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
