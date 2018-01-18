@@ -150,7 +150,7 @@ void clearScreen(){
 /*Change init form to info form on display */
 void goToInfo(){
     printf("goToInfo\n");
-    //genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
     printf("Function: goToInfo\n");
 }
 #endif
