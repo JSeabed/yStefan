@@ -340,7 +340,7 @@ int main (int argc, char** argv) {
     //if(!displayChild){
       printf("display here! \n");
 	sleep(5);
-	genieWriteContrast(255); // turn the display backlight on again
+	genieWriteContrast(10); // turn the display backlight on again
 	//getDisplayInput(reply);
 	for (;;)
 	{
