@@ -1,4 +1,3 @@
-
 /* 
  * Seabed 2017-2018 - Stefan van Delft and Jeroen Komen.
  * This file manages the communication between the diablo display 
@@ -149,7 +148,6 @@ void clearScreen(){
 #if DEBUG
 /*Change init form to info form on display */
 void goToInfo(){
-    printf("goToInfo\n");
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
     printf("Function: goToInfo\n");
 }
@@ -240,10 +238,13 @@ void childGetData(int fd_child, int fd_parent ){
 void getDisplayInput(){
 #if DEBUG
     	struct genieReplyStruct reply;
+	int data_ready = 0;
 	for(;;){
-	sleep(1);
-	printf("displayinput()\n");
-        if(genieReplyAvail()) {
+	    sleep(1);
+	    printf("displayinput()\n");
+	    data_ready = genieReplyAvail();
+	    printf("input = %d \n", data_ready);
+        if(data_ready) {
 	    printf("GET DISPLAY DATA\n");
             genieGetReply(&reply);
             //handleEvent(&reply);
