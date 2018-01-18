@@ -237,12 +237,12 @@ void childGetData(int fd_child, int fd_parent ){
 */
 void getDisplayInput(){
 #if DEBUG
-    	struct genieReplyStruct reply;
 	int data_ready = 0;
 	for(;;){
 	    sleep(1);
 	    printf("displayinput()\n");
 	    data_ready = genieReplyAvail();
+	    fd = genieReplyAvail();
             genieGetReply(&reply);
 	    printf("input = %d \n", data_ready);
 	    printf("reply =  = %d \n", reply.object);
@@ -298,9 +298,14 @@ void errorExit(char* error){
 /* */
 int main (int argc, char** argv) {
     int status, id, ret; 
+
+    pthread_t myThread ;
+    struct genieReplyStruct reply;
     struct data newData;
+
     char readBuffer[BUFFSIZE];
     char writeBuffer[BUFFSIZE];
+
     int fd_child[2], fd_parent[2];
     int rc;
 
@@ -334,7 +339,7 @@ int main (int argc, char** argv) {
     if(!displayChild){
       printf("display here! \n");
 	sleep(10);
-	getDisplayInput();
+	getDisplayInput(reply);
     }
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
