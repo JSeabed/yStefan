@@ -297,12 +297,18 @@ int main (int argc, char** argv) {
 
     pthread_t myThread ;
     struct data newData;
+    struct genieReplyStruct reply;
 
     char readBuffer[BUFFSIZE];
     char writeBuffer[BUFFSIZE];
 
     int fd_child[2], fd_parent[2];
     int rc;
+
+    if(genieSetup(PORT ,BAUDRATE)<0) {
+        printf("ViSi-Genie Failed to init display!\r\n");
+        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+    }
 
     pipe(fd_child);
     pipe(fd_parent);
@@ -334,7 +340,6 @@ int main (int argc, char** argv) {
     if(!displayChild){
       printf("display here! \n");
 	sleep(5);
-	struct genieReplyStruct reply;
 	//getDisplayInput(reply);
 	for (;;)
 	{
@@ -347,10 +352,6 @@ int main (int argc, char** argv) {
 	}
     }
 
-    if(genieSetup(PORT ,BAUDRATE)<0) {
-        printf("ViSi-Genie Failed to init display!\r\n");
-        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
-    }
 /*
 #else
     // diablo init code
