@@ -335,9 +335,9 @@ int main (int argc, char** argv) {
     } // child enters here
 
 
-    displayChild = fork();
+    //    displayChild = fork();
 
-    if(!displayChild){
+    //if(!displayChild){
       printf("display here! \n");
 	sleep(5);
 	//getDisplayInput(reply);
@@ -348,9 +348,9 @@ int main (int argc, char** argv) {
 	    genieGetReply    (&reply) ;
 	    handleEvent      (&reply) ;
 	    }
-	    usleep (10000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
-    }
+	//}
 
 /*
 #else
