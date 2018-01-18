@@ -12,6 +12,14 @@
 #define GENIE_OBJ_USERBUTTON 33
 #define GENIE_OBJ_4DBUTTON 30
 
+
+void goToInfo(){
+    printf("goToInfo\n");
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    printf("Function: goToInfo\n");
+}
+
+
 int main(int argc, char** argv){
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
@@ -19,14 +27,7 @@ int main(int argc, char** argv){
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
 
-
-    
     goToInfo();
 }
 
 
-void goToInfo(){
-    printf("goToInfo\n");
-    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
-    printf("Function: goToInfo\n");
-}

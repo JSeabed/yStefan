@@ -22,6 +22,7 @@ void goToInfo(){
 
 int main(int argc, char** argv){
 
+    struct genieReplyStruct reply;
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
