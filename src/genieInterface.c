@@ -338,7 +338,6 @@ int main (int argc, char** argv) {
     //    displayChild = fork();
 
     //if(!displayChild){
-	sleep(1);
 	genieWriteContrast(0); // turn the display backlight on again
 	sleep(1);
 	genieWriteContrast(1); // turn the display backlight on again
