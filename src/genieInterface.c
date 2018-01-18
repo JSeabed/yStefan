@@ -339,8 +339,10 @@ int main (int argc, char** argv) {
 
     //if(!displayChild){
       printf("display here! \n");
-	sleep(5);
-	genieWriteContrast(10); // turn the display backlight on again
+	sleep(2);
+	genieWriteContrast(0); // turn the display backlight on again
+	sleep(2);
+	genieWriteContrast(1); // turn the display backlight on again
 	//getDisplayInput(reply);
 	for (;;)
 	{
