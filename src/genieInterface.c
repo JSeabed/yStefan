@@ -235,17 +235,15 @@ void childGetData(int fd_child, int fd_parent ){
 /* Wait for input from the display.
    Change form if button is pressed.
 */
-void getDisplayInput(){
+void getDisplayInput(struct genieReplyStruct reply){
 #if DEBUG
 	int data_ready = 0;
 	for(;;){
 	    sleep(1);
+
 	    printf("displayinput()\n");
 	    data_ready = genieReplyAvail();
-	    fd = genieReplyAvail();
-            genieGetReply(&reply);
 	    printf("input = %d \n", data_ready);
-	    printf("reply =  = %d \n", reply.object);
         if(data_ready) {
 	    printf("GET DISPLAY DATA\n");
             genieGetReply(&reply);
