@@ -8,6 +8,15 @@ To install the genieInterface and webserver. Go to the directory with install.sh
 run:
 > ./install.sh
 
+### Disable and edit files
+To enable serial communication remove in /boot/cmd.... TODO: complete this.
+
+Make sure serial console is disabled. Also known as 'Agetty'.
+
+To check if the ttyAMA0 is in use, type the following command.
+> lsof | grep AMA
+
+This command should be enough. If nothing is shown, the serial port is not being used by a process.
 
 ## Genie Shell
 There is a small script function added for testing individual functions. The shell is commented in the genieInterface.c file. Uncomment the shell and use the command:
