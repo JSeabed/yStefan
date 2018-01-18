@@ -39,8 +39,8 @@
 #endif
 
 #define PORT "/dev/ttyAMA0"
-#define BAUDRATE 9600
-//#define BAUDRATE 115200
+//#define BAUDRATE 9600
+#define BAUDRATE 115200
 
 #define INIT_FORM 0
 #define INFO_FORM 1
@@ -79,6 +79,7 @@ void structManager(struct data *newData, int id, char* data);
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
 
+printf("HandleEvent()\n");
 
     if(reply->object == GENIE_OBJ_USERBUTTON) {
         switch (reply->index) {
@@ -240,6 +241,8 @@ void getDisplayInput(){
 #if DEBUG
     	struct genieReplyStruct reply;
 	for(;;){
+	sleep(1);
+	printf("displayinput()\n");
         if(genieReplyAvail()) {
 	    printf("GET DISPLAY DATA\n");
             genieGetReply(&reply);
