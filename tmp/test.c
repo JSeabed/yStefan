@@ -1,0 +1,29 @@
+#include <geniePi.h>
+#define BAUDRATE 115200
+
+
+#define INFO_FORM 1
+
+
+#define GENIE_OBJ_FORM 10
+#define GENIE_OBJ_USERBUTTON 33
+#define GENIE_OBJ_4DBUTTON 30
+
+int main(){
+
+    if(genieSetup(PORT ,BAUDRATE)<0) {
+        printf("ViSi-Genie Failed to init display!\r\n");
+        return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
+    }
+
+
+    
+    goToInfo();
+}
+o
+
+void goToInfo(){
+    printf("goToInfo\n");
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    printf("Function: goToInfo\n");
+}
