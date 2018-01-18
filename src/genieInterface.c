@@ -77,9 +77,7 @@ void structManager(struct data *newData, int id, char* data);
 
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
-
-printf("HandleEvent()\n");
-
+    printf("HandleEvent()\n");
     if(reply->object == GENIE_OBJ_USERBUTTON) {
         switch (reply->index) {
             case 0:
@@ -343,8 +341,7 @@ int main (int argc, char** argv) {
 	    while (genieReplyAvail ())
 	    {
 	    genieGetReply    (&reply) ;
-	    handleGenieEvent (&reply) ;
-	    printf("Woohooo! Found something!\n");
+	    handleEvent (reply.object) ;
 	    }
 	    usleep (10000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
