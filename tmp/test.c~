@@ -2,9 +2,13 @@
 #define BAUDRATE 115200
 
 
+#define PORT "/dev/ttyAMA0"
 #define INFO_FORM 1
 
 
+#define GENIE_OBJ_FORM 10
+#define GENIE_OBJ_USERBUTTON 33
+#define GENIE_OBJ_4DBUTTON 30
 
 int main(){
 

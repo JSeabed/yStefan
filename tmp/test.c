@@ -1,7 +1,10 @@
 #include <geniePi.h>
+#include <stdio.h>
+
 #define BAUDRATE 115200
 
 
+#define PORT "/dev/ttyAMA0"
 #define INFO_FORM 1
 
 
