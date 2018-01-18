@@ -12,7 +12,7 @@
 #define GENIE_OBJ_USERBUTTON 33
 #define GENIE_OBJ_4DBUTTON 30
 
-int main(){
+int main(int argc, char** argv){
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
         printf("ViSi-Genie Failed to init display!\r\n");
@@ -23,7 +23,7 @@ int main(){
     
     goToInfo();
 }
-o
+
 
 void goToInfo(){
     printf("goToInfo\n");

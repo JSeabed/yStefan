@@ -1,4 +1,6 @@
 #include <geniePi.h>
+#include <stdio.h>
+
 #define BAUDRATE 115200
 
 
