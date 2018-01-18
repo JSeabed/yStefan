@@ -298,7 +298,6 @@ int main (int argc, char** argv) {
     int status, id, ret; 
 
     pthread_t myThread ;
-    struct genieReplyStruct reply;
     struct data newData;
 
     char readBuffer[BUFFSIZE];
@@ -336,8 +335,19 @@ int main (int argc, char** argv) {
 
     if(!displayChild){
       printf("display here! \n");
-	sleep(10);
-	getDisplayInput(reply);
+	sleep(5);
+	struct genieReplyStruct reply;
+	//getDisplayInput(reply);
+	for (;;)
+	{
+	    while (genieReplyAvail ())
+	    {
+	    genieGetReply    (&reply) ;
+	    handleGenieEvent (&reply) ;
+	    printf("Woohooo! Found something!\n");
+	    }
+	    usleep (10000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	}
     }
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
