@@ -340,7 +340,6 @@ int main (int argc, char** argv) {
     if(!displayChild){
     //genieWriteContrast(0); // turn the display backlight on again
     //sleep(1);
-	genieWriteContrast(15); // turn the display backlight on again
 	printf("display here! \n");
 	//getDisplayInput(reply);
 	for (;;)
@@ -385,6 +384,7 @@ int main (int argc, char** argv) {
     close(fd_parent[1]);
     close(fd_child[0]);
 
+    genieWriteContrast(15); // turn the display backlight on again
     goToInfo();
     //goToInfo(); // go to next form on display
     for(;;) {
