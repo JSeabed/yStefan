@@ -387,9 +387,7 @@ int main (int argc, char** argv) {
     //genieWriteContrast(15); // turn the display backlight on again
     goToInfo(); // go to next form on display
     for(;;) {
-	ret = checkFd(fd_parent[0]);
-	  printf("ret = %d\n", ret);
-        if(ret){
+        if(checkFd(fd_parent[0])){
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
 #if DEBUG
