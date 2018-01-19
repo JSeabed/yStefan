@@ -329,7 +329,7 @@ int main (int argc, char** argv) {
         close(fd_child[1]);
         close(fd_parent[0]);
 
-	sleep(10);
+	sleep(5);
         for(;;){
              childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
@@ -350,7 +350,7 @@ int main (int argc, char** argv) {
 	    genieGetReply    (&reply) ;
 	    handleEvent      (&reply) ;
 	    }
-	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
 	}
     printf("----Ik kom hier nog 2-----\n");
