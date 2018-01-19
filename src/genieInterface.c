@@ -402,7 +402,7 @@ int main (int argc, char** argv) {
     //goToInfo(); // go to next form on display
     for(;;) {
 	printf("Kom ik hier?\n");
-	ret = checkFd(fd_parent[0])
+	ret = checkFd(fd_parent[0]);
 	  printf("ret = %d\n", ret);
         if(ret){
             printf("check parent read");
