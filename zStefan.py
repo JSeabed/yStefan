@@ -453,8 +453,8 @@ while True:				#while loop to make the program run indefinitally
 	#port = getNRCPort()
 	#if(isConnected(port) is False):
         while(port == None):
-                print 'lkhiterajxckyvlk'
                 port = getNRCPort()
+                print "port is: " + port
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)
