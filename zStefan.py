@@ -19,9 +19,12 @@ import log
 import errno
 import select
 from collections import namedtuple
+BAUD = 9600
+
 
 logger = log.setup_custom_logger('dataManager')
 
+#from connectSerial import trySerial
 from connectSerial import getNRCPort
 
 #Used for debugging.
@@ -51,16 +54,17 @@ def fifoPort(pipeIn):
 	        raise
 
         fifo = os.open(FIFO, os.O_WRONLY)
+        os.write(fifo, "[0]192.167.15.1" + '\n')
         while True:
-            logger.debug("Child checking FD")
-            r, _, _ = select.select([pipeIn], [], [], )
+            # logger.debug("Child checking FD")
+            r, _, _ = select.select([pipeIn], [], [], 1)
             if not r:
                 #no data
-                logger.debug("No data in FD")
-                #print "No data in FD\n"
+                #logger.debug("No data in FD")
                 pass
             else:
                 #data available
+                print "data available\n"
                 data =  os.read(pipeIn, 1024)
                 #with open(FIFO, "w", 1) as fifo:
                 os.write(fifo, data + '\n')
@@ -105,10 +109,11 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                         'finebackupsteering': None, \
                         'sattime': None, \
                         'gphdt': None, \
+                        'gphdt2': None, \
                         'ins': None}					#define what to expect in the dictionary
 
 
-                #print "Ik kom hier 4"
+                print "Ik kom hier 4"
 		j = 0
 		rcv = [None]*25
 		for x in range (0, 25):
@@ -118,7 +123,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
                 #print cData
 		str1 = ''.join(rcv)
-		#print rcv
+		# print rcv
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
@@ -172,13 +177,17 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 			if(findWord(word,"GPGGA") and data['gpgga'] is None):				#getting GPGGA out of the read values
 				mylist = word.split(',')						#split up the line in which GPGGA was found
 				data['gpgga'] = mylist							#add GPGGA to the dictionary
-			if(findWord(word,"INS_") and data['ins'] is None):				#getting INS out of the read values
+			if(findWord(word,"INSPVAA") and data['ins'] is None):				#getting INS out of the read values
 				mylist2 = word.split(',')						#split up the line in which INS was found
 				data['ins'] = mylist2							#add INs to the dictionary
+				#print data['ins']
 			#print "testoe"
 			if(findWord(word,"GPHDT,")and data['gphdt'] is None):
-				mylist3 = word.split(',')						#split up the line in which INS was found
-				data['gphdt'] = mylist3							#add INs to the dictionary
+				data['gphdt'] = word.split(',')							#add INs to the dictionary
+				data['gphdt2'] = (data['gphdt'][0]).split('$')
+				print data['gphdt2'][1]
+
+			#print data
 				#data['gphdt'] = True
 			#if("$GPHDT" in rcv):
 			#	split_GPHDT = rcv.split(',')
@@ -201,18 +210,17 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		#fifoPort((data['ip']))
         #print "Parent: writing data to child through FD\n"
                 #logger.debug("Parent: writing data to child through FD\n")
-		#print data
+		print data
 
-		time.sleep(1)
+		#time.sleep(1)
                 return data
         #write to the fifo pipe (to genieInterface)
                 #os.write(pipeOut, "0: " + data['ip'])
 
 
 	except Exception, e:							#not receiving data from OEM7
-		#print error
-		filewrite(str(e)+"\n")						#write out error to text file
-		port = 0									#define port as 0
+		#filewrite(str(e)+"\n")						#write out error to text file
+		#port = 0									#define port as 0
 		#commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
                 #print "Ik kom hier 1"
@@ -227,6 +235,17 @@ def printData(data):						#def that prints data to the terminal, used to check f
 	print(data['ip'])						#print dictionary ip
 	print(data['finesteering'])				#print dictionary finesteering
 	return
+
+def headingGPHDT(data):
+	try:
+            if ((data['gphdt2'][1]) == 'GPHDT'):
+                mode = "[4]" + "OK"
+	    else:
+		mode = "[4]" + "Non"
+        except Exception as e:
+            print str(e)
+        return mode
+
 
 def displayData(data):						#this def tests for 1 of 11 options
 				#for each of the modes stated here take up the same place in the string that gets passed by the receiver
@@ -245,7 +264,7 @@ def displayData(data):						#this def tests for 1 of 11 options
 		mode = "[1]" + "Coarse steering"			#write out 'Coarse' to the 5th string adress on the display
         elif (data['unknown'] == True):				#
 		mode = "[1]" + "Unknown"
-	elif (data['aprocimate'] == True):
+	elif (data['aproximate'] == True):
 		mode = "[1]" + "Aproximate"
         elif (data['coarseadjusting'] == True):
 		mode = "[1]" + "Coarse adjusting"
@@ -266,61 +285,77 @@ def displayData(data):						#this def tests for 1 of 11 options
 
 
 def tryIns(data):										#def to determine INS value. in order to keep track of this value we asign the identifier [2]
+	mode = "[2]" +  "unknown"
 	try:												#try to define, if failed goes to except
+
 		partup = (data['ins'][20])						#define dictionary entry 20 from ins as partup for further filtering
 		clean_Ins = partup.split('*')					#split up partup, use * as the separator
 		data['insclean'] = clean_Ins					#add the split entry's as seperate dictionary adresses
-		#print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
-		if (data['ins_active'] == True):				#check library if ins active is true
+		print(data['insclean'][0])						#print the wanted dictionary adress to the terminal for control
+		if(exact_Match((data['insclean'][0]),"INS_ACTIVE")):			#check library if ins active is true
 			mode = "[2]" + "Ins active"			#write to display on adress 2 of the string list
-		elif (data['ins_aligning'] == True):			#check library if aligning is true
+		elif (exact_Match((data['insclean'][0]),"INS_ALIGNING")):			#check library if aligning is true
 			mode = "[2]" + "Ins aligning"       			#write out only if aligning is true
-		elif (data['ins_high_variance'] == True):		#check library if high variance is true
+		elif (exact_Match((data['insclean'][0]),"INS_HIGH_VARIANCE")):		#check library if high variance is true
 			mode = "[2]" + "Ins high variance"              	#write out only if above check passes
-		elif (data['ins_solution_good'] == True):		#check if solution good is true
+		elif (exact_Match((data['insclean'][0]),"INS_SOLUTION_GOOD")):		#check if solution good is true
 			mode = "[2]" + "Ins solution good"       		#write out only if above check passes
-		elif (data['ins_solution_free'] == True):		#check if solution free is true
+		elif (exact_Match((data['insclean'][0]),"INS_SOLUTION_FREE")):		#check if solution free is true
 			mode = "[2]" + "Ins solution free"      		#write out only if above check passes
-		elif (data['ins_alignment_complete'] == True):		#check if alignment is complete
-			mode = "[2]" + "Ins alignment complete"         	#
-		elif (data['determining_orientation'] == True):		#
-			mode = "[2]" + "Determining orientation"        	#
-		elif (data['waiting_initialpos'] == True):		#
+		elif (exact_Match((data['insclean'][0]),"INS_ALIGNMENT_COMPLETE")):		#check if alignment is complete
+			mode = "[2]" + "Ins align complete"         	#
+		elif (exact_Match((data['insclean'][0]),"DETERMINING_ORIENTATION")):		#
+			mode = "[2]" + "Determ orientation"        	#
+		elif (exact_Match((data['insclean'][0]),"WAITING_INITIALPOS")):		#
 			mode = "[2]" + "Waiting initialpos"             	#
-		elif (data['waiting_azimuth'] == True):			#
+		elif (exact_Match((data['insclean'][0]),"WAITING_AZIMUTH")):			#
 			mode = "[2]" + "Waiting azimuth"        		#
-		elif (data['initializing_biases'] == True):		#
+		elif (exact_Match((data['insclean'][0]),"INITIALIZING_BIASES")):		#
 			mode = "[2]" + "Initializing biases"            	#
-		elif (data['motion_detect'] == True):			#
+		elif (exact_Match((data['insclean'][0]),"MOTION_DETECT")):			#
 			mode = "[2]" + "Motion detect"          		#
-		else:											#when INS is inactive
+		elif (exact_Match((data['insclean'][0]),"INS_INACTIVE")):											#when INS is inactive
 			mode = "[2]" + "Ins inactive"   			#write to display on adress 2 of the string list
-			return mode
+
+		return mode
 	except Exception, e:								#error handling INS testing
 		#print error
 		filewrite(str(e)+"\n")							#write error to text file
 		print (str(e))
 		print (data['ins_active'])									#write error to the terminal
-                #print "Ik kom hier 2"
+                print "Ik kom hier 2"
+		return mode
 
 
 def dataManager(data ,pipeOut):
+    i = 0
     #fill list for fifo
     try:
             #create list
-            sendList = [None]*5
+            sendList = [None]*6
+            i += 1
             #add IP
             sendList[0] = (data['ip'])
+            i += 1
             #add status
             sendList[1] = tryIns(data)							#call on tryIns function
+            i += 1
             #add
 	    sendList[2] = ("[7]" + data['gpgga'][7])
+            i += 1
             #add
             sendList[3] = statusGPGGA(data)
-            #add 
+            i += 1
+            #add
             sendList[4] = displayData(data)
+            i += 1
+	    sendList[5] = headingGPHDT(data)
+            i += 1
+	    print sendList[5]
             #sendList[2] = statusGPGGA(data, pipeOut)								#call statusGPGGA def / sents one outcome to child
     except Exception as e:
+            logger.error("Hier gaat het fout..")
+            logger.error(i)
             logger.error(str(e))
     #printData(data)
     #call exportData def / sents one outcome to child
@@ -378,6 +413,10 @@ def statusGPGGA(data):						#used to determine the status for GPGGA by reading a
                 #print "Ik kom hier 3"
 	return
 
+
+def isConnected(port):
+	return False
+
 #create subprocess for fifo
 pipeIn, pipeOut = os.pipe()
 try:
@@ -391,6 +430,7 @@ if pid is 0:
     fifoPort(pipeIn)
     exit()
 
+
 #os.close(pipeIn)
 
 #time.sleep(20)				#used to avoid startup interferance whit pi boot sequence
@@ -401,11 +441,17 @@ GPIO.output(0, GPIO.HIGH)		#make pin 0 high
 #scanPorts()				#call on function scanPorts
 #port.close()
 # Try to find novatel USB
-port = getNRCPort()
-if port is None:
-        exit()
-print port
+#port = getNRCPort()
+#if port is None:
+#        exit()
+#print port
+port = None
 while True:				#while loop to make the program run indefinitally
+	#port = getNRCPort()
+	#if(isConnected(port) is False):
+        while(port == None):
+                port = getNRCPort()
+                print "port is: " + str(port)
 	#port = portDefine()			#call on function portDefine (TODO better description)
 	serialData = readSerial(port)
         dataManager(serialData, pipeOut)

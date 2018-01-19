@@ -1,49 +1,81 @@
+#Shell
+SHELL = /bin/sh
 #use C compiler
 CC=gcc
 
-#uncomment below to show all warinings
-#CFLAGS=-Wall -Werror -O3
-CFLAGS=-O3
-
-#Rpi flags
-RPFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
+#Basic C flags; optimisation for RPi
+CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
-DFLAGS=-D DEBUG
+#DFLAGS=-D DEBUG 
+DEBUGFLAGS = -O -D DEBUG
+
+#RELEASE FLAG
+RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
+
+DGENIE=-D GENIE
+
+HEADERS = $(shell echo include/*.h)
 
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
-LIBS = -ldiabloSerial -lm
+GENIELIBS = -lgeniePi -lwiringPi -lpthread
+DIABLOLIBS = -ldiabloSerial
+LIBS = 
 
 #the executable file that will be created
 EXE = genieInterface
 
 #include .c files
-SOURCES = genieInterface.c
+SOURCES = $(shell echo src/*.c)
 
 #obj file
-OBJ = genieInterface.o
-#OBJ = $(SOURCES:.c=.o)
+#OBJ = genieInterface.o
+OBJ = $(SOURCES:.c=.o)
+
+#Install dir
+PREFIX = $(DESTDIR)/usr/local
+BINDIR = $(PREFIX)/bin
 
 
-$(EXE): $(OBJ)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -o $(EXE) $(OBJ) $(LIBS)
+$(EXE): $(OBJ) $(HEADERS)
+	$(CC) $(CFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
 
-$(OBJ): $(SOURCES)
-	$(CC) $(CFLAGS) $(RPFLAGS) $(DEBUG) -c $(SOURCES) $(LIBS) 
+#$(OBJ): $(SOURCES) $(HEADERS)
+	#$(CC) $(CFLAGS) -c $(SOURCES)
 
 
-.PHONY: all debug clean
+.PHONY: all debug clean release dg dd
 
 
-all:	$(EXE)
+#debug genie
+dg: CFLAGS += $(DEBUGFLAGS)
+dg: CFLAGS += $(DGENIE)
+dg: LIBS += $(GENIELIBS)
+dg: $(EXE) 
 
 
-debug: DEBUG = -D DEBUG
+#debug diablo
+dd: CFLAGS += $(DEBUGFLAGS)
+dd: LIBS += $(DIABLOLIBS)
+dd: $(EXE) 
 
-debug: all
+#install bin to /usr/bin
+install: release
+	install -D $(EXE) $(BINDIR)/$(EXE)
+
+
+#release is with diablo for now.
+release: $(SOURCES)
+	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(DIABLOLIBS)
+
+
+uninstall:
+	$(RM) $(BINDIR)/$(EXE)
+
 
 clean:
 	$(RM) $(OBJ) *~ $(EXE)
+
