@@ -148,6 +148,7 @@ void clearScreen(){
 void goToInfo(){
     printf("before: goToInfo\n");
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    FORM = INFO_FORM;
     printf("Function: goToInfo\n");
 }
 #endif
