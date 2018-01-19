@@ -352,6 +352,7 @@ int main (int argc, char** argv) {
 	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
 	}
+    printf("----Ik kom hier nog 2-----\n");
 
 /*
 #else
@@ -377,7 +378,6 @@ int main (int argc, char** argv) {
     digitalWrite (13, HIGH) ; delay (500) ;
     */
 
-    printf("----Ik kom hier nog 2-----\n");
 
     initStruct(&newData);
     clearStruct(&newData);
