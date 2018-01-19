@@ -184,9 +184,7 @@ void sentData(char* data, int id){
 #if GENIE
     printf("check sendData");
     printf("%s\n", data);
-    if(FORM == INFO_FORM){
 	genieWriteStr(id, data);
-    }
 #endif
     sleep(INTERFALL);
 }
