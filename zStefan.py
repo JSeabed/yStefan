@@ -57,7 +57,7 @@ def fifoPort(pipeIn):
         while True:
             # logger.debug("Child checking FD")
             print "Child checking FD"
-            r, _, _ = select.select([pipeIn], [], [], )
+            r, _, _ = select.select([pipeIn], [], [], 1)
             if not r:
                 #no data
                 logger.debug("No data in FD")
