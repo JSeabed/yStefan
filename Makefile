@@ -20,7 +20,7 @@ HEADERS = $(shell echo include/*.h)
 #LDFLAGS = -L/usr/local/lib
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
-GENIELIBS = -lgeniePi -lwiringPi
+GENIELIBS = -lgeniePi -lwiringPi -lpthread
 DIABLOLIBS = -ldiabloSerial
 LIBS = 
 
