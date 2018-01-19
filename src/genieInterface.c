@@ -207,6 +207,9 @@ void childGetData(int fd_child, int fd_parent ){
     }
 
     file = fopen(myfifo, "r");
+    if(file = NULL){
+      printf("genieInterface.c: failed to open pipe\n");
+    }
 
     for(;;){
 
