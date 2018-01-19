@@ -115,7 +115,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
                         'ins': None}					#define what to expect in the dictionary
 
 
-                #print "Ik kom hier 4"
+                print "Ik kom hier 4"
 		j = 0
 		rcv = [None]*25
 		for x in range (0, 25):
@@ -125,7 +125,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
                 #print cData
 		str1 = ''.join(rcv)
-		#print rcv
+		print rcv
 		for word in str1.split():
 			m = re.search(regexIP, str1)								#let the regex filter out the ip of the text that was send
 			if(m is not None and data['ip'] is None):
