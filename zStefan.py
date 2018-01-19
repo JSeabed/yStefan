@@ -60,11 +60,12 @@ def fifoPort(pipeIn):
             r, _, _ = select.select([pipeIn], [], [], 1)
             if not r:
                 #no data
-                logger.debug("No data in FD")
-                #print "No data in FD\n"
+                #logger.debug("No data in FD")
+                print "No data in FD\n"
                 pass
             else:
                 #data available
+                print "data available\n"
                 data =  os.read(pipeIn, 1024)
                 #with open(FIFO, "w", 1) as fifo:
                 os.write(fifo, data + '\n')
