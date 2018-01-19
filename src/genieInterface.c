@@ -389,6 +389,7 @@ int main (int argc, char** argv) {
 
     printf("Set display on bright\n");
     genieWriteContrast(15); // turn the display backlight on again
+    printf("Done\n");
     goToInfo();
     //goToInfo(); // go to next form on display
     for(;;) {
