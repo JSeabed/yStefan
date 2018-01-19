@@ -107,12 +107,10 @@ void dataReady(struct data *newData){
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
 			sentData(newData->ip, LABEL_IP_ID); // send data
-	printf("Gelukiig kom ik hier nog 1 \n");
 	if(strncmp(newData->status, ZERO, 1) != 0)
 		if(strcmp(newData->status, oldData.status) != 0)
 			sentData(newData->status, LABEL_STATUS_ID);
 
-	printf("Gelukiig kom ik hier nog 2 \n");
 	if(strncmp(newData->position, ZERO, 1) != 0)
 		if(strcmp(newData->position, oldData.position) != 0)
 			sentData(newData->position, LABEL_POSITION_ID);
@@ -152,7 +150,6 @@ void goToInfo(){
   //printf("before: goToInfo\n");
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
     FORM = INFO_FORM;
-    printf("Function: goToInfo\n");
 }
 #endif
 
@@ -166,7 +163,6 @@ int changeForm(){
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
 
     if(FORM == INFO_FORM){
-       printf("INFO_FORM\n");
 
     } // load data for INFO FORM
 
@@ -186,7 +182,6 @@ void sentData(char* data, int id){
     printf("check sendData");
     printf("%s\n", data);
     genieWriteStr(id, data);
-    printf("DE DATA IS VERSTUURD-------------\n", data);
 #endif
     sleep(INTERFALL);
 }
@@ -214,7 +209,6 @@ void childGetData(int fd_child, int fd_parent ){
     if(file = NULL){
       printf("genieInterface.c: failed to open pipe\n");
     }
-    printf("child: Enter loop to read fifo\n");
 
     for(;;){
 
@@ -245,15 +239,17 @@ struct genieReplyStruct reply
 */
 void *getDisplayInput(void *reply){
 #if DEBUG
-  printf("Thread doet het! \n");
   struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
 
+  while(genieReplyAvail()){
 	    if(genieReplyAvail ())
 	    {
+	      printf("Thread doet het! \n");
 	    genieGetReply    (reply) ;
 	    handleEvent      (reply) ;
 	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
+  }
 	    return NULL;
 #endif
 }
