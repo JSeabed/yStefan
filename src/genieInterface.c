@@ -340,6 +340,7 @@ int main (int argc, char** argv) {
     } // child enters here
 
 
+    goToInfo();
         displayChild = fork();
 
     if(displayChild){
@@ -396,7 +397,6 @@ int main (int argc, char** argv) {
     sleep(1);
     //genieWriteContrast(15); // turn the display backlight on again
     printf("Done\n");
-    goToInfo();
     //goToInfo(); // go to next form on display
     for(;;) {
 	printf("Kom ik hier?\n");
