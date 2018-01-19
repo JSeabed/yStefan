@@ -210,6 +210,7 @@ void childGetData(int fd_child, int fd_parent ){
     if(file = NULL){
       printf("genieInterface.c: failed to open pipe\n");
     }
+    printf("child: Enter loop to read fifo\n");
 
     for(;;){
 
