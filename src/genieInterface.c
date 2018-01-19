@@ -343,7 +343,6 @@ int main (int argc, char** argv) {
     } // child enters here
 
 
-    goToInfo();
     displayChild = fork();
 
     if(displayChild){
@@ -362,6 +361,7 @@ int main (int argc, char** argv) {
 	}
 	}
     printf("----Ik kom hier nog 2-----\n");
+    goToInfo();
 
 /*
 #else
