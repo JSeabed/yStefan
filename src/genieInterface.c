@@ -184,7 +184,8 @@ void sentData(char* data, int id){
 #if GENIE
     printf("check sendData");
     printf("%s\n", data);
-	genieWriteStr(id, data);
+    genieWriteStr(id, data);
+    printf("DE DATA IS VERSTUURD-------------\n", data);
 #endif
     sleep(INTERFALL);
 }
