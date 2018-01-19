@@ -369,11 +369,13 @@ int main (int argc, char** argv) {
       shell();
       exit(0);
       }*/
+    /*
     wiringPiSetup () ;
     pinMode (12, OUTPUT) ;
     pinMode (13, OUTPUT) ;
     digitalWrite (12, HIGH) ; delay (500) ;
     digitalWrite (13, HIGH) ; delay (500) ;
+    */
 
     printf("----Ik kom hier nog 2-----\n");
 
