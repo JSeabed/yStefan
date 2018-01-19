@@ -55,7 +55,8 @@ def fifoPort(pipeIn):
 
         fifo = os.open(FIFO, os.O_WRONLY)
         while True:
-            logger.debug("Child checking FD")
+            # logger.debug("Child checking FD")
+                print "Child checking FD"
             r, _, _ = select.select([pipeIn], [], [], )
             if not r:
                 #no data
