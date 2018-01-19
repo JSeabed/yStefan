@@ -241,6 +241,7 @@ void *getDisplayInput(void *reply){
 #if DEBUG
   struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
 
+  for(;;){
   while(genieReplyAvail()){
 	    printf("Thread doet het! \n"); 
 	    if(genieReplyAvail ())
@@ -249,6 +250,7 @@ void *getDisplayInput(void *reply){
 	    handleEvent      (reply) ;
 	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
+  }
   }
 	    return NULL;
 #endif
