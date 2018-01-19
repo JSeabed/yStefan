@@ -120,6 +120,7 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 		rcv = [None]*25
 		for x in range (0, 25):
 			rcv[j] = port.readline()                 #rvc is the serial data received
+                        print "Hall Hallo"
 			j = j + 1
 		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
 		#print("----------------------------------------\n")					#adding a line in the terminal for transparity
