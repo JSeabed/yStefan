@@ -162,7 +162,8 @@ int changeForm(){
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
 
     if(FORM == INFO_FORM){
-            printf("INFO_FORM\n");
+       printf("INFO_FORM\n");
+
     } // load data for INFO FORM
 
   #else
@@ -178,11 +179,10 @@ int changeForm(){
 /* Sent data to label with id on display*/
 void sentData(char* data, int id){
 #if GENIE
-printf("check sendData");
-    genieWriteStr(id, data);
-printf("checked\n");
-#else
-    //diablo code
+    printf("check sendData");
+    if(FORM == INFO_FORM){
+	genieWriteStr(id, data);
+    }
 #endif
     sleep(INTERFALL);
 }
@@ -341,7 +341,7 @@ int main (int argc, char** argv) {
 
 
     goToInfo();
-        displayChild = fork();
+    displayChild = fork();
 
     if(displayChild){
     //genieWriteContrast(0); // turn the display backlight on again
