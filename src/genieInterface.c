@@ -180,7 +180,7 @@ int changeForm(){
 void sentData(char* data, int id){
 #if GENIE
     printf("check sendData");
-    printf("%s\n", data);
+    //printf("%s\n", data);
     genieWriteStr(id, data);
 #endif
     sleep(INTERFALL);
@@ -218,7 +218,7 @@ void childGetData(int fd_child, int fd_parent ){
 	sleep(INTERFALL);
 
 		if(fgets(buf, BUFFSIZE, file) > 0){
-		      printf("%s \n", buf);
+		  //printf("%s \n", buf);
 		    n = write(fd_parent, &buf, sizeof(buf));
 		    if(n > 0){
 		      //printf("verstuurd!: %s \n", buf);
@@ -242,9 +242,9 @@ void *getDisplayInput(void *reply){
   struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
 
   while(genieReplyAvail()){
+	    printf("Thread doet het! \n"); 
 	    if(genieReplyAvail ())
 	    {
-	      printf("Thread doet het! \n");
 	    genieGetReply    (reply) ;
 	    handleEvent      (reply) ;
 	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
