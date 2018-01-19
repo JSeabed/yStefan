@@ -9,8 +9,6 @@
 int main (int argc, char** argv) {
     int status, id, ret; 
 
-    pthread_t myThread ;
-    struct data newData;
     struct genieReplyStruct reply;
 
     if(genieSetup(PORT ,BAUDRATE)<0) {
