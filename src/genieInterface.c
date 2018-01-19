@@ -106,10 +106,12 @@ void dataReady(struct data *newData){
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
 			sentData(newData->ip, LABEL_IP_ID); // send data
+	printf("Gelukiig kom ik hier nog 1 \n");
 	if(strncmp(newData->status, ZERO, 1) != 0)
 		if(strcmp(newData->status, oldData.status) != 0)
 			sentData(newData->status, LABEL_STATUS_ID);
 
+	printf("Gelukiig kom ik hier nog 2 \n");
 	if(strncmp(newData->position, ZERO, 1) != 0)
 		if(strcmp(newData->position, oldData.position) != 0)
 			sentData(newData->position, LABEL_POSITION_ID);
