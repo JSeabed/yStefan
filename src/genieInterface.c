@@ -12,6 +12,7 @@
 #include "../include/struct.h"
 #include "../include/shell.h"
 #include <fcntl.h>
+#include <pthread.h>
 #include <wiringPi.h>
 #include <sys/stat.h>
 //#include <stdlib.h>
@@ -243,22 +244,13 @@ void childGetData(int fd_child, int fd_parent ){
 */
 void getDisplayInput(struct genieReplyStruct reply){
 #if DEBUG
-	int data_ready = 0;
-	for(;;){
-	    sleep(1);
+  printf("Thread doet het! \n");
 
-	    printf("displayinput()\n");
-	    data_ready = genieReplyAvail();
-	    printf("input = %d \n", data_ready);
-        if(data_ready) {
-	    printf("GET DISPLAY DATA\n");
-            genieGetReply(&reply);
-            //handleEvent(&reply);
-    		if(reply.object == GENIE_OBJ_USERBUTTON) {
-			changeForm();
-		}
-            usleep(WAIT); // wait 20ms between polls to save CPU
-            } // handle input from display
+	    if(genieReplyAvail ())
+	    {
+	    genieGetReply    (&reply) ;
+	    handleEvent      (&reply) ;
+	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
 #endif
 }
@@ -303,7 +295,7 @@ void errorExit(char* error){
 int main (int argc, char** argv) {
     int status, id, ret; 
 
-    pthread_t myThread ;
+    pthread_t displayThread ;
     struct data newData;
     struct genieReplyStruct reply;
 
@@ -318,6 +310,11 @@ int main (int argc, char** argv) {
         return(1); // Failed to initialize ViSi-Genie Display. Check Connections!
     }
 
+    if(pthread_create(&displayThread, NULL, getDisplayInput, &reply)) {
+	fprintf(stderr, "Error creating thread\n");
+	return 1;
+    }
+    
     pipe(fd_child);
     pipe(fd_parent);
 
@@ -391,7 +388,7 @@ int main (int argc, char** argv) {
     sleep(1);
     //genieWriteContrast(15); // turn the display backlight on again
     printf("Done\n");
-    //goToInfo(); // go to next form on display
+    goToInfo(); // go to next form on display
     for(;;) {
 	printf("Kom ik hier?\n");
 	ret = checkFd(fd_parent[0]);
@@ -410,12 +407,6 @@ int main (int argc, char** argv) {
             printf("check dataReady");
             dataReady(&newData);
 	    printf("checked\n");
-	    if(genieReplyAvail ())
-	    {
-	    genieGetReply    (&reply) ;
-	    handleEvent      (&reply) ;
-	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
-	}
         } else if(ret == -1){
             /* error */
             perror("Error - parent: ");
@@ -424,12 +415,6 @@ int main (int argc, char** argv) {
             //printf("Timeout!\n");
 #endif
 
-	    if(genieReplyAvail ())
-	    {
-	    genieGetReply    (&reply) ;
-	    handleEvent      (&reply) ;
-	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
-	}
             usleep(WAIT);
         }
         //struct data Newdata; //TODO replace
