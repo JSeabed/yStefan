@@ -24,7 +24,7 @@ BAUD = 9600
 
 logger = log.setup_custom_logger('dataManager')
 
-from connectSerial import TrySerialExe
+#from connectSerial import TrySerialExe
 
 #Used for debugging.
 #import logger
