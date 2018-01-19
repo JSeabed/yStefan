@@ -221,9 +221,8 @@ def readSerial(port):							#reading all the data that is send by the receiver. 
 
 
 	except Exception, e:							#not receiving data from OEM7
-		#print error
-		filewrite(str(e)+"\n")						#write out error to text file
-		port = 0									#define port as 0
+		#filewrite(str(e)+"\n")						#write out error to text file
+		#port = 0									#define port as 0
 		#commands.wrt_str("Connection Error",2)		#write an error message to display
 		#print('\nUSB kan niet uitgelezen worden\n')	#write an error message to terminal
                 #print "Ik kom hier 1"
