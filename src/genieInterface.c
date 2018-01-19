@@ -250,8 +250,8 @@ void *getDisplayInput(void *reply){
 
 	    if(genieReplyAvail ())
 	    {
-	    genieGetReply    (&reply) ;
-	    handleEvent      (&reply) ;
+	    genieGetReply    (reply) ;
+	    handleEvent      (reply) ;
 	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
 	    return NULL;
