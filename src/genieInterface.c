@@ -38,8 +38,8 @@
 #endif
 
 #define PORT "/dev/ttyAMA0"
-#define BAUDRATE 9600
-//#define BAUDRATE 115200
+//#define BAUDRATE 9600
+#define BAUDRATE 115200
 
 #define INIT_FORM 0
 #define INFO_FORM 1
@@ -423,6 +423,13 @@ int main (int argc, char** argv) {
 #if DEBUG
             //printf("Timeout!\n");
 #endif
+
+	    if(genieReplyAvail ())
+	    {
+	    genieGetReply    (&reply) ;
+	    handleEvent      (&reply) ;
+	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	}
             usleep(WAIT);
         }
         //struct data Newdata; //TODO replace
@@ -438,7 +445,7 @@ int checkFd(int fd_parent){
     //Init timeout
     struct timeval tv;
     // set timeout to x Sec
-    tv.tv_usec = TIMEOUT;
+    tv.tv_usec = IINTERFALl;
     printf("check fd\n");
 
     fd_set set;
