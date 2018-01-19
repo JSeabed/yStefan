@@ -337,7 +337,7 @@ int main (int argc, char** argv) {
 
     //    displayChild = fork();
 
-    //if(!displayChild){
+    if(!displayChild){
     //genieWriteContrast(0); // turn the display backlight on again
     //sleep(1);
 	genieWriteContrast(15); // turn the display backlight on again
@@ -352,7 +352,7 @@ int main (int argc, char** argv) {
 	    }
 	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
-	//}
+	}
 
 /*
 #else
