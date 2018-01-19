@@ -445,7 +445,7 @@ int checkFd(int fd_parent){
     //Init timeout
     struct timeval tv;
     // set timeout to x Sec
-    tv.tv_usec = IINTERFALl;
+    tv.tv_usec = INTERFALL;
     printf("check fd\n");
 
     fd_set set;
