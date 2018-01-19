@@ -246,7 +246,7 @@ struct genieReplyStruct reply
 void *getDisplayInput(void *reply){
 #if DEBUG
   printf("Thread doet het! \n");
-  struct genieReplyStruct replyStruct = (*struct genieReplyStruct)reply;
+  struct genieReplyStruct replyStruct = (struct genieReplyStruct *)reply;
 
 	    if(genieReplyAvail ())
 	    {
