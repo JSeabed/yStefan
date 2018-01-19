@@ -243,7 +243,7 @@ void childGetData(int fd_child, int fd_parent ){
    Change form if button is pressed.
 struct genieReplyStruct reply
 */
-void *getDisplayInput(void genieReplyStruct reply){
+void *getDisplayInput(void genieReplyStruct){
 #if DEBUG
   printf("Thread doet het! \n");
   struct genieReplyStruct replyStruct = (struct genieReplyStruct *)reply;
