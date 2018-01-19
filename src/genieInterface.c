@@ -263,7 +263,7 @@ int getID(char *str){
 
     while(sizeof(str) > i){
         if(sscanf(str, strMask, &id) == 1){
-            printf("id is = %d", id);
+	  //printf("id is = %d", id);
             return id;
         }
         i++;
@@ -328,7 +328,7 @@ int main (int argc, char** argv) {
 
 
     if(!child){
-      printf("Child here! \n");
+      //printf("Child here! \n");
         close(fd_child[1]);
         close(fd_parent[0]);
 
@@ -344,10 +344,10 @@ int main (int argc, char** argv) {
     //  if(displayChild){
     //genieWriteContrast(0); // turn the display backlight on again
     //sleep(1);
-	printf("display here! \n");
+    ////printf("display here! \n");
 	//getDisplayInput(reply);
 	//}
-    printf("----Ik kom hier nog 2-----\n");
+    //printf("----Ik kom hier nog 2-----\n");
     goToInfo();
 
 /*
@@ -382,30 +382,23 @@ int main (int argc, char** argv) {
     close(fd_parent[1]);
     close(fd_child[0]);
 
-    printf("Set display on bright\n");
     //genieWriteContrast(0); // turn the display backlight on again
     sleep(1);
     //genieWriteContrast(15); // turn the display backlight on again
-    printf("Done\n");
     goToInfo(); // go to next form on display
     for(;;) {
-	printf("Kom ik hier?\n");
 	ret = checkFd(fd_parent[0]);
 	  printf("ret = %d\n", ret);
         if(ret){
-            printf("check parent read");
             read(fd_parent[0], &readBuffer, BUFFSIZE);
-	    printf("checked\n");
             id = getID(readBuffer);
 #if DEBUG
 
-            printf("\n parent: %s", readBuffer);
+            //printf("\n parent: %s", readBuffer);
 
 #endif
             structManager(&newData, id, readBuffer);
-            printf("check dataReady");
             dataReady(&newData);
-	    printf("checked\n");
         } else if(ret == -1){
             /* error */
             perror("Error - parent: ");
@@ -430,7 +423,6 @@ int checkFd(int fd_parent){
     struct timeval tv;
     // set timeout to x Sec
     tv.tv_usec = INTERFALL;
-    printf("check fd\n");
 
     fd_set set;
     FD_ZERO(&set);
