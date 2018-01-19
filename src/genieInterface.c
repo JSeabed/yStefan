@@ -337,7 +337,7 @@ int main (int argc, char** argv) {
 
         displayChild = fork();
 
-    if(!displayChild){
+    if(displayChild){
     //genieWriteContrast(0); // turn the display backlight on again
     //sleep(1);
 	printf("display here! \n");
