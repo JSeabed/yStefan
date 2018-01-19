@@ -77,7 +77,7 @@ void structManager(struct data *newData, int id, char* data);
 
 #if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
-    printf("HandleEvent()\n");
+  //printf("HandleEvent()\n");
     if(reply->object == GENIE_OBJ_USERBUTTON) {
         switch (reply->index) {
             case 0:
@@ -146,7 +146,7 @@ void clearScreen(){
 #if DEBUG
 /*Change init form to info form on display */
 void goToInfo(){
-    printf("before: goToInfo\n");
+  //printf("before: goToInfo\n");
     genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
     FORM = INFO_FORM;
     printf("Function: goToInfo\n");
@@ -181,6 +181,7 @@ int changeForm(){
 void sentData(char* data, int id){
 #if GENIE
     printf("check sendData");
+    printf("%s\n", data);
     if(FORM == INFO_FORM){
 	genieWriteStr(id, data);
     }
