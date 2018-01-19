@@ -12,7 +12,6 @@
 #include "../include/struct.h"
 #include "../include/shell.h"
 #include <fcntl.h>
-#include <pthread.h>
 #include <wiringPi.h>
 #include <sys/stat.h>
 //#include <stdlib.h>
@@ -21,6 +20,7 @@
 //#include <sys/poll.h> // pid
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
+#include <pthread.h>
 #if GENIE
     #include <geniePi.h>
 #else
