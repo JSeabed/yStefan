@@ -24,7 +24,8 @@ BAUD = 9600
 
 logger = log.setup_custom_logger('dataManager')
 
-from connectSerial import trySerial
+#from connectSerial import trySerial
+from connectSerial import getNRCPort
 
 #Used for debugging.
 #import logger
