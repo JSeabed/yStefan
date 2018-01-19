@@ -54,7 +54,7 @@ def fifoPort(pipeIn):
 	        raise
 
         fifo = os.open(FIFO, os.O_WRONLY)
-                os.write(fifo, "192.167.15.1" + '\n')
+        os.write(fifo, "192.167.15.1" + '\n')
         while True:
             # logger.debug("Child checking FD")
             print "Child checking FD"
