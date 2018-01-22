@@ -35,11 +35,12 @@ int addStruct(struct data *newData, int id, char *dataStr){
     // first remove id from string
     dataStr += 3;
 
+    /* If string is to long, too much data has been received.*/
     if(strlen(dataStr) > 20)
       return FALSE;
 
 #if DEBUG
-    printf("Add to struct: %s\n", dataStr);
+    // printf("Add to struct: %s\n", dataStr);
 
     /*
     if(removeGarbage(dataStr))

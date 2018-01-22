@@ -106,29 +106,36 @@ void handleEvent (struct genieReplyStruct *reply) {
 /*Check and send data to display */
 void dataReady(struct data *newData){
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
-		if(strcmp(newData->ip, oldData.ip) != 0) // check if identical
+	  if(strcmp(newData->ip, oldData.ip) != 0){ // check if identical
 			sendData(newData->ip, LABEL_IP_ID); // send data
+			oldData->ip = newData->ip;
+	  }
 	if(strncmp(newData->status, ZERO, 1) != 0)
-		if(strcmp(newData->status, oldData.status) != 0)
+	  if(strcmp(newData->status, oldData.status) != 0){
 			sendData(newData->status, LABEL_STATUS_ID);
-
+			oldData->status = newData->status;
+	  }
 	if(strncmp(newData->position, ZERO, 1) != 0)
-		if(strcmp(newData->position, oldData.position) != 0)
+	  if(strcmp(newData->position, oldData.position) != 0){
 			sendData(newData->position, LABEL_POSITION_ID);
-
+			oldData->position = newData->position;
+	  }
 	if(strncmp(newData->heading, ZERO, 1) != 0)
-		if(strcmp(newData->heading, oldData.heading) != 0)
+	  if(strcmp(newData->heading, oldData.heading) != 0){
 			sendData(newData->heading, LABEL_HEADING_ID);
-
+			oldData->heading = newData->heading;
+	  }
 	if(strncmp(newData->rtk, ZERO, 1) != 0)
-		if(strcmp(newData->rtk, oldData.rtk) != 0)
+	  if(strcmp(newData->rtk, oldData.rtk) != 0){
 			sendData(newData->rtk, LABEL_RTK_ID);
-
+			oldData->rtk = newData->rtk;
+	  }
 	if(strncmp(newData->satallite, ZERO, 1) != 0)
-		if(strcmp(newData->satallite, oldData.satallite) != 0)
+	  if(strcmp(newData->satallite, oldData.satallite) != 0){
 			sendData(newData->satallite, LABEL_SATALLITE_ID);
-
-	oldData = *newData;
+			oldData->satallite = newData->satallite;
+	  }
+	//oldData = *newData;
 }
 
 
@@ -397,36 +404,38 @@ int main (int argc, char** argv) {
     close(fd_parent[1]);
     close(fd_child[0]);
 
-    //genieWriteContrast(0); // turn the display backlight on again
     sleep(1);
-    //genieWriteContrast(15); // turn the display backlight on again
     goToInfo(); // go to next form on display
+
+
     for(;;) {
         if(checkFd(fd_parent[0])){
             read(fd_parent[0], &readBuffer, BUFFSIZE);
             id = getID(readBuffer);
-#if DEBUG
-
+	#if DEBUG
             //printf("\n parent: %s", readBuffer);
+	#endif
+		if(FORM == INFO_FORM){
+			structManager(&newData, id, readBuffer);
+			dataReady(&newData);
+		} else {
+		    usleep(100);
+		}
 
-#endif
-            structManager(&newData, id, readBuffer);
-            dataReady(&newData);
-        } else if(ret == -1){
-            /* error */
-            perror("Error - parent: ");
-        } else{
-#if DEBUG
-            //printf("Timeout!\n");
-#endif
-
-            usleep(WAIT);
+	else if(ret == -1){
+		/* error */
+		perror("Error - parent: ");
+	    } else{
+	#if DEBUG
+	    //printf("Timeout!\n");
+	#endif
+	usleep(WAIT);
         }
-        //struct data Newdata; //TODO replace
-
+      }
     }
     return(0);
 }
+
 
 /************************************
  * Check file descriptor with child.*
