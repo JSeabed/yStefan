@@ -21,21 +21,15 @@
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
 #include <pthread.h>
-    #include <geniePi.h>
+#include <geniePi.h>
 #if GENIE
-#else
-    #include <diabloSerial.h>
-    //#include <Diablo_Serial_4DLibrary.h>
-    #include <Diablo_Types4D.h>
-    #include <Diablo_const4D.h>
+// todo remove some if GENIE
 #endif
 
 #if GENIE
     #define GENIE_OBJ_FORM 10
     #define GENIE_OBJ_USERBUTTON 33
     #define GENIE_OBJ_4DBUTTON 30
-#else
-// diablo code
 #endif
 
 #define PORT "/dev/ttyAMA0"
@@ -175,8 +169,6 @@ int changeForm(){
       writeOldData();
     } // load data for INFO FORM
 
-  #else
-    //diablo code
   #endif
   
     //clearStruct(&oldData);
@@ -382,13 +374,6 @@ int main (int argc, char** argv) {
     goToInfo();
 
 /*
-#else
-    // diablo init code
-    rc = OpenComm(PORT, BAUDRATE);
-    if(rc != 0){
-        printf("Failed to init display\n");
-        exit(EXIT_FAILURE);
-    }
 #endif
 */
     // shell: use for testing
