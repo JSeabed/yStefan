@@ -164,7 +164,7 @@ int changeForm(){
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
 
     if(FORM == INFO_FORM){
-      writeOldData()
+      writeOldData();
     } // load data for INFO FORM
 
   #else
@@ -181,8 +181,8 @@ int changeForm(){
 */
 void writeOldData(void){
   sendData(oldData.ip, LABEL_IP_ID);
-  sendData(oldData.postion, LABEL_POSITIOn_ID);
-  sendData(oldData.status, LABEL_POSITION_ID);
+  sendData(oldData.postion, LABEL_POSITION_ID);
+  sendData(oldData.status, LABEL_STATUS_ID);
   sendData(oldData.heading, LABEL_HEADING_ID);
   sendData(oldData.rtk, LABEL_RTK_ID);
   sendData(oldData.satallite, LABEL_SATALLITE_ID);
