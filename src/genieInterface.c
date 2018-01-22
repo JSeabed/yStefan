@@ -326,7 +326,7 @@ int main (int argc, char** argv) {
 
     pthread_t displayThread ;
     struct data newData;
-    struct genieReplyStruct reply;
+    struct genieReplyStruct *reply = malloc(sizeof(struct genieReplyStruct));
 
     char readBuffer[BUFFSIZE];
     char writeBuffer[BUFFSIZE];
