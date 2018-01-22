@@ -21,8 +21,8 @@
 #include <sys/wait.h> //  pid
 #include <unistd.h> // for usleep and used for pid_t
 #include <pthread.h>
-#if GENIE
     #include <geniePi.h>
+#if GENIE
 #else
     #include <diabloSerial.h>
     //#include <Diablo_Serial_4DLibrary.h>
