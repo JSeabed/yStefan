@@ -70,7 +70,7 @@ install: release
 #release, use this for creating a final release.
 #Compilter will optimize more and will stop at warnings.
 release: $(SOURCES)
-	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(GENIELIBS) $(DGENIE)
+	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(OBJ) $(SOURCES) $(GENIELIBS) $(DGENIE)
 
 
 uninstall:
