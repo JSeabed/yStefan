@@ -66,7 +66,7 @@ install: release
 #release: $(SOURCES)
 	#$(CC) $(RELEASEFLAGS) $(CFLAGS) $(EXE) $(GENIELIBS) $(DGENIE)
 
-release: $(CC) += $(RELEASEFLAGS)
+release: $(CFLAGS) += $(RELEASEFLAGS)
 release: LIBS += $(GENIELIBS)
 release: $(EXE)
 
