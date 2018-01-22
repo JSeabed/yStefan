@@ -40,7 +40,7 @@
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
-#define INTERFALL 100000 // mili seconds
+#define INTERFALL 175000 // mili seconds
 
 /*#define checksum(x) (x ^= x)*/
 
