@@ -348,7 +348,6 @@ int main (int argc, char** argv) {
     ////printf("display here! \n");
 	//getDisplayInput(reply);
 	//}
-    //printf("----Ik kom hier nog 2-----\n");
 
 /*
 #endif
