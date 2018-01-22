@@ -21,7 +21,6 @@ HEADERS = $(shell echo include/*.h)
 #LDLIBS = -lgeniePi
 #LIBS = -lgeniePi
 GENIELIBS = -lgeniePi -lwiringPi -lpthread
-DIABLOLIBS = -ldiabloSerial
 LIBS = 
 
 #the executable file that will be created
@@ -56,11 +55,6 @@ dg: CFLAGS += $(DGENIE)
 dg: LIBS += $(GENIELIBS)
 dg: $(EXE) 
 
-
-#debug diablo
-dd: CFLAGS += $(DEBUGFLAGS)
-dd: LIBS += $(DIABLOLIBS)
-dd: $(EXE) 
 
 #install bin to /usr/bin
 install: release
