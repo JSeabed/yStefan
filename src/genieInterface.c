@@ -188,6 +188,9 @@ int changeForm(){
 */
 void writeOldData(void){
   printf("I NEED TO SEND OLD DAT JAWHOL\n");
+  printf("-----------------------------\n ");
+  printStruct(&oldData);
+  printf("-----------------------------\n ");
   sendData(oldData.ip, LABEL_IP_ID);
   sendData(oldData.position, LABEL_POSITION_ID);
   sendData(oldData.status, LABEL_STATUS_ID);
