@@ -192,10 +192,15 @@ void writeOldData(void){
   printStruct(&oldData);
   printf("-----------------------------\n ");
   sendData(oldData.ip, LABEL_IP_ID);
+  usleep(100);
   sendData(oldData.position, LABEL_POSITION_ID);
+  usleep(100);
   sendData(oldData.status, LABEL_STATUS_ID);
+  usleep(100);
   sendData(oldData.heading, LABEL_HEADING_ID);
+  usleep(100);
   sendData(oldData.rtk, LABEL_RTK_ID);
+  usleep(100);
   sendData(oldData.satallite, LABEL_SATALLITE_ID);
 }
 
