@@ -70,7 +70,6 @@ $(RELEASE): $(OBJ) $(HEADERS)
 
 
 
-release: 
 release: LIBS += $(GENIELIBS)
 release: $(RELEASE)
 
