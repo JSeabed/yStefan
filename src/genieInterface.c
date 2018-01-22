@@ -133,7 +133,7 @@ void dataReady(struct data *newData){
 	if(strncmp(newData->satallite, ZERO, 1) != 0)
 	  if(strcmp(newData->satallite, oldData.satallite) != 0){
 			sendData(newData->satallite, LABEL_SATALLITE_ID);
-			oldData.satallite = newData->satallite;
+			strcpy(oldData.satallite, newData->satallite);
 	  }
 	//oldData = *newData;
 }
