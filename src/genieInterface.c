@@ -26,11 +26,9 @@
 // todo remove some if GENIE
 #endif
 
-#if GENIE
-    #define GENIE_OBJ_FORM 10
-    #define GENIE_OBJ_USERBUTTON 33
-    #define GENIE_OBJ_4DBUTTON 30
-#endif
+#define GENIE_OBJ_FORM 10
+#define GENIE_OBJ_USERBUTTON 33
+#define GENIE_OBJ_4DBUTTON 30
 
 #define PORT "/dev/ttyAMA0"
 //#define BAUDRATE 9600
@@ -133,10 +131,8 @@ void dataReady(struct data *newData){
 
 
 void clearScreen(){
-  #if GENIE
       int i = 0;
       genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
-  #endif
   /*genieWriteStr(STATUS_ID, "...");
   genieWriteStr(POSITION_ID, "...");
   genieWriteStr(HEADING_ID, "...");
@@ -158,15 +154,10 @@ int changeForm(){
 
   (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
 
-  #if GENIE
     genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
-
     if(FORM == INFO_FORM){
       writeOldData();
     } // load data for INFO FORM
-
-  #endif
-  
     //clearStruct(&oldData);
 
   return 1;
@@ -196,11 +187,9 @@ void writeOldData(void){
 
 /* Sent data to label with id on display*/
 void sendData(char* data, int id){
-#if GENIE
     printf("check sendData");
     //printf("%s\n", data);
     genieWriteStr(id, data);
-#endif
     usleep(INTERFALL);
 }
 
