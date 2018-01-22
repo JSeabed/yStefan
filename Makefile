@@ -63,8 +63,12 @@ install: release
 
 #release, use this for creating a final release.
 #Compilter will optimize more and will stop at warnings.
-release: $(SOURCES)
-	$(CC) $(RELEASEFLAGS) $(CFLAGS) $(EXE) $(GENIELIBS) $(DGENIE)
+#release: $(SOURCES)
+	#$(CC) $(RELEASEFLAGS) $(CFLAGS) $(EXE) $(GENIELIBS) $(DGENIE)
+
+release: $(CFLAGS) += $(RELEASEFLAGS)
+release: LIBS += $(GENIELIBS)
+release: $(EXE)
 
 
 uninstall:
