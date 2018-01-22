@@ -35,8 +35,6 @@ int addStruct(struct data *newData, int id, char *dataStr){
     // first remove id from string
     dataStr += 3;
 
-
-
 #if DEBUG
     printf("Add to struct: %s\n", dataStr);
 
