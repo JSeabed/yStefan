@@ -427,7 +427,7 @@ int main (int argc, char** argv) {
 			structManager(&newData, id, readBuffer);
 			dataReady(&newData);
 		} else {
-		    usleep(10000);
+		    sleep(1);
 		}
 
 	if(ret == -1){
