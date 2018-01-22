@@ -66,6 +66,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
             return TRUE;
         default:
             printf("Error: addToStruct");
+
             return FALSE;
     }
 }

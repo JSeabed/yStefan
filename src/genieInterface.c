@@ -180,6 +180,7 @@ int changeForm(){
  * write old data to screen when screens returns to info_form.
 */
 void writeOldData(void){
+  printf("I NEED TO SEND OLD DAT JAWHOL\n");
   sendData(oldData.ip, LABEL_IP_ID);
   sendData(oldData.position, LABEL_POSITION_ID);
   sendData(oldData.status, LABEL_STATUS_ID);
@@ -256,12 +257,11 @@ void *getDisplayInput(void *reply){
 
   for(;;){
   while(genieReplyAvail()){
-	    printf("Thread doet het! \n"); 
 	    if(genieReplyAvail ())
 	    {
 	    genieGetReply    (reply) ;
 	    handleEvent      (reply) ;
-	    usleep (150000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
 	}
   }
   }
@@ -347,7 +347,7 @@ int main (int argc, char** argv) {
         close(fd_child[1]);
         close(fd_parent[0]);
 
-	sleep(5);
+	sleep(3);
         for(;;){
              childGetData(fd_child[0], fd_parent[1]);
         } // if something goes wrong, initalise new named pipe
