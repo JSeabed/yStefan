@@ -422,7 +422,7 @@ int main (int argc, char** argv) {
 		    usleep(100);
 		}
 
-	else if(ret == -1){
+	if(ret == -1){
 		/* error */
 		perror("Error - parent: ");
 	    } else{
