@@ -40,7 +40,7 @@
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
-#define INTERFALL 750 // mili seconds
+#define INTERFALL 100000 // mili seconds
 
 /*#define checksum(x) (x ^= x)*/
 
@@ -165,27 +165,26 @@ int changeForm(){
  * write old data to screen when screens returns to info_form.
 */
 void writeOldData(void){
-  printStruct(&oldData);
+  //printStruct(&oldData);
   sendData(oldData.ip, LABEL_IP_ID);
-  usleep(100);
+  usleep(10);
   sendData(oldData.position, LABEL_POSITION_ID);
-  usleep(100);
+  usleep(10);
   sendData(oldData.status, LABEL_STATUS_ID);
-  usleep(100);
+  usleep(10);
   sendData(oldData.heading, LABEL_HEADING_ID);
-  usleep(100);
+  usleep(10);
   sendData(oldData.rtk, LABEL_RTK_ID);
-  usleep(100);
+  usleep(10);
   sendData(oldData.satallite, LABEL_SATALLITE_ID);
 }
 
 
 /* Sent data to label with id on display*/
 void sendData(char* data, int id){
-    printf("check sendData");
+  //printf("check sendData");
     //printf("%s\n", data);
     genieWriteStr(id, data);
-    usleep(INTERFALL);
 }
 
 /*
