@@ -40,9 +40,7 @@
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
-#define TIMEOUT 500
-#define INTERFALL 50 // seconds
-#define WAIT 25
+#define INTERFALL 750 // mili seconds
 
 /*#define checksum(x) (x ^= x)*/
 
@@ -234,7 +232,7 @@ void childGetData(int fd_child, int fd_parent ){
 			perror("Error: ");
 		    }
 		}
-		usleep(WAIT);
+		usleep(INTERFALL);
     }
     unlink(myfifo);
 }
@@ -405,7 +403,7 @@ int main (int argc, char** argv) {
 	#if DEBUG
 	    //printf("Timeout!\n");
 	#endif
-	usleep(WAIT);
+	usleep(INTERFALL);
         }
       }
     }
