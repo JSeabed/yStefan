@@ -72,7 +72,6 @@ void structManager(struct data *newData, int id, char* data);
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
 
-#if GENIE
 void handleEvent (struct genieReplyStruct *reply) {
   //printf("HandleEvent()\n");
     if(reply->object == GENIE_OBJ_USERBUTTON) {
@@ -93,7 +92,6 @@ void handleEvent (struct genieReplyStruct *reply) {
         }
     }
 }
-#endif
 
 
 
