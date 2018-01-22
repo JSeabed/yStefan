@@ -35,6 +35,9 @@ int addStruct(struct data *newData, int id, char *dataStr){
     // first remove id from string
     dataStr += 3;
 
+    if(strlen(dataStr) > 15)
+      return FALSE;
+
 #if DEBUG
     printf("Add to struct: %s\n", dataStr);
 
@@ -43,7 +46,6 @@ int addStruct(struct data *newData, int id, char *dataStr){
         printf("removed garbage\n");
 	*/
 #endif
-
 
     switch(id){
         case IP_ID:
@@ -109,7 +111,9 @@ void printStruct(struct data *newData){
 
 void structManager(struct data *newData, int id, char* data){
 
-    addStruct(newData, id, data);
+  if(!addStruct(newData, id, data)){
+    printf("String to long\n");
+  }
     printStruct(newData);
 
 }
