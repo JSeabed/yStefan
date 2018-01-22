@@ -190,7 +190,6 @@ void writeOldData(void){
   printf("I NEED TO SEND OLD DAT JAWHOL\n");
   printf("-----------------------------\n ");
   printStruct(&oldData);
-  printf("-----------------------------\n ");
   sendData(oldData.ip, LABEL_IP_ID);
   usleep(100);
   sendData(oldData.position, LABEL_POSITION_ID);
@@ -202,6 +201,7 @@ void writeOldData(void){
   sendData(oldData.rtk, LABEL_RTK_ID);
   usleep(100);
   sendData(oldData.satallite, LABEL_SATALLITE_ID);
+  printf("-----------------------------\n ");
 }
 
 
@@ -427,7 +427,7 @@ int main (int argc, char** argv) {
 			structManager(&newData, id, readBuffer);
 			dataReady(&newData);
 		} else {
-		    usleep(100);
+		    usleep(10000);
 		}
 
 	if(ret == -1){
