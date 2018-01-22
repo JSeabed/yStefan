@@ -65,13 +65,14 @@ volatile int FORM = 0;
 //oldData = (char*)malloc(sizeof(char)*STRUCTSIZE*6);
 //struct data *oldData = malloc(STRUCTSIZE*6);
 struct data oldData;
-//initStruct(struct data *oldData);
+void initStruct(struct data);
 //struct data Newdata; //TODO replace
 
 void writeOldData(void);
 void sendData(char* data, int id);
 void dataReady(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
+void goToInfo(void);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
