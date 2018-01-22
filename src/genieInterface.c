@@ -258,7 +258,6 @@ void childGetData(int fd_child, int fd_parent ){
 struct genieReplyStruct reply
 */
 void *getDisplayInput(void *reply){
-#if DEBUG
   struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
 
   for(;;){
@@ -272,7 +271,6 @@ void *getDisplayInput(void *reply){
   }
   }
 	    return NULL;
-#endif
 }
 
 
