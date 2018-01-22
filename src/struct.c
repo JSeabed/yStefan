@@ -35,8 +35,7 @@ int addStruct(struct data *newData, int id, char *dataStr){
     // first remove id from string
     dataStr += 3;
 
-    if(strlen(dataStr) > 15)
-      dataStr = "Error - long string";
+    if(strlen(dataStr) > 20)
       return FALSE;
 
 #if DEBUG
