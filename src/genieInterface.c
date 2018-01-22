@@ -108,32 +108,32 @@ void dataReady(struct data *newData){
 	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
 	  if(strcmp(newData->ip, oldData.ip) != 0){ // check if identical
 			sendData(newData->ip, LABEL_IP_ID); // send data
-			oldData->ip = newData->ip;
+			oldData.ip = newData->ip;
 	  }
 	if(strncmp(newData->status, ZERO, 1) != 0)
 	  if(strcmp(newData->status, oldData.status) != 0){
 			sendData(newData->status, LABEL_STATUS_ID);
-			oldData->status = newData->status;
+			oldData.status = newData->status;
 	  }
 	if(strncmp(newData->position, ZERO, 1) != 0)
 	  if(strcmp(newData->position, oldData.position) != 0){
 			sendData(newData->position, LABEL_POSITION_ID);
-			oldData->position = newData->position;
+			oldData.position = newData->position;
 	  }
 	if(strncmp(newData->heading, ZERO, 1) != 0)
 	  if(strcmp(newData->heading, oldData.heading) != 0){
 			sendData(newData->heading, LABEL_HEADING_ID);
-			oldData->heading = newData->heading;
+			oldData.heading = newData->heading;
 	  }
 	if(strncmp(newData->rtk, ZERO, 1) != 0)
 	  if(strcmp(newData->rtk, oldData.rtk) != 0){
 			sendData(newData->rtk, LABEL_RTK_ID);
-			oldData->rtk = newData->rtk;
+			oldData.rtk = newData->rtk;
 	  }
 	if(strncmp(newData->satallite, ZERO, 1) != 0)
 	  if(strcmp(newData->satallite, oldData.satallite) != 0){
 			sendData(newData->satallite, LABEL_SATALLITE_ID);
-			oldData->satallite = newData->satallite;
+			oldData.satallite = newData->satallite;
 	  }
 	//oldData = *newData;
 }
