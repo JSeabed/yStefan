@@ -67,9 +67,10 @@ install: release
 	install -D $(EXE) $(BINDIR)/$(EXE)
 
 
-#release is with diablo for now.
+#release, use this for creating a final release.
+#Compilter will optimize more and will stop at warnings.
 release: $(SOURCES)
-	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(DIABLOLIBS)
+	$(CC) $(RELEASEFLAGS) $(CFLAGS)  -o $(EXE) $(SOURCES) $(GENIELIBS)
 
 
 uninstall:
