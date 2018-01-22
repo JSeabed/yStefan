@@ -64,12 +64,15 @@ install: release
 
 #release, use this for creating a final release.
 #Compilter will optimize more and will stop at warnings.
-release: $(OBJ) $(HEADERS)
+
+$(RELEASE): $(OBJ) $(HEADERS)
 	$(CC) $(RELEASEFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 
-# release: $(CFLAGS) = $(RELEASEFLAGS)
-# release: LIBS += $(GENIELIBS)
-# release: $(EXE)
+
+
+release: 
+release: LIBS += $(GENIELIBS)
+release: $(RELEASE)
 
 
 uninstall:
