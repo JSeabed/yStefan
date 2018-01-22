@@ -62,6 +62,7 @@ struct data oldData;
 //void initStruct(struct data);
 //struct data Newdata; //TODO replace
 
+void goToInfo(void);
 void writeOldData(void);
 void sendData(char* data, int id);
 void dataReady(struct data *newData);
@@ -370,7 +371,6 @@ int main (int argc, char** argv) {
 	//getDisplayInput(reply);
 	//}
     //printf("----Ik kom hier nog 2-----\n");
-    goToInfo();
 
 /*
 #endif
