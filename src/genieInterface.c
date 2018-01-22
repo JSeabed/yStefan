@@ -49,7 +49,7 @@
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
 #define TIMEOUT 500
-#define INTERFALL 1 // seconds
+#define INTERFALL 50 // seconds
 #define WAIT 25
 
 /*#define checksum(x) (x ^= x)*/
@@ -212,7 +212,7 @@ void sendData(char* data, int id){
     //printf("%s\n", data);
     genieWriteStr(id, data);
 #endif
-    sleep(INTERFALL);
+    usleep(INTERFALL);
 }
 
 /*
@@ -244,7 +244,7 @@ void childGetData(int fd_child, int fd_parent ){
         if(file == NULL){
             file = fopen(myfifo, "r");
         } // if no file is opened yet. Open it.
-	sleep(INTERFALL);
+	usleep(INTERFALL);
 
 		if(fgets(buf, BUFFSIZE, file) > 0){
 		  //printf("%s \n", buf);
@@ -412,7 +412,7 @@ int main (int argc, char** argv) {
     close(fd_parent[1]);
     close(fd_child[0]);
 
-    sleep(INTERFALL);
+    usleep(INTERFALL);
     goToInfo(); // go to next form on display
 
 
@@ -427,7 +427,7 @@ int main (int argc, char** argv) {
 			structManager(&newData, id, readBuffer);
 			dataReady(&newData);
 		} else {
-		    sleep(INTERFALL);
+		    usleep(INTERFALL);
 		}
 
 	if(ret == -1){
