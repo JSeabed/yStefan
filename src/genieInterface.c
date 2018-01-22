@@ -49,7 +49,7 @@
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
 #define TIMEOUT 500
-#define INTERFALL 3 // seconds
+#define INTERFALL 1 // seconds
 #define WAIT 25
 
 /*#define checksum(x) (x ^= x)*/
@@ -412,7 +412,7 @@ int main (int argc, char** argv) {
     close(fd_parent[1]);
     close(fd_child[0]);
 
-    sleep(1);
+    sleep(INTERFALL);
     goToInfo(); // go to next form on display
 
 
@@ -427,7 +427,7 @@ int main (int argc, char** argv) {
 			structManager(&newData, id, readBuffer);
 			dataReady(&newData);
 		} else {
-		    sleep(1);
+		    sleep(INTERFALL);
 		}
 
 	if(ret == -1){
