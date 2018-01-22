@@ -165,8 +165,6 @@ int changeForm(){
  * write old data to screen when screens returns to info_form.
 */
 void writeOldData(void){
-  printf("I NEED TO SEND OLD DAT JAWHOL\n");
-  printf("-----------------------------\n ");
   printStruct(&oldData);
   sendData(oldData.ip, LABEL_IP_ID);
   usleep(100);
@@ -179,7 +177,6 @@ void writeOldData(void){
   sendData(oldData.rtk, LABEL_RTK_ID);
   usleep(100);
   sendData(oldData.satallite, LABEL_SATALLITE_ID);
-  printf("-----------------------------\n ");
 }
 
 
