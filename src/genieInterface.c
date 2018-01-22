@@ -178,7 +178,7 @@ int changeForm(){
     //diablo code
   #endif
   
-    clearStruct(&oldData);
+    //clearStruct(&oldData);
 
   return 1;
 }
