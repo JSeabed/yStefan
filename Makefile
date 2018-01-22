@@ -5,13 +5,14 @@ CC=gcc
 
 #Basic C flags; optimisation for RPi
 CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
+CFLAGS=-march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 #Macro Flag
 #DFLAGS=-D DEBUG 
 DEBUGFLAGS = -O -D DEBUG
 
 #RELEASE FLAG
-RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program
+RELEASEFLAGS = -O3 -D NDEBUG -fwhole-program -march=armv6 -mfpu=vfp -mfloat-abi=hard
 
 DGENIE=-D GENIE
 
@@ -66,7 +67,7 @@ install: release
 #release: $(SOURCES)
 	#$(CC) $(RELEASEFLAGS) $(CFLAGS) $(EXE) $(GENIELIBS) $(DGENIE)
 
-release: $(CFLAGS) += $(RELEASEFLAGS)
+release: $(CFLAGS) = $(RELEASEFLAGS)
 release: LIBS += $(GENIELIBS)
 release: $(EXE)
 
