@@ -66,7 +66,6 @@ void writeOldData(void);
 void sendData(char* data, int id);
 void dataReady(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
-void goToInfo(void);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
