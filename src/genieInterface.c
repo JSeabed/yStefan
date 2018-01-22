@@ -181,7 +181,7 @@ int changeForm(){
 */
 void writeOldData(void){
   sendData(oldData.ip, LABEL_IP_ID);
-  sendData(oldData.postion, LABEL_POSITION_ID);
+  sendData(oldData.position, LABEL_POSITION_ID);
   sendData(oldData.status, LABEL_STATUS_ID);
   sendData(oldData.heading, LABEL_HEADING_ID);
   sendData(oldData.rtk, LABEL_RTK_ID);
