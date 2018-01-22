@@ -68,6 +68,7 @@ struct data oldData;
 //initStruct(struct data *oldData);
 //struct data Newdata; //TODO replace
 
+void writeOldData(void);
 void sentData(char* data, int id);
 void dataReady(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
