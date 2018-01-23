@@ -50,6 +50,14 @@ To debug genieInterface enter the following command in the directory whit the Ma
 For final release use:
 > make release
 
+### Novatel commands
+Here are some commands that can be used for debugging. These commands will have to be sent to the Novatel Chip.
+> log version ontime 1
+> log gpgga ontime 1
+> log ipconfig ontime 1
+> log inspvaa ontime 1
+> log gphdt onchanged
+
 
 ## Raspberry Pi compact GPIO options
 The pinout for the SGR7:

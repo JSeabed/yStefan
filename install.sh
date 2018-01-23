@@ -2,6 +2,7 @@
 
 #!bin/sh
 PATH=/usr/bin:/bin
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Installing..."
 
@@ -25,6 +26,7 @@ cd ../../
 echo "done"
 
 echo "install genieInterface"
+make install
 make release
 
 if [ $? != 0 ]; then
