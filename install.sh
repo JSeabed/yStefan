@@ -4,6 +4,10 @@
 PATH=/usr/bin:/bin
 CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+#gpio init script
+INIT_SCRIPT = "init.sh"
+SHUTDOWN_SCRIPT = "shutdown.sh"
+
 echo "Installing..."
 
 GENIE_START = "genieInterface.sh"

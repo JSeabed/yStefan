@@ -3,23 +3,27 @@ The GenieInterface is used to display ..... data on the 4D LCD display.
 
 LCD 4D systems control
 
- TO DOE LIST 
+ TODO LIST 
 
 
---- start up script
+[] start up script
 
---- snelheid verhogen
+[] snelheid verhogen
 
---- evert ontslaan PRIO
+[] evert ontslaan PRIO
 
---- tekst overzichtelijker maken
+[] tekst overzichtelijker maken
 
---- webgui 
+[] webgui 
 
---- fifo verbeteren
+[] fifo verbeteren
 
 --- 
 ## Installation
+
+### Requirements
+Make sure the library
+> wiringPi is installed
 To install the genieInterface and webserver. Go to the directory with install.sh.
 run:
 > ./install.sh
