@@ -1,32 +1,5 @@
 #include "../include/struct.h"
 
-/* 
- * Remove additional [id] from string
- * */
-int removeGarbage(char *str){
-    int i = 0;
-    char* pchr;
-    char tmpStr[STRUCTSIZE];
-
-    pchr = strchr(str, '[');
-    //printf("[ found on position %d\n", (int)(pchr - str + 1));
-
-    
-    if(pchr != NULL){
-        /*for(i < (int)(pchr - str + 1); i++;){
-          tmpStr[i] += str[i];
-          }*/
-   
-        strncpy(tmpStr, str, (int)(pchr - str));
-        strncpy(str, tmpStr, sizeof(tmpStr)-1);
-        return 1;
-    } // found [ char. remove everything behind it.
-
-    // No garbage found. Remove original string
-    return 0;
-}
-
-
 /*
    Return TRUE (1) if data was added to struct. 
    Otherwise return FALSE (0) 

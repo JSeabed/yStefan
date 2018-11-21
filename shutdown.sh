@@ -5,7 +5,9 @@
 
 $display_pin1 = 12
 $display_pin2 = 13
+#TODO
 $shutdown_pin = 1691
+$battery_pin = 1691
 
 #Set gpio as output
 gpio mode $display_pin1 out
@@ -19,9 +21,10 @@ gpio write $display_pin2 1
 #TODO: Change pin value
 while [ 1 ]
       do
-	    state = $(gpio read $shutdown_pin)
-	    if [ $state -eq 1 ]
-		then
+	    shutdown_state = $(gpio read $shutdown_pin)
+	    battery_state = $(gpio read $battery_pin)
+	    if [ $state -eq 1 ] || [ $state2 -eq 1 ] ; then
+		    #TODO, change display
 		    killall python
 		    shutdown now
 	    fi

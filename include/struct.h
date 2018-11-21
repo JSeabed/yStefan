@@ -36,7 +36,7 @@ struct data{
 };
 
 
-int removeGarbage(char *str);
+int removeIdFromString(char *str);
 int addStruct(struct data *newData, int id, char *dataStr);
 void initStruct(struct data *newData);
 void clearStruct(struct data *newData);

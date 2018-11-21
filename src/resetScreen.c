@@ -6,6 +6,10 @@
 #define INIT_FORM 0
 #define INFO_FORM 1
 
+/* 
+   This file is used to reset the screen of the SGR7 at boot.
+ */
+
 int main (int argc, char** argv) {
     int status, id, ret; 
 

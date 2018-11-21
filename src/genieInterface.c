@@ -34,20 +34,20 @@
 //#define BAUDRATE 9600
 #define BAUDRATE 115200
 
+/* Now in headerfile
 #define INIT_FORM 0
 #define INFO_FORM 1
 #define SUPPORT_FORM 2
+*/
 
 //#define BUFFSIZE 4096
 #define BUFFSIZE 2048
-#define INTERFALL 175000 // mili seconds
+//#define INTERFALL 175000 // mili seconds - old
+#define INTERFALL 17500 // mili seconds
 
-/*#define checksum(x) (x ^= x)*/
 
 #define ZERO "0"
 
-#define toggle(x) (x = !x)
-#define isIdentical(a, b) (a == b)
 
 volatile int FORM = 0;
 
@@ -59,236 +59,14 @@ struct data oldData;
 //struct data Newdata; //TODO replace
 
 void goToInfo(void);
-void writeOldData(void);
-void sendData(char* data, int id);
-void dataReady(struct data *newData);
+void writeOldDataToDisplay(void);
+void sendDataToDisplay(char* data, int id);
+void sendDataToDisplayToDisplay(struct data *newData);
 void structManager(struct data *newData, int id, char* data);
 
 /* remove eventually
    if(reply->object == GENIE_OBJ_4DBUTTON) {
    */
-
-void handleEvent (struct genieReplyStruct *reply) {
-  //printf("HandleEvent()\n");
-    if(reply->object == GENIE_OBJ_USERBUTTON) {
-        switch (reply->index) {
-            case 0:
-                /* Main screen. Show no data. Save data.*/
-                changeForm();
-                break;
-            case 1:
-                /* Screen with data. Obtain old data? */
-                changeForm();
-                break;
-            default:
-                // TODO error screen
-                printf("Error, index not in range or found.");
-                exit(0);
-                break;
-        }
-    }
-}
-
-
-
-//TODO change namae
-/*Check and send data to display */
-void dataReady(struct data *newData){
-	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
-	  if(strcmp(newData->ip, oldData.ip) != 0){ // check if identical
-			sendData(newData->ip, LABEL_IP_ID); // send data
-			strcpy(oldData.ip, newData->ip);
-	  }
-	if(strncmp(newData->status, ZERO, 1) != 0)
-	  if(strcmp(newData->status, oldData.status) != 0){
-			sendData(newData->status, LABEL_STATUS_ID);
-			strcpy(oldData.status, newData->status);
-	  }
-	if(strncmp(newData->position, ZERO, 1) != 0)
-	  if(strcmp(newData->position, oldData.position) != 0){
-			sendData(newData->position, LABEL_POSITION_ID);
-			strcpy(oldData.position, newData->position);
-	  }
-	if(strncmp(newData->heading, ZERO, 1) != 0)
-	  if(strcmp(newData->heading, oldData.heading) != 0){
-			sendData(newData->heading, LABEL_HEADING_ID);
-			strcpy(oldData.heading, newData->heading);
-	  }
-	if(strncmp(newData->rtk, ZERO, 1) != 0)
-	  if(strcmp(newData->rtk, oldData.rtk) != 0){
-			sendData(newData->rtk, LABEL_RTK_ID);
-			strcpy(oldData.rtk, newData->rtk);
-	  }
-	if(strncmp(newData->satallite, ZERO, 1) != 0)
-	  if(strcmp(newData->satallite, oldData.satallite) != 0){
-			sendData(newData->satallite, LABEL_SATALLITE_ID);
-			strcpy(oldData.satallite, newData->satallite);
-	  }
-	//oldData = *newData;
-}
-
-
-void clearScreen(){
-      int i = 0;
-      genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
-  /*genieWriteStr(STATUS_ID, "...");
-  genieWriteStr(POSITION_ID, "...");
-  genieWriteStr(HEADING_ID, "...");
-  genieWriteStr(RTK_ID, "...");
-  genieWriteStr(SATALLITE_ID, "...");*/
-}
-
-
-/*Change init form to info form on display */
-void goToInfo(){
-  //printf("before: goToInfo\n");
-    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
-    FORM = INFO_FORM;
-}
-
-
-/*Change display screen*/
-int changeForm(){
-
-  (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
-
-    genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
-    if(FORM == INFO_FORM){
-      writeOldData();
-    } // load data for INFO FORM
-    //clearStruct(&oldData);
-
-  return 1;
-}
-
-/* 
- * write old data to screen when screens returns to info_form.
-*/
-void writeOldData(void){
-  //printStruct(&oldData);
-  sendData(oldData.ip, LABEL_IP_ID);
-  usleep(10);
-  sendData(oldData.position, LABEL_POSITION_ID);
-  usleep(10);
-  sendData(oldData.status, LABEL_STATUS_ID);
-  usleep(10);
-  sendData(oldData.heading, LABEL_HEADING_ID);
-  usleep(10);
-  sendData(oldData.rtk, LABEL_RTK_ID);
-  usleep(10);
-  sendData(oldData.satallite, LABEL_SATALLITE_ID);
-}
-
-
-/* Sent data to label with id on display*/
-void sendData(char* data, int id){
-  //printf("check sendData");
-    //printf("%s\n", data);
-    genieWriteStr(id, data);
-}
-
-/*
- *Get data from a named pipe (mypipe) 
- *and pass it to the parent process through fd.
- */
-void childGetData(int fd_child, int fd_parent ){
-    /* Get data from python script */
-    char readBuffer[BUFFSIZE];
-    char buf[BUFFSIZE];
-    int n;
-    int ret;
-    FILE *file;
-
-    char * myfifo = "/tmp/mypipe";
-
-    /* create the FIFO (named pipe) */
-    if(mkfifo(myfifo, 0666) == -1){
-        perror("mkfifo: \n");
-    }
-
-    file = fopen(myfifo, "r");
-    if(file = NULL){
-      printf("genieInterface.c: failed to open pipe\n");
-    }
-
-    for(;;){
-
-        if(file == NULL){
-            file = fopen(myfifo, "r");
-        } // if no file is opened yet. Open it.
-	usleep(INTERFALL);
-
-		if(fgets(buf, BUFFSIZE, file) > 0){
-		  //printf("%s \n", buf);
-		    n = write(fd_parent, &buf, sizeof(buf));
-		    if(n > 0){
-		      //printf("verstuurd!: %s \n", buf);
-		    }
-		    if(n < 0){
-			perror("Error: ");
-		    }
-		}
-		usleep(INTERFALL);
-    }
-    unlink(myfifo);
-}
-
-
-/* Wait for input from the display.
-   Change form if button is pressed.
-struct genieReplyStruct reply
-*/
-void *getDisplayInput(void *reply){
-  struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
-
-  for(;;){
-  while(genieReplyAvail()){
-	    if(genieReplyAvail ())
-	    {
-	    genieGetReply    (reply) ;
-	    handleEvent      (reply) ;
-	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
-	}
-  }
-  }
-	    return NULL;
-}
-
-
-/* Subtract and return ID from string */
-int getID(char *str){
-    char *strMask = "%*[^0123456789]%d";
-    int id;
-    int i = 0;
-
-    while(sizeof(str) > i){
-        if(sscanf(str, strMask, &id) == 1){
-	  //printf("id is = %d", id);
-            return id;
-        }
-        i++;
-    }
-    //error
-    printf("Id not found\n");
-
-    return -1;
-}
-        /* remove the FIFO */
-        /* fill data struct*/
-/************************************************************************
- * Fetch the received data from the python script to the data structure *
- * *********************************************************************/
-/*int fetchData(struct data, char *buf){
-        //data.ip =
-        return 1;
-}*/
-
-
-void errorExit(char* error){
-    printf("%s\n", error);
-    //exit(0);
-}
-
 
 /* */
 int main (int argc, char** argv) {
@@ -380,13 +158,13 @@ int main (int argc, char** argv) {
     for(;;) {
         if(checkFd(fd_parent[0])){
             read(fd_parent[0], &readBuffer, BUFFSIZE);
-            id = getID(readBuffer);
+            id = getIdFromString(readBuffer);
 	#if DEBUG
             //printf("\n parent: %s", readBuffer);
 	#endif
 		if(FORM == INFO_FORM){
 			structManager(&newData, id, readBuffer);
-			dataReady(&newData);
+			sendDataToDisplayToDisplay(&newData);
 		} else {
 		    usleep(INTERFALL);
 		}
@@ -404,6 +182,225 @@ int main (int argc, char** argv) {
     }
     return(0);
 }
+
+
+/*
+ *Get data from a named pipe (mypipe) 
+ *and pass it to the parent process through fd.
+ */
+void childGetData(int fd_child, int fd_parent ){
+    /* Get data from python script */
+    char readBuffer[BUFFSIZE];
+    char buf[BUFFSIZE];
+    int n;
+    int ret;
+    FILE *file;
+
+    char * myfifo = "/tmp/mypipe";
+
+    /* create the FIFO (named pipe) */
+    if(mkfifo(myfifo, 0666) == -1){
+        perror("mkfifo: \n");
+    }
+
+    file = fopen(myfifo, "r");
+    if(file = NULL){
+      printf("genieInterface.c: failed to open pipe\n");
+    }
+
+    for(;;){
+
+        if(file == NULL){
+            file = fopen(myfifo, "r");
+        } // if no file is opened yet. Open it.
+	usleep(INTERFALL);
+
+		if(fgets(buf, BUFFSIZE, file) > 0){
+		  //printf("%s \n", buf);
+		    n = write(fd_parent, &buf, sizeof(buf));
+		    if(n > 0){
+			//successfully written to partent process
+		    }
+		    if(n < 0){
+			perror("Error: failed to write to parent process through file descriptor ");
+		    }
+		}
+		usleep(INTERFALL);
+    }
+    unlink(myfifo);
+}
+
+
+void handleEvent (struct genieReplyStruct *reply) {
+    if(reply->object == GENIE_OBJ_USERBUTTON) {
+        switch (reply->index) {
+            case 0:
+                /* Main screen. Show no data. Save data.*/
+                changeForm();
+                break;
+            case 1:
+                /* Display with data. Obtain old data? */
+                changeForm();
+                break;
+            default:
+                // TODO error screen
+                printf("Error, index not in range or found.");
+                exit(0);
+                break;
+        }
+    }
+}
+
+
+
+//TODO change namae
+/*Check and send data to display */
+void sendDataToDisplayToDisplay(struct data *newData){
+	if(strncmp(newData->ip, ZERO, 1) !=0) // check if empty
+	  if(strcmp(newData->ip, oldData.ip) != 0){ // check if identical
+			sendDataToDisplay(newData->ip, LABEL_IP_ID); // send data
+			strcpy(oldData.ip, newData->ip);
+	  }
+	if(strncmp(newData->status, ZERO, 1) != 0)
+	  if(strcmp(newData->status, oldData.status) != 0){
+			sendDataToDisplay(newData->status, LABEL_STATUS_ID);
+			strcpy(oldData.status, newData->status);
+	  }
+	if(strncmp(newData->position, ZERO, 1) != 0)
+	  if(strcmp(newData->position, oldData.position) != 0){
+			sendDataToDisplay(newData->position, LABEL_POSITION_ID);
+			strcpy(oldData.position, newData->position);
+	  }
+	if(strncmp(newData->heading, ZERO, 1) != 0)
+	  if(strcmp(newData->heading, oldData.heading) != 0){
+			sendDataToDisplay(newData->heading, LABEL_HEADING_ID);
+			strcpy(oldData.heading, newData->heading);
+	  }
+	if(strncmp(newData->rtk, ZERO, 1) != 0)
+	  if(strcmp(newData->rtk, oldData.rtk) != 0){
+			sendDataToDisplay(newData->rtk, LABEL_RTK_ID);
+			strcpy(oldData.rtk, newData->rtk);
+	  }
+	if(strncmp(newData->satallite, ZERO, 1) != 0)
+	  if(strcmp(newData->satallite, oldData.satallite) != 0){
+			sendDataToDisplay(newData->satallite, LABEL_SATALLITE_ID);
+			strcpy(oldData.satallite, newData->satallite);
+	  }
+	//oldData = *newData;
+}
+
+
+void clearDisplay(){
+      int i = 0;
+      genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+  /*genieWriteStr(STATUS_ID, "...");
+  genieWriteStr(POSITION_ID, "...");
+  genieWriteStr(HEADING_ID, "...");
+  genieWriteStr(RTK_ID, "...");
+  genieWriteStr(SATALLITE_ID, "...");*/
+}
+
+
+/*Change init form to info form on display */
+void goToInfo(){
+    genieWriteObj(GENIE_OBJ_FORM,INFO_FORM, 1);
+    FORM = INFO_FORM;
+}
+
+
+/*Change display screen*/
+int changeForm(){
+
+  (FORM == INFO_FORM) ? (FORM = SUPPORT_FORM) : (FORM = INFO_FORM);
+
+    genieWriteObj(GENIE_OBJ_FORM,FORM, 1);
+    if(FORM == INFO_FORM){
+      writeOldDataToDisplay();
+    } // load data for INFO FORM
+  return 1;
+}
+
+
+/* 
+ * write old data to screen when screens returns to info_form.
+*/
+void writeOldDataToDisplay(void){
+  sendDataToDisplay(oldData.ip, LABEL_IP_ID);
+  usleep(10);
+  sendDataToDisplay(oldData.position, LABEL_POSITION_ID);
+  usleep(10);
+  sendDataToDisplay(oldData.status, LABEL_STATUS_ID);
+  usleep(10);
+  sendDataToDisplay(oldData.heading, LABEL_HEADING_ID);
+  usleep(10);
+  sendDataToDisplay(oldData.rtk, LABEL_RTK_ID);
+  usleep(10);
+  sendDataToDisplay(oldData.satallite, LABEL_SATALLITE_ID);
+}
+
+
+/* Sent data to label with id on display*/
+void sendDataToDisplay(char* data, int id){
+    genieWriteStr(id, data);
+}
+
+
+/* Wait for input from the display.
+   Change form if button is pressed.
+struct genieReplyStruct reply
+*/
+void *getDisplayInput(void *reply){
+  struct genieReplyStruct * replyStruct = (struct genieReplyStruct *)reply;
+
+  for(;;){
+  while(genieReplyAvail()){
+	    if(genieReplyAvail ())
+	    {
+	    genieGetReply    (reply) ;
+	    handleEvent      (reply) ;
+	    usleep (100000) ; // 10mS - Don't hog the CPU in-case anything else is happening...
+	}
+  }
+  }
+	    return NULL;
+}
+
+
+/* Subtract and return ID from string */
+int getIdFromString(char *str){
+    // regex to get integer from string
+    char *strMask = "%*[^0123456789]%d";
+    int id;
+    int i = 0;
+
+    while(sizeof(str) > i){
+        if(sscanf(str, strMask, &id) == 1){
+            return id;
+        }
+        i++;
+    }
+    //error
+    printf("error: Id not found\n");
+
+    return -1;
+}
+/* remove the FIFO */
+/* fill data struct*/
+/************************************************************************
+ * Fetch the received data from the python script to the data structure *
+ * *********************************************************************/
+/*int fetchData(struct data, char *buf){
+        //data.ip =
+        return 1;
+}*/
+
+
+void errorExit(char* error){
+    printf("%s\n", error);
+    //exit(0);
+}
+
+
 
 
 /************************************
